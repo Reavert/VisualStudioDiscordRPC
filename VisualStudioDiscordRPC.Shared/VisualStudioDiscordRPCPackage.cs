@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Task = System.Threading.Tasks.Task;
@@ -29,7 +28,6 @@ namespace VisualStudioDiscordRPC
     [Guid(VisualStudioDiscordRPCPackage.PackageGuidString)]
     [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
-    [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class VisualStudioDiscordRPCPackage : AsyncPackage
     {
         /// <summary>

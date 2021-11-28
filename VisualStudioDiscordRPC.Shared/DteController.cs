@@ -1,6 +1,7 @@
 ﻿using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
+using System.Diagnostics;
 
 namespace VisualStudioDiscordRPC
 {
@@ -26,7 +27,7 @@ namespace VisualStudioDiscordRPC
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            System.Windows.MessageBox.Show($"Caption: {GotFocus.Caption}\nType: {GotFocus?.Type}");
+            Debug.Print($"Caption: {GotFocus.Caption}\nType: {GotFocus?.Type}");
         }
 
         public void Dispose()
