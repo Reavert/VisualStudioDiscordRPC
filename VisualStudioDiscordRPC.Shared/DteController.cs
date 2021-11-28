@@ -27,7 +27,7 @@ namespace VisualStudioDiscordRPC
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            Debug.Print($"Caption: {GotFocus.Caption}\nType: {GotFocus?.Type}");
+            System.Windows.MessageBox.Show($"Caption: {GotFocus.Caption}\nType: {GotFocus?.Type}");
         }
 
         public void Dispose()
