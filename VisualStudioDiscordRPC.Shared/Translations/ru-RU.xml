@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+	
+<language name="Russian" localizedName="Русский">
+	<translation id="project">Проект</translation>
+	<translation id="file">Файл</translation>
+	<translation id="noActiveProject">Нет активного проекта</translation>
+	<translation id="noActiveFile">Нет активного файла</translation>
+</language>

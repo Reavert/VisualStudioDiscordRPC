@@ -10,6 +10,30 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DteController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localization\Interfaces\ILocalizationFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localization\Interfaces\ILocalizationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\JsonLocalizationFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationFileFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\XmlLocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VisualStudioDiscordRPCPackage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Translations\en-US.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Translations\ru-RU.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Translations\Schemas\translation_schema.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Translations\Schemas\" />
   </ItemGroup>
 </Project>

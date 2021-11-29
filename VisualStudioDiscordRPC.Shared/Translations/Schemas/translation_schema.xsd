@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="translation_schema"
+    targetNamespace="http://tempuri.org/translation_schema.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/translation_schema.xsd"
+    xmlns:mstns="http://tempuri.org/translation_schema.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<xs:element name="language">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="translation" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="id" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="localizedName" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

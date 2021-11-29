@@ -2,17 +2,25 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
+using VisualStudioDiscordRPC.Shared.Localization.Models;
 
-namespace VisualStudioDiscordRPC
+namespace VisualStudioDiscordRPC.Shared
 {
     internal class DteController : IDisposable
     {
-        DTE _instance;
-        DiscordRpcClient _client;
+        private readonly DTE _instance;
+        private readonly DiscordRpcClient _client;
+        private readonly RichPresence _presence;
+
+        private readonly LocalizationManager<LocalizationFile> _localizationManager;
 
         public DteController()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
+            // Localization manager settings
+            _localizationManager = new LocalizationManager<LocalizationFile>("Translations");
+            _localizationManager.SelectLanguage("Russian");
 
             // DTE settings
             _instance = (DTE)ServiceProvider.GlobalProvider.GetService(typeof(DTE));
@@ -29,24 +37,26 @@ namespace VisualStudioDiscordRPC
 
             _client.Initialize();
 
-            _client.SetPresence(new RichPresence()
+            _presence = new RichPresence()
             {
-                Details = "Example Project",
-                State = "csharp example",
-                Assets = new Assets()
-                {
-                    LargeImageKey = "image_large",
-                    LargeImageText = "Lachee's Discord IPC Library",
-                    SmallImageKey = "image_small"
-                }
-            });
+                Details = _localizationManager.Current.NoActiveFile,
+                State = _localizationManager.Current.NoActiveProject
+            };
+
+            _client.SetPresence(_presence);
         }
 
         private void WindowEvents_WindowActivated(Window GotFocus, Window LostFocus)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            System.Windows.MessageBox.Show($"Caption: {GotFocus.Caption}\nType: {GotFocus?.Type}");
+            if (GotFocus.Type == vsWindowType.vsWindowTypeDocument)
+            {
+                _presence.Details = $"{_localizationManager.Current.File}: {GotFocus.Caption}";
+                _presence.State = $"{_localizationManager.Current.Project}: {GotFocus.Project.Name}";
+
+                _client.SetPresence(_presence);
+            }   
         }
 
         public void Dispose()
