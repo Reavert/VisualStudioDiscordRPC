@@ -1,0 +1,124 @@
+{
+  "assets": [
+    {
+      "name": "Assembler",
+      "key": "asm_file",
+      "extensions": [ ".asm" ]
+    },
+    {
+      "name": "ASP",
+      "key": "asp_file",
+      "extensions": [ ".asp", ".aspx" ]
+    },
+    {
+      "name": "C",
+      "key": "c_file",
+      "extensions": [ ".c" ]
+    },
+    {
+      "name": "Coffee",
+      "key": "coffee_file",
+      "extensions": [ ".coffee", ".litcoffee" ]
+    },
+    {
+      "name": "C++",
+      "key": "cpp_file",
+      "extensions": [ ".cpp", ".c++", ".cc", ".cxx" ]
+    },
+    {
+      "name": "C#",
+      "key": "csharp_file",
+      "extensions": [ ".cs", ".csx" ]
+    },
+    {
+      "name": "Stylesheet",
+      "key": "css_file",
+      "extensions": [ ".css", ".scss" ]
+    },
+    {
+      "name": "F#",
+      "key": "fsharp_file",
+      "extensions": [ ".fs", ".fsi", ".fsx", ".fsscript" ]
+    },
+    {
+      "name": "Header file",
+      "key": "header_file",
+      "extensions": [ ".h", ".hpp", ".hh", ".hxx", ".h++" ]
+    },
+    {
+      "name": "HTML",
+      "key": "html_file",
+      "extensions": [ ".html", ".htm" ]
+    },
+    {
+      "name": "Icon",
+      "key": "icon_file",
+      "extensions": [ ".ico" ]
+    },
+    {
+      "name": "Image",
+      "key": "image_file",
+      "extensions": [ ".jpg", ".jpeg", ".png", "bmp", ".gif", ".tiff", ".tif", ".raw", ".dib" ]
+    },
+    {
+      "name": "Java Script",
+      "key": "js_file",
+      "extensions": [ ".js", ".cjs", ".mjs" ]
+    },
+    {
+      "name": "JSON",
+      "key": "json_file",
+      "extensions": [ ".json" ]
+    },
+    {
+      "name": "JS React",
+      "key": "jsx_file",
+      "extensions": [ ".jsx" ]
+    },
+    {
+      "name": "Markdown",
+      "key": "markdown_file",
+      "extensions": [ ".md", ".markdown" ]
+    },
+    {
+      "name": "PHP",
+      "key": "php_file",
+      "extensions": [ ".php", ".phar", ".phtml", ".pht", ".phps" ]
+    },
+    {
+      "name": "Python",
+      "key": "py_file",
+      "extensions": [ ".py", ".pyi", ".pyc", ".pyd", ".pyo", ".pyw", ".pyz" ]
+    },
+    {
+      "name": "Razor",
+      "key": "razor_file",
+      "extensions": [ ".cshtml", ".razor" ]
+    },
+    {
+      "name": "Schema",
+      "key": "schema_file",
+      "extensions": [ ".xsd", ".dtd", ".ini", ".ltx" ]
+    },
+    {
+      "name": "TypeScript",
+      "key": "ts_file",
+      "extensions": [ ".ts", ".tsx" ]
+    },
+    {
+      "name": "VisualBasic",
+      "key": "vb_file",
+      "extensions": [ ".vb", ".vbs", ".vbe" ]
+    },
+    {
+      "name": "XML",
+      "key": "xml_file",
+      "extensions": [ ".xml", ".xaml" ]
+    },
+    {
+      "name": "YAML",
+      "key": "yaml_file",
+      "extensions": [ ".yaml", ".yml" ]
+    }
+  ]
+}

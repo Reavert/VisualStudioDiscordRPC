@@ -2,6 +2,12 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
+using System.IO;
+using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
+using VisualStudioDiscordRPC.Shared.AssetMap.Models;
+using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
+using VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders;
+using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 
 namespace VisualStudioDiscordRPC.Shared
@@ -12,11 +18,22 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly DiscordRpcClient _client;
         private readonly RichPresence _presence;
 
-        private readonly LocalizationManager<LocalizationFile> _localizationManager;
+        private readonly ILocalizationManager<LocalizationFile> _localizationManager;
+
+        private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
+        private readonly ExtensionAssetComparer _extensionAssetComparer;
 
         public DteController()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
+            // Extension asset map settings
+            _extensionsAssetMap = new AssetMap<ExtensionAsset>();
+
+            var extensionAssetLoader = new JsonAssetsLoader<ExtensionAsset>();
+            _extensionsAssetMap.Assets = extensionAssetLoader.LoadAssets("extensions_assets_map.json");
+
+            _extensionAssetComparer = new ExtensionAssetComparer();
 
             // Localization manager settings
             _localizationManager = new LocalizationManager<LocalizationFile>("Translations");
@@ -24,7 +41,7 @@ namespace VisualStudioDiscordRPC.Shared
 
             // DTE settings
             _instance = (DTE)ServiceProvider.GlobalProvider.GetService(typeof(DTE));
-            
+
             if (_instance == null)
             {
                 throw new InvalidOperationException("Can not get DTE Service");
@@ -40,7 +57,11 @@ namespace VisualStudioDiscordRPC.Shared
             _presence = new RichPresence()
             {
                 Details = _localizationManager.Current.NoActiveFile,
-                State = _localizationManager.Current.NoActiveProject
+                State = _localizationManager.Current.NoActiveProject,
+                Assets = new Assets()
+                {
+                    LargeImageKey = "cs_file"
+                }
             };
 
             _client.SetPresence(_presence);
@@ -54,6 +75,16 @@ namespace VisualStudioDiscordRPC.Shared
             {
                 _presence.Details = $"{_localizationManager.Current.File}: {GotFocus.Caption}";
                 _presence.State = $"{_localizationManager.Current.Project}: {GotFocus.Project.Name}";
+
+                string fileExtension = Path.GetExtension(GotFocus.Document.FullName);
+                
+                _extensionAssetComparer.RequiredExtension = fileExtension;
+                string extensionAssetKey = _extensionsAssetMap.GetAssetKey(_extensionAssetComparer);
+
+                _presence.Assets = new Assets()
+                {
+                    LargeImageKey = extensionAssetKey
+                };
 
                 _client.SetPresence(_presence);
             }   
