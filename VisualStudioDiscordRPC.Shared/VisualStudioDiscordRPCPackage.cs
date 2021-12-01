@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using VisualStudioDiscordRPC.Shared.Commands;
 using Task = System.Threading.Tasks.Task;
 
 namespace VisualStudioDiscordRPC.Shared
@@ -28,6 +29,7 @@ namespace VisualStudioDiscordRPC.Shared
     [Guid(VisualStudioDiscordRPCPackage.PackageGuidString)]
     [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class VisualStudioDiscordRPCPackage : AsyncPackage
     {
         /// <summary>
@@ -51,6 +53,7 @@ namespace VisualStudioDiscordRPC.Shared
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             _controller = new DteController();
+            await SettingsCommand.InitializeAsync(this);
         }
 
         protected override int QueryClose(out bool canClose)
