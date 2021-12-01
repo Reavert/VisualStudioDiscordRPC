@@ -101,6 +101,11 @@
       "extensions": [ ".xsd", ".dtd", ".ini", ".ltx" ]
     },
     {
+      "name": "Text",
+      "key": "text_file",
+      "extensions": [ ".txt" ]
+    },
+    {
       "name": "TypeScript",
       "key": "ts_file",
       "extensions": [ ".ts", ".tsx" ]
