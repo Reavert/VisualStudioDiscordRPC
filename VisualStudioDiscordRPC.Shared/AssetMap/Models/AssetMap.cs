@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
+using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 
 namespace VisualStudioDiscordRPC.Shared.AssetMap.Models
 {
@@ -13,16 +15,9 @@ namespace VisualStudioDiscordRPC.Shared.AssetMap.Models
             Assets = new List<T>();
         }
 
-        public IAsset GetAsset(string key)
+        public T GetAsset(IAssetComparer<T> assetComparer)
         {
-            return Assets.FirstOrDefault(asset => asset.Key == key);
-        }
-
-        public string GetAssetKey(IAssetComparer<T> assetComparer)
-        {
-            var foundAsset = Assets.FirstOrDefault(asset => assetComparer.Compare(asset));
-
-            return foundAsset == null ? "text_file" : foundAsset.Key;
+            return Assets.FirstOrDefault(asset => assetComparer.Compare(asset));
         }
     }
 }

@@ -59,9 +59,6 @@ namespace VisualStudioDiscordRPC.Shared
                 Details = _localizationManager.Current.NoActiveFile,
                 State = _localizationManager.Current.NoActiveProject,
                 Assets = new Assets()
-                {
-                    LargeImageKey = "cs_file"
-                }
             };
 
             _client.SetPresence(_presence);
@@ -79,11 +76,13 @@ namespace VisualStudioDiscordRPC.Shared
                 string fileExtension = Path.GetExtension(GotFocus.Document.FullName);
                 
                 _extensionAssetComparer.RequiredExtension = fileExtension;
-                string extensionAssetKey = _extensionsAssetMap.GetAssetKey(_extensionAssetComparer);
-
+                ExtensionAsset extensionAsset = 
+                    _extensionsAssetMap.GetAsset(_extensionAssetComparer) ?? ExtensionAsset.Default;
+                
                 _presence.Assets = new Assets()
                 {
-                    LargeImageKey = extensionAssetKey
+                    LargeImageKey = extensionAsset.Key,
+                    LargeImageText = extensionAsset.Name
                 };
 
                 _client.SetPresence(_presence);

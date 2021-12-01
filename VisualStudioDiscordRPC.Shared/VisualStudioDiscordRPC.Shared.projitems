@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Interfaces\IAssetMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Interfaces\IAssetsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\AssetMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Assets\Asset.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Comparers\DefaultAssetComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Assets\ExtensionAsset.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Comparers\ExtensionAssetComparer.cs" />

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 
 namespace VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets
 {
-    public class ExtensionAsset : IAsset
+    public class ExtensionAsset : Asset
     {
-        public string Key { get; set; }
+        public static ExtensionAsset Default =
+            new ExtensionAsset("text_file", "Unknown", new string[] { });
 
         public string Name { get; set; }
 

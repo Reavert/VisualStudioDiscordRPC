@@ -6,7 +6,6 @@ namespace VisualStudioDiscordRPC.Shared.AssetMap.Interfaces
     {
         IList<T> Assets { get; set; }
 
-        string GetAssetKey(IAssetComparer<T> assetComparer);
-        IAsset GetAsset(string key);
+        T GetAsset(IAssetComparer<T> assetComparer);
     }
 }
