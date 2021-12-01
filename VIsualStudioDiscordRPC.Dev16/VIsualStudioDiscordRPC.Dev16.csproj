@@ -48,6 +48,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\VisualStudioDiscordRPC.Shared\extensions_assets_map.json">
+      <Link>extensions_assets_map.json</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\en-US.xml">
+      <Link>Translations\en-US.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\ru-RU.xml">
+      <Link>Translations\ru-RU.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -92,6 +107,13 @@
     <VSCTCompile Include="..\VisualStudioDiscordRPC.Shared\VisualStudioDiscordRPCPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\VisualStudioDiscordRPC.Shared\icon.png">
+      <Link>icon.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <Import Project="..\VisualStudioDiscordRPC.Shared\VisualStudioDiscordRPC.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

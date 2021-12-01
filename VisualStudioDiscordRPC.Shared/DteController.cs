@@ -23,21 +23,30 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
         private readonly ExtensionAssetComparer _extensionAssetComparer;
 
-        public DteController()
+        private readonly string _installationPath;
+
+        private string GetLocalFilePath(string filename)
+        {
+            return Path.Combine(_installationPath, filename);
+        }
+
+        public DteController(string installationPath)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
+            _installationPath = installationPath;
 
             // Extension asset map settings
             _extensionsAssetMap = new AssetMap<ExtensionAsset>();
 
             var extensionAssetLoader = new JsonAssetsLoader<ExtensionAsset>();
-            _extensionsAssetMap.Assets = extensionAssetLoader.LoadAssets("extensions_assets_map.json");
+            _extensionsAssetMap.Assets = extensionAssetLoader.LoadAssets(GetLocalFilePath("extensions_assets_map.json"));
 
             _extensionAssetComparer = new ExtensionAssetComparer();
 
             // Localization manager settings
-            _localizationManager = new LocalizationManager<LocalizationFile>("Translations");
-            _localizationManager.SelectLanguage("Russian");
+            _localizationManager = new LocalizationManager<LocalizationFile>(GetLocalFilePath("Translations"));
+            _localizationManager.SelectLanguage("English");
 
             // DTE settings
             _instance = (DTE)ServiceProvider.GlobalProvider.GetService(typeof(DTE));

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="VisualStudioDiscordRPC.Dev17.d4a3981d-7790-4946-b044-18e7c2f22af7" Version="1.0" Language="en-US" Publisher="valeriy223" />
-        <DisplayName>VisualStudioDiscordRPC.Dev17</DisplayName>
-        <Description xml:space="preserve">Package for Visual Studio 2022.</Description>
+        <Identity Id="VisualStudioDiscordRPC.Dev17.d4a3981d-7790-4946-b044-18e7c2f22af7" Version="1.0" Language="en-US" Publisher="Ryavel" />
+        <DisplayName>Discord RPC for Visual Studio 2022</DisplayName>
+        <Description xml:space="preserve">Discord Rich Presence client for your activity in the Visual Studio 2022.</Description>
+        <Icon>icon.png</Icon>
+        <PreviewImage>icon.png</PreviewImage>
+        <Tags>discord, rpc, visual studio 2022, vs 2022, rich presence, 2022</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">

@@ -87,8 +87,8 @@ namespace VisualStudioDiscordRPC.Shared.Commands
         private void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            string title = "SettingsCommand";
+            string message = string.Format(CultureInfo.CurrentCulture, $"This action in development.");
+            string title = "Visual Studio Discord RPC";
 
             System.Windows.MessageBox.Show(message, title);
         }
