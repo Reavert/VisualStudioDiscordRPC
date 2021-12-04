@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.IO;
@@ -64,7 +65,16 @@ namespace VisualStudioDiscordRPC.Shared
             
             string installationPath = GetAssemblyLocalPathFrom(typeof(VisualStudioDiscordRPCPackage));
 
-            _controller = new DteController(installationPath);
+            // DTE settings
+            var instance = (DTE)ServiceProvider.GlobalProvider.GetService(typeof(DTE));
+
+            if (instance == null)
+            {
+                throw new InvalidOperationException("Can not get DTE Service");
+            }
+
+            _controller = new DteController(instance, installationPath);
+            
             await SettingsCommand.InitializeAsync(this);
         }
 

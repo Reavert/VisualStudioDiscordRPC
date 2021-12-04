@@ -30,9 +30,12 @@ namespace VisualStudioDiscordRPC.Shared
             return Path.Combine(_installationPath, filename);
         }
 
-        public DteController(string installationPath)
+        public DteController(DTE instance, string installationPath)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
+            _instance = instance;
+            _instance.Events.WindowEvents.WindowActivated += WindowEvents_WindowActivated;
 
             _installationPath = installationPath;
 
@@ -47,16 +50,6 @@ namespace VisualStudioDiscordRPC.Shared
             // Localization manager settings
             _localizationManager = new LocalizationManager<LocalizationFile>(GetLocalFilePath("Translations"));
             _localizationManager.SelectLanguage("English");
-
-            // DTE settings
-            _instance = (DTE)ServiceProvider.GlobalProvider.GetService(typeof(DTE));
-
-            if (_instance == null)
-            {
-                throw new InvalidOperationException("Can not get DTE Service");
-            }
-
-            _instance.Events.WindowEvents.WindowActivated += WindowEvents_WindowActivated;
 
             // Discord Rich Presense client settings
             _client = new DiscordRpcClient("914622396630175855");

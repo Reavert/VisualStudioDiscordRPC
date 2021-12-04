@@ -87,6 +87,7 @@ namespace VisualStudioDiscordRPC.Shared.Commands
         private void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
             string message = string.Format(CultureInfo.CurrentCulture, $"This action in development.");
             string title = "Visual Studio Discord RPC";
 
