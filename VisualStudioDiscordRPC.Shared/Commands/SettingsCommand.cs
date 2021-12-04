@@ -88,10 +88,8 @@ namespace VisualStudioDiscordRPC.Shared.Commands
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            string message = string.Format(CultureInfo.CurrentCulture, $"This action in development.");
-            string title = "Visual Studio Discord RPC";
-
-            System.Windows.MessageBox.Show(message, title);
+            var settingsWindow = new SettingsWindow();
+            settingsWindow.Show();
         }
     }
 }

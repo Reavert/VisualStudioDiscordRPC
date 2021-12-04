@@ -28,9 +28,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\XmlLocalizationFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)VisualStudioDiscordRPCPackage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)AssetMap\Models\Comparers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
