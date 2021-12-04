@@ -73,7 +73,7 @@ namespace VisualStudioDiscordRPC.Shared
             if (GotFocus.Type == vsWindowType.vsWindowTypeDocument)
             {
                 _presence.Details = $"{_localizationManager.Current.File} {GotFocus.Caption}";
-                _presence.State = $"{_localizationManager.Current.Project} {GotFocus.Project.Name}";
+                _presence.State = $"{_localizationManager.Current.Project} {GotFocus.Project?.Name}";
                 _presence.Timestamps = Timestamps.Now;
 
                 string fileExtension = Path.GetExtension(GotFocus.Caption);
