@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
-using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 
 namespace VisualStudioDiscordRPC.Shared.AssetMap.Models
 {

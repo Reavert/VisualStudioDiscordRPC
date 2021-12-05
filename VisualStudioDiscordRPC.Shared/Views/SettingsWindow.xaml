@@ -7,13 +7,15 @@
         mc:Ignorable="d"
         Width="350"
         Height="200"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="Settings">
     <Window.DataContext>
         <local:SettingsViewModel/>
     </Window.DataContext>
-    <StackPanel>
-        <TextBlock Text="Language:" />
-        <ComboBox ItemsSource="{Binding LocalizationManager.Localizations}" SelectedItem="{Binding SelectedLocalization, Mode=TwoWay}">
+    <StackPanel Margin="3">
+        <TextBlock  Text="Language:" />
+        <ComboBox Margin="3" ItemsSource="{Binding LocalizationManager.Localizations}" SelectedItem="{Binding SelectedLocalization, Mode=TwoWay}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding LocalizedLanguageName}"/>

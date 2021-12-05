@@ -1,8 +1,6 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
-using System;
 using Newtonsoft.Json;
 
 namespace VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders

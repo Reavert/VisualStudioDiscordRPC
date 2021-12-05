@@ -23,7 +23,6 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly ExtensionAssetComparer _extensionAssetComparer;
 
         private readonly string _installationPath;
-        private Window _selectedWindow;
 
         private string GetLocalFilePath(string filename)
         {
