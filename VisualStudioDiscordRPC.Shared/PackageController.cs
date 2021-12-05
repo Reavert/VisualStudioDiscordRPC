@@ -2,6 +2,7 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
@@ -23,6 +24,18 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly ExtensionAssetComparer _extensionAssetComparer;
 
         private readonly string _installationPath;
+        private int _version;
+
+        private readonly Dictionary<int, int> _versions = new Dictionary<int, int>()
+        {
+            { 16, 2019 },
+            { 17, 2022 }
+        };
+
+        private int GetVersionMajor(string version)
+        {
+            return int.Parse(version.Split('.')[0]);
+        }
 
         private string GetLocalFilePath(string filename)
         {
@@ -35,6 +48,8 @@ namespace VisualStudioDiscordRPC.Shared
 
             _instance = instance;
             _instance.Events.WindowEvents.WindowActivated += WindowEvents_WindowActivated;
+
+            _version = _versions[GetVersionMajor(_instance.Version)];
 
             _installationPath = installationPath;
 
@@ -60,6 +75,7 @@ namespace VisualStudioDiscordRPC.Shared
             };
 
             LocalizationManager.SelectLanguage(Settings.Default.Language);
+            UpdateRichPresence();
         }
 
         private void LocalizationManager_LocalizationChanged()
@@ -107,11 +123,15 @@ namespace VisualStudioDiscordRPC.Shared
 
                 _presence.Assets.LargeImageKey = extensionAsset.Key;
                 _presence.Assets.LargeImageText = extensionAsset.Name;
+                _presence.Assets.SmallImageKey = $"vs_{_version}";
+                _presence.Assets.SmallImageText = $"Visual Studio {_version}";
             }
             else
             {
-                _presence.Assets.LargeImageKey = string.Empty;
-                _presence.Assets.LargeImageText = string.Empty;
+                _presence.Assets.LargeImageKey = $"vs_{_version}";
+                _presence.Assets.LargeImageText = $"Visual Studio {_version}";
+                _presence.Assets.SmallImageKey = string.Empty;
+                _presence.Assets.SmallImageText = string.Empty;
             }
             
             if (update)
