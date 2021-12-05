@@ -38,7 +38,7 @@ namespace VisualStudioDiscordRPC.Shared
         /// VisualStudioDiscordRPCPackage GUID string.
         /// </summary>
         public const string PackageGuidString = "5cd3d640-3d33-45ea-8c5b-6de981ff9900";
-        DteController _controller;
+        public PackageController Controller { get; private set; }
 
         #region Package Members
 
@@ -61,7 +61,7 @@ namespace VisualStudioDiscordRPC.Shared
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
-            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             
             string installationPath = GetAssemblyLocalPathFrom(typeof(VisualStudioDiscordRPCPackage));
 
@@ -73,14 +73,14 @@ namespace VisualStudioDiscordRPC.Shared
                 throw new InvalidOperationException("Can not get DTE Service");
             }
 
-            _controller = new DteController(instance, installationPath);
+            Controller = new PackageController(instance, installationPath);
             
             await SettingsCommand.InitializeAsync(this);
         }
 
         protected override int QueryClose(out bool canClose)
         {
-            _controller.Dispose();
+            Controller.Dispose();
             return base.QueryClose(out canClose);
         }
 

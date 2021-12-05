@@ -20,7 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Comparers\ExtensionAssetComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Loaders\JsonAssetsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SettingsCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DteController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PackageController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Interfaces\ILocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Interfaces\ILocalizationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\JsonLocalizationFile.cs" />
@@ -28,6 +28,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\XmlLocalizationFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>

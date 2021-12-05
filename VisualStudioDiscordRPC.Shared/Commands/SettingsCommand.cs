@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
 using System.Globalization;
+using VisualStudioDiscordRPC.Shared.ViewModels;
 using Task = System.Threading.Tasks.Task;
 
 namespace VisualStudioDiscordRPC.Shared.Commands
@@ -88,8 +89,13 @@ namespace VisualStudioDiscordRPC.Shared.Commands
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var settingsWindow = new SettingsWindow();
-            settingsWindow.Show();
+            var packageController = ((VisualStudioDiscordRPCPackage)package).Controller;
+
+            var settingViewModel = new SettingsViewModel();
+            settingViewModel.LocalizationManager = packageController.LocalizationManager;
+
+            var settingsWindow = new SettingsWindow(settingViewModel);
+            settingsWindow.ShowDialog();
         }
     }
 }

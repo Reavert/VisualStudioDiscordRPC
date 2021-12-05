@@ -11,6 +11,9 @@
         public IList<T> Localizations { get; private set; }
         public T Current { get; private set; }
 
+        public delegate void LocalizationChangedEventHandler();
+        public event LocalizationChangedEventHandler LocalizationChanged;
+
         public LocalizationManager(string localizationFolder)
         {
             Localizations = new List<T>();
@@ -56,6 +59,7 @@
         public void SelectLanguage(string language)
         {
             Current = GetLanguage(language);
+            LocalizationChanged?.Invoke();
         }
     }
 }
