@@ -53,6 +53,11 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\be-BY.xml">
+      <Link>Translations\be-BY.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\de-DE.xml">
       <Link>Translations\de-DE.xml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -80,6 +85,11 @@
     </Content>
     <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\it-IT.xml">
       <Link>Translations\it-IT.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\pl-PL.xml">
+      <Link>Translations\pl-PL.xml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<language name="Belarusian" localizedName="Беларускі">
+	<translation id="project">Праект</translation>
+	<translation id="file">Файл</translation>
+	<translation id="noActiveProject">Няма актыўнага праекта</translation>
+	<translation id="noActiveFile">Няма актыўнага файла</translation>
+</language>
