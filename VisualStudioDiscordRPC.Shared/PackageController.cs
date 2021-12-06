@@ -62,11 +62,11 @@ namespace VisualStudioDiscordRPC.Shared
             _extensionAssetComparer = new ExtensionAssetComparer();
 
             // Localization manager settings
-            LocalizationManager = new LocalizationManager<LocalizationFile>(GetLocalFilePath("Translations"));
+            LocalizationManager = new LocalizationManager<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
             LocalizationManager.LocalizationChanged += LocalizationManager_LocalizationChanged;
 
             // Discord Rich Presense client settings
-            _client = new DiscordRpcClient("914622396630175855");
+            _client = new DiscordRpcClient(Settings.Default.ApplicationID);
             _client.Initialize();
 
             _presence = new RichPresence()
@@ -91,8 +91,12 @@ namespace VisualStudioDiscordRPC.Shared
 
             if (activeDocument != null)
             {
-                _presence.Details = $"{LocalizationManager.Current.File} {activeDocument.Name}";
-                _presence.State = $"{LocalizationManager.Current.Project} {activeDocument.ActiveWindow.Project.Name}";
+                _presence.Details = string.Format(ConstantStrings.ActiveFileFormat,
+                    new object[] { LocalizationManager.Current.File, activeDocument.Name });
+
+                _presence.State = string.Format(ConstantStrings.ActiveProjectFormat,
+                    new object[] { LocalizationManager.Current.Project, activeDocument.ActiveWindow.Project.Name });
+
                 _presence.Timestamps = Timestamps.Now;
             }
             else
@@ -123,13 +127,19 @@ namespace VisualStudioDiscordRPC.Shared
 
                 _presence.Assets.LargeImageKey = extensionAsset.Key;
                 _presence.Assets.LargeImageText = extensionAsset.Name;
-                _presence.Assets.SmallImageKey = $"vs_{_version}";
-                _presence.Assets.SmallImageText = $"Visual Studio {_version}";
+
+                _presence.Assets.SmallImageKey = 
+                    string.Format(ConstantStrings.VisualStudioVersionAssetKey, _version);
+                _presence.Assets.SmallImageText = 
+                    string.Format(ConstantStrings.VisualStudioVersion, _version);
             }
             else
             {
-                _presence.Assets.LargeImageKey = $"vs_{_version}";
-                _presence.Assets.LargeImageText = $"Visual Studio {_version}";
+                _presence.Assets.LargeImageKey =
+                    string.Format(ConstantStrings.VisualStudioVersionAssetKey, _version);
+                _presence.Assets.LargeImageText =
+                    string.Format(ConstantStrings.VisualStudioVersion, _version);
+
                 _presence.Assets.SmallImageKey = string.Empty;
                 _presence.Assets.SmallImageText = string.Empty;
             }

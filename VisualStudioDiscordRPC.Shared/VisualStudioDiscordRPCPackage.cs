@@ -67,7 +67,7 @@ namespace VisualStudioDiscordRPC.Shared
 
             // DTE settings
             var instance = (DTE)ServiceProvider.GlobalProvider.GetService(typeof(DTE));
-
+            
             if (instance == null)
             {
                 throw new InvalidOperationException("Can not get DTE Service");
