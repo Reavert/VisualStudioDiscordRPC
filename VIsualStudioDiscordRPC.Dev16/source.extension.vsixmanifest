@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="VisualStudioDiscordRPC.Dev16.a715f0c1-87e1-4f52-8483-aebf95fd6eee" Version="1.0" Language="en-US" Publisher="Ryavel" />
+        <Identity Id="VisualStudioDiscordRPC.Dev16.a715f0c1-87e1-4f52-8483-aebf95fd6eee" Version="1.1" Language="en-US" Publisher="Ryavel" />
         <DisplayName>Discord RPC for Visual Studio 2019</DisplayName>
         <Description xml:space="preserve">Discord Rich Presence client for your activity in the Visual Studio 2019.</Description>
         <Icon>icon.png</Icon>
@@ -10,6 +10,10 @@
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0,17.0)">
+        </InstallationTarget>
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[16.0,17.0)">
+        </InstallationTarget>
+        <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[16.0,17.0)">
         </InstallationTarget>
     </Installation>
     <Dependencies>
