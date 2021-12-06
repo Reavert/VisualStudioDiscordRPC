@@ -18,7 +18,14 @@
         <ComboBox Margin="3" ItemsSource="{Binding LocalizationManager.Localizations}" SelectedItem="{Binding SelectedLocalization, Mode=TwoWay}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding LocalizedLanguageName}"/>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} ({1})">
+                                <Binding Path="LanguageName" />
+                                <Binding Path="LocalizedLanguageName" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
