@@ -37,7 +37,7 @@
          must be a menu. -->
     <Groups>
       <Group guid="guidVisualStudioDiscordRPCPackageCmdSet" id="MyMenuGroup" priority="0x0600">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_EXTENSIONS"/>
       </Group>
     </Groups>
 
@@ -54,7 +54,7 @@
           If you do not want an image next to your command, remove the Icon node /> -->
       <Button guid="guidVisualStudioDiscordRPCPackageCmdSet" id="SettingsCommandId" priority="0x0100" type="Button">
         <Parent guid="guidVisualStudioDiscordRPCPackageCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
+        <Icon guid="guidImages" id="1"/>
         <Strings>
           <ButtonText>Visual Studio Discord RPC</ButtonText>
         </Strings>
@@ -68,14 +68,16 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\SettingsCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
-    </Bitmaps>
+      <Bitmap guid="guidImages" href="Resources\SettingsCommand.png" usedList="iconPic"/>
+	</Bitmaps>
   </Commands>
 
   <Symbols>
+	<GuidSymbol name="guidSHLMainMenu" value="{d309f791-903f-11d0-9efc-00a0c911004f}">
+		<IDSymbol name="IDM_VS_MENU_EXTENSIONS" value="0x0091" />
+	</GuidSymbol>
     <!-- This is the package guid. -->
     <GuidSymbol name="guidVisualStudioDiscordRPCPackage" value="{5cd3d640-3d33-45ea-8c5b-6de981ff9900}" />
-
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidVisualStudioDiscordRPCPackageCmdSet" value="{11ac881c-f46c-43da-83ad-8a4c47aa6382}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
@@ -83,12 +85,7 @@
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{725c8526-3cc7-41fd-acb3-84af9a8fa34a}" >
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
+      <IDSymbol name="iconPic" value="1" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>
