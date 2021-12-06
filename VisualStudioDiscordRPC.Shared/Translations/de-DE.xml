@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<language name="German" localizedName="Deutsch">
+	<translation id="project">Projekt</translation>
+	<translation id="file">Datei</translation>
+	<translation id="noActiveProject">Kein aktives Projekt</translation>
+	<translation id="noActiveFile">Keine aktive Datei</translation>
+</language>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<language name="Hindi" localizedName="हिन्दी">
+	<translation id="project">परियोजना</translation>
+	<translation id="file">फ़ाइल</translation>
+	<translation id="noActiveProject">कोई सक्रिय परियोजना नहीं है</translation>
+	<translation id="noActiveFile">कोई सक्रिय फ़ाइल नहीं है</translation>
+</language>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<language name="Ukrainian" localizedName="Український">
+	<translation id="project">Проект</translation>
+	<translation id="file">Файл</translation>
+	<translation id="noActiveProject">Немає активного проекту</translation>
+	<translation id="noActiveFile">Немає активного файлу</translation>
+</language>

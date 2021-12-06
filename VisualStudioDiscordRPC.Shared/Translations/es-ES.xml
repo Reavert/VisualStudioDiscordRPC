@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<language name="Spanish" localizedName="Español">
+	<translation id="project">Proyecto</translation>
+	<translation id="file">Fichero</translation>
+	<translation id="noActiveProject">No hay proyecto activo</translation>
+	<translation id="noActiveFile">No hay archivo activo</translation>
+</language>
