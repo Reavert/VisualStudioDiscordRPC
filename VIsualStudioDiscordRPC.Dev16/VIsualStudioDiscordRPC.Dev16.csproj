@@ -48,6 +48,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\LICENSE.txt">
+      <Link>LICENSE.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="..\VisualStudioDiscordRPC.Shared\extensions_assets_map.json">
       <Link>extensions_assets_map.json</Link>
       <IncludeInVSIX>true</IncludeInVSIX>

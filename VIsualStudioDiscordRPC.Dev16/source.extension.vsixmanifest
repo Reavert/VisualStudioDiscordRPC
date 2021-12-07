@@ -4,6 +4,7 @@
         <Identity Id="VisualStudioDiscordRPC.Dev16.a715f0c1-87e1-4f52-8483-aebf95fd6eee" Version="1.1" Language="en-US" Publisher="Ryavel" />
         <DisplayName>Discord RPC for Visual Studio 2019</DisplayName>
         <Description xml:space="preserve">Discord Rich Presence client for your activity in the Visual Studio 2019.</Description>
+        <License>LICENSE.txt</License>
         <Icon>icon.png</Icon>
         <PreviewImage>icon.png</PreviewImage>
         <Tags>discord, rpc, visual studio 2019, vs 2019, rich presence, 2019</Tags>

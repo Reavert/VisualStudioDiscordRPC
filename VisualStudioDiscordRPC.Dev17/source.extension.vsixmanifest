@@ -4,6 +4,7 @@
         <Identity Id="VisualStudioDiscordRPC.Dev17.d4a3981d-7790-4946-b044-18e7c2f22af7" Version="1.1" Language="en-US" Publisher="Ryavel" />
         <DisplayName>Discord RPC for Visual Studio 2022</DisplayName>
         <Description xml:space="preserve">Discord Rich Presence client for your activity in the Visual Studio 2022.</Description>
+        <License>LICENSE.txt</License>
         <Icon>icon.png</Icon>
         <PreviewImage>icon.png</PreviewImage>
         <Tags>discord, rpc, visual studio 2022, vs 2022, rich presence, 2022</Tags>
