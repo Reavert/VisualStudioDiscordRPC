@@ -11,7 +11,7 @@
       "extensions": [ ".asp", ".aspx" ]
     },
     {
-      "name": "C",
+      "name": "C File",
       "key": "c_file",
       "extensions": [ ".c" ]
     },
@@ -58,7 +58,7 @@
     {
       "name": "Image",
       "key": "image_file",
-      "extensions": [ ".jpg", ".jpeg", ".png", "bmp", ".gif", ".tiff", ".tif", ".raw", ".dib" ]
+      "extensions": [ ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tiff", ".tif", ".raw", ".dib" ]
     },
     {
       "name": "Java Script",
