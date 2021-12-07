@@ -9,7 +9,8 @@
 1. Shows your currently open file;
 2. Shows your currently open project;
 3. Displays the icon of your current version of the development environment;
-4. Displays the icon of the file extension you are currently working with.
+4. Displays the icon of the file extension you are currently working with;
+5. Choosing the appropriate language to display.
 
 ## Roadmap
 #### Features that are planned to be added in the future:
