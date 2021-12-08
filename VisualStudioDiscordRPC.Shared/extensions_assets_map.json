@@ -118,7 +118,7 @@
     {
       "name": "XML",
       "key": "xml_file",
-      "extensions": [ ".xml", ".xaml" ]
+      "extensions": [ ".xml", ".xaml", ".axaml" ]
     },
     {
       "name": "YAML",

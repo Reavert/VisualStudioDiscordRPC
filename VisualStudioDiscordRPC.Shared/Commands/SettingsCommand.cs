@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
-using System.Globalization;
 using VisualStudioDiscordRPC.Shared.ViewModels;
 using Task = System.Threading.Tasks.Task;
 

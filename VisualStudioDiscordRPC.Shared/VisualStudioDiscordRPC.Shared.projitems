@@ -28,6 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\XmlLocalizationFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RichPresenceWrapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
