@@ -16,15 +16,10 @@ namespace VisualStudioDiscordRPC.Shared
     {
         private readonly DTE _instance;
         private readonly DiscordRpcClient _client;
-        private readonly RichPresence _presence;
-
         public readonly LocalizationManager<LocalizationFile> LocalizationManager;
-
         private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
-        private readonly ExtensionAssetComparer _extensionAssetComparer;
-
         private readonly string _installationPath;
-        private int _version;
+        private RichPresenceWrapper _wrapper;
 
         private readonly Dictionary<int, int> _versions = new Dictionary<int, int>()
         {
@@ -49,7 +44,6 @@ namespace VisualStudioDiscordRPC.Shared
             _instance = instance;
             _instance.Events.WindowEvents.WindowActivated += WindowEvents_WindowActivated;
 
-            _version = _versions[GetVersionMajor(_instance.Version)];
 
             _installationPath = installationPath;
 
@@ -59,112 +53,48 @@ namespace VisualStudioDiscordRPC.Shared
             var extensionAssetLoader = new JsonAssetsLoader<ExtensionAsset>();
             _extensionsAssetMap.Assets = extensionAssetLoader.LoadAssets(GetLocalFilePath("extensions_assets_map.json"));
 
-            _extensionAssetComparer = new ExtensionAssetComparer();
-
-            // Localization manager settings
-            LocalizationManager = new LocalizationManager<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
-            LocalizationManager.LocalizationChanged += LocalizationManager_LocalizationChanged;
-
             // Discord Rich Presense client settings
             _client = new DiscordRpcClient(Settings.Default.ApplicationID);
             _client.Initialize();
 
-            _presence = new RichPresence()
+            // RP Wrapper settings
+            _wrapper = new RichPresenceWrapper(_client)
             {
-                Assets = new Assets()
+                DTE = _instance,
+                ExtensionAssets = _extensionsAssetMap
             };
 
+            // Localization manager settings
+            LocalizationManager = new LocalizationManager<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
+            LocalizationManager.LocalizationChanged += LocalizationManager_LocalizationChanged;
             LocalizationManager.SelectLanguage(Settings.Default.Language);
-            UpdateRichPresence();
         }
 
         private void LocalizationManager_LocalizationChanged()
         {
-            UpdateText(true);
-        }
-
-        public void UpdateText(bool update)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            Document activeDocument = _instance.ActiveDocument;
-
-            if (activeDocument != null)
-            {
-                _presence.Details = string.Format(ConstantStrings.ActiveFileFormat,
-                    new object[] { LocalizationManager.Current.File, activeDocument.Name });
-
-                _presence.State = string.Format(ConstantStrings.ActiveProjectFormat,
-                    new object[] { LocalizationManager.Current.Project, activeDocument.ActiveWindow.Project.Name });
-
-                _presence.Timestamps = Timestamps.Now;
-            }
-            else
-            {
-                _presence.Details = LocalizationManager.Current.NoActiveFile;
-                _presence.State = LocalizationManager.Current.NoActiveProject;
-                _presence.Timestamps = null;
-            }
-
-            if (update)
-            {
-                _client.SetPresence(_presence);
-            }
-        }
-
-        public void UpdateIcon(bool update)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            if (_instance.ActiveDocument != null)
-            {
-                string fileExtension = Path.GetExtension(_instance.ActiveDocument.Name);
-
-                _extensionAssetComparer.RequiredExtension = fileExtension;
-
-                ExtensionAsset extensionAsset =
-                        _extensionsAssetMap.GetAsset(_extensionAssetComparer) ?? ExtensionAsset.Default;
-
-                _presence.Assets.LargeImageKey = extensionAsset.Key;
-                _presence.Assets.LargeImageText = extensionAsset.Name;
-
-                _presence.Assets.SmallImageKey = 
-                    string.Format(ConstantStrings.VisualStudioVersionAssetKey, _version);
-                _presence.Assets.SmallImageText = 
-                    string.Format(ConstantStrings.VisualStudioVersion, _version);
-            }
-            else
-            {
-                _presence.Assets.LargeImageKey =
-                    string.Format(ConstantStrings.VisualStudioVersionAssetKey, _version);
-                _presence.Assets.LargeImageText =
-                    string.Format(ConstantStrings.VisualStudioVersion, _version);
-
-                _presence.Assets.SmallImageKey = string.Empty;
-                _presence.Assets.SmallImageText = string.Empty;
-            }
-            
-            if (update)
-            {
-                _client.SetPresence(_presence);
-            }
-        }
-
-        public void UpdateRichPresence()
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            UpdateText(false);
-            UpdateIcon(false);
-
-            _client.SetPresence(_presence);
+            _wrapper.Localization = LocalizationManager.Current;
+            _wrapper.Update();
         }
 
         private void WindowEvents_WindowActivated(Window GotFocus, Window LostFocus)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
+            var activeDocument = _instance.ActiveDocument;
+
+            if (activeDocument == null)
+            {
+                _wrapper.LargeIcon = RichPresenceWrapper.Icon.VisualStudioVersion;
+                _wrapper.SmallIcon = RichPresenceWrapper.Icon.None;
+            }
+            else
+            {
+                _wrapper.LargeIcon = RichPresenceWrapper.Icon.FileExtension;
+                _wrapper.SmallIcon = RichPresenceWrapper.Icon.VisualStudioVersion;
+                _wrapper.Document = _instance.ActiveDocument;
+            }
             
-            UpdateRichPresence();
+            _wrapper.Update();
         }
 
         public void Dispose()
