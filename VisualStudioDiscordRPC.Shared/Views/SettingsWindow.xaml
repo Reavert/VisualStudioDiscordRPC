@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VisualStudioDiscordRPC.Shared.ViewModels"
         mc:Ignorable="d"
         Width="350"
-        Height="200"
+        SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Title="Settings">
@@ -29,5 +29,13 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+        <TextBlock Text="Large icon:"/>
+        <ComboBox ItemsSource="{Binding IconEnum}" SelectedItem="{Binding SelectedLargeIcon}"/>
+        <TextBlock Text="Small icon:"/>
+        <ComboBox ItemsSource="{Binding IconEnum}" SelectedItem="{Binding SelectedSmallIcon}"/>
+        <TextBlock Text="Title text:"/>
+        <ComboBox ItemsSource="{Binding TextEnum}" SelectedItem="{Binding SelectedTitleText}"/>
+        <TextBlock Text="Subtitle text:"/>
+        <ComboBox ItemsSource="{Binding TextEnum}" SelectedItem="{Binding SelectedSubTitleText}"/>
     </StackPanel>
 </Window>
