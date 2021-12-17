@@ -1,8 +1,10 @@
-﻿namespace VisualStudioDiscordRPC.Shared.Localization.Interfaces
+﻿using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
+
+namespace VisualStudioDiscordRPC.Shared.Services.Interfaces
 {
     using System.Collections.Generic;
 
-    public interface ILocalizationManager<T> where T : ILocalizationFile
+    public interface ILocalizationService<T> where T : ILocalizationFile
     {
         IList<T> Localizations { get; }
         T Current { get; }

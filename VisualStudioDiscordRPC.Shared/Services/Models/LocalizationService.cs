@@ -1,4 +1,7 @@
-﻿namespace VisualStudioDiscordRPC.Shared.Localization.Models
+﻿using VisualStudioDiscordRPC.Shared.Localization.Models;
+using VisualStudioDiscordRPC.Shared.Services.Interfaces;
+
+namespace VisualStudioDiscordRPC.Shared.Localization
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +9,7 @@
     using System.IO;
     using Interfaces;
 
-    public class LocalizationManager<T> : ILocalizationManager<T> where T : ILocalizationFile
+    public class LocalizationService<T> : ILocalizationService<T> where T : ILocalizationFile
     {
         public IList<T> Localizations { get; private set; }
         public T Current { get; private set; }
@@ -14,7 +17,7 @@
         public delegate void LocalizationChangedEventHandler();
         public event LocalizationChangedEventHandler LocalizationChanged;
 
-        public LocalizationManager(string localizationFolder)
+        public LocalizationService(string localizationFolder)
         {
             Localizations = new List<T>();
 

@@ -22,13 +22,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SettingsCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PackageController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Interfaces\ILocalizationFile.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Localization\Interfaces\ILocalizationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ILocalizationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\JsonLocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationFileFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\LocalizationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\XmlLocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RichPresenceWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IServiceRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\ServiceRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -44,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)AssetMap\Models\Comparers\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\Interfaces\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml">

@@ -7,6 +7,7 @@ using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders;
+using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 
 namespace VisualStudioDiscordRPC.Shared
@@ -18,7 +19,7 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
         private readonly string _installationPath;
 
-        public readonly LocalizationManager<LocalizationFile> LocalizationManager;
+        public readonly LocalizationService<LocalizationFile> LocalizationManager;
         public RichPresenceWrapper RichPresenceWrapper;
 
         private string GetLocalFilePath(string filename)
@@ -41,7 +42,7 @@ namespace VisualStudioDiscordRPC.Shared
             var extensionAssetLoader = new JsonAssetsLoader<ExtensionAsset>();
             _extensionsAssetMap.Assets = extensionAssetLoader.LoadAssets(GetLocalFilePath("extensions_assets_map.json"));
 
-            // Discord Rich Presense client settings
+            // Discord Rich Presence client settings
             _client = new DiscordRpcClient(Settings.Default.ApplicationID);
             _client.Initialize();
 
@@ -53,7 +54,7 @@ namespace VisualStudioDiscordRPC.Shared
             };
 
             // Localization manager settings
-            LocalizationManager = new LocalizationManager<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
+            LocalizationManager = new LocalizationService<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
             LocalizationManager.LocalizationChanged += LocalizationManager_LocalizationChanged;
             LocalizationManager.SelectLanguage(Settings.Default.Language);
         }

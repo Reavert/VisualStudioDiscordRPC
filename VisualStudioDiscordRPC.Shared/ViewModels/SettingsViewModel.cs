@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
+using VisualStudioDiscordRPC.Shared.Services.Interfaces;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
@@ -14,9 +14,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set => SetProperty(ref _wrapper, value, nameof(Wrapper));
         }
 
-        private ILocalizationManager<LocalizationFile> _localizationManager;
+        private ILocalizationService<LocalizationFile> _localizationManager;
 
-        public ILocalizationManager<LocalizationFile> LocalizationManager
+        public ILocalizationService<LocalizationFile> LocalizationManager
         {
             get => _localizationManager;
             set => SetProperty(ref _localizationManager, value, nameof(LocalizationManager));
@@ -89,6 +89,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         {
             IconEnum = Enum.GetValues(typeof(RichPresenceWrapper.Icon)) as IEnumerable<RichPresenceWrapper.Icon>;
             TextEnum = Enum.GetValues(typeof(RichPresenceWrapper.Text)) as IEnumerable<RichPresenceWrapper.Text>;
+
         }
     }
 }
