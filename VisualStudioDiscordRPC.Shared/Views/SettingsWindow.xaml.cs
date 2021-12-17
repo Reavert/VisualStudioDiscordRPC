@@ -13,12 +13,13 @@ namespace VisualStudioDiscordRPC.Shared
         {
             InitializeComponent();
             DataContext = viewModel;
-
+            
             Closing += SettingsWindow_Closing;
         }
 
         private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            ViewModel.Wrapper.Update();
             Settings.Default.Save();
         }
     }

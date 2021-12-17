@@ -53,7 +53,7 @@ namespace VisualStudioDiscordRPC.Shared
 
         private string _version;
         private DTE _dte;
-        public DTE DTE
+        public DTE Dte
         {
             get => _dte;
             set
@@ -77,27 +77,29 @@ namespace VisualStudioDiscordRPC.Shared
                     _presence.Timestamps = Timestamps.Now;
                 }
 
-                if (_document != null)
+                if (_document == null)
                 {
-                    var comparer = new ExtensionAssetComparer()
-                    {
-                        RequiredExtension = Path.GetExtension(_document.Name)
-                    };
-                    _documentAsset = ExtensionAssets.GetAsset(comparer);
+                    return;
                 }
+
+                var comparer = new ExtensionAssetComparer
+                {
+                    RequiredExtension = Path.GetExtension(_document.Name)
+                };
+                _documentAsset = ExtensionAssets.GetAsset(comparer) ?? ExtensionAsset.Default;
             }
         }
 
         public LocalizationFile Localization { get; set; }
         public IAssetMap<ExtensionAsset> ExtensionAssets { get; set; }
 
-        private DiscordRpcClient _client;
-        private RichPresence _presence;
+        private readonly DiscordRpcClient _client;
+        private readonly RichPresence _presence;
 
         public RichPresenceWrapper(DiscordRpcClient discordRpcClient)
         {
             _client = discordRpcClient;
-            _presence = new RichPresence()
+            _presence = new RichPresence
             {
                 Assets = new Assets()
             };
@@ -107,11 +109,11 @@ namespace VisualStudioDiscordRPC.Shared
 
             WorkTimerVisible = true;
 
-            LargeIcon = Icon.VisualStudioVersion;
-            SmallIcon = Icon.None;
+            LargeIcon = Icon.FileExtension;
+            SmallIcon = Icon.VisualStudioVersion;
         }
 
-        private Dictionary<string, string> _versions = new Dictionary<string, string>()
+        private readonly Dictionary<string, string> _versions = new Dictionary<string, string>
         {
             { "16", "2019" },
             { "17", "2022" }
@@ -136,7 +138,7 @@ namespace VisualStudioDiscordRPC.Shared
                         return string.Format(
                             ConstantStrings.ActiveProjectFormat,
                             Localization.Project,
-                            Document.ActiveWindow.Project.Name);
+                            Document.ActiveWindow?.Project.Name);
                     }
                     return Localization.NoActiveProject;
                     
@@ -169,7 +171,7 @@ namespace VisualStudioDiscordRPC.Shared
                     return string.Empty;
 
                 case Icon.VisualStudioVersion: 
-                    return string.Format(ConstantStrings.VisualStudioVersionAssetKey, GetVersion(DTE));
+                    return string.Format(ConstantStrings.VisualStudioVersionAssetKey, _version);
 
                 case Icon.FileExtension:
                     return _documentAsset?.Key;
@@ -187,10 +189,10 @@ namespace VisualStudioDiscordRPC.Shared
                     return string.Empty;
 
                 case Icon.VisualStudioVersion:
-                    return string.Format(ConstantStrings.VisualStudioVersion, GetVersion(DTE));
+                    return string.Format(ConstantStrings.VisualStudioVersion, _version);
 
                 case Icon.FileExtension:
-                    return _documentAsset?.Name;
+                    return _documentAsset.Name;
 
                 default: 
                     return string.Empty;
@@ -202,11 +204,20 @@ namespace VisualStudioDiscordRPC.Shared
             _presence.Details = GetText(TitleText);
             _presence.State = GetText(SubTitleText);
 
-            _presence.Assets.LargeImageKey = GetAssetKey(LargeIcon);
-            _presence.Assets.SmallImageKey = GetAssetKey(SmallIcon);
+            Icon largeIcon = LargeIcon;
+            Icon smallIcon = SmallIcon;
 
-            _presence.Assets.LargeImageText = GetAssetText(LargeIcon);
-            _presence.Assets.SmallImageText = GetAssetText(SmallIcon);
+            if (Document == null)
+            {
+                largeIcon = Icon.VisualStudioVersion;
+                smallIcon = Icon.None;
+            }
+
+            _presence.Assets.LargeImageKey = GetAssetKey(largeIcon);
+            _presence.Assets.SmallImageKey = GetAssetKey(smallIcon);
+
+            _presence.Assets.LargeImageText = GetAssetText(largeIcon);
+            _presence.Assets.SmallImageText = GetAssetText(smallIcon);
 
             _client.SetPresence(_presence);
         }

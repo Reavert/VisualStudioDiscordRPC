@@ -89,9 +89,12 @@ namespace VisualStudioDiscordRPC.Shared.Commands
 
             var packageController = ((VisualStudioDiscordRPCPackage)package).Controller;
 
-            var settingViewModel = new SettingsViewModel();
-            settingViewModel.LocalizationManager = packageController.LocalizationManager;
-
+            var settingViewModel = new SettingsViewModel
+            {
+                Wrapper = packageController.RichPresenceWrapper,
+                LocalizationManager = packageController.LocalizationManager
+            };
+            
             var settingsWindow = new SettingsWindow(settingViewModel);
             settingsWindow.ShowDialog();
         }

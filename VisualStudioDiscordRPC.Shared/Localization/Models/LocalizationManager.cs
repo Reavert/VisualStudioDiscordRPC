@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
-    using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
+    using Interfaces;
 
     public class LocalizationManager<T> : ILocalizationManager<T> where T : ILocalizationFile
     {

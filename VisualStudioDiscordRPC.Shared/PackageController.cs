@@ -2,7 +2,6 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
@@ -16,21 +15,11 @@ namespace VisualStudioDiscordRPC.Shared
     {
         private readonly DTE _instance;
         private readonly DiscordRpcClient _client;
-        public readonly LocalizationManager<LocalizationFile> LocalizationManager;
         private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
         private readonly string _installationPath;
-        private RichPresenceWrapper _wrapper;
 
-        private readonly Dictionary<int, int> _versions = new Dictionary<int, int>()
-        {
-            { 16, 2019 },
-            { 17, 2022 }
-        };
-
-        private int GetVersionMajor(string version)
-        {
-            return int.Parse(version.Split('.')[0]);
-        }
+        public readonly LocalizationManager<LocalizationFile> LocalizationManager;
+        public RichPresenceWrapper RichPresenceWrapper;
 
         private string GetLocalFilePath(string filename)
         {
@@ -43,7 +32,6 @@ namespace VisualStudioDiscordRPC.Shared
 
             _instance = instance;
             _instance.Events.WindowEvents.WindowActivated += WindowEvents_WindowActivated;
-
 
             _installationPath = installationPath;
 
@@ -58,9 +46,9 @@ namespace VisualStudioDiscordRPC.Shared
             _client.Initialize();
 
             // RP Wrapper settings
-            _wrapper = new RichPresenceWrapper(_client)
+            RichPresenceWrapper = new RichPresenceWrapper(_client)
             {
-                DTE = _instance,
+                Dte = _instance,
                 ExtensionAssets = _extensionsAssetMap
             };
 
@@ -72,29 +60,16 @@ namespace VisualStudioDiscordRPC.Shared
 
         private void LocalizationManager_LocalizationChanged()
         {
-            _wrapper.Localization = LocalizationManager.Current;
-            _wrapper.Update();
+            RichPresenceWrapper.Localization = LocalizationManager.Current;
+            RichPresenceWrapper.Update();
         }
 
         private void WindowEvents_WindowActivated(Window GotFocus, Window LostFocus)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var activeDocument = _instance.ActiveDocument;
-
-            if (activeDocument == null)
-            {
-                _wrapper.LargeIcon = RichPresenceWrapper.Icon.VisualStudioVersion;
-                _wrapper.SmallIcon = RichPresenceWrapper.Icon.None;
-            }
-            else
-            {
-                _wrapper.LargeIcon = RichPresenceWrapper.Icon.FileExtension;
-                _wrapper.SmallIcon = RichPresenceWrapper.Icon.VisualStudioVersion;
-                _wrapper.Document = _instance.ActiveDocument;
-            }
-            
-            _wrapper.Update();
+            RichPresenceWrapper.Document = _instance.ActiveDocument;
+            RichPresenceWrapper.Update();
         }
 
         public void Dispose()

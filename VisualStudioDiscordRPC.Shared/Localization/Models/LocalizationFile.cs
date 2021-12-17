@@ -1,7 +1,7 @@
 ﻿namespace VisualStudioDiscordRPC.Shared.Localization.Models
 {
     using System.Collections.Generic;
-    using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
+    using Interfaces;
 
     public abstract class LocalizationFile : ILocalizationFile
     {
@@ -17,7 +17,11 @@
         public string File => LocalizedValues["file"];
         public string NoActiveProject => LocalizedValues["noActiveProject"];
         public string NoActiveFile => LocalizedValues["noActiveFile"];
-
+        public string FileExtension => LocalizedValues["fileExtension"];
+        public string VisualStudioVersion => LocalizedValues["visualStudioVersion"];
+        public string None => LocalizedValues["none"];
+        public string FileName => LocalizedValues["fileName"];
+        public string ProjectName => LocalizedValues["projectName"];
 
         #endregion
     }

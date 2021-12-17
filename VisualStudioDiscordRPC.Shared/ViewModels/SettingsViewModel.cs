@@ -7,6 +7,13 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
+        private RichPresenceWrapper _wrapper;
+        public RichPresenceWrapper Wrapper
+        {
+            get => _wrapper;
+            set => SetProperty(ref _wrapper, value, nameof(Wrapper));
+        }
+
         private ILocalizationManager<LocalizationFile> _localizationManager;
 
         public ILocalizationManager<LocalizationFile> LocalizationManager
@@ -39,14 +46,47 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set => SetProperty(ref _textEnum, value, nameof(TextEnum));
         }
 
-        public RichPresenceWrapper.Icon SelectedLargeIcon { get; set; }
-        public RichPresenceWrapper.Icon SelectedSmallIcon { get; set; }
+        public RichPresenceWrapper.Icon SelectedLargeIcon
+        {
+            get => _wrapper.LargeIcon;
+            set => _wrapper.LargeIcon = value;
+        }
 
-        public RichPresenceWrapper.Text SelectedTitleText { get; set; }
-        public RichPresenceWrapper.Text SelectedSubTitleText { get; set; }
+        public RichPresenceWrapper.Icon SelectedSmallIcon
+        {
+            get => _wrapper.SmallIcon;
+            set => _wrapper.SmallIcon = value;
+        }
+
+        public RichPresenceWrapper.Text SelectedTitleText
+        {
+            get => _wrapper.TitleText;
+            set => _wrapper.TitleText = value;
+        }
+
+        public RichPresenceWrapper.Text SelectedSubTitleText
+        {
+            get => _wrapper.SubTitleText;
+            set => _wrapper.SubTitleText = value;
+        }
+
+        private string GetIconValue(RichPresenceWrapper.Icon iconValue)
+        {
+            switch (iconValue)
+            {
+                case RichPresenceWrapper.Icon.None:
+                    return LocalizationManager.Current.None;
+                case RichPresenceWrapper.Icon.FileExtension:
+                    return LocalizationManager.Current.FileExtension;
+                case RichPresenceWrapper.Icon.VisualStudioVersion:
+                    return LocalizationManager.Current.VisualStudioVersion;
+                default:
+                    return LocalizationManager.Current.None;
+            }
+        }
 
         public SettingsViewModel()
-        { 
+        {
             IconEnum = Enum.GetValues(typeof(RichPresenceWrapper.Icon)) as IEnumerable<RichPresenceWrapper.Icon>;
             TextEnum = Enum.GetValues(typeof(RichPresenceWrapper.Text)) as IEnumerable<RichPresenceWrapper.Text>;
         }
