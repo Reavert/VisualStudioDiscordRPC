@@ -5,4 +5,9 @@
 	<translation id="file">फ़ाइल</translation>
 	<translation id="noActiveProject">कोई सक्रिय परियोजना नहीं है</translation>
 	<translation id="noActiveFile">कोई सक्रिय फ़ाइल नहीं है</translation>
+	<translation id="fileExtension">फ़ाइल एक्सटेंशन</translation>
+	<translation id="visualStudioVersion">Visual Studio संस्करण</translation>
+	<translation id="none">कोई नहीं</translation>
+	<translation id="fileName">फ़ाइल का नाम</translation>
+	<translation id="projectName">परियोजना का नाम</translation>
 </language>

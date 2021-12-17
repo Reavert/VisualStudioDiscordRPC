@@ -5,4 +5,9 @@
 	<translation id="file">File</translation>
 	<translation id="noActiveProject">No active project</translation>
 	<translation id="noActiveFile">No active file</translation>
+	<translation id="fileExtension">File extension</translation>
+	<translation id="visualStudioVersion">Visual Studio version</translation>
+	<translation id="none">None</translation>
+	<translation id="fileName">File name</translation>
+	<translation id="projectName">Project name</translation>
 </language>
