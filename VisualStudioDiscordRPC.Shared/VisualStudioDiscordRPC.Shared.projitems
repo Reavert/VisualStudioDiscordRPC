@@ -36,6 +36,7 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\IconEnumerationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\TextEnumerationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />

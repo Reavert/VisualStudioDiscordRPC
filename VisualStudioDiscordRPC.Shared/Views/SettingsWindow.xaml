@@ -5,7 +5,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:VisualStudioDiscordRPC.Shared.ViewModels"
         xmlns:converters="clr-namespace:VisualStudioDiscordRPC.Shared.ViewModels.Converters"
-        xmlns:localization="clr-namespace:VisualStudioDiscordRPC.Shared.Localization.Models"
         mc:Ignorable="d"
         Width="350"
         SizeToContent="Height"
@@ -15,6 +14,7 @@
         d:DataContext="{d:DesignInstance local:SettingsViewModel}">
     <Window.Resources>
         <converters:TextEnumerationConverter x:Key="TextConverter"/>
+        <converters:IconEnumerationConverter x:Key="IconConverter"/>
     </Window.Resources>
     <StackPanel Margin="3">
         <TextBlock  Text="Language:" />
@@ -34,10 +34,22 @@
         </ComboBox>
         <TextBlock Text="Large icon:"/>
         <ComboBox ItemsSource="{Binding IconEnum}" 
-                  SelectedItem="{Binding SelectedLargeIcon, Mode=TwoWay}"/>
+                  SelectedItem="{Binding SelectedLargeIcon, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource IconConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <TextBlock Text="Small icon:"/>
         <ComboBox ItemsSource="{Binding IconEnum}"
-                  SelectedItem="{Binding SelectedSmallIcon, Mode=TwoWay}"/>
+                  SelectedItem="{Binding SelectedSmallIcon, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource IconConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <TextBlock Text="Title text:"/>
         <ComboBox ItemsSource="{Binding TextEnum}"
                   SelectedItem="{Binding SelectedTitleText}">

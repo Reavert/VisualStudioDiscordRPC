@@ -72,21 +72,6 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set => _wrapper.SubTitleText = value;
         }
 
-        private string GetIconValue(RichPresenceWrapper.Icon iconValue)
-        {
-            switch (iconValue)
-            {
-                case RichPresenceWrapper.Icon.None:
-                    return LocalizationManager.Current.None;
-                case RichPresenceWrapper.Icon.FileExtension:
-                    return LocalizationManager.Current.FileExtension;
-                case RichPresenceWrapper.Icon.VisualStudioVersion:
-                    return LocalizationManager.Current.VisualStudioVersion;
-                default:
-                    return LocalizationManager.Current.None;
-            }
-        }
-
         public SettingsViewModel()
         {
             LocalizationManager = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();

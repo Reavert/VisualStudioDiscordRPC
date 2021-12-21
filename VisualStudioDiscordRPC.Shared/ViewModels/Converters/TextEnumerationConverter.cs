@@ -13,7 +13,8 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
 
         public TextEnumerationConverter()
         {
-            _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
+            _localizationService = 
+                ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
         }
 
         private string GetTextValue(RichPresenceWrapper.Text textValue)
@@ -31,38 +32,38 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
                 case RichPresenceWrapper.Text.VisualStudioVersion:
                     return _localizationService.Current.VisualStudioVersion;
                 default:
-                    return _localizationService.Current.None;
+                    throw new ArgumentException($"No suitable string for value {textValue}");
             }
         }
 
-        private RichPresenceWrapper.Text GetTextValueBack(string textValue)
+        private RichPresenceWrapper.Text GetTextValueBack(string textString)
         {
-            if (textValue == _localizationService.Current.None)
+            if (textString == _localizationService.Current.None)
             {
                 return RichPresenceWrapper.Text.None;
             }
 
-            if (textValue == _localizationService.Current.FileName)
+            if (textString == _localizationService.Current.FileName)
             {
                 return RichPresenceWrapper.Text.FileName;
             }
 
-            if (textValue == _localizationService.Current.ProjectName)
+            if (textString == _localizationService.Current.ProjectName)
             {
                 return RichPresenceWrapper.Text.ProjectName;
             }
 
-            if (textValue == _localizationService.Current.FileExtension)
+            if (textString == _localizationService.Current.FileExtension)
             {
                 return RichPresenceWrapper.Text.FileExtension;
             }
 
-            if (textValue == _localizationService.Current.VisualStudioVersion)
+            if (textString == _localizationService.Current.VisualStudioVersion)
             {
                 return RichPresenceWrapper.Text.VisualStudioVersion;
             }
 
-            return RichPresenceWrapper.Text.None;
+            throw new ArgumentException($"No suitable value for string {textString}");
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
