@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Interfaces;
@@ -31,18 +32,21 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             {
                 _localizationManager?.SelectLanguage(value.LanguageName);
                 Settings.Default.Language = value.LanguageName;
+
+                IconEnum = new ObservableCollection<RichPresenceWrapper.Icon>(_iconEnum);
+                TextEnum = new ObservableCollection<RichPresenceWrapper.Text>(_textEnum);
             } 
         }
 
-        private IEnumerable<RichPresenceWrapper.Icon> _iconEnum;
-        public IEnumerable<RichPresenceWrapper.Icon> IconEnum
+        private ObservableCollection<RichPresenceWrapper.Icon> _iconEnum;
+        public ObservableCollection<RichPresenceWrapper.Icon> IconEnum
         {
             get => _iconEnum;
             set => SetProperty(ref _iconEnum, value, nameof(IconEnum));
         }
 
-        private IEnumerable<RichPresenceWrapper.Text> _textEnum;
-        public IEnumerable<RichPresenceWrapper.Text> TextEnum
+        private ObservableCollection<RichPresenceWrapper.Text> _textEnum;
+        public ObservableCollection<RichPresenceWrapper.Text> TextEnum
         {
             get => _textEnum;
             set => SetProperty(ref _textEnum, value, nameof(TextEnum));
@@ -76,9 +80,10 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         {
             LocalizationManager = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
 
-            IconEnum = Enum.GetValues(typeof(RichPresenceWrapper.Icon)) as IEnumerable<RichPresenceWrapper.Icon>;
-            TextEnum = Enum.GetValues(typeof(RichPresenceWrapper.Text)) as IEnumerable<RichPresenceWrapper.Text>;
-
+            IconEnum = new ObservableCollection<RichPresenceWrapper.Icon>(
+                Enum.GetValues(typeof(RichPresenceWrapper.Icon)) as IEnumerable<RichPresenceWrapper.Icon>);
+            TextEnum = new ObservableCollection<RichPresenceWrapper.Text>(
+                Enum.GetValues(typeof(RichPresenceWrapper.Text)) as IEnumerable<RichPresenceWrapper.Text>);
         }
     }
 }
