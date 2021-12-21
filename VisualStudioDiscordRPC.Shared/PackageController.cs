@@ -51,10 +51,23 @@ namespace VisualStudioDiscordRPC.Shared
             RichPresenceWrapper = new RichPresenceWrapper(_client)
             {
                 Dte = _instance,
-                ExtensionAssets = _extensionsAssetMap
+                ExtensionAssets = _extensionsAssetMap,
+
+                LargeIcon = Settings.Default.LargeIcon == null 
+                    ? RichPresenceWrapper.Icon.FileExtension
+                    : SettingsHelper.Instance.GetIconOptionFromString(Settings.Default.LargeIcon),
+                SmallIcon = Settings.Default.SmallIcon == null
+                    ? RichPresenceWrapper.Icon.VisualStudioVersion
+                    : SettingsHelper.Instance.GetIconOptionFromString(Settings.Default.SmallIcon),
+                TitleText = Settings.Default.TitleText == null
+                    ? RichPresenceWrapper.Text.FileName
+                    : SettingsHelper.Instance.GetTextOptionFromString(Settings.Default.TitleText),
+                SubTitleText = Settings.Default.SubTitleText == null
+                    ? RichPresenceWrapper.Text.SolutionName
+                    : SettingsHelper.Instance.GetTextOptionFromString(Settings.Default.SubTitleText)
             };
 
-            // Localization manager settings
+            // Localization service settings
             _localizationService = new LocalizationService<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
             ServiceRepository.Default.AddService(_localizationService);
             

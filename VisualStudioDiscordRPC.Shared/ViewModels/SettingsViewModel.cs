@@ -55,25 +55,41 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         public RichPresenceWrapper.Icon SelectedLargeIcon
         {
             get => _wrapper.LargeIcon;
-            set => _wrapper.LargeIcon = value;
+            set
+            {
+                _wrapper.LargeIcon = value;
+                Settings.Default.LargeIcon = SettingsHelper.Instance.GetStringFromIconOption(value);
+            }
         }
 
         public RichPresenceWrapper.Icon SelectedSmallIcon
         {
             get => _wrapper.SmallIcon;
-            set => _wrapper.SmallIcon = value;
+            set
+            {
+                _wrapper.SmallIcon = value;
+                Settings.Default.SmallIcon = SettingsHelper.Instance.GetStringFromIconOption(value);
+            } 
         }
 
         public RichPresenceWrapper.Text SelectedTitleText
         {
             get => _wrapper.TitleText;
-            set => _wrapper.TitleText = value;
+            set
+            {
+                _wrapper.TitleText = value;
+                Settings.Default.TitleText = SettingsHelper.Instance.GetStringFromTextOption(value);
+            }
         }
 
         public RichPresenceWrapper.Text SelectedSubTitleText
         {
             get => _wrapper.SubTitleText;
-            set => _wrapper.SubTitleText = value;
+            set
+            {
+                _wrapper.SubTitleText = value;
+                Settings.Default.SubTitleText = SettingsHelper.Instance.GetStringFromTextOption(value);
+            } 
         }
 
         public SettingsViewModel()

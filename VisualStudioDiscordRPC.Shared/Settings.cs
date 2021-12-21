@@ -1,20 +1,16 @@
-﻿namespace VisualStudioDiscordRPC.Shared 
+﻿using System.Collections.Generic;
+
+namespace VisualStudioDiscordRPC.Shared 
 {
-    [System.Runtime.CompilerServices.CompilerGenerated()]
-    internal sealed partial class Settings : System.Configuration.ApplicationSettingsBase
+    [System.Runtime.CompilerServices.CompilerGenerated]
+    internal sealed class Settings : System.Configuration.ApplicationSettingsBase
     {
         private static Settings _defaultInstance = (Settings)Synchronized(new Settings());
 
-        public static Settings Default
-        {
-            get
-            {
-                return _defaultInstance;
-            }
-        }
+        public static Settings Default => _defaultInstance;
 
-        [System.Configuration.UserScopedSetting()]
-        [System.Diagnostics.DebuggerNonUserCode()]
+        [System.Configuration.UserScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
         [System.Configuration.DefaultSettingValue("English")]
         public string Language
         {
@@ -22,13 +18,45 @@
             set => this["Language"] = value;
         }
 
-        [System.Configuration.ApplicationScopedSetting()]
-        [System.Diagnostics.DebuggerNonUserCode()]
+        [System.Configuration.UserScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
+        public string LargeIcon
+        {
+            get => (string)this["LargeIcon"];
+            set => this["LargeIcon"] = value;
+        }
+
+        [System.Configuration.UserScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
+        public string SmallIcon
+        {
+            get => (string)this["SmallIcon"];
+            set => this["SmallIcon"] = value;
+        }
+
+        [System.Configuration.UserScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
+        public string TitleText
+        {
+            get => (string)this["TitleText"];
+            set => this["TitleText"] = value;
+        }
+
+        [System.Configuration.UserScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
+        public string SubTitleText
+        {
+            get => (string)this["SubTitleText"];
+            set => this["SubTitleText"] = value;
+        }
+
+        [System.Configuration.ApplicationScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
         [System.Configuration.DefaultSettingValue("914622396630175855")]
         public string ApplicationID => (string)this["ApplicationID"];
 
-        [System.Configuration.ApplicationScopedSetting()]
-        [System.Diagnostics.DebuggerNonUserCode()]
+        [System.Configuration.ApplicationScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
         [System.Configuration.DefaultSettingValue("Translations/")]
         public string TranslationsPath => (string)this["TranslationsPath"];
     }

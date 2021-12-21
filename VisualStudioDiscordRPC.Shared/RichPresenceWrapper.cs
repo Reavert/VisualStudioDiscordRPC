@@ -2,7 +2,6 @@
 using EnvDTE;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
@@ -109,7 +108,7 @@ namespace VisualStudioDiscordRPC.Shared
             };
 
             TitleText = Text.FileName;
-            SubTitleText = Text.ProjectName;
+            SubTitleText = Text.SolutionName;
 
             WorkTimerVisible = true;
 
@@ -164,8 +163,8 @@ namespace VisualStudioDiscordRPC.Shared
                             Localization.Project,
                             _solutionName);
                     }
-
                     return Localization.NoActiveProject;
+
                 case Text.FileExtension: 
                     return _documentAsset?.Name;
 
