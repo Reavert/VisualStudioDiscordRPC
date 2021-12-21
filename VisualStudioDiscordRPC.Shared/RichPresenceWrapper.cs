@@ -2,6 +2,7 @@
 using EnvDTE;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
@@ -24,6 +25,7 @@ namespace VisualStudioDiscordRPC.Shared
             VisualStudioVersion,
             FileExtension,
             ProjectName,
+            SolutionName,
             FileName
         }
 
@@ -52,6 +54,7 @@ namespace VisualStudioDiscordRPC.Shared
         public Icon SmallIcon { get; set; }
 
         private string _version;
+        private string _solutionName;
         private DTE _dte;
         public DTE Dte
         {
@@ -59,7 +62,7 @@ namespace VisualStudioDiscordRPC.Shared
             set
             {
                 _dte = value;
-                _version = GetVersion(value);
+                _version = GetVersion(_dte);
             }
         }
 
@@ -71,6 +74,7 @@ namespace VisualStudioDiscordRPC.Shared
             set
             {
                 _document = value;
+                _solutionName = Path.GetFileNameWithoutExtension(Path.GetFileName(_dte.Solution.FullName));
 
                 if (WorkTimerVisible)
                 {
@@ -152,6 +156,16 @@ namespace VisualStudioDiscordRPC.Shared
                     }
                     return Localization.NoActiveFile;
 
+                case Text.SolutionName:
+                    if (Document != null)
+                    {
+                        return string.Format(
+                            ConstantStrings.ActiveProjectFormat,
+                            Localization.Project,
+                            _solutionName);
+                    }
+
+                    return Localization.NoActiveProject;
                 case Text.FileExtension: 
                     return _documentAsset?.Name;
 

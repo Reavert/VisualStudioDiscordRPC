@@ -22,6 +22,7 @@
         public string None => LocalizedValues["none"];
         public string FileName => LocalizedValues["fileName"];
         public string ProjectName => LocalizedValues["projectName"];
+        public string SolutionName => LocalizedValues["solutionName"];
 
         #endregion
     }

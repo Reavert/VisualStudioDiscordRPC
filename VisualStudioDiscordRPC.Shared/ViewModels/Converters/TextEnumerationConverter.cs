@@ -31,6 +31,8 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
                     return _localizationService.Current.FileExtension;
                 case RichPresenceWrapper.Text.VisualStudioVersion:
                     return _localizationService.Current.VisualStudioVersion;
+                case RichPresenceWrapper.Text.SolutionName:
+                    return _localizationService.Current.SolutionName;
                 default:
                     throw new ArgumentException($"No suitable string for value {textValue}");
             }
@@ -61,6 +63,11 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
             if (textString == _localizationService.Current.VisualStudioVersion)
             {
                 return RichPresenceWrapper.Text.VisualStudioVersion;
+            }
+
+            if (textString == _localizationService.Current.SolutionName)
+            {
+                return RichPresenceWrapper.Text.SolutionName;
             }
 
             throw new ArgumentException($"No suitable value for string {textString}");
