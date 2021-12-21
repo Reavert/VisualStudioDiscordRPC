@@ -9,6 +9,7 @@ using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
+using VisualStudioDiscordRPC.Shared.Services.Models;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -19,7 +20,7 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
         private readonly string _installationPath;
 
-        public readonly LocalizationService<LocalizationFile> LocalizationManager;
+        private readonly LocalizationService<LocalizationFile> _localizationService;
         public RichPresenceWrapper RichPresenceWrapper;
 
         private string GetLocalFilePath(string filename)
@@ -54,14 +55,16 @@ namespace VisualStudioDiscordRPC.Shared
             };
 
             // Localization manager settings
-            LocalizationManager = new LocalizationService<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
-            LocalizationManager.LocalizationChanged += LocalizationManager_LocalizationChanged;
-            LocalizationManager.SelectLanguage(Settings.Default.Language);
+            _localizationService = new LocalizationService<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
+            ServiceRepository.Default.AddService(_localizationService);
+            
+            _localizationService.LocalizationChanged += LocalizationServiceLocalizationChanged;
+            _localizationService.SelectLanguage(Settings.Default.Language);
         }
 
-        private void LocalizationManager_LocalizationChanged()
+        private void LocalizationServiceLocalizationChanged()
         {
-            RichPresenceWrapper.Localization = LocalizationManager.Current;
+            RichPresenceWrapper.Localization = _localizationService.Current;
             RichPresenceWrapper.Update();
         }
 
@@ -78,7 +81,7 @@ namespace VisualStudioDiscordRPC.Shared
             ThreadHelper.ThrowIfNotOnUIThread();
 
             _instance.Events.WindowEvents.WindowActivated -= WindowEvents_WindowActivated;
-            LocalizationManager.LocalizationChanged -= LocalizationManager_LocalizationChanged;
+            _localizationService.LocalizationChanged -= LocalizationServiceLocalizationChanged;
 
             _client.Dispose();
         }

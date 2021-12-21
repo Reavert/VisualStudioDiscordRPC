@@ -153,7 +153,7 @@ namespace VisualStudioDiscordRPC.Shared
                     return Localization.NoActiveFile;
 
                 case Text.FileExtension: 
-                    return _documentAsset.Name;
+                    return _documentAsset?.Name;
 
                 case Text.VisualStudioVersion: 
                     return string.Format(ConstantStrings.VisualStudioVersion, _version);
@@ -192,7 +192,7 @@ namespace VisualStudioDiscordRPC.Shared
                     return string.Format(ConstantStrings.VisualStudioVersion, _version);
 
                 case Icon.FileExtension:
-                    return _documentAsset.Name;
+                    return _documentAsset?.Name;
 
                 default: 
                     return string.Empty;

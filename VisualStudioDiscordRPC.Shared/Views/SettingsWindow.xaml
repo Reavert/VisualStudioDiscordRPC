@@ -40,9 +40,21 @@
                   SelectedItem="{Binding SelectedSmallIcon, Mode=TwoWay}"/>
         <TextBlock Text="Title text:"/>
         <ComboBox ItemsSource="{Binding TextEnum}"
-                  SelectedItem="{Binding SelectedTitleText}"/>
+                  SelectedItem="{Binding SelectedTitleText}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource TextConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <TextBlock Text="Subtitle text:"/>
         <ComboBox ItemsSource="{Binding TextEnum}"
-                  SelectedItem="{Binding SelectedSubTitleText}"/>
+                  SelectedItem="{Binding SelectedSubTitleText}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource TextConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </StackPanel>
 </Window>
