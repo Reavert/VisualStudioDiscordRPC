@@ -16,59 +16,87 @@
         <converters:TextEnumerationConverter x:Key="TextConverter"/>
         <converters:IconEnumerationConverter x:Key="IconConverter"/>
     </Window.Resources>
-    <StackPanel Margin="3">
-        <TextBlock  Text="Language:" />
-        <ComboBox Margin="3" ItemsSource="{Binding LocalizationManager.Localizations}" SelectedItem="{Binding SelectedLocalization, Mode=TwoWay}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock>
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} ({1})">
-                                <Binding Path="LanguageName" />
-                                <Binding Path="LocalizedLanguageName" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <TextBlock Text="Large icon:"/>
-        <ComboBox
-            x:Name="LargeIconEnum"
-            ItemsSource="{Binding IconEnum}" 
-            SelectedItem="{Binding SelectedLargeIcon, Mode=TwoWay}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource IconConverter}}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <TextBlock Text="Small icon:"/>
-        <ComboBox ItemsSource="{Binding IconEnum}"
-                  SelectedItem="{Binding SelectedSmallIcon, Mode=TwoWay}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource IconConverter}}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <TextBlock Text="Title text:"/>
-        <ComboBox ItemsSource="{Binding TextEnum}"
-                  SelectedItem="{Binding SelectedTitleText}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource TextConverter}}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <TextBlock Text="Subtitle text:"/>
-        <ComboBox ItemsSource="{Binding TextEnum}"
-                  SelectedItem="{Binding SelectedSubTitleText}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource TextConverter}}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+    <StackPanel Margin="2">
+        <GroupBox Header="General" Margin="5" Padding="3">
+        <StackPanel>
+            <TextBlock  Text="Language:" />
+            <ComboBox 
+                ItemsSource="{Binding LocalizationManager.Localizations}" 
+                SelectedItem="{Binding SelectedLocalization, Mode=TwoWay}"
+                Margin="3">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} ({1})">
+                                    <Binding Path="LanguageName" />
+                                    <Binding Path="LocalizedLanguageName" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Display" Margin="5" Padding="3">
+            <StackPanel>
+                <TextBlock Text="Large icon:"/>
+                <ComboBox
+                    x:Name="LargeIconEnum"
+                    ItemsSource="{Binding IconEnum}" 
+                    SelectedItem="{Binding SelectedLargeIcon, Mode=TwoWay}"
+                    Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource IconConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Small icon:"/>
+                <ComboBox 
+                    ItemsSource="{Binding IconEnum}"
+                    SelectedItem="{Binding SelectedSmallIcon, Mode=TwoWay}"
+                    Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource IconConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Title text:"/>
+                <ComboBox 
+                    ItemsSource="{Binding TextEnum}"
+                    SelectedItem="{Binding SelectedTitleText}"
+                    Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource TextConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Subtitle text:"/>
+                <ComboBox 
+                    ItemsSource="{Binding TextEnum}"
+                    SelectedItem="{Binding SelectedSubTitleText}"
+                    Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource TextConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Work in progress" Margin="5" Padding="3">
+            <StackPanel Margin="3">
+                <TextBlock Foreground="Gray">Icon theme:</TextBlock>
+                <ComboBox Margin="3 3 3 10" IsEnabled="False" SelectedIndex="0">
+                    <TextBlock Foreground="Gray">Standart</TextBlock>
+                </ComboBox>
+                <CheckBox IsEnabled="False"><TextBlock Foreground="Gray">Activate LiveShare integration</TextBlock></CheckBox>
+                <CheckBox IsEnabled="False"><TextBlock Foreground="Gray">Activate GitHub integration</TextBlock> </CheckBox>
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
 </Window>
