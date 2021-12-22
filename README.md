@@ -14,10 +14,11 @@
 
 ## Roadmap
 #### Features that are planned to be added in the future:
-1. Flexible configuration of the display of your activity in Discord;
-2. Selection of different icon themes for file extensions;
-3. Integration with LiveShare;
-4. Integration with Git.
+- [x] Flexible configuration of the display of your activity in Discord;
+- [ ] Update default icon theme;
+- [ ] Selection of different icon themes for file extensions;
+- [ ] Integration with LiveShare;
+- [ ] Integration with Git.
 
 ## Issues
 #### If you encounter a problem or have suggestions for a project, feel free to add it to the "Issues" section
