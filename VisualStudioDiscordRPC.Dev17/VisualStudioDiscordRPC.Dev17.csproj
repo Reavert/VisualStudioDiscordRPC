@@ -58,53 +58,8 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\be-BY.xml">
-      <Link>Translations\be-BY.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\de-DE.xml">
-      <Link>Translations\de-DE.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\en-US.xml">
-      <Link>Translations\en-US.xml</Link>
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\es-ES.xml">
-      <Link>Translations\es-ES.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\fr-FR.xml">
-      <Link>Translations\fr-FR.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\hi-IN.xml">
-      <Link>Translations\hi-IN.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\it-IT.xml">
-      <Link>Translations\it-IT.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\pl-PL.xml">
-      <Link>Translations\pl-PL.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\ru-RU.xml">
-      <Link>Translations\ru-RU.xml</Link>
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\uk-UA.xml">
-      <Link>Translations\uk-UA.xml</Link>
+    <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\*.*">
+      <Link>Translations\%(Filename).%(Extension)</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
