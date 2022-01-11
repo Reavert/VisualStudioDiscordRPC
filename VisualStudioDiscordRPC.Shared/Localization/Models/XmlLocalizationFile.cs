@@ -23,7 +23,6 @@ namespace VisualStudioDiscordRPC.Shared.Localization.Models
                     translationNode.Attributes["id"].Value,
                     translationNode.InnerText);
             }
-            ;
         }
     }
 }
