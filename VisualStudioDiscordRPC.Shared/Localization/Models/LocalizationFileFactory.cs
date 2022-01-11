@@ -29,7 +29,8 @@ namespace VisualStudioDiscordRPC.Shared.Localization.Models
             System.Type acceptableType = GetAcceptableLocalizationFile(filename);
 
             var acceptableFile = (ILocalizationFile)acceptableType.GetConstructor(
-                new System.Type[] { typeof(string) }).Invoke(new object[] { filename });
+                new[] { typeof(string) })
+                ?.Invoke(new object[] { filename });
 
             return acceptableFile;
         }
