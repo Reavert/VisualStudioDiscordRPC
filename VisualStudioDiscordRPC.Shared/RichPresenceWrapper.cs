@@ -72,6 +72,11 @@ namespace VisualStudioDiscordRPC.Shared
             get => _document;
             set
             {
+                if (_document == value)
+                {
+                    return;
+                }
+
                 _document = value;
                 _solutionName = Path.GetFileNameWithoutExtension(Path.GetFileName(_dte.Solution.FullName));
 
