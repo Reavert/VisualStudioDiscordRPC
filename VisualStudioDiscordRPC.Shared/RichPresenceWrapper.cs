@@ -2,6 +2,7 @@
 using EnvDTE;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Navigation;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
@@ -11,6 +12,14 @@ namespace VisualStudioDiscordRPC.Shared
 {
     public class RichPresenceWrapper
     {
+        public enum TimerMode
+        {
+            Disabled,
+            File,
+            Project,
+            Solution
+        }
+
         public enum Icon
         {
             None,
@@ -31,21 +40,15 @@ namespace VisualStudioDiscordRPC.Shared
         public Text TitleText { get; set; }
         public Text SubTitleText { get; set; }
 
-        private bool _workTimerVisible;
-        public bool WorkTimerVisible
+        private TimerMode _workTimerMode;
+
+        public TimerMode WorkTimerMode
         {
-            get => _workTimerVisible;
+            get => _workTimerMode;
             set
             {
-                if (_workTimerVisible ^ value)
-                {
-                    switch (value)
-                    {
-                        case true: _presence.Timestamps = Timestamps.Now; break;
-                        case false: _presence.Timestamps = null; break;
-                    }
-                }
-                _workTimerVisible = value;
+                _workTimerMode = value;
+                _presence.Timestamps = _workTimerMode == TimerMode.Disabled ? null : Timestamps.Now;
             }
         }
 
@@ -77,15 +80,15 @@ namespace VisualStudioDiscordRPC.Shared
                     return;
                 }
 
-                _document = value;
-                _solutionName = Path.GetFileNameWithoutExtension(Path.GetFileName(_dte.Solution.FullName));
-
-                if (WorkTimerVisible)
+                if (WasTimerWorkSpaceChanged(value))
                 {
                     _presence.Timestamps = Timestamps.Now;
                 }
 
-                if (_document == null)
+                _document = value;
+                _solutionName = Path.GetFileNameWithoutExtension(Path.GetFileName(_dte.Solution.FullName));
+
+                if (value == default)
                 {
                     return;
                 }
@@ -95,6 +98,7 @@ namespace VisualStudioDiscordRPC.Shared
                     RequiredExtension = Path.GetExtension(_document.Name)
                 };
                 _documentAsset = ExtensionAssets.GetAsset(comparer) ?? ExtensionAsset.Default;
+
             }
         }
 
@@ -103,6 +107,12 @@ namespace VisualStudioDiscordRPC.Shared
 
         private readonly DiscordRpcClient _client;
         private readonly RichPresence _presence;
+
+        private readonly Dictionary<string, string> _versions = new Dictionary<string, string>
+        {
+            { "16", "2019" },
+            { "17", "2022" }
+        };
 
         public RichPresenceWrapper(DiscordRpcClient discordRpcClient)
         {
@@ -115,17 +125,28 @@ namespace VisualStudioDiscordRPC.Shared
             TitleText = Text.FileName;
             SubTitleText = Text.SolutionName;
 
-            WorkTimerVisible = true;
+            WorkTimerMode = TimerMode.Solution;
 
             LargeIcon = Icon.FileExtension;
             SmallIcon = Icon.VisualStudioVersion;
         }
 
-        private readonly Dictionary<string, string> _versions = new Dictionary<string, string>
+        private bool WasTimerWorkSpaceChanged(Document newDocument)
         {
-            { "16", "2019" },
-            { "17", "2022" }
-        };
+            switch (WorkTimerMode)
+            {
+                case TimerMode.Disabled:
+                    return false;
+                case TimerMode.File:
+                    return _document != newDocument;
+                case TimerMode.Project:
+                    return _document?.ActiveWindow?.Project != newDocument?.ActiveWindow?.Project;
+                case TimerMode.Solution:
+                    return false;
+            }
+
+            return false;
+        }
 
         private string GetVersion(DTE dte)
         {
