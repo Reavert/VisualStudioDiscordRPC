@@ -17,7 +17,6 @@ namespace VisualStudioDiscordRPC.Shared
     {
         private readonly DTE _instance;
         private readonly DiscordRpcClient _client;
-        private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
         private readonly string _installationPath;
 
         private readonly LocalizationService<LocalizationFile> _localizationService;
@@ -33,15 +32,15 @@ namespace VisualStudioDiscordRPC.Shared
             ThreadHelper.ThrowIfNotOnUIThread();
 
             _instance = instance;
-            _instance.Events.WindowEvents.WindowActivated += WindowEvents_WindowActivated;
+            _instance.Events.WindowEvents.WindowActivated += OnWindowActivated;
 
             _installationPath = installationPath;
 
             // Extension asset map settings
-            _extensionsAssetMap = new AssetMap<ExtensionAsset>();
+            IAssetMap<ExtensionAsset> extensionsAssetMap = new AssetMap<ExtensionAsset>();
 
             var extensionAssetLoader = new JsonAssetsLoader<ExtensionAsset>();
-            _extensionsAssetMap.Assets = extensionAssetLoader.LoadAssets(GetLocalFilePath("extensions_assets_map.json"));
+            extensionsAssetMap.Assets = extensionAssetLoader.LoadAssets(GetLocalFilePath("extensions_assets_map.json"));
 
             // Discord Rich Presence client settings
             _client = new DiscordRpcClient(Settings.Default.ApplicationID);
@@ -51,7 +50,7 @@ namespace VisualStudioDiscordRPC.Shared
             RichPresenceWrapper = new RichPresenceWrapper(_client)
             {
                 Dte = _instance,
-                ExtensionAssets = _extensionsAssetMap,
+                ExtensionAssets = extensionsAssetMap,
 
                 LargeIcon = Settings.Default.LargeIcon == null 
                     ? RichPresenceWrapper.Icon.FileExtension
@@ -71,17 +70,17 @@ namespace VisualStudioDiscordRPC.Shared
             _localizationService = new LocalizationService<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
             ServiceRepository.Default.AddService(_localizationService);
             
-            _localizationService.LocalizationChanged += LocalizationServiceLocalizationChanged;
+            _localizationService.LocalizationChanged += OnLocalizationChanged;
             _localizationService.SelectLanguage(Settings.Default.Language);
         }
 
-        private void LocalizationServiceLocalizationChanged()
+        private void OnLocalizationChanged()
         {
             RichPresenceWrapper.Localization = _localizationService.Current;
             RichPresenceWrapper.Update();
         }
 
-        private void WindowEvents_WindowActivated(Window GotFocus, Window LostFocus)
+        private void OnWindowActivated(Window gotFocus, Window lostFocus)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -93,8 +92,8 @@ namespace VisualStudioDiscordRPC.Shared
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            _instance.Events.WindowEvents.WindowActivated -= WindowEvents_WindowActivated;
-            _localizationService.LocalizationChanged -= LocalizationServiceLocalizationChanged;
+            _instance.Events.WindowEvents.WindowActivated -= OnWindowActivated;
+            _localizationService.LocalizationChanged -= OnLocalizationChanged;
 
             _client.Dispose();
         }
