@@ -11,18 +11,7 @@ namespace VisualStudioDiscordRPC.Shared
         private static Dictionary<RichPresenceWrapper.Icon, string> _iconOptions;
 
         private static SettingsHelper _instance;
-        public static SettingsHelper Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    return new SettingsHelper();
-                }
-
-                return _instance;
-            }
-        }
+        public static SettingsHelper Instance => _instance ?? (_instance = new SettingsHelper());
 
         internal SettingsHelper()
         {
