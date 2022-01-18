@@ -14,13 +14,13 @@ namespace VisualStudioDiscordRPC.Shared.Localization.Models
 
             XmlNode languageNode = xmlDocument.DocumentElement;
 
-            LanguageName = languageNode.Attributes["name"].Value;
-            LocalizedLanguageName = languageNode.Attributes["localizedName"].Value;
+            LanguageName = languageNode?.Attributes?["name"].Value;
+            LocalizedLanguageName = languageNode?.Attributes?["localizedName"].Value;
 
-            foreach (XmlNode translationNode in languageNode.ChildNodes)
+            foreach (XmlNode translationNode in languageNode?.ChildNodes)
             {
                 LocalizedValues.Add(
-                    translationNode.Attributes["id"].Value,
+                    translationNode.Attributes?["id"].Value,
                     translationNode.InnerText);
             }
         }
