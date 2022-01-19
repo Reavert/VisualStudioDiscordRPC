@@ -15,6 +15,7 @@
     <Window.Resources>
         <converters:TextEnumerationConverter x:Key="TextConverter"/>
         <converters:IconEnumerationConverter x:Key="IconConverter"/>
+        <converters:TimerModeEnumerationConverter x:Key="TimerModeConverter"/>
     </Window.Resources>
     <StackPanel Margin="2">
         <GroupBox Header="General" Margin="5" Padding="3">
@@ -83,6 +84,17 @@
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource TextConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Work timer mode:"/>
+                <ComboBox 
+                    ItemsSource="{Binding WorkTimerModeEnum}"
+                    SelectedItem="{Binding SelectedWorkTimerMode}"
+                    Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource TimerModeConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>

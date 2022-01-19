@@ -37,8 +37,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumStringMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\IconEnumerationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\TextEnumerationConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\TimerModeEnumerationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml.cs">

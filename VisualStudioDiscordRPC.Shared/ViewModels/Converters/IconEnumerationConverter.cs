@@ -16,7 +16,6 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
         {
             _localizationService = 
                 ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
-
         }
 
         private string GetIconValue(RichPresenceWrapper.Icon iconValue)

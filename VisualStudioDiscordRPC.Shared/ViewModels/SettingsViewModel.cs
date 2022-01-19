@@ -52,13 +52,21 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set => SetProperty(ref _textEnum, value, nameof(TextEnum));
         }
 
+        private ObservableCollection<RichPresenceWrapper.TimerMode> _workTimerModeEnum;
+
+        public ObservableCollection<RichPresenceWrapper.TimerMode> WorkTimerModeEnum
+        {
+            get => _workTimerModeEnum;
+            set => SetProperty(ref _workTimerModeEnum, value, nameof(WorkTimerModeEnum));
+        }
+
         public RichPresenceWrapper.Icon SelectedLargeIcon
         {
             get => _wrapper.LargeIcon;
             set
             {
                 _wrapper.LargeIcon = value;
-                Settings.Default.LargeIcon = SettingsHelper.Instance.GetStringFromIconOption(value);
+                Settings.Default.LargeIcon = SettingsHelper.Instance.IconEnumMap.GetString(value);
             }
         }
 
@@ -68,7 +76,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _wrapper.SmallIcon = value;
-                Settings.Default.SmallIcon = SettingsHelper.Instance.GetStringFromIconOption(value);
+                Settings.Default.SmallIcon = SettingsHelper.Instance.IconEnumMap.GetString(value);
             } 
         }
 
@@ -78,7 +86,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _wrapper.TitleText = value;
-                Settings.Default.TitleText = SettingsHelper.Instance.GetStringFromTextOption(value);
+                Settings.Default.TitleText = SettingsHelper.Instance.TextEnumMap.GetString(value);
             }
         }
 
@@ -88,18 +96,33 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _wrapper.SubTitleText = value;
-                Settings.Default.SubTitleText = SettingsHelper.Instance.GetStringFromTextOption(value);
+                Settings.Default.SubTitleText = SettingsHelper.Instance.TextEnumMap.GetString(value);
             } 
+        }
+
+        public RichPresenceWrapper.TimerMode SelectedWorkTimerMode
+        {
+            get => _wrapper.WorkTimerMode;
+            set
+            {
+                _wrapper.WorkTimerMode = value;
+                Settings.Default.WorkTimerMode = SettingsHelper.Instance.TimerModeEnumMap.GetString(value);
+            }
+        }
+
+        private ObservableCollection<T> ToObservableCollection<T>() where T : Enum
+        {
+            return new ObservableCollection<T>(
+                Enum.GetValues(typeof(T)) as IEnumerable<T>);
         }
 
         public SettingsViewModel()
         {
             LocalizationManager = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
 
-            IconEnum = new ObservableCollection<RichPresenceWrapper.Icon>(
-                Enum.GetValues(typeof(RichPresenceWrapper.Icon)) as IEnumerable<RichPresenceWrapper.Icon>);
-            TextEnum = new ObservableCollection<RichPresenceWrapper.Text>(
-                Enum.GetValues(typeof(RichPresenceWrapper.Text)) as IEnumerable<RichPresenceWrapper.Text>);
+            IconEnum = ToObservableCollection<RichPresenceWrapper.Icon>();
+            TextEnum = ToObservableCollection<RichPresenceWrapper.Text>();
+            WorkTimerModeEnum = ToObservableCollection<RichPresenceWrapper.TimerMode>();
         }
     }
 }
