@@ -50,6 +50,14 @@ namespace VisualStudioDiscordRPC.Shared
             set => this["SubTitleText"] = value;
         }
 
+        [System.Configuration.UserScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
+        public string WorkTimerMode
+        {
+            get => (string)this["WorkTimerMode"];
+            set => this["WorkTimerMode"] = value;
+        }
+
         [System.Configuration.ApplicationScopedSetting]
         [System.Diagnostics.DebuggerNonUserCode]
         [System.Configuration.DefaultSettingValue("914622396630175855")]

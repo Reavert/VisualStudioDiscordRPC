@@ -54,16 +54,19 @@ namespace VisualStudioDiscordRPC.Shared
 
                 LargeIcon = Settings.Default.LargeIcon == null 
                     ? RichPresenceWrapper.Icon.FileExtension
-                    : SettingsHelper.Instance.GetIconOptionFromString(Settings.Default.LargeIcon),
+                    : SettingsHelper.Instance.IconEnumMap.GetEnumValue(Settings.Default.LargeIcon),
                 SmallIcon = Settings.Default.SmallIcon == null
                     ? RichPresenceWrapper.Icon.VisualStudioVersion
-                    : SettingsHelper.Instance.GetIconOptionFromString(Settings.Default.SmallIcon),
+                    : SettingsHelper.Instance.IconEnumMap.GetEnumValue(Settings.Default.SmallIcon),
                 TitleText = Settings.Default.TitleText == null
                     ? RichPresenceWrapper.Text.FileName
-                    : SettingsHelper.Instance.GetTextOptionFromString(Settings.Default.TitleText),
+                    : SettingsHelper.Instance.TextEnumMap.GetEnumValue(Settings.Default.TitleText),
                 SubTitleText = Settings.Default.SubTitleText == null
                     ? RichPresenceWrapper.Text.SolutionName
-                    : SettingsHelper.Instance.GetTextOptionFromString(Settings.Default.SubTitleText)
+                    : SettingsHelper.Instance.TextEnumMap.GetEnumValue(Settings.Default.SubTitleText),
+                WorkTimerMode = Settings.Default.WorkTimerMode == null
+                    ? RichPresenceWrapper.TimerMode.File
+                    : SettingsHelper.Instance.TimerModeEnumMap.GetEnumValue(Settings.Default.WorkTimerMode)
             };
 
             // Localization service settings
