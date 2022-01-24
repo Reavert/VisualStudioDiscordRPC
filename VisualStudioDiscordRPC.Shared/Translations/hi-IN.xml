@@ -5,10 +5,20 @@
 	<translation id="file">फ़ाइल</translation>
 	<translation id="noActiveProject">कोई सक्रिय परियोजना नहीं है</translation>
 	<translation id="noActiveFile">कोई सक्रिय फ़ाइल नहीं है</translation>
-	<translation id="fileExtension">फ़ाइल एक्सटेंशन</translation>
-	<translation id="visualStudioVersion">Visual Studio संस्करण</translation>
-	<translation id="none">कोई नहीं</translation>
-	<translation id="fileName">फ़ाइल का नाम</translation>
-	<translation id="projectName">परियोजना का नाम</translation>
-	<translation id="solutionName">समाधान का नाम</translation>
+
+	<translation id="Icon.None">कोई नहीं</translation>
+	<translation id="Icon.VisualStudioVersion">Visual Studio संस्करण</translation>
+	<translation id="Icon.FileExtension">फ़ाइल एक्सटेंशन</translation>
+
+	<translation id="Text.None">खाली</translation>
+	<translation id="Text.VisualStudioVersion">Visual Studio संस्करण</translation>
+	<translation id="Text.FileExtension">फ़ाइल एक्सटेंशन</translation>
+	<translation id="Text.ProjectName">परियोजना का नाम</translation>
+	<translation id="Text.SolutionName">समाधान का नाम</translation>
+	<translation id="Text.FileName">फ़ाइल का नाम</translation>
+
+	<translation id="TimerMode.Disabled">विकलांग</translation>
+	<translation id="TimerMode.File">फ़ाइलों के भीतर</translation>
+	<translation id="TimerMode.Project">परियोजनाओं के भीतर</translation>
+	<translation id="TimerMode.Solution">समाधान के भीतर</translation>
 </language>

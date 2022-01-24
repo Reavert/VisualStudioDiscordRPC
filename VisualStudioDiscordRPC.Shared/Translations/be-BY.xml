@@ -5,10 +5,20 @@
 	<translation id="file">Файл</translation>
 	<translation id="noActiveProject">Няма актыўнага праекта</translation>
 	<translation id="noActiveFile">Няма актыўнага файла</translation>
-	<translation id="fileExtension">Пашырэнне файла</translation>
-	<translation id="visualStudioVersion">Версія Visual Studio</translation>
-	<translation id="none">Няма</translation>
-	<translation id="fileName">Імя файла</translation>
-	<translation id="projectName">Імя праекта</translation>
-	<translation id="solutionName">Імя рашэння</translation>
+
+	<translation id="Icon.None">Няма</translation>
+	<translation id="Icon.VisualStudioVersion">Версія Visual Studio</translation>
+	<translation id="Icon.FileExtension">Пашырэнне файла</translation>
+
+	<translation id="Text.None">Пусты</translation>
+	<translation id="Text.VisualStudioVersion">Версія Visual Studio</translation>
+	<translation id="Text.FileExtension">Пашырэнне файла</translation>
+	<translation id="Text.ProjectName">Назва праекта</translation>
+	<translation id="Text.SolutionName">Назва рашэння</translation>
+	<translation id="Text.FileName">Імя файла</translation>
+
+	<translation id="TimerMode.Disabled">Непрацаздольны</translation>
+	<translation id="TimerMode.File">Для файлаў</translation>
+	<translation id="TimerMode.Project">Для праектаў</translation>
+	<translation id="TimerMode.Solution">Для рашэнняў</translation>
 </language>

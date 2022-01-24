@@ -35,6 +35,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
                 IconEnum = new ObservableCollection<RichPresenceWrapper.Icon>(_iconEnum);
                 TextEnum = new ObservableCollection<RichPresenceWrapper.Text>(_textEnum);
+                WorkTimerModeEnum = new ObservableCollection<RichPresenceWrapper.TimerMode>(_workTimerModeEnum);
             } 
         }
 

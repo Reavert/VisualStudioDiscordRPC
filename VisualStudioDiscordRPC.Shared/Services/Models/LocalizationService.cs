@@ -11,7 +11,7 @@ namespace VisualStudioDiscordRPC.Shared.Localization
 
     public class LocalizationService<T> : ILocalizationService<T> where T : ILocalizationFile
     {
-        public IList<T> Localizations { get; private set; }
+        public IList<T> Localizations { get; }
         public T Current { get; private set; }
 
         public delegate void LocalizationChangedEventHandler();

@@ -5,10 +5,20 @@
 	<translation id="file">Fichier</translation>
 	<translation id="noActiveProject">Aucun projet actif</translation>
 	<translation id="noActiveFile">Aucun fichier actif</translation>
-	<translation id="fileExtension">Extension de fichier</translation>
-	<translation id="visualStudioVersion">Version de Visual Studio</translation>
-	<translation id="none">Aucun</translation>
-	<translation id="fileName">Nom du fichier</translation>
-	<translation id="projectName">Nom du projet</translation>
-	<translation id="solutionName">Nom de la solution</translation>
+
+	<translation id="Icon.None">Aucun</translation>
+	<translation id="Icon.VisualStudioVersion">Version de Visual Studio</translation>
+	<translation id="Icon.FileExtension">Extension de fichier</translation>
+
+	<translation id="Text.None">Vide</translation>
+	<translation id="Text.VisualStudioVersion">Version de Visual Studio</translation>
+	<translation id="Text.FileExtension">Extension de fichier</translation>
+	<translation id="Text.ProjectName">Nom du projet</translation>
+	<translation id="Text.SolutionName">Nom de la solution</translation>
+	<translation id="Text.FileName">Nom du fichier</translation>
+
+	<translation id="TimerMode.Disabled">Désactivée</translation>
+	<translation id="TimerMode.File">Dans les fichiers</translation>
+	<translation id="TimerMode.Project">Au sein des projets</translation>
+	<translation id="TimerMode.Solution">Au sein de solutions</translation>
 </language>

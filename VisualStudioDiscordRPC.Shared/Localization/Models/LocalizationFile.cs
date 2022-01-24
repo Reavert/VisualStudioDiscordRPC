@@ -1,10 +1,14 @@
-﻿namespace VisualStudioDiscordRPC.Shared.Localization.Models
+﻿using System;
+
+namespace VisualStudioDiscordRPC.Shared.Localization.Models
 {
     using System.Collections.Generic;
     using Interfaces;
 
     public abstract class LocalizationFile : ILocalizationFile
     {
+        private static string EnumerationSeparator = ".";
+
         public IDictionary<string, string> LocalizedValues { get; protected set; }
 
         public string LanguageName { get; protected set; }
@@ -17,13 +21,15 @@
         public string File => LocalizedValues["file"];
         public string NoActiveProject => LocalizedValues["noActiveProject"];
         public string NoActiveFile => LocalizedValues["noActiveFile"];
-        public string FileExtension => LocalizedValues["fileExtension"];
-        public string VisualStudioVersion => LocalizedValues["visualStudioVersion"];
-        public string None => LocalizedValues["none"];
-        public string FileName => LocalizedValues["fileName"];
-        public string ProjectName => LocalizedValues["projectName"];
-        public string SolutionName => LocalizedValues["solutionName"];
 
         #endregion
+
+        public string GetTypeValue(Type enumType, object value)
+        {
+            string nestedTypeName = enumType.Name;
+            string index = nestedTypeName + EnumerationSeparator + value;
+
+            return LocalizedValues[index];
+        }
     }
 }
