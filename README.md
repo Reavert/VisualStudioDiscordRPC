@@ -12,11 +12,11 @@ Extensions can be installed directly from Visual Studio or from the Visual Studi
 ## View
 Discord Examples:
 
-![demo1](https://user-images.githubusercontent.com/55898777/147822670-44f6bc76-c430-4f2f-81a0-774297973980.png)
+![demo_l](https://user-images.githubusercontent.com/55898777/151147335-367d4d82-ebad-41c7-9ddb-3a1df7992688.png)
 
 Settings Window Example:
 
-![image](https://user-images.githubusercontent.com/55898777/147822749-bb64634f-089d-42f7-b866-5fd96ef1e66b.png)
+![settings_l](https://user-images.githubusercontent.com/55898777/151147550-bb985d86-60a0-4b91-a5dc-5c425f30a82c.png)
 
 ## Features
 1. Shows your currently open file;
