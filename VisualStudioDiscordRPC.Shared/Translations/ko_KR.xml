@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<language name="Korean" localizedName="한국어">
+	<translation id="project">프로젝트</translation>
+	<translation id="file">파일</translation>
+	<translation id="noActiveProject">활성화 된 프로젝트 없음</translation>
+	<translation id="noActiveFile">활성화 된 파일 없음</translation>
+
+	<translation id="Icon.None">없음</translation>
+	<translation id="Icon.VisualStudioVersion">비쥬얼 스튜디오 버전 아이콘</translation>
+	<translation id="Icon.FileExtension">파일 확장 아이콘</translation>
+
+	<translation id="Text.None">없음</translation>
+	<translation id="Text.VisualStudioVersion">비쥬얼 스튜디오 버전</translation>
+	<translation id="Text.FileExtension">파일 확장자 이름</translation>
+	<translation id="Text.ProjectName">프로젝트 이름</translation>
+	<translation id="Text.SolutionName">솔루션 이름</translation>
+	<translation id="Text.FileName">파일 이름</translation>
+
+	<translation id="TimerMode.Disabled">비활성화</translation>
+	<translation id="TimerMode.File">파일 표시</translation>
+	<translation id="TimerMode.Project">프로젝트 표시</translation>
+	<translation id="TimerMode.Solution">솔루션 표시</translation>
+</language>
