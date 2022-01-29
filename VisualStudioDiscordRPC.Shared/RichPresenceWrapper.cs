@@ -92,8 +92,10 @@ namespace VisualStudioDiscordRPC.Shared
                     return;
                 }
 
+                string extension = Path.GetExtension(_document.Name).ToLower();
+
                 _documentAsset = ExtensionAssets.GetAsset(
-                    asset => asset.Extensions.Contains(Path.GetExtension(_document.Name)));
+                    asset => asset.Extensions.Contains(extension));
 
             }
         }
