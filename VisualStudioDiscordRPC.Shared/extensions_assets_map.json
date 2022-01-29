@@ -1,6 +1,41 @@
 {
   "assets": [
     {
+      "name": "C#",
+      "key": "csharp_file",
+      "extensions": [ ".cs", ".csx" ]
+    },
+    {
+      "name": "C++",
+      "key": "cpp_file",
+      "extensions": [ ".cpp", ".c++", ".cc", ".cxx" ]
+    },
+    {
+      "name": "Header file",
+      "key": "header_file",
+      "extensions": [ ".h", ".hpp", ".hh", ".hxx", ".h++" ]
+    },
+    {
+      "name": "C File",
+      "key": "c_file",
+      "extensions": [ ".c" ]
+    },
+    {
+      "name": "JSON",
+      "key": "json_file",
+      "extensions": [ ".json" ]
+    },
+    {
+      "name": "XML",
+      "key": "xml_file",
+      "extensions": [ ".xml", ".xaml", ".axaml" ]
+    },
+    {
+      "name": "Razor",
+      "key": "razor_file",
+      "extensions": [ ".cshtml", ".razor" ]
+    },
+    {
       "name": "Assembler",
       "key": "asm_file",
       "extensions": [ ".asm" ]
@@ -11,24 +46,9 @@
       "extensions": [ ".asp", ".aspx" ]
     },
     {
-      "name": "C File",
-      "key": "c_file",
-      "extensions": [ ".c" ]
-    },
-    {
       "name": "Coffee",
       "key": "coffee_file",
       "extensions": [ ".coffee", ".litcoffee" ]
-    },
-    {
-      "name": "C++",
-      "key": "cpp_file",
-      "extensions": [ ".cpp", ".c++", ".cc", ".cxx" ]
-    },
-    {
-      "name": "C#",
-      "key": "csharp_file",
-      "extensions": [ ".cs", ".csx" ]
     },
     {
       "name": "Stylesheet",
@@ -39,11 +59,6 @@
       "name": "F#",
       "key": "fsharp_file",
       "extensions": [ ".fs", ".fsi", ".fsx", ".fsscript" ]
-    },
-    {
-      "name": "Header file",
-      "key": "header_file",
-      "extensions": [ ".h", ".hpp", ".hh", ".hxx", ".h++" ]
     },
     {
       "name": "HTML",
@@ -66,11 +81,6 @@
       "extensions": [ ".js", ".cjs", ".mjs" ]
     },
     {
-      "name": "JSON",
-      "key": "json_file",
-      "extensions": [ ".json" ]
-    },
-    {
       "name": "JS React",
       "key": "jsx_file",
       "extensions": [ ".jsx" ]
@@ -91,11 +101,6 @@
       "extensions": [ ".py", ".pyi", ".pyc", ".pyd", ".pyo", ".pyw", ".pyz" ]
     },
     {
-      "name": "Razor",
-      "key": "razor_file",
-      "extensions": [ ".cshtml", ".razor" ]
-    },
-    {
       "name": "Schema",
       "key": "schema_file",
       "extensions": [ ".xsd", ".dtd", ".ini", ".ltx" ]
@@ -114,11 +119,6 @@
       "name": "VisualBasic",
       "key": "vb_file",
       "extensions": [ ".vb", ".vbs", ".vbe" ]
-    },
-    {
-      "name": "XML",
-      "key": "xml_file",
-      "extensions": [ ".xml", ".xaml", ".axaml" ]
     },
     {
       "name": "YAML",
