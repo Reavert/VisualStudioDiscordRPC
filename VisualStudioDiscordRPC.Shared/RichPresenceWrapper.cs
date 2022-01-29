@@ -92,11 +92,8 @@ namespace VisualStudioDiscordRPC.Shared
                     return;
                 }
 
-                var comparer = new ExtensionAssetComparer
-                {
-                    RequiredExtension = Path.GetExtension(_document.Name)
-                };
-                _documentAsset = ExtensionAssets.GetAsset(comparer) ?? ExtensionAsset.Default;
+                _documentAsset = ExtensionAssets.GetAsset(
+                    asset => asset.Extensions.Contains(Path.GetExtension(_document.Name)));
 
             }
         }

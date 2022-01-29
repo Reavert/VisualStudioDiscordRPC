@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 
@@ -13,9 +14,9 @@ namespace VisualStudioDiscordRPC.Shared.AssetMap.Models
             Assets = new List<T>();
         }
 
-        public T GetAsset(IAssetComparer<T> assetComparer)
+        public T GetAsset(Func<T, bool> condition)
         {
-            return Assets.FirstOrDefault(asset => assetComparer.Compare(asset));
+            return Assets.FirstOrDefault(condition);
         }
     }
 }

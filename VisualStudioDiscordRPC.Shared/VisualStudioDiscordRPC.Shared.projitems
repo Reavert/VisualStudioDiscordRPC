@@ -15,9 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Interfaces\IAssetsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\AssetMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Assets\Asset.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Comparers\DefaultAssetComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Assets\ExtensionAsset.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Comparers\ExtensionAssetComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Loaders\JsonAssetsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SettingsCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PackageController.cs" />
@@ -47,7 +45,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)VisualStudioDiscordRPCPackage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)AssetMap\Models\Comparers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\Interfaces\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\Models\" />
   </ItemGroup>

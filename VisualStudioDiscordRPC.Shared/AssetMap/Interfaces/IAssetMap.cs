@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace VisualStudioDiscordRPC.Shared.AssetMap.Interfaces
 {
@@ -6,6 +7,6 @@ namespace VisualStudioDiscordRPC.Shared.AssetMap.Interfaces
     {
         IList<T> Assets { get; set; }
 
-        T GetAsset(IAssetComparer<T> assetComparer);
+        T GetAsset(Func<T, bool> condition);
     }
 }
