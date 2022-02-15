@@ -2,6 +2,7 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
@@ -37,10 +38,10 @@ namespace VisualStudioDiscordRPC.Shared
             _installationPath = installationPath;
 
             // Extension asset map settings
-            IAssetMap<ExtensionAsset> extensionsAssetMap = new AssetMap<ExtensionAsset>();
+            IAssetMap<ExtensionAsset> extensionsAssetMap = new OptimizedAssetMap<ExtensionAsset>();
 
             var extensionAssetLoader = new JsonAssetsLoader<ExtensionAsset>();
-            extensionsAssetMap.Assets = extensionAssetLoader.LoadAssets(GetLocalFilePath("extensions_assets_map.json"));
+            extensionsAssetMap.Assets = new List<ExtensionAsset>(extensionAssetLoader.LoadAssets(GetLocalFilePath("extensions_assets_map.json")));
 
             // Discord Rich Presence client settings
             _client = new DiscordRpcClient(Settings.Default.ApplicationID);

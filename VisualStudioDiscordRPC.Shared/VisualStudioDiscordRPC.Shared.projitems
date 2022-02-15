@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Assets\Asset.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Assets\ExtensionAsset.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Loaders\JsonAssetsLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\OptimizedAssetMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SettingsCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PackageController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Interfaces\ILocalizationFile.cs" />
@@ -35,6 +36,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumerationExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumStringMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />

@@ -9,14 +9,9 @@ namespace VisualStudioDiscordRPC.Shared.AssetMap.Models
     {
         public IList<T> Assets { get; set; }
 
-        public AssetMap()
+        public T GetAsset(Func<T, bool> predicate)
         {
-            Assets = new List<T>();
-        }
-
-        public T GetAsset(Func<T, bool> condition)
-        {
-            return Assets.FirstOrDefault(condition);
+            return Assets.FirstOrDefault(predicate);
         }
     }
 }

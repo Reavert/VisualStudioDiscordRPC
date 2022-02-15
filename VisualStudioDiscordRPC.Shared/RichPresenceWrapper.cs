@@ -3,7 +3,6 @@ using EnvDTE;
 using System.Collections.Generic;
 using System.IO;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
-using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 

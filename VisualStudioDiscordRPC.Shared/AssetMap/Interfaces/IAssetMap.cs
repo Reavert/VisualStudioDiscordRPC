@@ -7,6 +7,6 @@ namespace VisualStudioDiscordRPC.Shared.AssetMap.Interfaces
     {
         IList<T> Assets { get; set; }
 
-        T GetAsset(Func<T, bool> condition);
+        T GetAsset(Func<T, bool> predicate);
     }
 }
