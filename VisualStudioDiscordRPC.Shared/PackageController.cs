@@ -4,6 +4,8 @@ using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using LibGit2Sharp;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;

@@ -2,9 +2,13 @@
 using EnvDTE;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using LibGit2Sharp;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
+using Button = DiscordRPC.Button;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -66,6 +70,24 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
+        private Repository _repository;
+        public Repository Repository
+        {
+            get => _repository;
+            set
+            {
+                _repository = value;
+                _presence.Buttons = new[]
+                {
+                    new Button
+                    {
+                        Label = "Repository",
+                        Url = _repository.Network.Remotes.First().Url
+                    }
+                };
+            }
+        }
+
         private ExtensionAsset _documentAsset;
         private Document _document;
         public Document Document
@@ -83,19 +105,27 @@ namespace VisualStudioDiscordRPC.Shared
                     _presence.Timestamps = Timestamps.Now;
                 }
 
-                _document = value;
-                _solutionName = Path.GetFileNameWithoutExtension(Path.GetFileName(_dte.Solution.FullName));
+                
+                _solutionName = Path.GetFileNameWithoutExtension(_dte.Solution.FullName);
 
-                if (value == default)
+                if (value != default)
                 {
-                    return;
+                    string extension = Path.GetExtension(value.Name).ToLower();
+
+                    _documentAsset = ExtensionAssets.GetAsset(
+                        asset => asset.Extensions.Contains(extension));
+
+                    if (_document?.DTE.Solution != value.DTE.Solution)
+                    {
+                        string repositoryName = Path.GetDirectoryName(_dte.Solution.FullName);
+                        if (Repository.IsValid(repositoryName))
+                        {
+                            Repository = new Repository(repositoryName);
+                        }
+                    }
                 }
 
-                string extension = Path.GetExtension(_document.Name).ToLower();
-
-                _documentAsset = ExtensionAssets.GetAsset(
-                    asset => asset.Extensions.Contains(extension));
-
+                _document = value;
             }
         }
 

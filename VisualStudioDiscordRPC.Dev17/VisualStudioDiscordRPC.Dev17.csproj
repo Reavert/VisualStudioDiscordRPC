@@ -63,6 +63,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="..\lib\win32\**\*.*">
+      <Link>lib\win32\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -70,6 +75,9 @@
   <ItemGroup>
     <PackageReference Include="DiscordRichPresence">
       <Version>1.0.175</Version>
+    </PackageReference>
+    <PackageReference Include="LibGit2Sharp">
+      <Version>0.26.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.31902.203" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VisualStudio.Shell.Framework">
