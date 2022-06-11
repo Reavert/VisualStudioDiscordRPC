@@ -58,6 +58,14 @@ namespace VisualStudioDiscordRPC.Shared
             set => this["WorkTimerMode"] = value;
         }
 
+        [System.Configuration.UserScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
+        public string GitLinkVisible
+        {
+            get => (string)this["GitLinkVisible"];
+            set => this["GitLinkVisible"] = value;
+        }
+
         [System.Configuration.ApplicationScopedSetting]
         [System.Diagnostics.DebuggerNonUserCode]
         [System.Configuration.DefaultSettingValue("914622396630175855")]

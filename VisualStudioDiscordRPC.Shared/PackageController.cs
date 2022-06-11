@@ -4,8 +4,6 @@ using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using LibGit2Sharp;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
@@ -50,6 +48,7 @@ namespace VisualStudioDiscordRPC.Shared
             _client.Initialize();
 
             // RP Wrapper settings
+
             RichPresenceWrapper = new RichPresenceWrapper(_client)
             {
                 Dte = _instance,
@@ -69,7 +68,8 @@ namespace VisualStudioDiscordRPC.Shared
                     : SettingsHelper.Instance.TextEnumMap.GetEnumValue(Settings.Default.SubTitleText),
                 WorkTimerMode = Settings.Default.WorkTimerMode == null
                     ? RichPresenceWrapper.TimerMode.File
-                    : SettingsHelper.Instance.TimerModeEnumMap.GetEnumValue(Settings.Default.WorkTimerMode)
+                    : SettingsHelper.Instance.TimerModeEnumMap.GetEnumValue(Settings.Default.WorkTimerMode),
+                GitLinkVisible = Settings.Default.GitLinkVisible != null && bool.Parse(Settings.Default.GitLinkVisible)
             };
 
             // Localization service settings

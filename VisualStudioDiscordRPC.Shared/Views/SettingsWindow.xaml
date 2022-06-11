@@ -96,6 +96,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <CheckBox Margin="3 7" IsChecked="{Binding GitLinkVisible}"><TextBlock>Show link to remote Git repository</TextBlock></CheckBox>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Work in progress" Margin="5" Padding="3">
@@ -105,7 +106,6 @@
                     <TextBlock Foreground="Gray">Standart</TextBlock>
                 </ComboBox>
                 <CheckBox IsEnabled="False"><TextBlock Foreground="Gray">Activate LiveShare integration</TextBlock></CheckBox>
-                <CheckBox IsEnabled="False"><TextBlock Foreground="Gray">Activate GitHub integration</TextBlock> </CheckBox>
             </StackPanel>
         </GroupBox>
     </StackPanel>

@@ -101,6 +101,16 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             } 
         }
 
+        public bool GitLinkVisible
+        {
+            get => _wrapper.GitLinkVisible;
+            set
+            {
+                _wrapper.GitLinkVisible = value;
+                Settings.Default.GitLinkVisible = value.ToString();
+            }
+        }
+
         public RichPresenceWrapper.TimerMode SelectedWorkTimerMode
         {
             get => _wrapper.WorkTimerMode;

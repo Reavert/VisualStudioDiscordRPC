@@ -3,7 +3,6 @@ using EnvDTE;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using LibGit2Sharp;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
@@ -54,6 +53,17 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
+        private bool _gitLinkVisible;
+        public bool GitLinkVisible
+        {
+            get => _gitLinkVisible;
+            set
+            {
+                _gitLinkVisible = value;
+                _presence.Buttons = _gitLinkVisible ? new[] { _repositoryButton } : null;
+            }
+        }
+
         public Icon LargeIcon { get; set; }
         public Icon SmallIcon { get; set; }
 
@@ -70,23 +80,10 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        private Repository _repository;
-        public Repository Repository
+        private readonly Button _repositoryButton = new Button
         {
-            get => _repository;
-            set
-            {
-                _repository = value;
-                _presence.Buttons = new[]
-                {
-                    new Button
-                    {
-                        Label = "Repository",
-                        Url = _repository.Network.Remotes.First().Url
-                    }
-                };
-            }
-        }
+            Label = "Repository"
+        };
 
         private ExtensionAsset _documentAsset;
         private Document _document;
@@ -105,22 +102,36 @@ namespace VisualStudioDiscordRPC.Shared
                     _presence.Timestamps = Timestamps.Now;
                 }
 
-                
                 _solutionName = Path.GetFileNameWithoutExtension(_dte.Solution.FullName);
 
                 if (value != default)
                 {
                     string extension = Path.GetExtension(value.Name).ToLower();
 
-                    _documentAsset = ExtensionAssets.GetAsset(
-                        asset => asset.Extensions.Contains(extension));
+                    _documentAsset = 
+                        ExtensionAssets.GetAsset(asset => asset.Extensions.Contains(extension)) 
+                        ?? ExtensionAsset.Default;
+
+                    if (!_gitLinkVisible)
+                    {
+                        _presence.Buttons = null;
+                    }
 
                     if (_document?.DTE.Solution != value.DTE.Solution)
                     {
-                        string repositoryName = Path.GetDirectoryName(_dte.Solution.FullName);
-                        if (Repository.IsValid(repositoryName))
+                        string solutionPath = _dte.Solution.FullName;
+
+                        if (!string.IsNullOrEmpty(solutionPath))
                         {
-                            Repository = new Repository(repositoryName);
+                            string repositoryName = Path.GetDirectoryName(solutionPath);
+                            if (Repository.IsValid(repositoryName))
+                            {
+                                _repositoryButton.Url = new Repository(repositoryName).Network.Remotes.First().Url;
+                            }
+                            else
+                            {
+                                _presence.Buttons = null;
+                            }
                         }
                     }
                 }
