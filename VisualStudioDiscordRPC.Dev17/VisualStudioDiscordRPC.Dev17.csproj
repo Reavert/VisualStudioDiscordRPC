@@ -63,8 +63,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="..\lib\win32\**\*.*">
-      <Link>lib\win32\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    <Content Include="..\lib\**\**\*.*">
+      <Link>lib\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
