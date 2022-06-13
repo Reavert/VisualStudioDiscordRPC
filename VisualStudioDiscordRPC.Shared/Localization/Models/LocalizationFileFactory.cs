@@ -1,38 +1,34 @@
-﻿using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
 
 namespace VisualStudioDiscordRPC.Shared.Localization.Models
 {
     public class LocalizationFileFactory
     {
-        private System.Type GetAcceptableLocalizationFile(string filepath)
-        {
-            if (filepath == null)
+        private readonly Dictionary<string, Func<string, ILocalizationFile>> _localizedFilesExtensions =
+            new Dictionary<string, Func<string, ILocalizationFile>>
             {
-                throw new System.ArgumentNullException(nameof(filepath));
-            }
-
-            if (filepath.EndsWith(".json", System.StringComparison.InvariantCulture))
-            {
-                return typeof(JsonLocalizationFile);
-            }
-
-            if (filepath.EndsWith(".xml", System.StringComparison.InvariantCulture))
-            {
-                return typeof(XmlLocalizationFile);
-            }
-
-            throw new System.Exception($"No acceptable type for {filepath}");
-        }
+            {".json", filename => new JsonLocalizationFile(filename)},
+            {".xml", filename => new XmlLocalizationFile(filename)}
+        };
 
         public ILocalizationFile CreateLocalizationFile(string filename)
         {
-            System.Type acceptableType = GetAcceptableLocalizationFile(filename);
+            if (filename == null)
+            {
+                throw new ArgumentNullException(nameof(filename));
+            }
 
-            var acceptableFile = (ILocalizationFile)acceptableType.GetConstructor(
-                new[] { typeof(string) })
-                ?.Invoke(new object[] { filename });
+            string extension = Path.GetExtension(filename);
 
-            return acceptableFile;
+            if (!_localizedFilesExtensions.ContainsKey(extension))
+            {
+                throw new KeyNotFoundException($"Not found localization type for {extension}");
+            }
+
+            return _localizedFilesExtensions[extension].Invoke(filename);
         }
     }
 }
