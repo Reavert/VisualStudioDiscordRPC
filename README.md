@@ -32,7 +32,7 @@ Features that are planned to be added in the future:
 - [ ] Selection of different icon themes for file extensions;
 - [x] The ability to specify for what the work-timer should count out (solution, project, file, method);
 - [ ] Integration with LiveShare;
-- [ ] Integration with Git.
+- [x] Integration with Git.
 
 ## Issues
 If you encounter a problem or have suggestions for a project, feel free to add it to the "Issues" section
