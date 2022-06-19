@@ -171,6 +171,11 @@ namespace VisualStudioDiscordRPC.Shared
 
         private bool WasTimerWorkSpaceChanged(Document newDocument)
         {
+            if (newDocument == null)
+            {
+                return false;
+            }
+
             switch (WorkTimerMode)
             {
                 case TimerMode.Disabled:
@@ -178,7 +183,7 @@ namespace VisualStudioDiscordRPC.Shared
                 case TimerMode.File:
                     return _document != newDocument;
                 case TimerMode.Project:
-                    return _document?.ActiveWindow?.Project != newDocument?.ActiveWindow?.Project;
+                    return _dte.ActiveWindow?.Project != newDocument.ActiveWindow?.Project;
                 case TimerMode.Solution:
                     return false;
             }

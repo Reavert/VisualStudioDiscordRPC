@@ -5,7 +5,7 @@ namespace VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets
 {
     public class ExtensionAsset : Asset
     {
-        public static ExtensionAsset Default =
+        public static readonly ExtensionAsset Default =
             new ExtensionAsset("text_file", "Unknown", new string[] { });
 
         public string Name { get; set; }
