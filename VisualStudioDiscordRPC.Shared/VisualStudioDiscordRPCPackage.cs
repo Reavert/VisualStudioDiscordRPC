@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using EnvDTE80;
 using VisualStudioDiscordRPC.Shared.Commands;
 using Task = System.Threading.Tasks.Task;
 
@@ -28,7 +29,7 @@ namespace VisualStudioDiscordRPC.Shared
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [Guid(VisualStudioDiscordRPCPackage.PackageGuidString)]
+    [Guid(PackageGuidString)]
     [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
@@ -62,19 +63,17 @@ namespace VisualStudioDiscordRPC.Shared
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-            
-            string installationPath = GetAssemblyLocalPathFrom(typeof(VisualStudioDiscordRPCPackage));
 
-            // DTE settings
-            var instance = (DTE)ServiceProvider.GlobalProvider.GetService(typeof(DTE));
+            string installationPath = GetAssemblyLocalPathFrom(typeof(VisualStudioDiscordRPCPackage));
             
+            // DTE settings
+            var instance = (DTE2) GetService(typeof(DTE));
             if (instance == null)
             {
                 throw new InvalidOperationException("Can not get DTE Service");
             }
 
             Controller = new PackageController(instance, installationPath);
-            
             await SettingsCommand.InitializeAsync(this);
         }
 

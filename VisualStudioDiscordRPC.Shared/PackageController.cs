@@ -1,9 +1,9 @@
 ﻿using DiscordRPC;
-using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using EnvDTE80;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
@@ -11,12 +11,13 @@ using VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
+using EnvDTE;
 
 namespace VisualStudioDiscordRPC.Shared
 {
     public class PackageController : IDisposable
     {
-        private readonly DTE _instance;
+        private readonly DTE2 _instance;
         private readonly DiscordRpcClient _client;
         private readonly string _installationPath;
 
@@ -28,13 +29,12 @@ namespace VisualStudioDiscordRPC.Shared
             return Path.Combine(_installationPath, filename);
         }
 
-        public PackageController(DTE instance, string installationPath)
+        public PackageController(DTE2 instance, string installationPath)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
             _instance = instance;
             _instance.Events.WindowEvents.WindowActivated += OnWindowActivated;
-
             _installationPath = installationPath;
 
             // Extension asset map settings
@@ -100,7 +100,7 @@ namespace VisualStudioDiscordRPC.Shared
 
             _instance.Events.WindowEvents.WindowActivated -= OnWindowActivated;
             _localizationService.LocalizationChanged -= OnLocalizationChanged;
-
+            
             _client.Dispose();
         }
     }

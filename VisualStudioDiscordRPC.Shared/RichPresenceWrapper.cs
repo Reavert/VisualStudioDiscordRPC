@@ -3,6 +3,7 @@ using EnvDTE;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using EnvDTE80;
 using LibGit2Sharp;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
@@ -69,8 +70,8 @@ namespace VisualStudioDiscordRPC.Shared
 
         private string _version;
         private string _solutionName;
-        private DTE _dte;
-        public DTE Dte
+        private DTE2 _dte;
+        public DTE2 Dte
         {
             get => _dte;
             set
@@ -106,6 +107,7 @@ namespace VisualStudioDiscordRPC.Shared
 
                 if (value != default)
                 {
+                    // Choose asset for document.
                     string extension = Path.GetExtension(value.Name).ToLower();
 
                     _documentAsset = 
@@ -191,7 +193,7 @@ namespace VisualStudioDiscordRPC.Shared
             return false;
         }
 
-        private string GetVersion(DTE dte)
+        private string GetVersion(DTE2 dte)
         {
             string versionMajor = dte.Version.Split('.')[0];
             return _versions[versionMajor];
