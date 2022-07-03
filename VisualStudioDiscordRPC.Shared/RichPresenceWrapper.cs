@@ -9,6 +9,7 @@ using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using Button = DiscordRPC.Button;
+using Microsoft.VisualStudio.Shell;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -54,6 +55,14 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
+        private readonly Button[] _buttons = new[] 
+        {
+            new Button()
+            {
+                Label = "Repository"
+            }
+        };
+
         private bool _gitLinkVisible;
         public bool GitLinkVisible
         {
@@ -61,7 +70,7 @@ namespace VisualStudioDiscordRPC.Shared
             set
             {
                 _gitLinkVisible = value;
-                _presence.Buttons = _gitLinkVisible ? new[] { _repositoryButton } : null;
+                _presence.Buttons = _gitLinkVisible ? _buttons : null;
             }
         }
 
@@ -81,11 +90,6 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        private readonly Button _repositoryButton = new Button
-        {
-            Label = "Repository"
-        };
-
         private ExtensionAsset _documentAsset;
         private Document _document;
         public Document Document
@@ -93,6 +97,8 @@ namespace VisualStudioDiscordRPC.Shared
             get => _document;
             set
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (_document == value)
                 {
                     return;
@@ -114,11 +120,6 @@ namespace VisualStudioDiscordRPC.Shared
                         ExtensionAssets.GetAsset(asset => asset.Extensions.Contains(extension)) 
                         ?? ExtensionAsset.Default;
 
-                    if (!_gitLinkVisible)
-                    {
-                        _presence.Buttons = null;
-                    }
-
                     if (_document?.DTE.Solution != value.DTE.Solution)
                     {
                         string solutionPath = _dte.Solution.FullName;
@@ -126,9 +127,10 @@ namespace VisualStudioDiscordRPC.Shared
                         if (!string.IsNullOrEmpty(solutionPath))
                         {
                             string repositoryName = Path.GetDirectoryName(solutionPath);
-                            if (Repository.IsValid(repositoryName))
+                            if (_gitLinkVisible && Repository.IsValid(repositoryName))
                             {
-                                _repositoryButton.Url = new Repository(repositoryName).Network.Remotes.First().Url;
+                                _buttons[0].Url = new Repository(repositoryName).Network.Remotes.First().Url;
+                                _presence.Buttons = _buttons;
                             }
                             else
                             {
