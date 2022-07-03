@@ -30,7 +30,6 @@ jobs:
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
 
   publish:
-    needs: build
     steps:
       - name: Publish extension for Visual Studio 2019 to Marketplace
         uses: cezarypiatek/VsixPublisherAction@0.2
