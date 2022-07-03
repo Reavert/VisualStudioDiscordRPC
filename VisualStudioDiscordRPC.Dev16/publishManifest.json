@@ -5,8 +5,7 @@
         "other"
     ],
     "identity": {
-        "internalName": "vsdrp2019",
-        "tags": [ "visual-studio", "discord", "rpc", "rich-presence", "2019" ]
+        "internalName": "vsdrp2019"
     },
     "overview": "../overview.md",
     "priceCategory": "free",

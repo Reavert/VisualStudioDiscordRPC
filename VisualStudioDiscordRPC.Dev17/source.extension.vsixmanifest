@@ -7,7 +7,7 @@
         <License>LICENSE.txt</License>
         <Icon>icon.png</Icon>
         <PreviewImage>icon.png</PreviewImage>
-        <Tags>discord, rpc, visual studio 2022, vs 2022, rich presence, 2022</Tags>
+        <Tags>discord;rpc;visual-studio;rich-presence;2022</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">

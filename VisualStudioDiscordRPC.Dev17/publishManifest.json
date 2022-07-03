@@ -5,8 +5,7 @@
         "other"
     ],
     "identity": {
-        "internalName": "vsdrp2022",
-        "tags": [ "visual-studio", "discord", "rpc", "rich-presence", "2022" ]
+        "internalName": "vsdrp2022"
     },
     "overview": "../overview.md",
     "priceCategory": "free",
