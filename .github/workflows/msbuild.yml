@@ -33,11 +33,11 @@ jobs:
       with:
           extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
           publish-manifest-file: ${{ env.SOLUTION_FILE_PATH}}\${{ env.VS2019_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
-          personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
+          personal-access-code: ${{ secrets.MARKETPLACETOKEN }}
 
     - name: Publish extension for Visual Studio 2022 to Marketplace
       uses: cezarypiatek/VsixPublisherAction@0.2
       with:
           extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
           publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
-          personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
+          personal-access-code: ${{ secrets.MARKETPLACETOKEN }}
