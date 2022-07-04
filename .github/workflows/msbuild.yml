@@ -15,7 +15,7 @@ env:
 jobs:
   build:
     runs-on: windows-latest
-    
+
     steps:
     - uses: actions/checkout@v2
 
@@ -34,17 +34,17 @@ jobs:
       uses: cezarypiatek/VsixPublisherAction@0.2
       with:
           extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
-          publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\\${{ env.VS2019_PROJECT }}\\${{ env.PUBLISH_MANIFEST_FILENAME }}
+          publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
           personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
 
     - name: Publish extension for Visual Studio 2022 to Marketplace
       uses: cezarypiatek/VsixPublisherAction@0.2
       with:
           extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
-          publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\\${{ env.VS2022_PROJECT }}\\${{ env.PUBLISH_MANIFEST_FILENAME }}
+          publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
           personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
 
-    - name: Create release
+    - name: Create GitHub release
       id: create_release
       uses: actions/create-release@v1
       env:
@@ -57,10 +57,13 @@ jobs:
         draft: true
         prerelease: false
 
-    - name: Upload GitHub release
-      uses: xresloader/upload-to-github-release@master
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix;${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
-        release_id: ${{ steps.create_release.outputs.id }}
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
+        asset_name: ${{ env.VS2019_PROJECT }}.vsix
+        asset_content_type: application/zip
