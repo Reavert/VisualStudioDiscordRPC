@@ -63,7 +63,7 @@ jobs:
         prerelease: false
 
     - name: Upload GitHub release
-    - uses: xresloader/upload-to-github-release@master
+      uses: xresloader/upload-to-github-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
