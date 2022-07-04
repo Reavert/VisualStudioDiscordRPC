@@ -8,8 +8,16 @@ env:
   SOLUTION_FILE_PATH: .
   BUILD_CONFIGURATION: Release
   PUBLISH_MANIFEST_FILENAME: publishManifest.json
+  
   VS2019_PROJECT: VisualStudioDiscordRPC.Dev16
   VS2022_PROJECT: VisualStudioDiscordRPC.Dev17
+
+  VSIX_PATH_2019: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
+  PUBLISH_MANIFEST_PATH_2019: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+
+  VSIX_PATH_2022: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
+  PUBLISH_MANIFEST_PATH_2022: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+
 jobs:
   build:
     runs-on: windows-latest
@@ -27,13 +35,6 @@ jobs:
     - name: Build
       working-directory: ${{ env.GITHUB_WORKSPACE }}
       run: msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
-
-      env:
-        VSIX_PATH_2019: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
-        PUBLISH_MANIFEST_PATH_2019: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
-
-        VSIX_PATH_2022: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
-        PUBLISH_MANIFEST_PATH_2022: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
 
     - name: Publish extension for Visual Studio 2019 to Marketplace
       uses: cezarypiatek/VsixPublisherAction@0.2
