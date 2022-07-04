@@ -12,15 +12,16 @@ env:
   VS2019_PROJECT: VisualStudioDiscordRPC.Dev16
   VS2022_PROJECT: VisualStudioDiscordRPC.Dev17
 
-  VSIX_PATH_2019: ${{ SOLUTION_FILE_PATH }}\${{ VS2019_PROJECT }}\bin\Release\${{ VS2019_PROJECT }}.vsix
-  PUBLISH_MANIFEST_PATH_2019: ${{ SOLUTION_FILE_PATH }}\${{ VS2019_PROJECT }}\${{ PUBLISH_MANIFEST_FILENAME }}
-
-  VSIX_PATH_2022: ${{ SOLUTION_FILE_PATH }}\${{ VS2022_PROJECT }}\bin\Release\${{ VS2022_PROJECT }}.vsix
-  PUBLISH_MANIFEST_PATH_2022: ${{ SOLUTION_FILE_PATH }}\${{ VS2022_PROJECT }}\${{ PUBLISH_MANIFEST_FILENAME }}
-
 jobs:
   build:
     runs-on: windows-latest
+
+    env:
+      VSIX_PATH_2019: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
+      PUBLISH_MANIFEST_PATH_2019: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+
+      VSIX_PATH_2022: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
+      PUBLISH_MANIFEST_PATH_2022: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
 
     steps:
     - uses: actions/checkout@v2
