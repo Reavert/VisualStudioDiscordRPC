@@ -67,6 +67,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _wrapper.LargeIcon = value;
+                _wrapper.Update();
                 Settings.Default.LargeIcon = SettingsHelper.Instance.IconEnumMap.GetString(value);
             }
         }
@@ -77,6 +78,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _wrapper.SmallIcon = value;
+                _wrapper.Update();
                 Settings.Default.SmallIcon = SettingsHelper.Instance.IconEnumMap.GetString(value);
             } 
         }
@@ -87,6 +89,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _wrapper.TitleText = value;
+                _wrapper.Update();
                 Settings.Default.TitleText = SettingsHelper.Instance.TextEnumMap.GetString(value);
             }
         }
@@ -97,6 +100,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _wrapper.SubTitleText = value;
+                _wrapper.Update();
                 Settings.Default.SubTitleText = SettingsHelper.Instance.TextEnumMap.GetString(value);
             } 
         }
@@ -107,6 +111,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _wrapper.GitLinkVisible = value;
+                _wrapper.Update();
                 Settings.Default.GitLinkVisible = value.ToString();
             }
         }
@@ -117,6 +122,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _wrapper.WorkTimerMode = value;
+                _wrapper.Update();
                 Settings.Default.WorkTimerMode = SettingsHelper.Instance.TimerModeEnumMap.GetString(value);
             }
         }
