@@ -66,6 +66,15 @@ namespace VisualStudioDiscordRPC.Shared
             set => this["GitLinkVisible"] = value;
         }
 
+        [System.Configuration.UserScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
+        [System.Configuration.DefaultSettingValue("false")]
+        public bool Updated
+        {
+            get => (bool)this["Updated"];
+            set => this["Updated"] = value;
+        }
+
         [System.Configuration.ApplicationScopedSetting]
         [System.Diagnostics.DebuggerNonUserCode]
         [System.Configuration.DefaultSettingValue("914622396630175855")]

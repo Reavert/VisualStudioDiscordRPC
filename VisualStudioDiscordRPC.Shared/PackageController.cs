@@ -28,7 +28,7 @@ namespace VisualStudioDiscordRPC.Shared
         {
             return Path.Combine(_installationPath, filename);
         }
-
+       
         public PackageController(DTE2 instance, string installationPath)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -46,9 +46,16 @@ namespace VisualStudioDiscordRPC.Shared
             // Discord Rich Presence client settings
             _client = new DiscordRpcClient(Settings.Default.ApplicationID);
             _client.Initialize();
+            
+            if (!Settings.Default.Updated)
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.Updated = true;
+
+                Settings.Default.Save();
+            }
 
             // RP Wrapper settings
-
             RichPresenceWrapper = new RichPresenceWrapper(_client)
             {
                 Dte = _instance,
