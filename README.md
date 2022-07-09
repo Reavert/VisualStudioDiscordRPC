@@ -28,14 +28,17 @@ Settings Window Example:
 ## Roadmap
 Features that are planned to be added in the future:
 - [x] Flexible configuration of the display of your activity in Discord;
+- [x] Integration with Git;
+- [x] The ability to specify for what the work-timer should count out (solution, project, file, method);
 - [ ] Update default icon theme;
 - [ ] Selection of different icon themes for file extensions;
-- [x] The ability to specify for what the work-timer should count out (solution, project, file, method);
-- [ ] Integration with LiveShare;
-- [x] Integration with Git.
+- [ ] Integration with LiveShare.
+
 
 ## Issues
 If you encounter a problem or have suggestions for a project, feel free to add it to the "Issues" section
 
 ## Contributing
-If you want to help with the development of this extension, feel free to make a Pull Request.
+If you want to help with development of this extension, feel free to make a Pull Request.
+
+If you want to help with translating the extension into other languages, you can go to the application's [OneSky collaboration site](https://ryavel.oneskyapp.com/collaboration/project?id=185653), feel free to translate. 
