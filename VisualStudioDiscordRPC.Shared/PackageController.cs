@@ -12,17 +12,19 @@ using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using EnvDTE;
+using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared
 {
     public class PackageController : IDisposable
     {
-        private readonly DTE2 _instance;
         private readonly DiscordRpcClient _client;
         private readonly string _installationPath;
 
         private readonly LocalizationService<LocalizationFile> _localizationService;
         public RichPresenceWrapper RichPresenceWrapper;
+
+        private IObserver _observer;
 
         private string GetLocalFilePath(string filename)
         {
@@ -33,8 +35,19 @@ namespace VisualStudioDiscordRPC.Shared
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            _instance = instance;
-            _instance.Events.WindowEvents.WindowActivated += OnWindowActivated;
+            ServiceProvider serviceProvider = ServiceProvider.GlobalProvider;
+            var currentDte = (DTE2)serviceProvider.GetService(typeof(DTE));
+            if (currentDte == null)
+            {
+                throw new InvalidOperationException("Can not get DTE Service");
+            }
+
+            _observer = new VsObserver(currentDte);
+
+            _observer.DocumentChanged += OnVsDocumentChanged;
+            _observer.ProjectChanged += OnVsProjectChanged;
+            _observer.SolutionChanged += OnVsSolutionChanged;
+
             _installationPath = installationPath;
 
             // Extension asset map settings
@@ -87,17 +100,24 @@ namespace VisualStudioDiscordRPC.Shared
             _localizationService.SelectLanguage(Settings.Default.Language);
         }
 
+        private void OnVsSolutionChanged(Solution solution)
+        {
+
+        }
+
+        private void OnVsProjectChanged(Project project)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnVsDocumentChanged(Document document)
+        {
+            throw new NotImplementedException();
+        }
+
         private void OnLocalizationChanged()
         {
             RichPresenceWrapper.Localization = _localizationService.Current;
-            RichPresenceWrapper.Update();
-        }
-
-        private void OnWindowActivated(Window gotFocus, Window lostFocus)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            RichPresenceWrapper.Document = _instance.ActiveDocument;
             RichPresenceWrapper.Update();
         }
 
@@ -105,7 +125,10 @@ namespace VisualStudioDiscordRPC.Shared
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            _instance.Events.WindowEvents.WindowActivated -= OnWindowActivated;
+            _observer.DocumentChanged -= OnVsDocumentChanged;
+            _observer.ProjectChanged -= OnVsProjectChanged;
+            _observer.SolutionChanged -= OnVsSolutionChanged;
+
             _localizationService.LocalizationChanged -= OnLocalizationChanged;
             
             _client.Dispose();

@@ -19,6 +19,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Loaders\JsonAssetsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\OptimizedAssetMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SettingsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\AbstractSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\SlotUpdateHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\ExtensionIconSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Observers\ObserverDelegates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Observers\IObserver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Observers\VsObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PackageController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Interfaces\ILocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ILocalizationService.cs" />
@@ -36,6 +42,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\ISlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumerationExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumStringMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
