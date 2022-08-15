@@ -26,7 +26,7 @@ namespace VisualStudioDiscordRPC.Shared.Observers
             _dte.Events.WindowEvents.WindowActivated += OnWindowActivated;
         }
 
-        public void UnObserve()
+        public void Unobserve()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             _dte.Events.WindowEvents.WindowActivated -= OnWindowActivated;
@@ -47,14 +47,14 @@ namespace VisualStudioDiscordRPC.Shared.Observers
                 SolutionChanged?.Invoke(_solution);
             }
 
-            Project focusWindowProject = gotFocus.Project;
-            if (focusWindowProject != lostFocus.Project)
+            Project focusWindowProject = gotFocus?.Project;
+            if (focusWindowProject != lostFocus?.Project)
             {
                 ProjectChanged?.Invoke(focusWindowProject);
             }
 
-            Document focusWindowDocument = gotFocus.Document;
-            if (focusWindowDocument != lostFocus.Document)
+            Document focusWindowDocument = gotFocus?.Document;
+            if (focusWindowDocument != lostFocus?.Document)
             {
                 DocumentChanged?.Invoke(focusWindowDocument);
             }

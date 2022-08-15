@@ -10,7 +10,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots
     {
         private IAssetMap<ExtensionAsset> _assetMap;
 
-        protected ExtensionIconSlot(IAssetMap<ExtensionAsset> assetMap, IObserver observer, SlotUpdateHandler slotUpdateHandler) : 
+        public ExtensionIconSlot(IAssetMap<ExtensionAsset> assetMap, IObserver observer, SlotUpdateHandler slotUpdateHandler) : 
             base(observer, slotUpdateHandler)
         {
             _assetMap = assetMap;
@@ -30,8 +30,17 @@ namespace VisualStudioDiscordRPC.Shared.Slots
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
-            string extension = Path.GetExtension(document.Name);
-            ExtensionAsset suitableAsset = _assetMap.GetAsset(asset => asset.Extensions.Contains(extension));
+            ExtensionAsset suitableAsset;
+
+            if (document != null)
+            {
+                string extension = Path.GetExtension(document.Name);
+                suitableAsset = _assetMap.GetAsset(asset => asset.Extensions.Contains(extension));
+            }
+            else
+            {
+                suitableAsset = ExtensionAsset.Default;
+            }
 
             SlotUpdateHandler.Update(suitableAsset.Key);
         }
