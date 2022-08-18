@@ -10,8 +10,8 @@ namespace VisualStudioDiscordRPC.Shared.Slots
     {
         private IAssetMap<ExtensionAsset> _assetMap;
 
-        public ExtensionIconSlot(IAssetMap<ExtensionAsset> assetMap, IObserver observer, SlotUpdateHandler slotUpdateHandler) : 
-            base(observer, slotUpdateHandler)
+        public ExtensionIconSlot(IAssetMap<ExtensionAsset> assetMap, IObserver observer) : 
+            base(observer)
         {
             _assetMap = assetMap;
         }
@@ -42,7 +42,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots
                 suitableAsset = ExtensionAsset.Default;
             }
 
-            SlotUpdateHandler.Update(suitableAsset.Key);
+            PerformUpdate(suitableAsset.Key);
         }
     }
 }

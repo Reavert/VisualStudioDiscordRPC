@@ -1,16 +1,21 @@
-﻿using VisualStudioDiscordRPC.Shared.Observers;
+﻿using System;
+using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Slots
 {
     public abstract class AbstractSlot : ISlot
     {
         protected IObserver Observer;
-        protected SlotUpdateHandler SlotUpdateHandler;
+        public event Action<string> UpdatePerformed;
 
-        public AbstractSlot(IObserver observer, SlotUpdateHandler slotUpdateHandler)
+        public AbstractSlot(IObserver observer)
         {
             Observer = observer;
-            SlotUpdateHandler = slotUpdateHandler;
+        }
+
+        protected void PerformUpdate(string data)
+        {
+            UpdatePerformed?.Invoke(data);
         }
 
         public abstract void Enable();
