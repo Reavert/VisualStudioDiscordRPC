@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\OptimizedAssetMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SettingsCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AbstractSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\FileNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\SlotUpdateHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ExtensionIconSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\ObserverDelegates.cs" />
