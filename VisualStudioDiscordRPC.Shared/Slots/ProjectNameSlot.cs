@@ -1,47 +1,46 @@
 ﻿using EnvDTE;
-using System;
-using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
+using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 
 namespace VisualStudioDiscordRPC.Shared.Slots
 {
-    public class FileNameSlot : AbstractSlot
+    public class ProjectNameSlot : AbstractSlot
     {
         private LocalizationService<LocalizationFile> _localizationService;
 
-        public FileNameSlot(IObserver observer) : base(observer)
+        public ProjectNameSlot(IObserver observer) : base(observer)
         {
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
         }
 
         public override void Enable()
         {
-            Observer.DocumentChanged += OnDocumentChanged;
+            Observer.ProjectChanged += OnProjectChanged;
         }
 
         public override void Disable()
         {
-            Observer.DocumentChanged -= OnDocumentChanged;
+            Observer.ProjectChanged -= OnProjectChanged;
         }
 
-        private void OnDocumentChanged(Document document)
+        private void OnProjectChanged(Project project)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
-            string filenameText;
-            if (document != null)
+            string projectNameText;
+            if (project != null)
             {
-                filenameText =
-                    string.Format(ConstantStrings.ActiveFileFormat, _localizationService.Current.File, document.Name);
+                projectNameText =
+                    string.Format(ConstantStrings.ActiveProjectFormat, _localizationService.Current.Project, project.Name);
             }
             else
             {
-                filenameText = _localizationService.Current.NoActiveFile;
+                projectNameText = _localizationService.Current.NoActiveProject;
             }
-            
-            PerformUpdate(filenameText);
+
+            PerformUpdate(projectNameText);
         }
     }
 }
