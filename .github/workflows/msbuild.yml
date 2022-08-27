@@ -57,8 +57,7 @@ jobs:
         draft: true
         prerelease: false
 
-    - name: Upload Release Asset
-      id: upload-release-asset
+    - name: Upload Release Asset for 2019 Visual Studio
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,4 +65,14 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
         asset_name: ${{ env.VS2019_PROJECT }}.vsix
+        asset_content_type: application/zip
+
+    - name: Upload Release Asset for 2022 Visual Studio
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
+        asset_name: ${{ env.VS2022_PROJECT }}.vsix
         asset_content_type: application/zip
