@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<language name="Chinese Simplified" localizedName="简体中文">
+	<translation id="project">项目</translation>
+	<translation id="file">文件</translation>
+	<translation id="noActiveProject">无活动项目</translation>
+	<translation id="noActiveFile">无活动文件</translation>
+
+	<translation id="Icon.None">没有任何</translation>
+	<translation id="Icon.VisualStudioVersion">版本</translation>
+	<translation id="Icon.FileExtension">文件扩展名</translation>
+
+	<translation id="Text.None">没有任何</translation>
+	<translation id="Text.VisualStudioVersion">版本</translation>
+	<translation id="Text.FileExtension">文件扩展名</translation>
+	<translation id="Text.ProjectName">项目名称</translation>
+	<translation id="Text.SolutionName">解决方案名称</translation>
+	<translation id="Text.FileName">文件名称</translation>
+
+	<translation id="TimerMode.Disabled">禁用</translation>
+	<translation id="TimerMode.File">文件内</translation>
+	<translation id="TimerMode.Project">项目内</translation>
+	<translation id="TimerMode.Solution">解决方案内</translation>
+</language>
