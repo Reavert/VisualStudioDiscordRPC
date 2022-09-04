@@ -11,8 +11,10 @@ using VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
-using EnvDTE;
 using VisualStudioDiscordRPC.Shared.Observers;
+using VisualStudioDiscordRPC.Shared.Slots;
+using EnvDTE;
+
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -43,11 +45,6 @@ namespace VisualStudioDiscordRPC.Shared
             }
 
             _observer = new VsObserver(currentDte);
-
-            _observer.DocumentChanged += OnVsDocumentChanged;
-            _observer.ProjectChanged += OnVsProjectChanged;
-            _observer.SolutionChanged += OnVsSolutionChanged;
-
             _installationPath = installationPath;
 
             // Extension asset map settings
@@ -59,7 +56,12 @@ namespace VisualStudioDiscordRPC.Shared
             // Discord Rich Presence client settings
             _client = new DiscordRpcClient(Settings.Default.ApplicationID);
             _client.Initialize();
-            
+
+            // Localization service settings
+            _localizationService = new LocalizationService<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
+            ServiceRepository.Default.AddService(_localizationService);
+            _localizationService.SelectLanguage(Settings.Default.Language);
+
             if (!Settings.Default.Updated)
             {
                 Settings.Default.Upgrade();
@@ -68,7 +70,24 @@ namespace VisualStudioDiscordRPC.Shared
                 Settings.Default.Save();
             }
 
-            // RP Wrapper settings
+            var largeIconUpdater = new SlotUpdateHandler((string data) => _client.UpdateLargeAsset(data));
+            var extensionIconSlot = new ExtensionIconSlot(extensionsAssetMap, _observer);
+            largeIconUpdater.Slot = extensionIconSlot;
+
+            var detailsTextUpdater = new SlotUpdateHandler((string data) => _client.UpdateDetails(data));
+            var filenameSlot = new FileNameSlot(_observer);
+            detailsTextUpdater.Slot = filenameSlot;
+
+            var stateTextUpdater = new SlotUpdateHandler((string data) => _client.UpdateState(data));
+            var projectNameSlot = new ProjectNameSlot(_observer);
+            stateTextUpdater.Slot = projectNameSlot;
+
+            _observer.Observe();
+            extensionIconSlot.Enable();
+            filenameSlot.Enable();
+            projectNameSlot.Enable();
+
+            /*// RP Wrapper settings
             RichPresenceWrapper = new RichPresenceWrapper(_client)
             {
                 Dte = _instance,
@@ -90,48 +109,16 @@ namespace VisualStudioDiscordRPC.Shared
                     ? RichPresenceWrapper.TimerMode.File
                     : SettingsHelper.Instance.TimerModeEnumMap.GetEnumValue(Settings.Default.WorkTimerMode),
                 GitLinkVisible = Settings.Default.GitLinkVisible != null && bool.Parse(Settings.Default.GitLinkVisible)
-            };
-
-            // Localization service settings
-            _localizationService = new LocalizationService<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
-            ServiceRepository.Default.AddService(_localizationService);
-            
-            _localizationService.LocalizationChanged += OnLocalizationChanged;
-            _localizationService.SelectLanguage(Settings.Default.Language);
-        }
-
-        private void OnVsSolutionChanged(Solution solution)
-        {
-
-        }
-
-        private void OnVsProjectChanged(Project project)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnVsDocumentChanged(Document document)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnLocalizationChanged()
-        {
-            RichPresenceWrapper.Localization = _localizationService.Current;
-            RichPresenceWrapper.Update();
+            };*/
         }
 
         public void Dispose()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            _observer.DocumentChanged -= OnVsDocumentChanged;
-            _observer.ProjectChanged -= OnVsProjectChanged;
-            _observer.SolutionChanged -= OnVsSolutionChanged;
+            /*ThreadHelper.ThrowIfNotOnUIThread();
 
             _localizationService.LocalizationChanged -= OnLocalizationChanged;
             
-            _client.Dispose();
+            _client.Dispose();*/
         }
     }
 }
