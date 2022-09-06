@@ -61,6 +61,7 @@ namespace VisualStudioDiscordRPC.Shared
                 Dte = _instance,
                 ExtensionAssets = extensionsAssetMap,
 
+                Enabled = bool.TryParse(Settings.Default.RichPresenceEnabled, out bool richPresenceEnabled) && richPresenceEnabled,
                 LargeIcon = Settings.Default.LargeIcon == null 
                     ? RichPresenceWrapper.Icon.FileExtension
                     : SettingsHelper.Instance.IconEnumMap.GetEnumValue(Settings.Default.LargeIcon),

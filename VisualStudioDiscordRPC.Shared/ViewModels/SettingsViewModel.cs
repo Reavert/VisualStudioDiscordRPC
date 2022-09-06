@@ -39,6 +39,17 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             } 
         }
 
+        public bool RichPresenceEnabled
+        {
+            get => _wrapper.Enabled;
+            set
+            {
+                _wrapper.Enabled = value;
+                _wrapper.Update();
+                Settings.Default.RichPresenceEnabled = value.ToString();
+            }
+        }
+
         private ObservableCollection<RichPresenceWrapper.Icon> _iconEnum;
         public ObservableCollection<RichPresenceWrapper.Icon> IconEnum
         {

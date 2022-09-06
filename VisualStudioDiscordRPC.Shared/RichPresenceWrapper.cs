@@ -43,8 +43,14 @@ namespace VisualStudioDiscordRPC.Shared
         public Text TitleText { get; set; }
         public Text SubTitleText { get; set; }
 
-        private TimerMode _workTimerMode;
+        private bool _enabled;
+        public bool Enabled
+        {
+            get => _enabled;
+            set => _enabled = value;
+        }
 
+        private TimerMode _workTimerMode;
         public TimerMode WorkTimerMode
         {
             get => _workTimerMode;
@@ -287,6 +293,12 @@ namespace VisualStudioDiscordRPC.Shared
 
         public void Update()
         {
+            if (!Enabled)
+            {
+                _client.ClearPresence();
+                return;
+            }
+
             _presence.Details = GetText(TitleText);
             _presence.State = GetText(SubTitleText);
 
