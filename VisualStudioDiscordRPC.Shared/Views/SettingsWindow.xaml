@@ -21,7 +21,7 @@
                       Height="20"
                       Width="50"
                       HorizontalAlignment="Right"
-                      IsChecked="{Binding RichTextEnabled}"
+                      IsChecked="{Binding RichPresenceEnabled}"
                       Margin="0,5,5,0">
             <ToggleButton.Template>
                 <ControlTemplate TargetType="ToggleButton">

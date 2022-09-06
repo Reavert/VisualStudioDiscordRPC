@@ -39,14 +39,14 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             } 
         }
 
-        public bool RichTextEnabled
+        public bool RichPresenceEnabled
         {
             get => _wrapper.Enabled;
             set
             {
                 _wrapper.Enabled = value;
                 _wrapper.Update();
-                Settings.Default.RichTextEnabled = value.ToString();
+                Settings.Default.RichPresenceEnabled = value.ToString();
             }
         }
 

@@ -293,32 +293,31 @@ namespace VisualStudioDiscordRPC.Shared
 
         public void Update()
         {
-            if (Enabled)
-            {
-                _presence.Details = GetText(TitleText);
-                _presence.State = GetText(SubTitleText);
-
-                Icon largeIcon = LargeIcon;
-                Icon smallIcon = SmallIcon;
-
-                if (Document == null)
-                {
-                    largeIcon = Icon.VisualStudioVersion;
-                    smallIcon = Icon.None;
-                }
-
-                _presence.Assets.LargeImageKey = GetAssetKey(largeIcon);
-                _presence.Assets.SmallImageKey = GetAssetKey(smallIcon);
-
-                _presence.Assets.LargeImageText = GetAssetText(largeIcon);
-                _presence.Assets.SmallImageText = GetAssetText(smallIcon);
-
-                _client.SetPresence(_presence);
-            }
-            else
+            if (!Enabled)
             {
                 _client.ClearPresence();
+                return;
             }
+
+            _presence.Details = GetText(TitleText);
+            _presence.State = GetText(SubTitleText);
+
+            Icon largeIcon = LargeIcon;
+            Icon smallIcon = SmallIcon;
+
+            if (Document == null)
+            {
+                largeIcon = Icon.VisualStudioVersion;
+                smallIcon = Icon.None;
+            }
+
+            _presence.Assets.LargeImageKey = GetAssetKey(largeIcon);
+            _presence.Assets.SmallImageKey = GetAssetKey(smallIcon);
+
+            _presence.Assets.LargeImageText = GetAssetText(largeIcon);
+            _presence.Assets.SmallImageText = GetAssetText(smallIcon);
+
+            _client.SetPresence(_presence);
         }
     }
 }

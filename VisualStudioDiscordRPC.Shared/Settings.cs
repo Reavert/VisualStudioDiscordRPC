@@ -11,10 +11,10 @@ namespace VisualStudioDiscordRPC.Shared
 
         [System.Configuration.UserScopedSetting]
         [System.Configuration.DefaultSettingValue("true")]
-        public string RichTextEnabled
+        public string RichPresenceEnabled
         {
-            get => (string)this["RichTextEnabled"];
-            set => this["RichTextEnabled"] = value;
+            get => (string)this["RichPresenceEnabled"];
+            set => this["RichPresenceEnabled"] = value;
         }
 
         [System.Configuration.UserScopedSetting]
