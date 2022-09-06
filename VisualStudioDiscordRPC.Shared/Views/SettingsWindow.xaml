@@ -13,99 +13,142 @@
         Title="Settings"
         d:DataContext="{d:DesignInstance local:SettingsViewModel}">
     <Window.Resources>
-        <converters:LocalizationConverter x:Key="LocalizationConverter"/>
+        <converters:LocalizationConverter x:Key="LocalizationConverter" />
     </Window.Resources>
+
     <StackPanel Margin="2">
-        <GroupBox Header="General" Margin="5" Padding="3">
-        <StackPanel>
-            <TextBlock  Text="Language:" />
-            <ComboBox 
-                ItemsSource="{Binding LocalizationManager.Localizations}" 
-                SelectedItem="{Binding SelectedLocalization, Mode=TwoWay}"
-                Margin="3">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} ({1})">
-                                    <Binding Path="LanguageName" />
-                                    <Binding Path="LocalizedLanguageName" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            </StackPanel>
-        </GroupBox>
-        <GroupBox Header="Display" Margin="5" Padding="3">
+        <ToggleButton x:Name="Toggle"
+                      Height="20"
+                      Width="50"
+                      HorizontalAlignment="Right"
+                      IsChecked="{Binding RichTextEnabled}"
+                      Margin="0,5,5,0">
+            <ToggleButton.Template>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="B1"
+                            Background="LightSlateGray"
+                            CornerRadius="10"
+                            Padding="1">
+                        <Border x:Name="B2"
+                                Background="White"
+                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                CornerRadius="{Binding CornerRadius, ElementName=B1}"
+                                HorizontalAlignment="Left">
+                            <ContentPresenter />
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked"
+                                 Value="True">
+                            <Setter TargetName="B2"
+                                    Property="HorizontalAlignment"
+                                    Value="Right" />
+                            <Setter TargetName="B1"
+                                    Property="Background"
+                                    Value="CornflowerBlue" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ToggleButton.Template>
+        </ToggleButton>
+
+        <GroupBox Header="General"
+                  Margin="5"
+                  Padding="3">
             <StackPanel>
-                <TextBlock Text="Large icon:"/>
-                <ComboBox
-                    x:Name="LargeIconEnum"
-                    ItemsSource="{Binding IconEnum}" 
-                    SelectedItem="{Binding SelectedLargeIcon, Mode=TwoWay}"
-                    Margin="3">
+                <TextBlock  Text="Language:" />
+                <ComboBox ItemsSource="{Binding LocalizationManager.Localizations}"
+                          SelectedItem="{Binding SelectedLocalization, Mode=TwoWay}"
+                          Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} ({1})">
+                                        <Binding Path="LanguageName" />
+                                        <Binding Path="LocalizedLanguageName" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <TextBlock Text="Small icon:"/>
-                <ComboBox 
-                    ItemsSource="{Binding IconEnum}"
-                    SelectedItem="{Binding SelectedSmallIcon, Mode=TwoWay}"
-                    Margin="3">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <TextBlock Text="Title text:"/>
-                <ComboBox 
-                    ItemsSource="{Binding TextEnum}"
-                    SelectedItem="{Binding SelectedTitleText}"
-                    Margin="3">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <TextBlock Text="Subtitle text:"/>
-                <ComboBox 
-                    ItemsSource="{Binding TextEnum}"
-                    SelectedItem="{Binding SelectedSubTitleText}"
-                    Margin="3">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <TextBlock Text="Work timer mode:"/>
-                <ComboBox 
-                    ItemsSource="{Binding WorkTimerModeEnum}"
-                    SelectedItem="{Binding SelectedWorkTimerMode}"
-                    Margin="3">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <CheckBox Margin="3 7" IsChecked="{Binding GitLinkVisible}"><TextBlock>Show link to remote Git repository</TextBlock></CheckBox>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Work in progress" Margin="5" Padding="3">
+        <GroupBox Header="Display"
+                  Margin="5"
+                  Padding="3">
+            <StackPanel>
+                <TextBlock Text="Large icon:" />
+                <ComboBox x:Name="LargeIconEnum"
+                          ItemsSource="{Binding IconEnum}"
+                          SelectedItem="{Binding SelectedLargeIcon, Mode=TwoWay}"
+                          Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Small icon:" />
+                <ComboBox ItemsSource="{Binding IconEnum}"
+                          SelectedItem="{Binding SelectedSmallIcon, Mode=TwoWay}"
+                          Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Title text:" />
+                <ComboBox ItemsSource="{Binding TextEnum}"
+                          SelectedItem="{Binding SelectedTitleText}"
+                          Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Subtitle text:" />
+                <ComboBox ItemsSource="{Binding TextEnum}"
+                          SelectedItem="{Binding SelectedSubTitleText}"
+                          Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Work timer mode:" />
+                <ComboBox ItemsSource="{Binding WorkTimerModeEnum}"
+                          SelectedItem="{Binding SelectedWorkTimerMode}"
+                          Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <CheckBox Margin="3 7"
+                          IsChecked="{Binding GitLinkVisible}">
+                    <TextBlock>Show link to remote Git repository</TextBlock>
+                </CheckBox>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Work in progress"
+                  Margin="5"
+                  Padding="3">
             <StackPanel Margin="3">
                 <TextBlock Foreground="Gray">Icon theme:</TextBlock>
-                <ComboBox Margin="3 3 3 10" IsEnabled="False" SelectedIndex="0">
+                <ComboBox Margin="3 3 3 10"
+                          IsEnabled="False"
+                          SelectedIndex="0">
                     <TextBlock Foreground="Gray">Default</TextBlock>
                 </ComboBox>
-                <CheckBox IsEnabled="False"><TextBlock Foreground="Gray">Activate LiveShare integration</TextBlock></CheckBox>
+                <CheckBox IsEnabled="False">
+                    <TextBlock Foreground="Gray">Activate LiveShare integration</TextBlock>
+                </CheckBox>
             </StackPanel>
         </GroupBox>
     </StackPanel>

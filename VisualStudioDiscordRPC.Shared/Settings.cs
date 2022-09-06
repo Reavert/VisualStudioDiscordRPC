@@ -10,6 +10,14 @@ namespace VisualStudioDiscordRPC.Shared
         public static Settings Default => _defaultInstance;
 
         [System.Configuration.UserScopedSetting]
+        [System.Configuration.DefaultSettingValue("true")]
+        public string RichTextEnabled
+        {
+            get => (string)this["RichTextEnabled"];
+            set => this["RichTextEnabled"] = value;
+        }
+
+        [System.Configuration.UserScopedSetting]
         [System.Diagnostics.DebuggerNonUserCode]
         [System.Configuration.DefaultSettingValue("English")]
         public string Language

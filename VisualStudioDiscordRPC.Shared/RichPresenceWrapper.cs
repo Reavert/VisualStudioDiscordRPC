@@ -43,8 +43,14 @@ namespace VisualStudioDiscordRPC.Shared
         public Text TitleText { get; set; }
         public Text SubTitleText { get; set; }
 
-        private TimerMode _workTimerMode;
+        private bool _enabled;
+        public bool Enabled
+        {
+            get => _enabled;
+            set => _enabled = value;
+        }
 
+        private TimerMode _workTimerMode;
         public TimerMode WorkTimerMode
         {
             get => _workTimerMode;
@@ -287,25 +293,32 @@ namespace VisualStudioDiscordRPC.Shared
 
         public void Update()
         {
-            _presence.Details = GetText(TitleText);
-            _presence.State = GetText(SubTitleText);
-
-            Icon largeIcon = LargeIcon;
-            Icon smallIcon = SmallIcon;
-
-            if (Document == null)
+            if (Enabled)
             {
-                largeIcon = Icon.VisualStudioVersion;
-                smallIcon = Icon.None;
+                _presence.Details = GetText(TitleText);
+                _presence.State = GetText(SubTitleText);
+
+                Icon largeIcon = LargeIcon;
+                Icon smallIcon = SmallIcon;
+
+                if (Document == null)
+                {
+                    largeIcon = Icon.VisualStudioVersion;
+                    smallIcon = Icon.None;
+                }
+
+                _presence.Assets.LargeImageKey = GetAssetKey(largeIcon);
+                _presence.Assets.SmallImageKey = GetAssetKey(smallIcon);
+
+                _presence.Assets.LargeImageText = GetAssetText(largeIcon);
+                _presence.Assets.SmallImageText = GetAssetText(smallIcon);
+
+                _client.SetPresence(_presence);
             }
-
-            _presence.Assets.LargeImageKey = GetAssetKey(largeIcon);
-            _presence.Assets.SmallImageKey = GetAssetKey(smallIcon);
-
-            _presence.Assets.LargeImageText = GetAssetText(largeIcon);
-            _presence.Assets.SmallImageText = GetAssetText(smallIcon);
-
-            _client.SetPresence(_presence);
+            else
+            {
+                _client.ClearPresence();
+            }
         }
     }
 }
