@@ -248,7 +248,7 @@ namespace VisualStudioDiscordRPC.Shared
                     return _documentAsset?.Name;
 
                 case Text.VisualStudioVersion: 
-                    return string.Format(ConstantStrings.VisualStudioVersion, _version);
+                    return string.Format(ConstantStrings.VisualStudioVersion, _dte.Edition, _version);
 
                 default: 
                     return string.Empty;
@@ -281,7 +281,7 @@ namespace VisualStudioDiscordRPC.Shared
                     return string.Empty;
 
                 case Icon.VisualStudioVersion:
-                    return string.Format(ConstantStrings.VisualStudioVersion, _version);
+                    return string.Format(ConstantStrings.VisualStudioVersion, _dte.Edition, _version);
 
                 case Icon.FileExtension:
                     return _documentAsset?.Name;
