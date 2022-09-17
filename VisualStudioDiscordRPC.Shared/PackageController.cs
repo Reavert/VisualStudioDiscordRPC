@@ -18,7 +18,6 @@ namespace VisualStudioDiscordRPC.Shared
     public class PackageController : IDisposable
     {
         private readonly DTE2 _instance;
-        private readonly DiscordRpcClient _client;
         private readonly string _installationPath;
 
         private readonly LocalizationService<LocalizationFile> _localizationService;
@@ -43,10 +42,6 @@ namespace VisualStudioDiscordRPC.Shared
             var extensionAssetLoader = new JsonAssetsLoader<ExtensionAsset>();
             extensionsAssetMap.Assets = new List<ExtensionAsset>(extensionAssetLoader.LoadAssets(GetLocalFilePath("extensions_assets_map.json")));
 
-            // Discord Rich Presence client settings
-            _client = new DiscordRpcClient(Settings.Default.ApplicationID);
-            _client.Initialize();
-            
             if (!Settings.Default.Updated)
             {
                 Settings.Default.Upgrade();
@@ -54,9 +49,9 @@ namespace VisualStudioDiscordRPC.Shared
 
                 Settings.Default.Save();
             }
-
+            
             // RP Wrapper settings
-            RichPresenceWrapper = new RichPresenceWrapper(_client)
+            RichPresenceWrapper = new RichPresenceWrapper()
             {
                 Dte = _instance,
                 ExtensionAssets = extensionsAssetMap,
@@ -79,6 +74,8 @@ namespace VisualStudioDiscordRPC.Shared
                     : SettingsHelper.Instance.TimerModeEnumMap.GetEnumValue(Settings.Default.WorkTimerMode),
                 GitLinkVisible = Settings.Default.GitLinkVisible != null && bool.Parse(Settings.Default.GitLinkVisible)
             };
+
+            RichPresenceWrapper.SetClientWithId(Settings.Default.ApplicationID);
 
             // Localization service settings
             _localizationService = new LocalizationService<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
@@ -108,8 +105,6 @@ namespace VisualStudioDiscordRPC.Shared
 
             _instance.Events.WindowEvents.WindowActivated -= OnWindowActivated;
             _localizationService.LocalizationChanged -= OnLocalizationChanged;
-            
-            _client.Dispose();
         }
     }
 }

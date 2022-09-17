@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Interfaces;
@@ -48,6 +49,19 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
                 _wrapper.Update();
                 Settings.Default.RichPresenceEnabled = value.ToString();
             }
+        }
+
+        public string DiscordAppId
+        {
+            get => _wrapper.ClientId;
+            set
+            {
+                _wrapper.SetClientWithId(value);
+                _wrapper.Update();
+                Settings.Default.ApplicationID = value;
+                ForceUpdate(nameof(DiscordAppId));
+            }
+           
         }
 
         private ObservableCollection<RichPresenceWrapper.Icon> _iconEnum;

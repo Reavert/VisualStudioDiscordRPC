@@ -153,7 +153,9 @@ namespace VisualStudioDiscordRPC.Shared
         public LocalizationFile Localization { get; set; }
         public IAssetMap<ExtensionAsset> ExtensionAssets { get; set; }
 
-        private readonly DiscordRpcClient _client;
+        public string ClientId => _client?.ApplicationID;
+
+        private DiscordRpcClient _client;
         private readonly RichPresence _presence;
 
         private readonly Dictionary<string, string> _versions = new Dictionary<string, string>
@@ -162,9 +164,8 @@ namespace VisualStudioDiscordRPC.Shared
             { "17", "2022" }
         };
 
-        public RichPresenceWrapper(DiscordRpcClient discordRpcClient)
+        public RichPresenceWrapper()
         {
-            _client = discordRpcClient;
             _presence = new RichPresence
             {
                 Assets = new Assets()
@@ -177,6 +178,17 @@ namespace VisualStudioDiscordRPC.Shared
 
             LargeIcon = Icon.FileExtension;
             SmallIcon = Icon.VisualStudioVersion;
+        }
+
+        public void SetClientWithId(string id)
+        {
+            if (_client != null)
+            {
+                _client.Dispose();
+            }
+
+            _client = new DiscordRpcClient(id);
+            _client.Initialize();
         }
 
         private bool WasTimerWorkSpaceChanged(Document newDocument)

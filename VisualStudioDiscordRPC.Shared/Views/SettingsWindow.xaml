@@ -56,7 +56,7 @@
                   Margin="5"
                   Padding="3">
             <StackPanel>
-                <TextBlock  Text="Language:" />
+                <TextBlock Text="Language:" />
                 <ComboBox ItemsSource="{Binding LocalizationManager.Localizations}"
                           SelectedItem="{Binding SelectedLocalization, Mode=TwoWay}"
                           Margin="3">
@@ -73,6 +73,25 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <Expander Header="Advanced"
+                          Margin="5">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Discord application ID:"/>
+                        <Grid Margin="2 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="50"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0"
+                                     Text="{Binding DiscordAppId}"/>
+                            <Button Grid.Column="1" 
+                                    Content="Reset"
+                                    Click="OnResetButtonClick"/>    
+                        </Grid>
+                    </StackPanel>
+                </Expander>
+                
+
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Display"

@@ -83,10 +83,15 @@ namespace VisualStudioDiscordRPC.Shared
             set => this["Updated"] = value;
         }
 
-        [System.Configuration.ApplicationScopedSetting]
+        [System.Configuration.UserScopedSetting]
         [System.Diagnostics.DebuggerNonUserCode]
         [System.Configuration.DefaultSettingValue("914622396630175855")]
-        public string ApplicationID => (string)this["ApplicationID"];
+        public string ApplicationID
+        {
+            get => (string)this["ApplicationID"];
+            set => this["ApplicationID"] = value;
+        }
+        
 
         [System.Configuration.ApplicationScopedSetting]
         [System.Diagnostics.DebuggerNonUserCode]
