@@ -30,9 +30,10 @@ jobs:
       working-directory: ${{ env.GITHUB_WORKSPACE }}
       run: msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
 
-    - name: Get previous tag
+    - uses: oprypin/find-latest-tag@v1
       id: get-latest-tag
-      uses: actions-ecosystem/action-get-latest-tag@v1
+      with:
+        repository: Ryavell/VisualStudioDiscordRPC
 
     - name: Create GitHub release
       id: create_release
