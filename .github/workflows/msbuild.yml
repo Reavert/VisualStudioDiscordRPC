@@ -44,16 +44,18 @@ jobs:
           publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
           personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
 
+    - name: 'Get Previous tag'
+        id: previoustag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+
     - name: Create GitHub release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          Test upload-to-github-release works with ```actions/create-release```
+        tag_name: v${{ steps.previoustag.outputs.tag }}
+        release_name: Visual Studio Discord RPC v${{ steps.previoustag.outputs.tag }}
         draft: true
         prerelease: false
 
