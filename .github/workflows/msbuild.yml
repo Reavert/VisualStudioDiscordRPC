@@ -31,8 +31,8 @@ jobs:
       run: msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
 
     - name: Get previous tag
-      id: previoustag
-      uses: WyriHaximus/github-action-get-previous-tag@v1
+      id: get-latest-tag
+      uses: actions-ecosystem/action-get-latest-tag@v1
 
     - name: Create GitHub release
       id: create_release
@@ -40,8 +40,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${{ steps.previoustag.outputs.tag }}
-        release_name: Visual Studio Discord RPC v${{ steps.previoustag.outputs.tag }}
+        tag_name: ${{ steps.get-latest-tag.outputs.tag }}
+        release_name: Visual Studio Discord RPC ${{ steps.get-latest-tag.outputs.tag }}
         draft: true
         prerelease: false
 
