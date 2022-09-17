@@ -32,7 +32,7 @@ jobs:
 
     - name: Get latest tag
       id: get-latest-tag
-      uses: jimschubert/query-tag-action
+      uses: jimschubert/query-tag-action@v1
 
     - name: Create GitHub release
       id: create_release
