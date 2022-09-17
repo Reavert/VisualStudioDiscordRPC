@@ -44,9 +44,9 @@ jobs:
           publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
           personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
 
-    - name: 'Get Previous tag'
-        id: previoustag
-        uses: WyriHaximus/github-action-get-previous-tag@v1
+    - name: Get previous tag
+      id: previoustag
+      uses: WyriHaximus/github-action-get-previous-tag@v1
 
     - name: Create GitHub release
       id: create_release
