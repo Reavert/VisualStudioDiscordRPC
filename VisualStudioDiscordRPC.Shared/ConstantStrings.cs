@@ -15,6 +15,12 @@
         public const string ActiveProjectFormat = "{0} {1}";
 
         /// <summary>
+        /// {0} - localized word of "Solution"<br/>
+        /// {1} - solution name
+        /// </summary>
+        public const string ActiveSolutionFormat = "{0} {1}";
+
+        /// <summary>
         /// {0} - Visual Studio version
         /// </summary>
         public const string VisualStudioVersion = "Visual Studio {0}";

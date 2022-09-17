@@ -3,8 +3,11 @@
 <language name="Chinese Simplified" localizedName="简体中文">
 	<translation id="project">项目</translation>
 	<translation id="file">文件</translation>
+	<translation id="solution">决定</translation>
+	
 	<translation id="noActiveProject">无活动项目</translation>
 	<translation id="noActiveFile">无活动文件</translation>
+	<translation id="noActiveSolution">没有积极的解决方案</translation>
 
 	<translation id="Icon.None">没有任何</translation>
 	<translation id="Icon.VisualStudioVersion">版本</translation>

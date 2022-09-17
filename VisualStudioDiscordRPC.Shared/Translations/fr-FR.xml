@@ -3,8 +3,11 @@
 <language name="French" localizedName="Français">
 	<translation id="project">Projet</translation>
 	<translation id="file">Fichier</translation>
+	<translation id="solution">Solution</translation>
+
 	<translation id="noActiveProject">Aucun projet actif</translation>
 	<translation id="noActiveFile">Aucun fichier actif</translation>
+	<translation id="noActiveSolution">Aucun solution actif</translation>
 
 	<translation id="Icon.None">Aucun</translation>
 	<translation id="Icon.VisualStudioVersion">Version de Visual Studio</translation>

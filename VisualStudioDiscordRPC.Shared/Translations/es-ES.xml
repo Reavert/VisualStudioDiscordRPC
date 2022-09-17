@@ -3,8 +3,11 @@
 <language name="Spanish" localizedName="Español">
 	<translation id="project">Proyecto</translation>
 	<translation id="file">Archivo</translation>
+	<translation id="solution">Solución</translation>
+	
 	<translation id="noActiveProject">No hay proyecto activo</translation>
 	<translation id="noActiveFile">No hay archivo activo</translation>
+	<translation id="noActiveSolution">No hay solución activo</translation>
 
 	<translation id="Icon.None">Ninguno</translation>
 	<translation id="Icon.VisualStudioVersion">Versión de Visual Studio</translation>

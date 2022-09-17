@@ -238,11 +238,11 @@ namespace VisualStudioDiscordRPC.Shared
                     if (Document != null)
                     {
                         return string.Format(
-                            ConstantStrings.ActiveProjectFormat,
-                            Localization.Project,
+                            ConstantStrings.ActiveSolutionFormat,
+                            Localization.Solution,
                             _solutionName);
                     }
-                    return Localization.NoActiveProject;
+                    return Localization.NoActiveSolution;
 
                 case Text.FileExtension: 
                     return _documentAsset?.Name;

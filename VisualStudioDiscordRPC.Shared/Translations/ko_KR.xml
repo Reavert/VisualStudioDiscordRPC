@@ -3,8 +3,11 @@
 <language name="Korean" localizedName="한국어">
 	<translation id="project">프로젝트</translation>
 	<translation id="file">파일</translation>
+	<translation id="solution">결정</translation>
+
 	<translation id="noActiveProject">활성화 된 프로젝트 없음</translation>
 	<translation id="noActiveFile">활성화 된 파일 없음</translation>
+	<translation id="noActiveSolution">활성 솔루션이 없습니다</translation>
 
 	<translation id="Icon.None">없음</translation>
 	<translation id="Icon.VisualStudioVersion">비쥬얼 스튜디오 버전 아이콘</translation>
