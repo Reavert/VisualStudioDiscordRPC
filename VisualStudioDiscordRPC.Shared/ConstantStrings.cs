@@ -21,9 +21,10 @@
         public const string ActiveSolutionFormat = "{0} {1}";
 
         /// <summary>
-        /// {0} - Visual Studio version
+        /// {0} - Visual Studio edition
+        /// {1} - Visual Studio version
         /// </summary>
-        public const string VisualStudioVersion = "Visual Studio {0}";
+        public const string VisualStudioVersion = "Visual Studio {0} {1}";
 
         /// <summary>
         /// {0} - Visual Studio version
