@@ -22,7 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AbstractSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\FileNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ProjectNameSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\SlotUpdateHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ExtensionIconSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\ObserverDelegates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\IObserver.cs" />
@@ -45,6 +44,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ISlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\BaseDiscordRpcUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\BaseUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\DetailsUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\IUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\LargeIconUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\StateUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumerationExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumStringMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />

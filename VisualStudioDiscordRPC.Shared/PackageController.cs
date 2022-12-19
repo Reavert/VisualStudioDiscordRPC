@@ -14,7 +14,7 @@ using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Slots;
 using EnvDTE;
-
+using VisualStudioDiscordRPC.Shared.Updaters;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -26,7 +26,7 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly LocalizationService<LocalizationFile> _localizationService;
         public RichPresenceWrapper RichPresenceWrapper;
 
-        private IObserver _observer;
+        private VsObserver _vsObserver;
 
         private string GetLocalFilePath(string filename)
         {
@@ -44,7 +44,7 @@ namespace VisualStudioDiscordRPC.Shared
                 throw new InvalidOperationException("Can not get DTE Service");
             }
 
-            _observer = new VsObserver(currentDte);
+            _vsObserver = new VsObserver(currentDte);
             _installationPath = installationPath;
 
             // Extension asset map settings
@@ -70,19 +70,20 @@ namespace VisualStudioDiscordRPC.Shared
                 Settings.Default.Save();
             }
 
-            var largeIconUpdater = new SlotUpdateHandler((string data) => _client.UpdateLargeAsset(data));
-            var extensionIconSlot = new ExtensionIconSlot(extensionsAssetMap, _observer);
+            var largeIconUpdater = new LargeIconUpdater(_client);
+            var extensionIconSlot = new ExtensionIconSlot(extensionsAssetMap, _vsObserver);
             largeIconUpdater.Slot = extensionIconSlot;
 
-            var detailsTextUpdater = new SlotUpdateHandler((string data) => _client.UpdateDetails(data));
-            var filenameSlot = new FileNameSlot(_observer);
+            var detailsTextUpdater = new DetailsUpdater(_client);
+            var filenameSlot = new FileNameSlot(_vsObserver);
             detailsTextUpdater.Slot = filenameSlot;
 
-            var stateTextUpdater = new SlotUpdateHandler((string data) => _client.UpdateState(data));
-            var projectNameSlot = new ProjectNameSlot(_observer);
+            var stateTextUpdater = new StateUpdater(_client);
+            var projectNameSlot = new ProjectNameSlot(_vsObserver);
             stateTextUpdater.Slot = projectNameSlot;
 
-            _observer.Observe();
+            _vsObserver.Observe();
+
             extensionIconSlot.Enable();
             filenameSlot.Enable();
             projectNameSlot.Enable();
@@ -114,6 +115,8 @@ namespace VisualStudioDiscordRPC.Shared
 
         public void Dispose()
         {
+            _vsObserver.Unobserve();
+
             /*ThreadHelper.ThrowIfNotOnUIThread();
 
             _localizationService.LocalizationChanged -= OnLocalizationChanged;

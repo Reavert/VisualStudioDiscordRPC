@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.Text.Editor;
-using System;
+﻿using System;
+using VisualStudioDiscordRPC.Shared.Slots;
 
-namespace VisualStudioDiscordRPC.Shared.Slots
+namespace VisualStudioDiscordRPC.Shared.Updaters
 {
-    public class SlotUpdateHandler
+    internal abstract class BaseUpdater : IUpdater
     {
         private ISlot _installedSlot;
         public ISlot Slot
@@ -21,18 +21,6 @@ namespace VisualStudioDiscordRPC.Shared.Slots
 
         public bool IsInstalled => _installedSlot != null;
 
-        private Action<string> _onUpdateAction;
-
-        public SlotUpdateHandler(Action<string> onUpdateAction)
-        {
-            _onUpdateAction = onUpdateAction;
-        }
-
-        private void OnSlotUpdatePerformed(string data)
-        {
-            _onUpdateAction?.Invoke(data);
-        }
-
         private void SetSlotSubscription()
         {
             if (IsInstalled)
@@ -48,5 +36,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots
                 _installedSlot.UpdatePerformed -= OnSlotUpdatePerformed;
             }
         }
+
+        protected abstract void OnSlotUpdatePerformed(string data);
     }
 }

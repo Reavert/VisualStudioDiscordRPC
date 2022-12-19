@@ -1,7 +1,6 @@
 ﻿using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
-using System;
 
 namespace VisualStudioDiscordRPC.Shared.Observers
 {
@@ -47,16 +46,27 @@ namespace VisualStudioDiscordRPC.Shared.Observers
                 SolutionChanged?.Invoke(_solution);
             }
 
-            Project focusWindowProject = gotFocus?.Project;
-            if (focusWindowProject != lostFocus?.Project)
+            if (gotFocus.Type == vsWindowType.vsWindowTypeDocument)
             {
-                ProjectChanged?.Invoke(focusWindowProject);
-            }
+                Project focusWindowProject = gotFocus?.Project;
+                if (focusWindowProject != lostFocus?.Project)
+                {
+                    ProjectChanged?.Invoke(focusWindowProject);
+                }
 
-            Document focusWindowDocument = gotFocus?.Document;
-            if (focusWindowDocument != lostFocus?.Document)
+                Document focusWindowDocument = gotFocus?.Document;
+                if (focusWindowDocument != lostFocus?.Document)
+                {
+                    DocumentChanged?.Invoke(focusWindowDocument);
+                }
+            }
+            else
             {
-                DocumentChanged?.Invoke(focusWindowDocument);
+                if (lostFocus == null)
+                {
+                    ProjectChanged?.Invoke(null);
+                    DocumentChanged?.Invoke(null);
+                }
             }
         }
     }

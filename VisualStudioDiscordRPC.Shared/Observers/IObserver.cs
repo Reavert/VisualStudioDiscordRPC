@@ -2,10 +2,6 @@
 {
     public interface IObserver
     {
-        event DocumentChangedHandler DocumentChanged;
-        event ProjectChangedHandler ProjectChanged;
-        event SolutionChangedHandler SolutionChanged;
-
         void Observe();
         void Unobserve();
     }

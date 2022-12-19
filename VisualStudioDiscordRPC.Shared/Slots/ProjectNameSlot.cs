@@ -9,20 +9,22 @@ namespace VisualStudioDiscordRPC.Shared.Slots
     public class ProjectNameSlot : AbstractSlot
     {
         private LocalizationService<LocalizationFile> _localizationService;
+        private VsObserver _vsObserver;
 
-        public ProjectNameSlot(IObserver observer) : base(observer)
+        public ProjectNameSlot(VsObserver vsObserver)
         {
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
+            _vsObserver = vsObserver;
         }
 
         public override void Enable()
         {
-            Observer.ProjectChanged += OnProjectChanged;
+            _vsObserver.ProjectChanged += OnProjectChanged;
         }
 
         public override void Disable()
         {
-            Observer.ProjectChanged -= OnProjectChanged;
+            _vsObserver.ProjectChanged -= OnProjectChanged;
         }
 
         private void OnProjectChanged(Project project)

@@ -1,5 +1,4 @@
 ﻿using EnvDTE;
-using System;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
@@ -10,20 +9,22 @@ namespace VisualStudioDiscordRPC.Shared.Slots
     public class FileNameSlot : AbstractSlot
     {
         private LocalizationService<LocalizationFile> _localizationService;
+        private VsObserver _vsObserver;
 
-        public FileNameSlot(IObserver observer) : base(observer)
+        public FileNameSlot(VsObserver vsObserver)
         {
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
+            _vsObserver = vsObserver;
         }
 
         public override void Enable()
         {
-            Observer.DocumentChanged += OnDocumentChanged;
+            _vsObserver.DocumentChanged += OnDocumentChanged;
         }
 
         public override void Disable()
         {
-            Observer.DocumentChanged -= OnDocumentChanged;
+            _vsObserver.DocumentChanged -= OnDocumentChanged;
         }
 
         private void OnDocumentChanged(Document document)

@@ -5,13 +5,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots
 {
     public abstract class AbstractSlot : ISlot
     {
-        protected IObserver Observer;
         public event Action<string> UpdatePerformed;
-
-        public AbstractSlot(IObserver observer)
-        {
-            Observer = observer;
-        }
 
         protected void PerformUpdate(string data)
         {
