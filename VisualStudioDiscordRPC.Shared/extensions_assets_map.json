@@ -61,6 +61,11 @@
       "extensions": [ ".fs", ".fsi", ".fsx", ".fsscript" ]
     },
     {
+      "name": "Lua",
+      "key": "lua_file",
+      "extensions": [ ".lua" ]
+    },
+    {
       "name": "HTML",
       "key": "html_file",
       "extensions": [ ".html", ".htm" ]
