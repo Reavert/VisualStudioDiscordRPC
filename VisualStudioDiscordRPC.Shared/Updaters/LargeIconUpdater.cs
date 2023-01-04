@@ -1,14 +1,15 @@
 ﻿using DiscordRPC;
+using VisualStudioDiscordRPC.Shared.Slots;
 
 namespace VisualStudioDiscordRPC.Shared.Updaters
 {
-    internal class LargeIconUpdater : BaseDiscordRpcUpdater
+    internal class LargeIconUpdater : BaseDiscordRpcUpdater<AssetInfo>
     {
         public LargeIconUpdater(DiscordRpcClient client) : base(client) { }
 
-        protected override void OnSlotUpdatePerformed(string data)
+        protected override void OnSlotUpdatePerformed(AssetInfo data)
         {
-            DiscordRpcClient.UpdateLargeAsset(data);
+            DiscordRpcClient.UpdateLargeAsset(data.Key, data.Description);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace VisualStudioDiscordRPC.Shared.Updaters
 {
-    internal class StateUpdater : BaseDiscordRpcUpdater
+    internal class StateUpdater : BaseDiscordRpcUpdater<string>
     {
         public StateUpdater(DiscordRpcClient client) : base(client)
         { }

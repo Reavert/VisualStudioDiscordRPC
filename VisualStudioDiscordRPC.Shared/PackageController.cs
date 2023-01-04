@@ -53,6 +53,11 @@ namespace VisualStudioDiscordRPC.Shared
             var extensionAssetLoader = new JsonAssetsLoader<ExtensionAsset>();
             extensionsAssetMap.Assets = new List<ExtensionAsset>(extensionAssetLoader.LoadAssets(GetLocalFilePath("extensions_assets_map.json")));
 
+            IAssetMap<VisualStudioVersionAsset> vsVersionAssetMap = new OptimizedAssetMap<VisualStudioVersionAsset>();
+
+            var vsVersionAssetsLoader = new JsonAssetsLoader<VisualStudioVersionAsset>();
+            vsVersionAssetMap.Assets = new List<VisualStudioVersionAsset>(vsVersionAssetsLoader.LoadAssets(GetLocalFilePath("vs_assets_map.json")));
+
             // Discord Rich Presence client settings
             _client = new DiscordRpcClient(Settings.Default.ApplicationID);
             _client.Initialize();
@@ -74,6 +79,10 @@ namespace VisualStudioDiscordRPC.Shared
             var extensionIconSlot = new ExtensionIconSlot(extensionsAssetMap, _vsObserver);
             largeIconUpdater.Slot = extensionIconSlot;
 
+            var smallIconUpdater = new SmallIconUpdater(_client);
+            var visualStudioVersionSlot = new VisualStudioVersionIconSlot(vsVersionAssetMap, _vsObserver);
+            smallIconUpdater.Slot = visualStudioVersionSlot;
+
             var detailsTextUpdater = new DetailsUpdater(_client);
             var filenameSlot = new FileNameSlot(_vsObserver);
             detailsTextUpdater.Slot = filenameSlot;
@@ -85,6 +94,7 @@ namespace VisualStudioDiscordRPC.Shared
             _vsObserver.Observe();
 
             extensionIconSlot.Enable();
+            visualStudioVersionSlot.Enable();
             filenameSlot.Enable();
             projectNameSlot.Enable();
 

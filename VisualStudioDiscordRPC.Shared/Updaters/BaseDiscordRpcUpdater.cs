@@ -2,7 +2,7 @@
 
 namespace VisualStudioDiscordRPC.Shared.Updaters
 {
-    internal abstract class BaseDiscordRpcUpdater : BaseUpdater
+    internal abstract class BaseDiscordRpcUpdater<T> : BaseUpdater<T>
     {
         protected DiscordRpcClient DiscordRpcClient;
 

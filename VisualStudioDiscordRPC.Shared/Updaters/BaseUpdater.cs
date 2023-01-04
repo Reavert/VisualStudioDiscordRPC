@@ -1,12 +1,11 @@
-﻿using System;
-using VisualStudioDiscordRPC.Shared.Slots;
+﻿using VisualStudioDiscordRPC.Shared.Slots;
 
 namespace VisualStudioDiscordRPC.Shared.Updaters
 {
-    internal abstract class BaseUpdater : IUpdater
+    internal abstract class BaseUpdater<TData> : IUpdater<TData>
     {
-        private ISlot _installedSlot;
-        public ISlot Slot
+        private AbstractSlot<TData> _installedSlot;
+        public AbstractSlot<TData> Slot
         {
             set
             {
@@ -37,6 +36,6 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
             }
         }
 
-        protected abstract void OnSlotUpdatePerformed(string data);
+        protected abstract void OnSlotUpdatePerformed(TData data);
     }
 }

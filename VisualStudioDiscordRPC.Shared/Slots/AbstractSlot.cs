@@ -1,13 +1,12 @@
 ﻿using System;
-using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Slots
 {
-    public abstract class AbstractSlot : ISlot
+    public abstract class AbstractSlot<T> : ISlot<T>
     {
-        public event Action<string> UpdatePerformed;
+        public event Action<T> UpdatePerformed;
 
-        protected void PerformUpdate(string data)
+        protected void PerformUpdate(T data)
         {
             UpdatePerformed?.Invoke(data);
         }

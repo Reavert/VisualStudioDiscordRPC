@@ -60,6 +60,11 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\VisualStudioDiscordRPC.Shared\vs_assets_map.json">
+      <Link>extensions_assets_map.json</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\VisualStudioDiscordRPC.Shared\Translations\*.*">
       <Link>Translations\%(Filename).%(Extension)</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

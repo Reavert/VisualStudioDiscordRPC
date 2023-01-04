@@ -6,7 +6,7 @@ using VisualStudioDiscordRPC.Shared.Services.Models;
 
 namespace VisualStudioDiscordRPC.Shared.Slots
 {
-    public class FileNameSlot : AbstractSlot
+    public class FileNameSlot : TextSlot
     {
         private LocalizationService<LocalizationFile> _localizationService;
         private VsObserver _vsObserver;

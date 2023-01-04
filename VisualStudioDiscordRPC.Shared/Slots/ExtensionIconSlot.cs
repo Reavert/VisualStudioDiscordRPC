@@ -6,7 +6,7 @@ using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Slots
 {
-    public class ExtensionIconSlot : AbstractSlot
+    public class ExtensionIconSlot : AssetSlot
     {
         private IAssetMap<ExtensionAsset> _assetMap;
         private VsObserver _vsObserver;
@@ -44,7 +44,13 @@ namespace VisualStudioDiscordRPC.Shared.Slots
                 suitableAsset = ExtensionAsset.Default;
             }
 
-            PerformUpdate(suitableAsset.Key);
+            var assetInfo = new AssetInfo()
+            {
+                Key = suitableAsset.Key,
+                Description = suitableAsset.Name
+            };
+
+            PerformUpdate(assetInfo);
         }
     }
 }
