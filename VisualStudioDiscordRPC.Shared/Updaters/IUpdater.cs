@@ -2,7 +2,7 @@
 
 namespace VisualStudioDiscordRPC.Shared.Updaters
 {
-    internal interface IUpdater<T>
+    public interface IUpdater<T>
     {
         AbstractSlot<T> Slot { get; set; }
     }

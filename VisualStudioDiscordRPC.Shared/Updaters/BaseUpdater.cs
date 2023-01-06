@@ -2,7 +2,7 @@
 
 namespace VisualStudioDiscordRPC.Shared.Updaters
 {
-    internal abstract class BaseUpdater<TData> : IUpdater<TData>
+    public abstract class BaseUpdater<TData> : IUpdater<TData>
     {
         private AbstractSlot<TData> _installedSlot;
         public AbstractSlot<TData> Slot

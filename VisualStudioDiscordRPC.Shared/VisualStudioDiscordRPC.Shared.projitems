@@ -20,6 +20,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Loaders\JsonAssetsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\OptimizedAssetMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SettingsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DiscordRpcController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AbstractSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\FileNameSlot.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\StateUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumerationExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumStringMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\PackageFileHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
@@ -67,7 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\Interfaces\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Services\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml">

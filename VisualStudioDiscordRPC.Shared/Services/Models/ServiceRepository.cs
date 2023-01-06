@@ -33,7 +33,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
             if (_registeredService.ContainsKey(type))
             {
-                throw new ArgumentException($"Service of type {nameof(type)} is already registered");
+                throw new ArgumentException($"Service of type {type.FullName} is already registered");
             }
 
             _registeredService.Add(type, service);

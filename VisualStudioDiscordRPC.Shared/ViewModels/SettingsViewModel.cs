@@ -1,145 +1,92 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using VisualStudioDiscordRPC.Shared.Localization;
-using VisualStudioDiscordRPC.Shared.Localization.Models;
-using VisualStudioDiscordRPC.Shared.Services.Interfaces;
+﻿using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using VisualStudioDiscordRPC.Shared.Services.Models;
+using VisualStudioDiscordRPC.Shared.Slots;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
-        private RichPresenceWrapper _wrapper;
-        public RichPresenceWrapper Wrapper
-        {
-            get => _wrapper;
-            set => SetProperty(ref _wrapper, value, nameof(Wrapper));
-        }
+        private DiscordRpcController _discordRpcController;
+        private SlotService _slotService;
 
-        private ILocalizationService<LocalizationFile> _localizationManager;
-
-        public ILocalizationService<LocalizationFile> LocalizationManager
+        private AssetSlot _largeIconSlot;
+        public AssetSlot LargeIconSlot
         {
-            get => _localizationManager;
-            set => SetProperty(ref _localizationManager, value, nameof(LocalizationManager));
-        }
-
-        public LocalizationFile SelectedLocalization
-        {
-            get => _localizationManager?.Current;
+            get => _largeIconSlot;
             set
             {
-                _localizationManager?.SelectLanguage(value.LanguageName);
-                Settings.Default.Language = value.LanguageName;
+                SetProperty(ref _largeIconSlot, value);
+                Settings.Default.LargeIcon = value.GetType().Name;
 
-                IconEnum = new ObservableCollection<RichPresenceWrapper.Icon>(_iconEnum);
-                TextEnum = new ObservableCollection<RichPresenceWrapper.Text>(_textEnum);
-                WorkTimerModeEnum = new ObservableCollection<RichPresenceWrapper.TimerMode>(_workTimerModeEnum);
-            } 
-        }
-
-        private ObservableCollection<RichPresenceWrapper.Icon> _iconEnum;
-        public ObservableCollection<RichPresenceWrapper.Icon> IconEnum
-        {
-            get => _iconEnum;
-            set => SetProperty(ref _iconEnum, value, nameof(IconEnum));
-        }
-
-        private ObservableCollection<RichPresenceWrapper.Text> _textEnum;
-        public ObservableCollection<RichPresenceWrapper.Text> TextEnum
-        {
-            get => _textEnum;
-            set => SetProperty(ref _textEnum, value, nameof(TextEnum));
-        }
-
-        private ObservableCollection<RichPresenceWrapper.TimerMode> _workTimerModeEnum;
-
-        public ObservableCollection<RichPresenceWrapper.TimerMode> WorkTimerModeEnum
-        {
-            get => _workTimerModeEnum;
-            set => SetProperty(ref _workTimerModeEnum, value, nameof(WorkTimerModeEnum));
-        }
-
-        public RichPresenceWrapper.Icon SelectedLargeIcon
-        {
-            get => _wrapper.LargeIcon;
-            set
-            {
-                _wrapper.LargeIcon = value;
-                _wrapper.Update();
-                Settings.Default.LargeIcon = SettingsHelper.Instance.IconEnumMap.GetString(value);
+                _discordRpcController.LargeIconSlot = value;
             }
         }
 
-        public RichPresenceWrapper.Icon SelectedSmallIcon
+        private AssetSlot _smallIconSlot;
+        public AssetSlot SmallIconSlot
         {
-            get => _wrapper.SmallIcon;
+            get => _smallIconSlot;
             set
             {
-                _wrapper.SmallIcon = value;
-                _wrapper.Update();
-                Settings.Default.SmallIcon = SettingsHelper.Instance.IconEnumMap.GetString(value);
-            } 
-        }
+                SetProperty(ref _smallIconSlot, value);
+                Settings.Default.SmallIcon = value.GetType().Name;
 
-        public RichPresenceWrapper.Text SelectedTitleText
-        {
-            get => _wrapper.TitleText;
-            set
-            {
-                _wrapper.TitleText = value;
-                _wrapper.Update();
-                Settings.Default.TitleText = SettingsHelper.Instance.TextEnumMap.GetString(value);
+                _discordRpcController.SmallIconSlot = value;
             }
         }
 
-        public RichPresenceWrapper.Text SelectedSubTitleText
+        private TextSlot _stateSlot;
+        public TextSlot StateSlot
         {
-            get => _wrapper.SubTitleText;
+            get => _stateSlot;
             set
             {
-                _wrapper.SubTitleText = value;
-                _wrapper.Update();
-                Settings.Default.SubTitleText = SettingsHelper.Instance.TextEnumMap.GetString(value);
-            } 
-        }
+                SetProperty(ref _stateSlot, value);
+                Settings.Default.TitleText= value.GetType().Name;
 
-        public bool GitLinkVisible
-        {
-            get => _wrapper.GitLinkVisible;
-            set
-            {
-                _wrapper.GitLinkVisible = value;
-                _wrapper.Update();
-                Settings.Default.GitLinkVisible = value.ToString();
+                _discordRpcController.StateSlot = value;
             }
         }
 
-        public RichPresenceWrapper.TimerMode SelectedWorkTimerMode
+        private TextSlot _detailsSlot;
+        public TextSlot DetailsSlot
         {
-            get => _wrapper.WorkTimerMode;
+            get => _detailsSlot;
             set
             {
-                _wrapper.WorkTimerMode = value;
-                _wrapper.Update();
-                Settings.Default.WorkTimerMode = SettingsHelper.Instance.TimerModeEnumMap.GetString(value);
+                SetProperty(ref _detailsSlot, value);
+                Settings.Default.SubTitleText = value.GetType().Name;
+
+                _discordRpcController.DetailsSlot = value;
             }
         }
 
-        private ObservableCollection<T> ToObservableCollection<T>() where T : Enum
-        {
-            return new ObservableCollection<T>(
-                Enum.GetValues(typeof(T)) as IEnumerable<T>);
-        }
+        public ObservableCollection<AssetSlot> AvailableAssetSlots { get; set; }
+        public ObservableCollection<TextSlot> AvailableTextSlots { get; set; }
 
         public SettingsViewModel()
         {
-            LocalizationManager = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
+            _discordRpcController = ServiceRepository.Default.GetService<DiscordRpcController>();
+            _slotService = ServiceRepository.Default.GetService<SlotService>();
 
-            IconEnum = ToObservableCollection<RichPresenceWrapper.Icon>();
-            TextEnum = ToObservableCollection<RichPresenceWrapper.Text>();
-            WorkTimerModeEnum = ToObservableCollection<RichPresenceWrapper.TimerMode>();
+            _largeIconSlot = _slotService.GetAssetSlotByName(Settings.Default.LargeIcon);
+            _smallIconSlot = _slotService.GetAssetSlotByName(Settings.Default.SmallIcon);
+
+            _stateSlot = _slotService.GetTextSlotByName(Settings.Default.TitleText);
+            _detailsSlot = _slotService.GetTextSlotByName(Settings.Default.SubTitleText);
+
+            AvailableAssetSlots = new ObservableCollection<AssetSlot>();
+            foreach (AssetSlot assetSlot in _slotService.AssetSlots)
+            {
+                AvailableAssetSlots.Add(assetSlot);
+            }
+
+            AvailableTextSlots = new ObservableCollection<TextSlot>();
+            foreach (TextSlot textSlot in _slotService.TextSlots)
+            {
+                AvailableTextSlots.Add(textSlot);
+            }
         }
     }
 }

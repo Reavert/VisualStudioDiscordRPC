@@ -3,9 +3,10 @@ using VisualStudioDiscordRPC.Shared.Slots;
 
 namespace VisualStudioDiscordRPC.Shared.Updaters
 {
-    internal class LargeIconUpdater : BaseDiscordRpcUpdater<AssetInfo>
+    public class LargeIconUpdater : BaseDiscordRpcUpdater<AssetInfo>
     {
-        public LargeIconUpdater(DiscordRpcClient client) : base(client) { }
+        public LargeIconUpdater(DiscordRpcClient client) : base(client) 
+        { }
 
         protected override void OnSlotUpdatePerformed(AssetInfo data)
         {

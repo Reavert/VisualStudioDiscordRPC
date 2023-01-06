@@ -87,14 +87,9 @@ namespace VisualStudioDiscordRPC.Shared.Commands
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var packageController = ((VisualStudioDiscordRPCPackage)package).Controller;
-
-            var settingViewModel = new SettingsViewModel
-            {
-                Wrapper = packageController.RichPresenceWrapper
-            };
-            
+            var settingViewModel = new SettingsViewModel();
             var settingsWindow = new SettingsWindow(settingViewModel);
+
             settingsWindow.ShowDialog();
         }
     }

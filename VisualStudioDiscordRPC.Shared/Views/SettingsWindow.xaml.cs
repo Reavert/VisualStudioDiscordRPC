@@ -19,7 +19,6 @@ namespace VisualStudioDiscordRPC.Shared
 
         private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ViewModel.Wrapper.Update();
             Settings.Default.Save();
         }
     }

@@ -1,72 +1,65 @@
-﻿using DiscordRPC;
-using Microsoft.VisualStudio.Shell;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using EnvDTE;
 using EnvDTE80;
-using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
-using VisualStudioDiscordRPC.Shared.AssetMap.Models;
-using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
-using VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders;
+using Microsoft.VisualStudio.Shell;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
-using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
-using VisualStudioDiscordRPC.Shared.Slots;
-using EnvDTE;
-using VisualStudioDiscordRPC.Shared.Updaters;
+using VisualStudioDiscordRPC.Shared.Services.Models;
+using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared
 {
-    public class PackageController : IDisposable
+    public class PackageController
     {
-        private readonly DiscordRpcClient _client;
-        private readonly string _installationPath;
-
-        private readonly LocalizationService<LocalizationFile> _localizationService;
-        public RichPresenceWrapper RichPresenceWrapper;
-
+        private DiscordRpcController _discordRpcController;
         private VsObserver _vsObserver;
-
-        private string GetLocalFilePath(string filename)
+        private SlotService _slotService;
+        
+        public void Init()
         {
-            return Path.Combine(_installationPath, filename);
+            RegisterServices();
+            UpdateSettings();
+
+            _discordRpcController.InitilizeRpcClient();
+            _vsObserver.Observe();
+            _slotService.InitSlotsSubscriptions();
+
+            LoadSettings();
         }
-       
-        public PackageController(DTE2 instance, string installationPath)
+
+        public void Clear()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            _discordRpcController.DisposeRpcClient();
+            _vsObserver.Unobserve();
+            _slotService.ClearSlotsSubscriptions();
+        }
 
-            ServiceProvider serviceProvider = ServiceProvider.GlobalProvider;
-            var currentDte = (DTE2)serviceProvider.GetService(typeof(DTE));
-            if (currentDte == null)
-            {
-                throw new InvalidOperationException("Can not get DTE Service");
-            }
-
+        private void RegisterServices()
+        {
+            // Registering Visual Studio events observer.
+            var currentDte = (DTE2)ServiceProvider.GlobalProvider.GetService(typeof(DTE));
             _vsObserver = new VsObserver(currentDte);
-            _installationPath = installationPath;
 
-            // Extension asset map settings
-            IAssetMap<ExtensionAsset> extensionsAssetMap = new OptimizedAssetMap<ExtensionAsset>();
+            ServiceRepository.Default.AddService(_vsObserver);
 
-            var extensionAssetLoader = new JsonAssetsLoader<ExtensionAsset>();
-            extensionsAssetMap.Assets = new List<ExtensionAsset>(extensionAssetLoader.LoadAssets(GetLocalFilePath("extensions_assets_map.json")));
+            // Registering localization service.
+            var localizationService = new LocalizationService<LocalizationFile>(
+                PackageFileHelper.GetPackageFilePath(Settings.Default.TranslationsPath));
+            localizationService.SelectLanguage(Settings.Default.Language);
 
-            IAssetMap<VisualStudioVersionAsset> vsVersionAssetMap = new OptimizedAssetMap<VisualStudioVersionAsset>();
+            ServiceRepository.Default.AddService(localizationService);
 
-            var vsVersionAssetsLoader = new JsonAssetsLoader<VisualStudioVersionAsset>();
-            vsVersionAssetMap.Assets = new List<VisualStudioVersionAsset>(vsVersionAssetsLoader.LoadAssets(GetLocalFilePath("vs_assets_map.json")));
+            // Registering slot service.
+            _slotService = new SlotService();
+            ServiceRepository.Default.AddService(_slotService);
 
-            // Discord Rich Presence client settings
-            _client = new DiscordRpcClient(Settings.Default.ApplicationID);
-            _client.Initialize();
+            // Registering Discord RPC controller.
+            _discordRpcController = new DiscordRpcController();
+            ServiceRepository.Default.AddService(_discordRpcController);
+        }
 
-            // Localization service settings
-            _localizationService = new LocalizationService<LocalizationFile>(GetLocalFilePath(Settings.Default.TranslationsPath));
-            ServiceRepository.Default.AddService(_localizationService);
-            _localizationService.SelectLanguage(Settings.Default.Language);
-
+        private void UpdateSettings()
+        {
             if (!Settings.Default.Updated)
             {
                 Settings.Default.Upgrade();
@@ -74,64 +67,15 @@ namespace VisualStudioDiscordRPC.Shared
 
                 Settings.Default.Save();
             }
-
-            var largeIconUpdater = new LargeIconUpdater(_client);
-            var extensionIconSlot = new ExtensionIconSlot(extensionsAssetMap, _vsObserver);
-            largeIconUpdater.Slot = extensionIconSlot;
-
-            var smallIconUpdater = new SmallIconUpdater(_client);
-            var visualStudioVersionSlot = new VisualStudioVersionIconSlot(vsVersionAssetMap, _vsObserver);
-            smallIconUpdater.Slot = visualStudioVersionSlot;
-
-            var detailsTextUpdater = new DetailsUpdater(_client);
-            var filenameSlot = new FileNameSlot(_vsObserver);
-            detailsTextUpdater.Slot = filenameSlot;
-
-            var stateTextUpdater = new StateUpdater(_client);
-            var projectNameSlot = new ProjectNameSlot(_vsObserver);
-            stateTextUpdater.Slot = projectNameSlot;
-
-            _vsObserver.Observe();
-
-            extensionIconSlot.Enable();
-            visualStudioVersionSlot.Enable();
-            filenameSlot.Enable();
-            projectNameSlot.Enable();
-
-            /*// RP Wrapper settings
-            RichPresenceWrapper = new RichPresenceWrapper(_client)
-            {
-                Dte = _instance,
-                ExtensionAssets = extensionsAssetMap,
-
-                LargeIcon = Settings.Default.LargeIcon == null 
-                    ? RichPresenceWrapper.Icon.FileExtension
-                    : SettingsHelper.Instance.IconEnumMap.GetEnumValue(Settings.Default.LargeIcon),
-                SmallIcon = Settings.Default.SmallIcon == null
-                    ? RichPresenceWrapper.Icon.VisualStudioVersion
-                    : SettingsHelper.Instance.IconEnumMap.GetEnumValue(Settings.Default.SmallIcon),
-                TitleText = Settings.Default.TitleText == null
-                    ? RichPresenceWrapper.Text.FileName
-                    : SettingsHelper.Instance.TextEnumMap.GetEnumValue(Settings.Default.TitleText),
-                SubTitleText = Settings.Default.SubTitleText == null
-                    ? RichPresenceWrapper.Text.SolutionName
-                    : SettingsHelper.Instance.TextEnumMap.GetEnumValue(Settings.Default.SubTitleText),
-                WorkTimerMode = Settings.Default.WorkTimerMode == null
-                    ? RichPresenceWrapper.TimerMode.File
-                    : SettingsHelper.Instance.TimerModeEnumMap.GetEnumValue(Settings.Default.WorkTimerMode),
-                GitLinkVisible = Settings.Default.GitLinkVisible != null && bool.Parse(Settings.Default.GitLinkVisible)
-            };*/
         }
 
-        public void Dispose()
+        private void LoadSettings()
         {
-            _vsObserver.Unobserve();
+            _discordRpcController.LargeIconSlot = _slotService.GetAssetSlotByName(Settings.Default.LargeIcon);
+            _discordRpcController.SmallIconSlot = _slotService.GetAssetSlotByName(Settings.Default.SmallIcon);
 
-            /*ThreadHelper.ThrowIfNotOnUIThread();
-
-            _localizationService.LocalizationChanged -= OnLocalizationChanged;
-            
-            _client.Dispose();*/
+            _discordRpcController.StateSlot = _slotService.GetTextSlotByName(Settings.Default.TitleText);
+            _discordRpcController.DetailsSlot = _slotService.GetTextSlotByName(Settings.Default.SubTitleText);
         }
     }
 }

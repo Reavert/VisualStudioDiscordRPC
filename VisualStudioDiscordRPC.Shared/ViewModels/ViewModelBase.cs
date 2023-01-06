@@ -16,14 +16,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             }
                 
             storage = value;
-            ForceUpdate(propertyName);
-            
-            return true;
-        }
-
-        protected virtual void ForceUpdate([CallerMemberName] string propertyName = "")
-        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+            return true;
         }
     }
 }

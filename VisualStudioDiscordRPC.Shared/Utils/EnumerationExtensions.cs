@@ -17,8 +17,10 @@ namespace VisualStudioDiscordRPC.Shared.Utils
                 {
                     return index;
                 }
+
                 index++;
             }
+
             return -1;
         }
     }

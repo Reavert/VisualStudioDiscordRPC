@@ -39,17 +39,9 @@ namespace VisualStudioDiscordRPC.Shared
         /// VisualStudioDiscordRPCPackage GUID string.
         /// </summary>
         public const string PackageGuidString = "5cd3d640-3d33-45ea-8c5b-6de981ff9900";
-        public PackageController Controller { get; private set; }
+        private PackageController _controller;
 
         #region Package Members
-
-        private static string GetAssemblyLocalPathFrom(Type type)
-        {
-            string codebase = type.Assembly.Location;
-            var uri = new Uri(codebase, UriKind.Absolute);
-
-            return Path.GetDirectoryName(uri.LocalPath);
-        }
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
@@ -64,22 +56,16 @@ namespace VisualStudioDiscordRPC.Shared
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
-            string installationPath = GetAssemblyLocalPathFrom(typeof(VisualStudioDiscordRPCPackage));
-            
-            // DTE settings
-            var instance = (DTE2) GetService(typeof(DTE));
-            if (instance == null)
-            {
-                throw new InvalidOperationException("Can not get DTE Service");
-            }
+            _controller = new PackageController();
+            _controller.Init();
 
-            Controller = new PackageController(instance, installationPath);
             await SettingsCommand.InitializeAsync(this);
         }
 
         protected override int QueryClose(out bool canClose)
         {
-            Controller.Dispose();
+            _controller.Clear();
+
             return base.QueryClose(out canClose);
         }
 
