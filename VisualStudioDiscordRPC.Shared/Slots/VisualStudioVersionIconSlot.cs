@@ -42,7 +42,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots
             var assetInfo = new AssetInfo()
             {
                 Key = vsVersionIconAsset.Key,
-                Description = string.Format(ConstantStrings.VisualStudioVersion, _vsVersions[majorVersion])
+                Description = string.Format(ConstantStrings.VisualStudioVersion, solution.DTE.Edition, _vsVersions[majorVersion])
             };
 
             PerformUpdate(assetInfo);

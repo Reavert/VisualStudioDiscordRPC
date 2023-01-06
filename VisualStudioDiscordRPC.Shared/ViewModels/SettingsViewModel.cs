@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots;
 
@@ -9,6 +8,16 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
     {
         private DiscordRpcController _discordRpcController;
         private SlotService _slotService;
+
+        public string DiscordAppId
+        {
+            get => Settings.Default.ApplicationID;
+            set
+            {
+                Settings.Default.ApplicationID = value;
+                OnPropertyChanged(nameof(DiscordAppId));
+            }
+        }
 
         private AssetSlot _largeIconSlot;
         public AssetSlot LargeIconSlot
