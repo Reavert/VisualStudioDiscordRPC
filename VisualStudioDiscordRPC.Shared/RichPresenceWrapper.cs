@@ -43,8 +43,14 @@ namespace VisualStudioDiscordRPC.Shared
         public Text TitleText { get; set; }
         public Text SubTitleText { get; set; }
 
-        private TimerMode _workTimerMode;
+        private bool _enabled;
+        public bool Enabled
+        {
+            get => _enabled;
+            set => _enabled = value;
+        }
 
+        private TimerMode _workTimerMode;
         public TimerMode WorkTimerMode
         {
             get => _workTimerMode;
@@ -147,7 +153,9 @@ namespace VisualStudioDiscordRPC.Shared
         public LocalizationFile Localization { get; set; }
         public IAssetMap<ExtensionAsset> ExtensionAssets { get; set; }
 
-        private readonly DiscordRpcClient _client;
+        public string ClientId => _client?.ApplicationID;
+
+        private DiscordRpcClient _client;
         private readonly RichPresence _presence;
 
         private readonly Dictionary<string, string> _versions = new Dictionary<string, string>
@@ -156,9 +164,8 @@ namespace VisualStudioDiscordRPC.Shared
             { "17", "2022" }
         };
 
-        public RichPresenceWrapper(DiscordRpcClient discordRpcClient)
+        public RichPresenceWrapper()
         {
-            _client = discordRpcClient;
             _presence = new RichPresence
             {
                 Assets = new Assets()
@@ -171,6 +178,17 @@ namespace VisualStudioDiscordRPC.Shared
 
             LargeIcon = Icon.FileExtension;
             SmallIcon = Icon.VisualStudioVersion;
+        }
+
+        public void SetClientWithId(string id)
+        {
+            if (_client != null)
+            {
+                _client.Dispose();
+            }
+
+            _client = new DiscordRpcClient(id);
+            _client.Initialize();
         }
 
         private bool WasTimerWorkSpaceChanged(Document newDocument)
@@ -232,17 +250,17 @@ namespace VisualStudioDiscordRPC.Shared
                     if (Document != null)
                     {
                         return string.Format(
-                            ConstantStrings.ActiveProjectFormat,
-                            Localization.Project,
+                            ConstantStrings.ActiveSolutionFormat,
+                            Localization.Solution,
                             _solutionName);
                     }
-                    return Localization.NoActiveProject;
+                    return Localization.NoActiveSolution;
 
                 case Text.FileExtension: 
                     return _documentAsset?.Name;
 
                 case Text.VisualStudioVersion: 
-                    return string.Format(ConstantStrings.VisualStudioVersion, _version);
+                    return string.Format(ConstantStrings.VisualStudioVersion, _dte.Edition, _version);
 
                 default: 
                     return string.Empty;
@@ -275,7 +293,7 @@ namespace VisualStudioDiscordRPC.Shared
                     return string.Empty;
 
                 case Icon.VisualStudioVersion:
-                    return string.Format(ConstantStrings.VisualStudioVersion, _version);
+                    return string.Format(ConstantStrings.VisualStudioVersion, _dte.Edition, _version);
 
                 case Icon.FileExtension:
                     return _documentAsset?.Name;
@@ -287,6 +305,12 @@ namespace VisualStudioDiscordRPC.Shared
 
         public void Update()
         {
+            if (!Enabled)
+            {
+                _client.ClearPresence();
+                return;
+            }
+
             _presence.Details = GetText(TitleText);
             _presence.State = GetText(SubTitleText);
 

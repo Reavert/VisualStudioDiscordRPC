@@ -3,8 +3,11 @@
 <language name="Belarusian" localizedName="Беларускі">
 	<translation id="project">Праект</translation>
 	<translation id="file">Файл</translation>
+	<translation id="solution">Рашэнне</translation>
+	
 	<translation id="noActiveProject">Няма актыўнага праекта</translation>
 	<translation id="noActiveFile">Няма актыўнага файла</translation>
+	<translation id="noActiveSolution">Няма актыўнага рашэння</translation>
 
 	<translation id="Icon.None">Няма</translation>
 	<translation id="Icon.VisualStudioVersion">Версія Visual Studio</translation>

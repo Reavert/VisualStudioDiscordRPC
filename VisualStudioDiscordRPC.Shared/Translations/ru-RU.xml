@@ -3,8 +3,11 @@
 <language name="Russian" localizedName="Русский">
 	<translation id="project">Проект</translation>
 	<translation id="file">Файл</translation>
+	<translation id="solution">Решение</translation>
+
 	<translation id="noActiveProject">Нет активного проекта</translation>
 	<translation id="noActiveFile">Нет активного файла</translation>
+	<translation id="noActiveSolution">Нет активного решения</translation>
 
 	<translation id="Icon.None">Нет</translation>
 	<translation id="Icon.VisualStudioVersion">Версия Visual Studio</translation>

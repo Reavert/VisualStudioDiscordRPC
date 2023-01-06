@@ -30,19 +30,12 @@ jobs:
       working-directory: ${{ env.GITHUB_WORKSPACE }}
       run: msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
 
-    - name: Publish extension for Visual Studio 2019 to Marketplace
-      uses: cezarypiatek/VsixPublisherAction@0.2
-      with:
-          extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
-          publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
-          personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
+    - name: Fetch latest tags
+      run: git fetch --all --tags --unshallow
 
-    - name: Publish extension for Visual Studio 2022 to Marketplace
-      uses: cezarypiatek/VsixPublisherAction@0.2
-      with:
-          extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
-          publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
-          personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
+    - name: Get latest tag
+      id: get-latest-tag
+      run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)" 
 
     - name: Create GitHub release
       id: create_release
@@ -50,10 +43,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          Test upload-to-github-release works with ```actions/create-release```
+        tag_name: ${{ steps.get-latest-tag.outputs.tag }}
+        release_name: Visual Studio Discord RPC ${{ steps.get-latest-tag.outputs.tag }}
         draft: true
         prerelease: false
 
@@ -76,3 +67,19 @@ jobs:
         asset_path: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
         asset_name: ${{ env.VS2022_PROJECT }}.vsix
         asset_content_type: application/zip
+
+    - name: Publish extension for Visual Studio 2019 to Marketplace
+      uses: cezarypiatek/VsixPublisherAction@0.2
+      with:
+          extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
+          publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+          personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
+
+    - name: Publish extension for Visual Studio 2022 to Marketplace
+      uses: cezarypiatek/VsixPublisherAction@0.2
+      with:
+          extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
+          publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+          personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
+
+    

@@ -21,5 +21,10 @@ namespace VisualStudioDiscordRPC.Shared
         {
             Settings.Default.Save();
         }
+
+        private void OnResetButtonClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DiscordAppId = (string) Settings.Default.Properties["ApplicationID"].DefaultValue;
+        }
     }
 }

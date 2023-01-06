@@ -2,23 +2,26 @@
 
 <language name="Spanish" localizedName="Español">
 	<translation id="project">Proyecto</translation>
-	<translation id="file">Fichero</translation>
+	<translation id="file">Archivo</translation>
+	<translation id="solution">Solución</translation>
+	
 	<translation id="noActiveProject">No hay proyecto activo</translation>
 	<translation id="noActiveFile">No hay archivo activo</translation>
+	<translation id="noActiveSolution">No hay solución activo</translation>
 
 	<translation id="Icon.None">Ninguno</translation>
 	<translation id="Icon.VisualStudioVersion">Versión de Visual Studio</translation>
-	<translation id="Icon.FileExtension">Extensión de archivo</translation>
+	<translation id="Icon.FileExtension">Extensión del archivo</translation>
 
-	<translation id="Text.None">Vaciar</translation>
+	<translation id="Text.None">Vacío</translation>
 	<translation id="Text.VisualStudioVersion">Versión de Visual Studio</translation>
-	<translation id="Text.FileExtension">Extensión de archivo</translation>
+	<translation id="Text.FileExtension">Extensión del archivo</translation>
 	<translation id="Text.ProjectName">Nombre del proyecto</translation>
 	<translation id="Text.SolutionName">Nombre de la solución</translation>
-	<translation id="Text.FileName">Nombre de archivo</translation>
+	<translation id="Text.FileName">Nombre del archivo</translation>
 
-	<translation id="TimerMode.Disabled">Discapacitado</translation>
-	<translation id="TimerMode.File">Dentro de archivos</translation>
+	<translation id="TimerMode.Disabled">Desactivado</translation>
+	<translation id="TimerMode.File">Dentro de los archivos</translation>
 	<translation id="TimerMode.Project">Dentro de los proyectos</translation>
 	<translation id="TimerMode.Solution">Dentro de las soluciones</translation>
 </language>

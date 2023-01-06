@@ -19,8 +19,11 @@ namespace VisualStudioDiscordRPC.Shared.Localization.Models
 
         public string Project => LocalizedValues["project"];
         public string File => LocalizedValues["file"];
+        public string Solution => LocalizedValues["solution"];
+
         public string NoActiveProject => LocalizedValues["noActiveProject"];
         public string NoActiveFile => LocalizedValues["noActiveFile"];
+        public string NoActiveSolution => LocalizedValues["noActiveSolution"];
 
         #endregion
 

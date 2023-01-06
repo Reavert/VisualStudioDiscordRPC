@@ -3,8 +3,11 @@
 <language name="Hindi" localizedName="हिन्दी">
 	<translation id="project">परियोजना</translation>
 	<translation id="file">फ़ाइल</translation>
+	<translation id="solution">निर्णय</translation>
+
 	<translation id="noActiveProject">कोई सक्रिय परियोजना नहीं है</translation>
 	<translation id="noActiveFile">कोई सक्रिय फ़ाइल नहीं है</translation>
+	<translation id="noActiveSolution">कोई सक्रिय समाधान नहीं है</translation>
 
 	<translation id="Icon.None">कोई नहीं</translation>
 	<translation id="Icon.VisualStudioVersion">Visual Studio संस्करण</translation>

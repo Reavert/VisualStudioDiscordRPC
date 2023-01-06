@@ -10,6 +10,14 @@ namespace VisualStudioDiscordRPC.Shared
         public static Settings Default => _defaultInstance;
 
         [System.Configuration.UserScopedSetting]
+        [System.Configuration.DefaultSettingValue("true")]
+        public string RichPresenceEnabled
+        {
+            get => (string)this["RichPresenceEnabled"];
+            set => this["RichPresenceEnabled"] = value;
+        }
+
+        [System.Configuration.UserScopedSetting]
         [System.Diagnostics.DebuggerNonUserCode]
         [System.Configuration.DefaultSettingValue("English")]
         public string Language
@@ -75,10 +83,15 @@ namespace VisualStudioDiscordRPC.Shared
             set => this["Updated"] = value;
         }
 
-        [System.Configuration.ApplicationScopedSetting]
+        [System.Configuration.UserScopedSetting]
         [System.Diagnostics.DebuggerNonUserCode]
         [System.Configuration.DefaultSettingValue("914622396630175855")]
-        public string ApplicationID => (string)this["ApplicationID"];
+        public string ApplicationID
+        {
+            get => (string)this["ApplicationID"];
+            set => this["ApplicationID"] = value;
+        }
+        
 
         [System.Configuration.ApplicationScopedSetting]
         [System.Diagnostics.DebuggerNonUserCode]
