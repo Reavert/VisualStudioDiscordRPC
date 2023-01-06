@@ -25,22 +25,17 @@ namespace VisualStudioDiscordRPC.Shared.Slots
 
         public override void Enable()
         {
-            _vsObserver.DocumentChanged += OnDocumentChanged;
+            _vsObserver.SolutionChanged += OnSolutionChanged;
         }
 
         public override void Disable()
         {
-            _vsObserver.DocumentChanged-= OnDocumentChanged;
+            _vsObserver.SolutionChanged -= OnSolutionChanged;
         }
 
-        private void OnDocumentChanged(Document document)
+        private void OnSolutionChanged(Solution solution)
         {
-            if (document == null)
-            {
-                return;
-            }
-
-            string majorVersion = document.DTE.Version.Split('.')[0];
+            string majorVersion = solution.DTE.Version.Split('.')[0];
 
             var vsVersionIconAsset = _assetMap.GetAsset(asset => asset.Version == majorVersion);
 

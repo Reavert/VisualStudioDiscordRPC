@@ -60,7 +60,7 @@ namespace VisualStudioDiscordRPC.Shared
         private void SetSlot<T>(BaseUpdater<T> updater, AbstractSlot<T> slot)
         {
             updater.Slot = slot;
-            
+
             if (_discordRpcClient.IsInitialized)
             {
                 slot.UpdateWithLastData();

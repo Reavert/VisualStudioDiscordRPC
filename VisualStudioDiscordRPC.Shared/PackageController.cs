@@ -21,8 +21,8 @@ namespace VisualStudioDiscordRPC.Shared
             UpdateSettings();
 
             _discordRpcController.InitilizeRpcClient();
-            _vsObserver.Observe();
             _slotService.InitSlotsSubscriptions();
+            _vsObserver.Observe();
 
             LoadSettings();
         }
@@ -30,8 +30,8 @@ namespace VisualStudioDiscordRPC.Shared
         public void Clear()
         {
             _discordRpcController.DisposeRpcClient();
-            _vsObserver.Unobserve();
             _slotService.ClearSlotsSubscriptions();
+            _vsObserver.Unobserve();
         }
 
         private void RegisterServices()

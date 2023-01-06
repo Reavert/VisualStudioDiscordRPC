@@ -18,11 +18,11 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
             get => _installedSlot;
         }
 
-        public bool IsInstalled => _installedSlot != null;
+        public bool IsSlotInstalled => _installedSlot != null;
 
         private void SetSlotSubscription()
         {
-            if (IsInstalled)
+            if (IsSlotInstalled)
             {
                 _installedSlot.UpdatePerformed += OnSlotUpdatePerformed;
             }
@@ -30,7 +30,7 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
 
         private void ClearSlotSubscription()
         {
-            if (IsInstalled)
+            if (IsSlotInstalled)
             {
                 _installedSlot.UpdatePerformed -= OnSlotUpdatePerformed;
             }

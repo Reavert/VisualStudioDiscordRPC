@@ -16,7 +16,6 @@ namespace VisualStudioDiscordRPC.Shared.Observers
         public VsObserver(DTE2 dte)
         {
             _dte = dte;
-            _solution = _dte.Solution;
         }
 
         public void Observe()
