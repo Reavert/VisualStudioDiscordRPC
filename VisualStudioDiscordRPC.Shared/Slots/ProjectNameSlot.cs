@@ -39,17 +39,12 @@ namespace VisualStudioDiscordRPC.Shared.Slots
 
         protected override string GetData()
         {
-            string data;
-            if (_project != null)
+            if (_project == null)
             {
-                data = string.Format(ConstantStrings.ActiveProjectFormat, _localizationService.Current.Project, _project.Name);
-            }
-            else
-            {
-                data = _localizationService.Current.NoActiveProject;
+                return _localizationService.Current.NoActiveProject;
             }
 
-            return data;
+            return string.Format(ConstantStrings.ActiveProjectFormat, _localizationService.Current.Project, _project.Name);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace VisualStudioDiscordRPC.Shared.Observers
         public event SolutionChangedHandler SolutionChanged;
 
         private readonly DTE2 _dte;
-        private Solution _solution;
+        private string _lastSolutionName;
 
         public VsObserver(DTE2 dte)
         {
@@ -39,12 +39,14 @@ namespace VisualStudioDiscordRPC.Shared.Observers
                 return;
             }
 
-            if (_solution != _dte.Solution)
-            {
-                _solution = _dte.Solution;
-                SolutionChanged?.Invoke(_solution);
-            }
+            Solution currentSolution = gotFocus.DTE.Solution;
 
+            if (currentSolution?.FullName != _lastSolutionName)
+            {
+                _lastSolutionName = currentSolution.FullName;
+                SolutionChanged?.Invoke(currentSolution);
+            }
+            
             if (gotFocus.Type == vsWindowType.vsWindowTypeDocument)
             {
                 Project focusWindowProject = gotFocus?.Project;

@@ -50,6 +50,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ISlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\SolutionNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\VisualStudioVersionIconSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\BaseDiscordRpcUpdater.cs" />

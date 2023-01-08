@@ -80,7 +80,8 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             {
                 new NoneTextSlot(),
                 new FileNameSlot(vsObserver),
-                new ProjectNameSlot(vsObserver)
+                new ProjectNameSlot(vsObserver),
+                new SolutionNameSlot(vsObserver),
             };
         }
 
