@@ -71,12 +71,14 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
             _assetSlots = new List<AssetSlot>
             {
+                new NoneAssetSlot(),
                 new ExtensionIconSlot(extensionsAssetMap, vsObserver),
                 new VisualStudioVersionIconSlot(vsVersionsAssetMap, vsObserver)
             };
 
             _textSlots = new List<TextSlot>
             {
+                new NoneTextSlot(),
                 new FileNameSlot(vsObserver),
                 new ProjectNameSlot(vsObserver)
             };

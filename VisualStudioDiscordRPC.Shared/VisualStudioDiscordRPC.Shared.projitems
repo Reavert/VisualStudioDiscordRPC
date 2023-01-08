@@ -25,6 +25,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AbstractSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\FileNameSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\NoneAssetSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\NoneTextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ProjectNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ExtensionIconSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\ObserverDelegates.cs" />
