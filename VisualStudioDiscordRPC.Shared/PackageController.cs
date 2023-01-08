@@ -78,6 +78,8 @@ namespace VisualStudioDiscordRPC.Shared
 
             _discordRpcController.StateSlot = _slotService.GetTextSlotByName(Settings.Default.TitleText);
             _discordRpcController.DetailsSlot = _slotService.GetTextSlotByName(Settings.Default.SubTitleText);
+
+            _discordRpcController.TimerSlot = _slotService.GetTimerSlotByName(Settings.Default.WorkTimerMode);
         }
     }
 }

@@ -4,7 +4,7 @@ using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.Observers;
 
-namespace VisualStudioDiscordRPC.Shared.Slots
+namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
 {
     public class ExtensionIconSlot : AssetSlot
     {

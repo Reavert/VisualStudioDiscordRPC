@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
-using VisualStudioDiscordRPC.Shared.Slots;
+using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
@@ -98,8 +99,22 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             }
         }
 
+        private TimerSlot _timerSlot;
+        public TimerSlot TimerSlot
+        {
+            get => _timerSlot;
+            set
+            {
+                SetProperty(ref _timerSlot, value);
+                Settings.Default.WorkTimerMode = value.GetType().Name;
+
+                _discordRpcController.TimerSlot = value;
+            }
+        }
+
         public IReadOnlyList<AssetSlot> AvailableAssetSlots { get; set; }
         public IReadOnlyList<TextSlot> AvailableTextSlots { get; set; }
+        public IReadOnlyList<TimerSlot> AvailableTimerSlots { get; set; }
 
         public SettingsViewModel()
         {
@@ -115,11 +130,16 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             _stateSlot = _slotService.GetTextSlotByName(Settings.Default.TitleText);
             _detailsSlot = _slotService.GetTextSlotByName(Settings.Default.SubTitleText);
 
+            _timerSlot = _slotService.GetTimerSlotByName(Settings.Default.WorkTimerMode);
+
             AvailableAssetSlots = _slotService.AssetSlots;
             OnPropertyChanged(nameof(AvailableAssetSlots));
 
             AvailableTextSlots = _slotService.TextSlots;
             OnPropertyChanged(nameof(AvailableTextSlots));
+
+            AvailableTimerSlots = _slotService.TimerSlots;
+            OnPropertyChanged(nameof(AvailableTimerSlots));
         }
     }
 }

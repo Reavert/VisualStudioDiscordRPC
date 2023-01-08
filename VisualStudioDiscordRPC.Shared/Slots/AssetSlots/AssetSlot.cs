@@ -1,4 +1,4 @@
-﻿namespace VisualStudioDiscordRPC.Shared.Slots
+﻿namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
 {
     public struct AssetInfo
     {

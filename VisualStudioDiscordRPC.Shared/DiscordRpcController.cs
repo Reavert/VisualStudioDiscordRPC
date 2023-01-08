@@ -4,7 +4,11 @@ using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots;
+using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 using VisualStudioDiscordRPC.Shared.Updaters;
+using VisualStudioDiscordRPC.Shared.Updaters.Base;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -76,6 +80,13 @@ namespace VisualStudioDiscordRPC.Shared
             set => SetSlot(_stateUpdater, value);
         }
 
+        private TimerUpdater _timerUpdater;
+        public TimerSlot TimerSlot
+        {
+            get => (TimerSlot) _timerUpdater.Slot;
+            set => SetSlot(_timerUpdater, value);
+        }
+
         public DiscordRpcController(int updateMillisecondsTimeout) 
         {
             _discordRpcClient = new DiscordRpcClient(Settings.Default.ApplicationID);
@@ -89,6 +100,8 @@ namespace VisualStudioDiscordRPC.Shared
 
             _detailsUpdater = new DetailsUpdater(_sharedRichPresence);
             _stateUpdater = new StateUpdater(_sharedRichPresence);
+
+            _timerUpdater = new TimerUpdater(_sharedRichPresence);
 
             _sendingRichPresenceDataThread = new Thread(SendRichPresenceData);
             _sendDataMillisecondsTimeout = updateMillisecondsTimeout;

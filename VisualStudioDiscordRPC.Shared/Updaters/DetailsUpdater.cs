@@ -1,4 +1,5 @@
 ﻿using DiscordRPC;
+using VisualStudioDiscordRPC.Shared.Updaters.Base;
 
 namespace VisualStudioDiscordRPC.Shared.Updaters
 {

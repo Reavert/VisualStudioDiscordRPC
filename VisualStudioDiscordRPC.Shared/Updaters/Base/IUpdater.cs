@@ -1,6 +1,6 @@
 ﻿using VisualStudioDiscordRPC.Shared.Slots;
 
-namespace VisualStudioDiscordRPC.Shared.Updaters
+namespace VisualStudioDiscordRPC.Shared.Updaters.Base
 {
     public interface IUpdater<T>
     {

@@ -23,12 +23,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)DiscordRpcController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AbstractSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\FileNameSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\NoneAssetSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\NoneTextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\ProjectNameSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\ExtensionIconSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\AssetSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\FileNameSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\NoneAssetSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\NoneTextSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\ProjectNameSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\ExtensionIconSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\ObserverDelegates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\IObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\VsObserver.cs" />
@@ -48,16 +48,22 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ISlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\SolutionNameSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\VisualStudioVersionIconSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Updaters\BaseDiscordRpcUpdater.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Updaters\BaseUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\SolutionNameSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\TextSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\VisualStudioVersionIconSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\NoneTimerSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\TimerSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinFilesTimerSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinProjectsTimerSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinSolutionsTimerSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\BaseDiscordRpcUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\BaseUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\DetailsUpdater.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Updaters\IUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\IUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\LargeIconUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\SmallIconUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\StateUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\TimerUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumerationExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\PackageFileHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
@@ -70,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\Interfaces\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Slots\TextSlots\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Updaters\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml">

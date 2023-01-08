@@ -118,6 +118,12 @@
                     SelectedItem="{Binding StateSlot}"
                     Margin="3">
                 </ComboBox>
+                <TextBlock Text="Timer mode:"/>
+                <ComboBox 
+                    ItemsSource="{Binding AvailableTimerSlots}"
+                    SelectedItem="{Binding TimerSlot}"
+                    Margin="3">
+                </ComboBox>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Work in progress" Margin="5" Padding="3">

@@ -4,7 +4,7 @@ using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 
-namespace VisualStudioDiscordRPC.Shared.Slots
+namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 {
     public class FileNameSlot : TextSlot
     {
