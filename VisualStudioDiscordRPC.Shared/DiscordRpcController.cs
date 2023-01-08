@@ -1,5 +1,8 @@
 ﻿using DiscordRPC;
 using System.Threading;
+using VisualStudioDiscordRPC.Shared.Localization;
+using VisualStudioDiscordRPC.Shared.Localization.Models;
+using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots;
 using VisualStudioDiscordRPC.Shared.Updaters;
 
@@ -8,6 +11,8 @@ namespace VisualStudioDiscordRPC.Shared
     public class DiscordRpcController
     {
         private DiscordRpcClient _discordRpcClient;
+
+        private LocalizationService<LocalizationFile> _localizationService;
 
         private RichPresence _sharedRichPresence;
         public static object _richPresenceSync = new object();
@@ -33,10 +38,7 @@ namespace VisualStudioDiscordRPC.Shared
                 {
                     if (_enabled) 
                     {
-                        _largeIconUpdater.Slot?.UpdateWithLastData();
-                        _smallIconUpdater.Slot?.UpdateWithLastData();
-                        _detailsUpdater.Slot?.UpdateWithLastData();
-                        _stateUpdater.Slot?.UpdateWithLastData();
+                        UpdateAllUpdaters();
                     }
                     else
                     {
@@ -77,6 +79,7 @@ namespace VisualStudioDiscordRPC.Shared
         public DiscordRpcController(int updateMillisecondsTimeout) 
         {
             _discordRpcClient = new DiscordRpcClient(Settings.Default.ApplicationID);
+            _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
 
             _sharedRichPresence = new RichPresence();
             _sharedRichPresence.Assets = new Assets();
@@ -91,8 +94,10 @@ namespace VisualStudioDiscordRPC.Shared
             _sendDataMillisecondsTimeout = updateMillisecondsTimeout;
         }
 
-        public void InitilizeRpcClient()
+        public void Initialize()
         {
+            _localizationService.LocalizationChanged += OnLocalizationChanged;
+
             _sendingRichPresenceDataThread.Start();
 
             lock (_richPresenceSync)
@@ -101,13 +106,28 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        public void DisposeRpcClient()
+        public void Dispose()
         {
+            _localizationService.LocalizationChanged -= OnLocalizationChanged;
+
             lock (_richPresenceSync)
             {
                 _sendingThreadCancellation = true;
                 _discordRpcClient.Dispose();
             }
+        }
+
+        private void OnLocalizationChanged()
+        {
+            UpdateAllUpdaters();
+        }
+
+        private void UpdateAllUpdaters()
+        {
+            _largeIconUpdater.Slot?.Update();
+            _smallIconUpdater.Slot?.Update();
+            _stateUpdater.Slot?.Update();
+            _detailsUpdater.Slot?.Update();
         }
 
         private void SetSlot<T>(BaseUpdater<T> updater, AbstractSlot<T> slot)
@@ -121,7 +141,7 @@ namespace VisualStudioDiscordRPC.Shared
 
             if (_discordRpcClient.IsInitialized)
             {
-                slot.UpdateWithLastData();
+                slot.Update();
             }
         }
 

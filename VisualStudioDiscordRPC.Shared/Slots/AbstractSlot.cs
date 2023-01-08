@@ -6,21 +6,15 @@ namespace VisualStudioDiscordRPC.Shared.Slots
     {
         public event Action<T> UpdatePerformed;
 
-        private T _lastData;
-
-        protected void PerformUpdate(T data)
+        public void Update()
         {
-            _lastData = data;
-            UpdatePerformed?.Invoke(data);
-        }
-
-        public void UpdateWithLastData()
-        {
-            UpdatePerformed?.Invoke(_lastData);
+            UpdatePerformed?.Invoke(GetData());
         }
 
         public abstract void Enable();
 
         public abstract void Disable();
+
+        protected abstract T GetData();
     }
 }

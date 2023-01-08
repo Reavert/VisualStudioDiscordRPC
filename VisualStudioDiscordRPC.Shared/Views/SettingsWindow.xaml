@@ -53,7 +53,9 @@
         <GroupBox Header="General" Margin="5" Padding="3">
             <StackPanel>
                 <TextBlock  Text="Language:" />
-                <ComboBox 
+                <ComboBox
+                ItemsSource="{Binding Localizations}" 
+                SelectedItem="{Binding SelectedLocalization, Mode=TwoWay}"
                 Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>

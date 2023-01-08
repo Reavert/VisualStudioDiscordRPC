@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using VisualStudioDiscordRPC.Shared.Localization;
+using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots;
 
@@ -8,6 +11,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
     {
         private DiscordRpcController _discordRpcController;
         private SlotService _slotService;
+        private LocalizationService<LocalizationFile> _localizationService;
 
         public bool RichPresenceEnabled
         {
@@ -26,6 +30,19 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             {
                 Settings.Default.ApplicationID = value;
                 OnPropertyChanged(nameof(DiscordAppId));
+            }
+        }
+
+        public IList<LocalizationFile> Localizations => _localizationService.Localizations;
+
+        public LocalizationFile SelectedLocalization
+        {
+            get => _localizationService.Current;
+            set
+            {
+                _localizationService.SelectLanguage(value.LanguageName);
+                Settings.Default.Language = value.LanguageName;
+                OnPropertyChanged(nameof(SelectedLocalization));
             }
         }
 
@@ -81,13 +98,16 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             }
         }
 
-        public ObservableCollection<AssetSlot> AvailableAssetSlots { get; set; }
-        public ObservableCollection<TextSlot> AvailableTextSlots { get; set; }
+        public IReadOnlyList<AssetSlot> AvailableAssetSlots { get; set; }
+        public IReadOnlyList<TextSlot> AvailableTextSlots { get; set; }
 
         public SettingsViewModel()
         {
             _discordRpcController = ServiceRepository.Default.GetService<DiscordRpcController>();
             _slotService = ServiceRepository.Default.GetService<SlotService>();
+
+            _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
+            OnPropertyChanged(nameof(Localizations));
 
             _largeIconSlot = _slotService.GetAssetSlotByName(Settings.Default.LargeIcon);
             _smallIconSlot = _slotService.GetAssetSlotByName(Settings.Default.SmallIcon);
@@ -95,17 +115,11 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             _stateSlot = _slotService.GetTextSlotByName(Settings.Default.TitleText);
             _detailsSlot = _slotService.GetTextSlotByName(Settings.Default.SubTitleText);
 
-            AvailableAssetSlots = new ObservableCollection<AssetSlot>();
-            foreach (AssetSlot assetSlot in _slotService.AssetSlots)
-            {
-                AvailableAssetSlots.Add(assetSlot);
-            }
+            AvailableAssetSlots = _slotService.AssetSlots;
+            OnPropertyChanged(nameof(AvailableAssetSlots));
 
-            AvailableTextSlots = new ObservableCollection<TextSlot>();
-            foreach (TextSlot textSlot in _slotService.TextSlots)
-            {
-                AvailableTextSlots.Add(textSlot);
-            }
+            AvailableTextSlots = _slotService.TextSlots;
+            OnPropertyChanged(nameof(AvailableTextSlots));
         }
     }
 }

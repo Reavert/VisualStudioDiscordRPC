@@ -11,6 +11,8 @@ namespace VisualStudioDiscordRPC.Shared.Slots
         private LocalizationService<LocalizationFile> _localizationService;
         private VsObserver _vsObserver;
 
+        private Document _document;
+
         public FileNameSlot(VsObserver vsObserver)
         {
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
@@ -31,18 +33,23 @@ namespace VisualStudioDiscordRPC.Shared.Slots
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
-            string filenameText;
-            if (document != null)
+            _document = document;
+            Update();
+        }
+
+        protected override string GetData()
+        {
+            string data;
+            if (_document != null)
             {
-                filenameText =
-                    string.Format(ConstantStrings.ActiveFileFormat, _localizationService.Current.File, document.Name);
+                data = string.Format(ConstantStrings.ActiveFileFormat, _localizationService.Current.File, _document.Name);
             }
             else
             {
-                filenameText = _localizationService.Current.NoActiveFile;
+                data = _localizationService.Current.NoActiveFile;
             }
-            
-            PerformUpdate(filenameText);
+
+            return data;
         }
     }
 }
