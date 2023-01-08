@@ -9,6 +9,16 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         private DiscordRpcController _discordRpcController;
         private SlotService _slotService;
 
+        public bool RichPresenceEnabled
+        {
+            get => _discordRpcController.Enabled;
+            set
+            {
+                _discordRpcController.Enabled = value;
+                Settings.Default.RichPresenceEnabled = value.ToString();
+            }
+        }
+
         public string DiscordAppId
         {
             get => Settings.Default.ApplicationID;

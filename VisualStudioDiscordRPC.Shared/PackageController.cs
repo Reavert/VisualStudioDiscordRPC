@@ -54,7 +54,7 @@ namespace VisualStudioDiscordRPC.Shared
             ServiceRepository.Default.AddService(_slotService);
 
             // Registering Discord RPC controller.
-            _discordRpcController = new DiscordRpcController();
+            _discordRpcController = new DiscordRpcController(1000);
             ServiceRepository.Default.AddService(_discordRpcController);
         }
 
@@ -71,6 +71,8 @@ namespace VisualStudioDiscordRPC.Shared
 
         private void LoadSettings()
         {
+            _discordRpcController.Enabled = bool.Parse(Settings.Default.RichPresenceEnabled);
+
             _discordRpcController.LargeIconSlot = _slotService.GetAssetSlotByName(Settings.Default.LargeIcon);
             _discordRpcController.SmallIconSlot = _slotService.GetAssetSlotByName(Settings.Default.SmallIcon);
 

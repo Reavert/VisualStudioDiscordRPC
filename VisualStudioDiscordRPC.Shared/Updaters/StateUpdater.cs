@@ -4,12 +4,12 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
 {
     public class StateUpdater : BaseDiscordRpcUpdater<string>
     {
-        public StateUpdater(DiscordRpcClient client) : base(client)
+        public StateUpdater(RichPresence richPresence) : base(richPresence)
         { }
 
-        protected override void OnSlotUpdatePerformed(string data)
+        protected override void Update(string data)
         {
-            DiscordRpcClient.UpdateState(data);
+            RichPresence.State = data;
         }
     }
 }

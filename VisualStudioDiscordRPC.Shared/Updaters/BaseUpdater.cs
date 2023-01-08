@@ -4,9 +4,12 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
 {
     public abstract class BaseUpdater<TData> : IUpdater<TData>
     {
+        public bool Enabled { get; set; }
+
         private AbstractSlot<TData> _installedSlot;
         public AbstractSlot<TData> Slot
         {
+            get => _installedSlot;
             set
             {
                 ClearSlotSubscription();
@@ -15,14 +18,11 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
 
                 SetSlotSubscription();
             }
-            get => _installedSlot;
         }
-
-        public bool IsSlotInstalled => _installedSlot != null;
 
         private void SetSlotSubscription()
         {
-            if (IsSlotInstalled)
+            if (_installedSlot != null)
             {
                 _installedSlot.UpdatePerformed += OnSlotUpdatePerformed;
             }
@@ -30,12 +30,20 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
 
         private void ClearSlotSubscription()
         {
-            if (IsSlotInstalled)
+            if (_installedSlot != null)
             {
                 _installedSlot.UpdatePerformed -= OnSlotUpdatePerformed;
             }
         }
 
-        protected abstract void OnSlotUpdatePerformed(TData data);
+        private void OnSlotUpdatePerformed(TData data)
+        {
+            if (Enabled)
+            {
+                Update(data);
+            }
+        }
+
+        protected abstract void Update(TData data);
     }
 }

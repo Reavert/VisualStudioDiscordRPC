@@ -5,12 +5,13 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
 {
     public class SmallIconUpdater : BaseDiscordRpcUpdater<AssetInfo>
     {
-        public SmallIconUpdater(DiscordRpcClient client) : base(client)
+        public SmallIconUpdater(RichPresence richPresence) : base(richPresence)
         { }
 
-        protected override void OnSlotUpdatePerformed(AssetInfo data)
+        protected override void Update(AssetInfo data)
         {
-            DiscordRpcClient.UpdateSmallAsset(data.Key, data.Description);
+            RichPresence.Assets.SmallImageKey = data.Key;
+            RichPresence.Assets.SmallImageText = data.Description;
         }
     }
 }

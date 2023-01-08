@@ -16,6 +16,40 @@
         <converters:LocalizationConverter x:Key="LocalizationConverter"/>
     </Window.Resources>
     <StackPanel Margin="2">
+        <ToggleButton x:Name="Toggle"
+                      Height="20"
+                      Width="50"
+                      HorizontalAlignment="Right"
+                      IsChecked="{Binding RichPresenceEnabled}"
+                      Margin="0,5,5,0">
+            <ToggleButton.Template>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="B1"
+                            Background="LightSlateGray"
+                            CornerRadius="10"
+                            Padding="1">
+                        <Border x:Name="B2"
+                                Background="White"
+                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                CornerRadius="{Binding CornerRadius, ElementName=B1}"
+                                HorizontalAlignment="Left">
+                            <ContentPresenter />
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked"
+                                 Value="True">
+                            <Setter TargetName="B2"
+                                    Property="HorizontalAlignment"
+                                    Value="Right" />
+                            <Setter TargetName="B1"
+                                    Property="Background"
+                                    Value="CornflowerBlue" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ToggleButton.Template>
+        </ToggleButton>
         <GroupBox Header="General" Margin="5" Padding="3">
             <StackPanel>
                 <TextBlock  Text="Language:" />

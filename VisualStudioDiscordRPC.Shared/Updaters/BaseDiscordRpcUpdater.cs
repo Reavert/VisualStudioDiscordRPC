@@ -4,11 +4,11 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
 {
     public abstract class BaseDiscordRpcUpdater<T> : BaseUpdater<T>
     {
-        protected DiscordRpcClient DiscordRpcClient;
+        protected RichPresence RichPresence;
 
-        protected BaseDiscordRpcUpdater(DiscordRpcClient client)
+        protected BaseDiscordRpcUpdater(RichPresence richPresence)
         {
-            DiscordRpcClient = client;
+            RichPresence = richPresence;
         }
     }
 }

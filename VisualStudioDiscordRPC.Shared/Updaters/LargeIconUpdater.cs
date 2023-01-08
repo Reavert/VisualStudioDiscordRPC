@@ -5,12 +5,13 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
 {
     public class LargeIconUpdater : BaseDiscordRpcUpdater<AssetInfo>
     {
-        public LargeIconUpdater(DiscordRpcClient client) : base(client) 
+        public LargeIconUpdater(RichPresence richPresence) : base(richPresence) 
         { }
 
-        protected override void OnSlotUpdatePerformed(AssetInfo data)
+        protected override void Update(AssetInfo data)
         {
-            DiscordRpcClient.UpdateLargeAsset(data.Key, data.Description);
+            RichPresence.Assets.LargeImageKey = data.Key;
+            RichPresence.Assets.LargeImageText = data.Description;
         }
     }
 }

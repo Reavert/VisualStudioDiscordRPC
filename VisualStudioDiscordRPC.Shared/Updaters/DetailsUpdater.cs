@@ -4,12 +4,12 @@ namespace VisualStudioDiscordRPC.Shared.Updaters
 {
     public class DetailsUpdater : BaseDiscordRpcUpdater<string>
     {
-        public DetailsUpdater(DiscordRpcClient client) : base(client)
+        public DetailsUpdater(RichPresence richPresence) : base(richPresence)
         { }
 
-        protected override void OnSlotUpdatePerformed(string data)
+        protected override void Update(string data)
         {
-            DiscordRpcClient.UpdateDetails(data);
+            RichPresence.Details = data;
         }
     }
 }
