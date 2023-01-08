@@ -40,7 +40,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\LocalizationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\XmlLocalizationFile.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)RichPresenceWrapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IServiceRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\ServiceRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings.cs">
@@ -48,7 +47,6 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SettingsHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ISlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\SolutionNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlot.cs" />
@@ -61,7 +59,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\SmallIconUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\StateUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumerationExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumStringMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\PackageFileHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />

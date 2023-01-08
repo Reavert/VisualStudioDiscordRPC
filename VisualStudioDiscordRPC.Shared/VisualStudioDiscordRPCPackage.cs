@@ -1,11 +1,8 @@
-﻿using EnvDTE;
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
-using EnvDTE80;
 using VisualStudioDiscordRPC.Shared.Commands;
 using Task = System.Threading.Tasks.Task;
 

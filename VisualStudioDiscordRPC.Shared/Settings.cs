@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace VisualStudioDiscordRPC.Shared 
+﻿namespace VisualStudioDiscordRPC.Shared 
 {
     [System.Runtime.CompilerServices.CompilerGenerated]
     internal sealed class Settings : System.Configuration.ApplicationSettingsBase
