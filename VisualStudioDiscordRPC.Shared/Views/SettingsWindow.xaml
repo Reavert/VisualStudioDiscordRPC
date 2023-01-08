@@ -109,13 +109,13 @@
                 <TextBlock Text="Title text:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableTextSlots}"
-                    SelectedItem="{Binding StateSlot}"
+                    SelectedItem="{Binding DetailsSlot}"
                     Margin="3">
                 </ComboBox>
                 <TextBlock Text="Subtitle text:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableTextSlots}"
-                    SelectedItem="{Binding DetailsSlot}"
+                    SelectedItem="{Binding StateSlot}"
                     Margin="3">
                 </ComboBox>
             </StackPanel>

@@ -28,7 +28,12 @@
     {
       "name": "XML",
       "key": "xml_file",
-      "extensions": [ ".xml", ".xaml", ".axaml" ]
+      "extensions": [ ".xml", ".xaml", ".axaml", ".dtsx" ]
+    },
+    {
+      "name": "Configuration/Settings",
+      "key": "config_file",
+      "extensions": [ ".config", ".settings", ".sln", ".suo", ".csproj", "vcxproj", ".vbproj" ]
     },
     {
       "name": "Razor",
