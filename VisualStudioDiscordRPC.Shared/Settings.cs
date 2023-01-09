@@ -89,7 +89,15 @@
             get => (string)this["ApplicationID"];
             set => this["ApplicationID"] = value;
         }
-        
+
+        [System.Configuration.UserScopedSetting]
+        [System.Diagnostics.DebuggerNonUserCode]
+        [System.Configuration.DefaultSettingValue("1500")]
+        public string UpdateTimeout
+        {
+            get => (string)this["UpdateTimeout"];
+            set => this["UpdateTimeout"] = value;
+        }
 
         [System.Configuration.ApplicationScopedSetting]
         [System.Diagnostics.DebuggerNonUserCode]

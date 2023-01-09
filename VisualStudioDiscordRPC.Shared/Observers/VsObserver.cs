@@ -68,7 +68,7 @@ namespace VisualStudioDiscordRPC.Shared.Observers
             {
                 if (lostFocus == null)
                 {
-                    ProjectChanged?.Invoke(null);
+                    //ProjectChanged?.Invoke(null);
                     DocumentChanged?.Invoke(null);
                 }
             }

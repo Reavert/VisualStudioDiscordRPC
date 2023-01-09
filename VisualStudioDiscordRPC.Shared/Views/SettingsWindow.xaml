@@ -73,6 +73,8 @@
                 <Expander Header="Advanced"
                           Margin="5">
                     <StackPanel Margin="5">
+                        <TextBlock Text="Update timeout (milliseconds):"/>
+                        <TextBox Margin="5" Text="{Binding UpdateTimeout}"/>
                         <TextBlock Text="Discord application ID:"/>
                         <Grid Margin="2 5">
                             <Grid.ColumnDefinitions>

@@ -54,7 +54,8 @@ namespace VisualStudioDiscordRPC.Shared
             ServiceRepository.Default.AddService(_slotService);
 
             // Registering Discord RPC controller.
-            _discordRpcController = new DiscordRpcController(1000);
+            int updateTimeout = int.Parse(Settings.Default.UpdateTimeout);
+            _discordRpcController = new DiscordRpcController(updateTimeout);
             ServiceRepository.Default.AddService(_discordRpcController);
         }
 

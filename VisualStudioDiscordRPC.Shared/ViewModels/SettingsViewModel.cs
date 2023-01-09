@@ -24,6 +24,17 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             }
         }
 
+        public int UpdateTimeout
+        {
+            get => int.Parse(Settings.Default.UpdateTimeout);
+            set
+            {
+                Settings.Default.UpdateTimeout = value.ToString();
+                OnPropertyChanged(nameof(UpdateTimeout));
+            }
+        }
+
+
         public string DiscordAppId
         {
             get => Settings.Default.ApplicationID;
