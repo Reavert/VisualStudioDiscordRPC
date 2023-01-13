@@ -2,6 +2,7 @@
 using System;
 using DiscordRPC;
 using VisualStudioDiscordRPC.Shared.Data;
+using System.Linq;
 
 namespace VisualStudioDiscordRPC.Shared.Updaters.Base
 {
@@ -18,7 +19,9 @@ namespace VisualStudioDiscordRPC.Shared.Updaters.Base
         protected void SetButton(int index, ButtonInfo buttonInfo)
         {
             UpdateButtonWithInfo(index, buttonInfo);
-            RichPresence.Buttons = (Button[]) _buttons.ToArray().Clone();
+            RichPresence.Buttons = _buttons
+                .Select(button => GetCopy(button))
+                .ToArray();
         }
 
         private void UpdateButtonWithInfo(int index, ButtonInfo buttonInfo)
@@ -44,6 +47,15 @@ namespace VisualStudioDiscordRPC.Shared.Updaters.Base
             {
                 _buttons.Add(button);
             }
+        }
+
+        private Button GetCopy(Button button)
+        {
+            return new Button()
+            {
+                Label = button.Label,
+                Url = button.Url
+            };
         }
     }
 }

@@ -15,6 +15,7 @@ namespace VisualStudioDiscordRPC.Shared
     public class DiscordRpcController
     {
         private DiscordRpcClient _discordRpcClient;
+        private bool _isDirty;
 
         private LocalizationService<LocalizationFile> _localizationService;
 
@@ -58,6 +59,8 @@ namespace VisualStudioDiscordRPC.Shared
         public DiscordRpcController(int updateMillisecondsTimeout) 
         {
             _discordRpcClient = new DiscordRpcClient(Settings.Default.ApplicationID);
+            _discordRpcClient.SkipIdenticalPresence = false;
+
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
 
             _sharedRichPresence = new RichPresence
@@ -89,6 +92,11 @@ namespace VisualStudioDiscordRPC.Shared
         {
             _localizationService.LocalizationChanged += OnLocalizationChanged;
 
+            foreach (BaseUpdater updater in Updaters)
+            {
+                updater.Changed += OnUpdaterChanged;
+            }
+
             _sendingRichPresenceDataThread.Start();
 
             lock (_richPresenceSync)
@@ -100,6 +108,11 @@ namespace VisualStudioDiscordRPC.Shared
         public void Dispose()
         {
             _localizationService.LocalizationChanged -= OnLocalizationChanged;
+
+            foreach (BaseUpdater updater in Updaters)
+            {
+                updater.Changed -= OnUpdaterChanged;
+            }
 
             lock (_richPresenceSync)
             {
@@ -147,6 +160,11 @@ namespace VisualStudioDiscordRPC.Shared
             UpdateAllUpdaters();
         }
 
+        private void OnUpdaterChanged()
+        {
+            _isDirty = true;
+        }
+
         private void UpdateAllUpdaters()
         {
             foreach (BaseUpdater updater in Updaters)
@@ -168,9 +186,10 @@ namespace VisualStudioDiscordRPC.Shared
                         return;
                     }
 
-                    if (_enabled)
+                    if (_enabled && _isDirty)
                     {
                         _discordRpcClient.SetPresence(_sharedRichPresence);
+                        _isDirty = false;
                     }
                 }
             }
