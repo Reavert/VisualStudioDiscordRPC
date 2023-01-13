@@ -4,6 +4,7 @@ using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.Data;
 using VisualStudioDiscordRPC.Shared.Observers;
+using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
 {
@@ -13,12 +14,6 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
         private VsObserver _vsObserver;
 
         private Solution _solution;
-
-        private Dictionary<string, string> _vsVersions = new Dictionary<string, string>
-        {
-            { "16", "2019" },
-            { "17", "2022" }
-        };
 
         public VisualStudioVersionIconSlot(IAssetMap<VisualStudioVersionAsset> assetMap, VsObserver vsObserver) 
         {
@@ -55,7 +50,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
 
             var assetInfo = new AssetInfo(
                 vsVersionIconAsset.Key,
-                string.Format(ConstantStrings.VisualStudioVersion, _solution.DTE.Edition, _vsVersions[majorVersion]));
+                string.Format(ConstantStrings.VisualStudioVersion, _solution.DTE.Edition, VisualStudioHelper.GetVersionByDevNumber(_solution.DTE.Version)));
 
             return assetInfo;
         }

@@ -15,12 +15,14 @@ namespace VisualStudioDiscordRPC.Shared
     public class DiscordRpcController
     {
         private DiscordRpcClient _discordRpcClient;
+        
         private bool _isDirty;
+        private object _dirtyFlagSync = new object();
 
         private LocalizationService<LocalizationFile> _localizationService;
 
         private RichPresence _sharedRichPresence;
-        public static object _richPresenceSync = new object();
+        private object _richPresenceSync = new object();
 
         private Thread _sendingRichPresenceDataThread;
         private bool _sendingThreadCancellation;
@@ -162,7 +164,10 @@ namespace VisualStudioDiscordRPC.Shared
 
         private void OnUpdaterChanged()
         {
-            _isDirty = true;
+            lock (_dirtyFlagSync)
+            {
+                _isDirty = true;
+            }
         }
 
         private void UpdateAllUpdaters()
@@ -186,10 +191,13 @@ namespace VisualStudioDiscordRPC.Shared
                         return;
                     }
 
-                    if (_enabled && _isDirty)
+                    lock (_dirtyFlagSync)
                     {
-                        _discordRpcClient.SetPresence(_sharedRichPresence);
-                        _isDirty = false;
+                        if (_enabled && _isDirty)
+                        {
+                            _discordRpcClient.SetPresence(_sharedRichPresence);
+                            _isDirty = false;
+                        }
                     }
                 }
             }
