@@ -29,8 +29,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\ButtonSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\NoneButtonSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\Test1ButtonSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\Test2ButtonSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\FileNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\NoneAssetSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\NoneTextSlot.cs" />
