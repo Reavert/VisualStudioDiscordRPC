@@ -1,11 +1,7 @@
-﻿namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
-{
-    public struct AssetInfo
-    {
-        public string Key;
-        public string Description;
-    }
+﻿using VisualStudioDiscordRPC.Shared.Data;
 
-    public abstract class AssetSlot : AbstractSlot<AssetInfo>
+namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
+{
+    public abstract class AssetSlot : BaseDataSlot<AssetInfo>
     { }
 }

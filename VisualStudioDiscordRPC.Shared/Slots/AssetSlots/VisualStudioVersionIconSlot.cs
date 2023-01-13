@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
+using VisualStudioDiscordRPC.Shared.Data;
 using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
@@ -52,11 +53,9 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
 
             var vsVersionIconAsset = _assetMap.GetAsset(asset => asset.Version == majorVersion);
 
-            var assetInfo = new AssetInfo()
-            {
-                Key = vsVersionIconAsset.Key,
-                Description = string.Format(ConstantStrings.VisualStudioVersion, _solution.DTE.Edition, _vsVersions[majorVersion])
-            };
+            var assetInfo = new AssetInfo(
+                vsVersionIconAsset.Key,
+                string.Format(ConstantStrings.VisualStudioVersion, _solution.DTE.Edition, _vsVersions[majorVersion]));
 
             return assetInfo;
         }

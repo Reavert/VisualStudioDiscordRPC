@@ -2,6 +2,7 @@
 using System.IO;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
+using VisualStudioDiscordRPC.Shared.Data;
 using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
@@ -54,11 +55,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
                 suitableAsset = ExtensionAsset.Default;
             }
 
-            var assetInfo = new AssetInfo()
-            {
-                Key = suitableAsset.Key,
-                Description = suitableAsset.Name
-            };
+            var assetInfo = new AssetInfo(suitableAsset.Key, suitableAsset.Name);
 
             return assetInfo;
         }

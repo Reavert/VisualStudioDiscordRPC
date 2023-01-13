@@ -20,10 +20,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\Loaders\JsonAssetsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\OptimizedAssetMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SettingsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\AssetInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\ButtonInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiscordRpcController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\AbstractSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseDataSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\AssetSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\ButtonSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\NoneButtonSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\Test1ButtonSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\Test2ButtonSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\FileNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\NoneAssetSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\NoneTextSlot.cs" />
@@ -47,7 +54,6 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\ISlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\SolutionNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\TextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\VisualStudioVersionIconSlot.cs" />
@@ -56,11 +62,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinFilesTimerSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinProjectsTimerSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinSolutionsTimerSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\BaseButtonUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\BaseDiscordRpcUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\BaseDataUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\BaseUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\DetailsUpdater.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\IUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\FirstButtonUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\LargeIconUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updaters\SecondButtonUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\SmallIconUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\StateUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\TimerUpdater.cs" />
@@ -78,7 +87,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Services\Interfaces\" />
     <Folder Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\" />
     <Folder Include="$(MSBuildThisFileDirectory)Slots\TextSlots\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Updaters\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml">

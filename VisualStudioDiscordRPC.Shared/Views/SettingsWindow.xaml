@@ -97,7 +97,6 @@
             <StackPanel>
                 <TextBlock Text="Large icon:"/>
                 <ComboBox
-                    x:Name="LargeIconEnum"
                     ItemsSource="{Binding AvailableAssetSlots}" 
                     SelectedItem="{Binding LargeIconSlot}"
                     Margin="3">
@@ -108,13 +107,13 @@
                     SelectedItem="{Binding SmallIconSlot}"
                     Margin="3">
                 </ComboBox>
-                <TextBlock Text="Title text:"/>
+                <TextBlock Text="Details text:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableTextSlots}"
                     SelectedItem="{Binding DetailsSlot}"
                     Margin="3">
                 </ComboBox>
-                <TextBlock Text="Subtitle text:"/>
+                <TextBlock Text="State text:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableTextSlots}"
                     SelectedItem="{Binding StateSlot}"
@@ -124,6 +123,18 @@
                 <ComboBox 
                     ItemsSource="{Binding AvailableTimerSlots}"
                     SelectedItem="{Binding TimerSlot}"
+                    Margin="3">
+                </ComboBox>
+                <TextBlock Text="First button:"/>
+                <ComboBox 
+                    ItemsSource="{Binding AvailableButtonSlots}"
+                    SelectedItem="{Binding FirstButtonSlot}"
+                    Margin="3">
+                </ComboBox>
+                <TextBlock Text="Second button:"/>
+                <ComboBox 
+                    ItemsSource="{Binding AvailableButtonSlots}"
+                    SelectedItem="{Binding SecondButtonSlot}"
                     Margin="3">
                 </ComboBox>
             </StackPanel>

@@ -2,18 +2,14 @@
 
 namespace VisualStudioDiscordRPC.Shared.Slots
 {
-    public abstract class AbstractSlot<T> : ISlot<T>
+    public abstract class BaseDataSlot<T> : BaseSlot
     {
         public event Action<T> UpdatePerformed;
 
-        public void Update()
+        public override void Update()
         {
             UpdatePerformed?.Invoke(GetData());
         }
-
-        public abstract void Enable();
-
-        public abstract void Disable();
 
         protected abstract T GetData();
     }

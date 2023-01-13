@@ -1,5 +1,5 @@
 ﻿using DiscordRPC;
-using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
+using VisualStudioDiscordRPC.Shared.Data;
 using VisualStudioDiscordRPC.Shared.Updaters.Base;
 
 namespace VisualStudioDiscordRPC.Shared.Updaters

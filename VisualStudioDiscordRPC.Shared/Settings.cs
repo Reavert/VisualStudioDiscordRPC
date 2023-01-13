@@ -1,4 +1,10 @@
-﻿namespace VisualStudioDiscordRPC.Shared 
+﻿using System.Configuration;
+using System.Diagnostics;
+using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
+
+namespace VisualStudioDiscordRPC.Shared 
 {
     [System.Runtime.CompilerServices.CompilerGenerated]
     internal sealed class Settings : System.Configuration.ApplicationSettingsBase
@@ -7,101 +13,104 @@
 
         public static Settings Default => _defaultInstance;
 
-        [System.Configuration.UserScopedSetting]
-        [System.Configuration.DefaultSettingValue("true")]
+        [UserScopedSetting]
+        [DefaultSettingValue("true")]
         public string RichPresenceEnabled
         {
-            get => (string)this["RichPresenceEnabled"];
-            set => this["RichPresenceEnabled"] = value;
+            get => (string)this[nameof(RichPresenceEnabled)];
+            set => this[nameof(RichPresenceEnabled)] = value;
         }
 
-        [System.Configuration.UserScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        [System.Configuration.DefaultSettingValue("English")]
+        [UserScopedSetting]
+        [DefaultSettingValue("English")]
         public string Language
         {
-            get => (string)this["Language"];
-            set => this["Language"] = value;
+            get => (string)this[nameof(Language)];
+            set => this[nameof(Language)] = value;
         }
 
-        [System.Configuration.UserScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        public string LargeIcon
+        [UserScopedSetting]
+        [DefaultSettingValue(nameof(ExtensionIconSlot))]
+        public string LargeIconSlot
         {
-            get => (string)this["LargeIcon"];
-            set => this["LargeIcon"] = value;
+            get => (string)this[nameof(LargeIconSlot)];
+            set => this[nameof(LargeIconSlot)] = value;
         }
 
-        [System.Configuration.UserScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        public string SmallIcon
+        [UserScopedSetting]
+        [DefaultSettingValue(nameof(VisualStudioVersionIconSlot))]
+        public string SmallIconSlot
         {
-            get => (string)this["SmallIcon"];
-            set => this["SmallIcon"] = value;
+            get => (string)this[nameof(SmallIconSlot)];
+            set => this[nameof(SmallIconSlot)] = value;
         }
 
-        [System.Configuration.UserScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        public string TitleText
+        [UserScopedSetting]
+        [DefaultSettingValue(nameof(FileNameSlot))]
+        public string DetailsSlot
         {
-            get => (string)this["TitleText"];
-            set => this["TitleText"] = value;
+            get => (string)this[nameof(DetailsSlot)];
+            set => this[nameof(DetailsSlot)] = value;
         }
 
-        [System.Configuration.UserScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        public string SubTitleText
+        [UserScopedSetting]
+        [DefaultSettingValue(nameof(SolutionNameSlot))]
+        public string StateSlot
         {
-            get => (string)this["SubTitleText"];
-            set => this["SubTitleText"] = value;
+            get => (string)this[nameof(StateSlot)];
+            set => this[nameof(StateSlot)] = value;
         }
 
-        [System.Configuration.UserScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        public string WorkTimerMode
+        [UserScopedSetting]
+        [DefaultSettingValue(nameof(WithinFilesTimerSlot))]
+        public string TimerSlot
         {
-            get => (string)this["WorkTimerMode"];
-            set => this["WorkTimerMode"] = value;
+            get => (string)this[nameof(TimerSlot)];
+            set => this[nameof(TimerSlot)] = value;
         }
 
-        [System.Configuration.UserScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        public string GitLinkVisible
+        [UserScopedSetting]
+        [DefaultSettingValue("")]
+        public string FirstButtonSlot
         {
-            get => (string)this["GitLinkVisible"];
-            set => this["GitLinkVisible"] = value;
+            get => (string)this["FirstButtonSlot"];
+            set => this["FirstButtonSlot"] = value;
         }
 
-        [System.Configuration.UserScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        [System.Configuration.DefaultSettingValue("false")]
+        [UserScopedSetting]
+        [DefaultSettingValue("")]
+        public string SecondButtonSlot
+        {
+            get => (string)this["SecondButtonSlot"];
+            set => this["SecondButtonSlot"] = value;
+        }
+
+        [UserScopedSetting]
+        [DefaultSettingValue("false")]
         public bool Updated
         {
             get => (bool)this["Updated"];
             set => this["Updated"] = value;
         }
 
-        [System.Configuration.UserScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        [System.Configuration.DefaultSettingValue("914622396630175855")]
+        [UserScopedSetting]
+        [DefaultSettingValue("914622396630175855")]
         public string ApplicationID
         {
             get => (string)this["ApplicationID"];
             set => this["ApplicationID"] = value;
         }
 
-        [System.Configuration.UserScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        [System.Configuration.DefaultSettingValue("1500")]
+        [UserScopedSetting]
+        [DefaultSettingValue("1500")]
         public string UpdateTimeout
         {
             get => (string)this["UpdateTimeout"];
             set => this["UpdateTimeout"] = value;
         }
 
-        [System.Configuration.ApplicationScopedSetting]
-        [System.Diagnostics.DebuggerNonUserCode]
-        [System.Configuration.DefaultSettingValue("Translations/")]
+        [ApplicationScopedSetting]
+        [DefaultSettingValue("Translations/")]
         public string TranslationsPath => (string)this["TranslationsPath"];
     }
 }

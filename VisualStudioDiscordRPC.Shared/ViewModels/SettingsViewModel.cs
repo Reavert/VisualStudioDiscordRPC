@@ -3,8 +3,10 @@ using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
+using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
+using VisualStudioDiscordRPC.Shared.Updaters;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
@@ -58,74 +60,95 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             }
         }
 
-        private AssetSlot _largeIconSlot;
         public AssetSlot LargeIconSlot
         {
-            get => _largeIconSlot;
+            get => (AssetSlot) _discordRpcController.GetSlotOfUpdater<LargeIconUpdater>();
             set
             {
-                SetProperty(ref _largeIconSlot, value);
-                Settings.Default.LargeIcon = value.GetType().Name;
+                Settings.Default.LargeIconSlot = value.GetType().Name;
+                _discordRpcController.SetSlot<LargeIconUpdater>(value);
 
-                _discordRpcController.LargeIconSlot = value;
+                OnPropertyChanged(nameof(LargeIconSlot));
             }
         }
 
-        private AssetSlot _smallIconSlot;
         public AssetSlot SmallIconSlot
         {
-            get => _smallIconSlot;
+            get => (AssetSlot) _discordRpcController.GetSlotOfUpdater<SmallIconUpdater>();
             set
             {
-                SetProperty(ref _smallIconSlot, value);
-                Settings.Default.SmallIcon = value.GetType().Name;
+                Settings.Default.SmallIconSlot = value.GetType().Name;
+                _discordRpcController.SetSlot<SmallIconUpdater>(value);
 
-                _discordRpcController.SmallIconSlot = value;
+                OnPropertyChanged(nameof(SmallIconSlot));
             }
         }
 
-        private TextSlot _stateSlot;
         public TextSlot StateSlot
         {
-            get => _stateSlot;
+            get => (TextSlot)_discordRpcController.GetSlotOfUpdater<StateUpdater>();
             set
             {
-                SetProperty(ref _stateSlot, value);
-                Settings.Default.TitleText= value.GetType().Name;
+                Settings.Default.DetailsSlot= value.GetType().Name;
+                _discordRpcController.SetSlot<StateUpdater>(value);
 
-                _discordRpcController.StateSlot = value;
+                OnPropertyChanged(nameof(StateSlot));
             }
         }
 
-        private TextSlot _detailsSlot;
         public TextSlot DetailsSlot
         {
-            get => _detailsSlot;
+            get => (TextSlot) _discordRpcController.GetSlotOfUpdater<DetailsUpdater>();
             set
             {
-                SetProperty(ref _detailsSlot, value);
-                Settings.Default.SubTitleText = value.GetType().Name;
+                Settings.Default.StateSlot = value.GetType().Name;
+                _discordRpcController.SetSlot<DetailsUpdater>(value);
 
-                _discordRpcController.DetailsSlot = value;
+                OnPropertyChanged(nameof(DetailsSlot));
             }
         }
 
-        private TimerSlot _timerSlot;
+
         public TimerSlot TimerSlot
         {
-            get => _timerSlot;
+            get => (TimerSlot) _discordRpcController.GetSlotOfUpdater<TimerUpdater>();
             set
             {
-                SetProperty(ref _timerSlot, value);
-                Settings.Default.WorkTimerMode = value.GetType().Name;
+                Settings.Default.TimerSlot = value.GetType().Name;
+                _discordRpcController.SetSlot<TimerUpdater>(value);
 
-                _discordRpcController.TimerSlot = value;
+                OnPropertyChanged(nameof(TimerSlot));
+            }
+        }
+
+        public ButtonSlot FirstButtonSlot
+        {
+            get => (ButtonSlot) _discordRpcController.GetSlotOfUpdater<FirstButtonUpdater>();
+            set
+            {
+                Settings.Default.FirstButtonSlot = value.GetType().Name;
+                _discordRpcController.SetSlot<FirstButtonUpdater>(value);
+
+                OnPropertyChanged(nameof(FirstButtonSlot));
+            }
+        }
+
+        public ButtonSlot SecondButtonSlot
+        {
+            get => (ButtonSlot) _discordRpcController.GetSlotOfUpdater<SecondButtonUpdater>();
+            set
+            {
+                Settings.Default.SecondButtonSlot = value.GetType().Name;
+                _discordRpcController.SetSlot<SecondButtonUpdater>(value);
+
+                OnPropertyChanged(nameof(SecondButtonSlot));
             }
         }
 
         public IReadOnlyList<AssetSlot> AvailableAssetSlots { get; set; }
         public IReadOnlyList<TextSlot> AvailableTextSlots { get; set; }
         public IReadOnlyList<TimerSlot> AvailableTimerSlots { get; set; }
+        public IReadOnlyList<ButtonSlot> AvailableButtonSlots { get; set; }
 
         public SettingsViewModel()
         {
@@ -135,22 +158,17 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
             OnPropertyChanged(nameof(Localizations));
 
-            _largeIconSlot = _slotService.GetAssetSlotByName(Settings.Default.LargeIcon);
-            _smallIconSlot = _slotService.GetAssetSlotByName(Settings.Default.SmallIcon);
-
-            _stateSlot = _slotService.GetTextSlotByName(Settings.Default.TitleText);
-            _detailsSlot = _slotService.GetTextSlotByName(Settings.Default.SubTitleText);
-
-            _timerSlot = _slotService.GetTimerSlotByName(Settings.Default.WorkTimerMode);
-
-            AvailableAssetSlots = _slotService.AssetSlots;
+            AvailableAssetSlots = _slotService.GetSlotsOfType<AssetSlot>();
             OnPropertyChanged(nameof(AvailableAssetSlots));
 
-            AvailableTextSlots = _slotService.TextSlots;
+            AvailableTextSlots = _slotService.GetSlotsOfType<TextSlot>();
             OnPropertyChanged(nameof(AvailableTextSlots));
 
-            AvailableTimerSlots = _slotService.TimerSlots;
+            AvailableTimerSlots = _slotService.GetSlotsOfType<TimerSlot>();
             OnPropertyChanged(nameof(AvailableTimerSlots));
+
+            AvailableButtonSlots = _slotService.GetSlotsOfType<ButtonSlot>();
+            OnPropertyChanged(nameof(AvailableButtonSlots));
         }
     }
 }

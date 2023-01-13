@@ -1,12 +1,12 @@
 ﻿using DiscordRPC;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots;
-using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
-using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
-using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 using VisualStudioDiscordRPC.Shared.Updaters;
 using VisualStudioDiscordRPC.Shared.Updaters.Base;
 
@@ -33,10 +33,10 @@ namespace VisualStudioDiscordRPC.Shared
             {
                 _enabled = value;
 
-                _largeIconUpdater.Enabled = value;
-                _smallIconUpdater.Enabled = value;
-                _detailsUpdater.Enabled = value;
-                _stateUpdater.Enabled = value;
+                foreach (BaseUpdater updater in Updaters)
+                {
+                    updater.Enabled = value;
+                }
 
                 if (_discordRpcClient.IsInitialized)
                 {
@@ -52,56 +52,34 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        private LargeIconUpdater _largeIconUpdater;
-        public AssetSlot LargeIconSlot
-        {
-            get => (AssetSlot) _largeIconUpdater.Slot;
-            set => SetSlot(_largeIconUpdater, value);
-        }
-
-        private SmallIconUpdater _smallIconUpdater;
-        public AssetSlot SmallIconSlot
-        {
-            get => (AssetSlot)_smallIconUpdater.Slot;
-            set => SetSlot(_smallIconUpdater, value);
-        }
-
-        private DetailsUpdater _detailsUpdater;
-        public TextSlot DetailsSlot
-        {
-            get => (TextSlot) _detailsUpdater.Slot;
-            set => SetSlot(_detailsUpdater, value);
-        }
-
-        private StateUpdater _stateUpdater;
-        public TextSlot StateSlot
-        {
-            get => (TextSlot) _stateUpdater.Slot;
-            set => SetSlot(_stateUpdater, value);
-        }
-
-        private TimerUpdater _timerUpdater;
-        public TimerSlot TimerSlot
-        {
-            get => (TimerSlot) _timerUpdater.Slot;
-            set => SetSlot(_timerUpdater, value);
-        }
+        private Dictionary<Type, BaseUpdater> _updaters = new Dictionary<Type, BaseUpdater>();
+        public IEnumerable<BaseUpdater> Updaters => _updaters.Values;
 
         public DiscordRpcController(int updateMillisecondsTimeout) 
         {
             _discordRpcClient = new DiscordRpcClient(Settings.Default.ApplicationID);
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
 
-            _sharedRichPresence = new RichPresence();
-            _sharedRichPresence.Assets = new Assets();
+            _sharedRichPresence = new RichPresence
+            {
+                Assets = new Assets(),
+                Buttons = new Button[]
+                {
+                    new Button(),
+                    new Button()
+                }
+            };
+            
+            RegisterUpdater(new LargeIconUpdater(_sharedRichPresence));
+            RegisterUpdater(new SmallIconUpdater(_sharedRichPresence));
 
-            _largeIconUpdater = new LargeIconUpdater(_sharedRichPresence);
-            _smallIconUpdater = new SmallIconUpdater(_sharedRichPresence);
+            RegisterUpdater(new DetailsUpdater(_sharedRichPresence));
+            RegisterUpdater(new StateUpdater(_sharedRichPresence));
 
-            _detailsUpdater = new DetailsUpdater(_sharedRichPresence);
-            _stateUpdater = new StateUpdater(_sharedRichPresence);
+            RegisterUpdater(new TimerUpdater(_sharedRichPresence));
 
-            _timerUpdater = new TimerUpdater(_sharedRichPresence);
+            RegisterUpdater(new FirstButtonUpdater(_sharedRichPresence));
+            RegisterUpdater(new SecondButtonUpdater(_sharedRichPresence));
 
             _sendingRichPresenceDataThread = new Thread(SendRichPresenceData);
             _sendDataMillisecondsTimeout = updateMillisecondsTimeout;
@@ -130,22 +108,17 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        private void OnLocalizationChanged()
+        public void SetSlot<TUpdater>(BaseSlot slot) where TUpdater : BaseUpdater
         {
-            UpdateAllUpdaters();
-        }
+            if (slot == null)
+            {
+                return;
+            }
 
-        private void UpdateAllUpdaters()
-        {
-            _largeIconUpdater.Slot?.Update();
-            _smallIconUpdater.Slot?.Update();
-            _stateUpdater.Slot?.Update();
-            _detailsUpdater.Slot?.Update();
-        }
+            Type updaterType = typeof(TUpdater);
+            BaseUpdater updater = _updaters[updaterType];
 
-        private void SetSlot<T>(BaseUpdater<T> updater, AbstractSlot<T> slot)
-        {
-            updater.Slot = slot;
+            updater.BaseSlot = slot;
 
             if (_enabled)
             {
@@ -155,6 +128,30 @@ namespace VisualStudioDiscordRPC.Shared
             if (_discordRpcClient.IsInitialized)
             {
                 slot.Update();
+            }
+        }
+
+        public BaseSlot GetSlotOfUpdater<TUpdater>()
+        {
+            BaseUpdater updater = _updaters[typeof(TUpdater)];
+            return updater.BaseSlot;
+        }
+
+        private void RegisterUpdater(BaseUpdater updater)
+        {
+            _updaters.Add(updater.GetType(), updater);
+        }
+
+        private void OnLocalizationChanged()
+        {
+            UpdateAllUpdaters();
+        }
+
+        private void UpdateAllUpdaters()
+        {
+            foreach (BaseUpdater updater in Updaters)
+            {
+                updater.BaseSlot?.Update();
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 {
-    public abstract class TextSlot : AbstractSlot<string>
+    public abstract class TextSlot : BaseDataSlot<string>
     { }
 }

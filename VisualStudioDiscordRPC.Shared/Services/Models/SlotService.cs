@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders;
 using VisualStudioDiscordRPC.Shared.Observers;
+using VisualStudioDiscordRPC.Shared.Slots;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
+using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 using VisualStudioDiscordRPC.Shared.Utils;
@@ -14,14 +17,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 {
     public class SlotService
     {
-        private List<AssetSlot> _assetSlots;
-        public IReadOnlyList<AssetSlot> AssetSlots => _assetSlots;
-
-        private List<TextSlot> _textSlots;
-        public IReadOnlyList<TextSlot> TextSlots => _textSlots;
-
-        private List<TimerSlot> _timerSlots;
-        public IReadOnlyList<TimerSlot> TimerSlots => _timerSlots;
+        private List<BaseSlot> _slots;
 
         public SlotService()
         {
@@ -30,53 +26,31 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         public void InitSlotsSubscriptions()
         {
-            foreach (AssetSlot assetSlot in _assetSlots)
+            foreach (BaseSlot slot in _slots)
             {
-                assetSlot.Enable();
-            }
-
-            foreach (TextSlot textSlot in _textSlots)
-            {
-                textSlot.Enable();
-            }
-
-            foreach (TimerSlot timerSlot in _timerSlots)
-            {
-                timerSlot.Enable();
+                slot.Enable();
             }
         }
 
         public void ClearSlotsSubscriptions()
         {
-            foreach (AssetSlot assetSlot in _assetSlots)
+            foreach (BaseSlot slot in _slots)
             {
-                assetSlot.Disable();
-            }
-
-            foreach (TextSlot textSlot in _textSlots)
-            {
-                textSlot.Disable();
-            }
-
-            foreach (TimerSlot timerSlot in _timerSlots)
-            {
-                timerSlot.Disable();
+                slot.Disable();
             }
         }
 
-        public AssetSlot GetAssetSlotByName(string name)
+        public TSlot GetSlotByName<TSlot>(string name) where TSlot : BaseSlot
         {
-            return _assetSlots.FirstOrDefault(slot => slot.GetType().Name == name);
+            return (TSlot) _slots.FirstOrDefault(slot => slot.GetType().Name == name);
         }
 
-        public TextSlot GetTextSlotByName(string name)
+        public IReadOnlyList<TSlot> GetSlotsOfType<TSlot>() where TSlot : BaseSlot
         {
-            return _textSlots.FirstOrDefault(slot => slot.GetType().Name == name);
-        }
-
-        public TimerSlot GetTimerSlotByName(string name)
-        {
-            return _timerSlots.FirstOrDefault(slot => slot.GetType().Name == name);
+            return _slots
+                .Where(slot => slot is TSlot)
+                .Select(slot => (TSlot) slot)
+                .ToList();
         }
 
         private void CreateSlots()
@@ -89,27 +63,29 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
             VsObserver vsObserver = ServiceRepository.Default.GetService<VsObserver>();
 
-            _assetSlots = new List<AssetSlot>
+            _slots = new List<BaseSlot>
             {
+                // Asset slots.
                 new NoneAssetSlot(),
                 new ExtensionIconSlot(extensionsAssetMap, vsObserver),
-                new VisualStudioVersionIconSlot(vsVersionsAssetMap, vsObserver)
-            };
+                new VisualStudioVersionIconSlot(vsVersionsAssetMap, vsObserver),
 
-            _textSlots = new List<TextSlot>
-            {
+                // Text slots.
                 new NoneTextSlot(),
                 new FileNameSlot(vsObserver),
                 new ProjectNameSlot(vsObserver),
                 new SolutionNameSlot(vsObserver),
-            };
 
-            _timerSlots = new List<TimerSlot>
-            {
+                // Timer slots.
                 new NoneTimerSlot(),
                 new WithinFilesTimerSlot(vsObserver),
                 new WithinProjectsTimerSlot(vsObserver),
-                new WithinSolutionsTimerSlot(vsObserver)
+                new WithinSolutionsTimerSlot(vsObserver),
+
+                // Button slots.
+                new NoneButtonSlot(),
+                new Test1ButtonSlot(),
+                new Test2ButtonSlot()
             };
         }
 

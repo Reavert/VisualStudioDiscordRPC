@@ -5,6 +5,11 @@ using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Services.Models;
+using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
+using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
+using VisualStudioDiscordRPC.Shared.Updaters;
 using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared
@@ -24,7 +29,7 @@ namespace VisualStudioDiscordRPC.Shared
             _slotService.InitSlotsSubscriptions();
             _vsObserver.Observe();
 
-            LoadSettings();
+            ApplySettings();
         }
 
         public void Clear()
@@ -70,17 +75,20 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        private void LoadSettings()
+        private void ApplySettings()
         {
             _discordRpcController.Enabled = bool.Parse(Settings.Default.RichPresenceEnabled);
 
-            _discordRpcController.LargeIconSlot = _slotService.GetAssetSlotByName(Settings.Default.LargeIcon);
-            _discordRpcController.SmallIconSlot = _slotService.GetAssetSlotByName(Settings.Default.SmallIcon);
+            _discordRpcController.SetSlot<LargeIconUpdater>(_slotService.GetSlotByName<AssetSlot>(Settings.Default.LargeIconSlot));
+            _discordRpcController.SetSlot<SmallIconUpdater>(_slotService.GetSlotByName<AssetSlot>(Settings.Default.SmallIconSlot));
 
-            _discordRpcController.StateSlot = _slotService.GetTextSlotByName(Settings.Default.TitleText);
-            _discordRpcController.DetailsSlot = _slotService.GetTextSlotByName(Settings.Default.SubTitleText);
+            _discordRpcController.SetSlot<DetailsUpdater>(_slotService.GetSlotByName<TextSlot>(Settings.Default.DetailsSlot));
+            _discordRpcController.SetSlot<StateUpdater>(_slotService.GetSlotByName<TextSlot>(Settings.Default.StateSlot));
+            
+            _discordRpcController.SetSlot<TimerUpdater>(_slotService.GetSlotByName<TimerSlot>(Settings.Default.TimerSlot));
 
-            _discordRpcController.TimerSlot = _slotService.GetTimerSlotByName(Settings.Default.WorkTimerMode);
+            _discordRpcController.SetSlot<FirstButtonUpdater>(_slotService.GetSlotByName<ButtonSlot>(Settings.Default.FirstButtonSlot));
+            _discordRpcController.SetSlot<SecondButtonUpdater>(_slotService.GetSlotByName<ButtonSlot>(Settings.Default.SecondButtonSlot));
         }
     }
 }

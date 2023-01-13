@@ -1,4 +1,6 @@
-﻿namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
+﻿using VisualStudioDiscordRPC.Shared.Data;
+
+namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
 {
     public class NoneAssetSlot : AssetSlot
     {
@@ -10,11 +12,7 @@
 
         protected override AssetInfo GetData()
         {
-            return new AssetInfo()
-            {
-                Key = string.Empty,
-                Description = string.Empty
-            };
+            return new AssetInfo(string.Empty, string.Empty);
         }
     }
 }
