@@ -1,6 +1,7 @@
 ﻿using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using System.Windows;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
@@ -30,6 +31,18 @@ namespace VisualStudioDiscordRPC.Shared
             _vsObserver.Observe();
 
             ApplySettings();
+
+            string currentExtensionVersion = VisualStudioHelper.GetExtensionVersion();
+            bool updateNotificationsEnabled = bool.Parse(Settings.Default.UpdateNotifications);
+
+            if (updateNotificationsEnabled && currentExtensionVersion != Settings.Default.Version)
+            {
+                Settings.Default.Version = currentExtensionVersion;
+                Settings.Default.Save();
+
+                MessageBox.Show(string.Format(ConstantStrings.NewVersionNotification, currentExtensionVersion),
+                    "Update", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         public void Clear()

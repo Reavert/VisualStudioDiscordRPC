@@ -7,6 +7,7 @@ using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 using VisualStudioDiscordRPC.Shared.Updaters;
+using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
@@ -15,6 +16,14 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         private DiscordRpcController _discordRpcController;
         private SlotService _slotService;
         private LocalizationService<LocalizationFile> _localizationService;
+
+        public string Version => VisualStudioHelper.GetExtensionVersion();
+        
+        public bool UpdateNotificationsEnabled
+        {
+            get => bool.Parse(Settings.Default.UpdateNotifications);
+            set => Settings.Default.UpdateNotifications = value.ToString();
+        }
 
         public bool RichPresenceEnabled
         {

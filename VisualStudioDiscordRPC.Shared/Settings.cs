@@ -109,6 +109,22 @@ namespace VisualStudioDiscordRPC.Shared
             set => this[nameof(UpdateTimeout)] = value;
         }
 
+        [UserScopedSetting]
+        [DefaultSettingValue("1.0.0")]
+        public string Version
+        {
+            get => (string)this[nameof(Version)];
+            set => this[nameof(Version)] = value;
+        }
+
+        [UserScopedSetting]
+        [DefaultSettingValue("true")]
+        public string UpdateNotifications
+        {
+            get => (string)this[nameof(UpdateNotifications)];
+            set => this[nameof(UpdateNotifications)] = value;
+        }
+
         [ApplicationScopedSetting]
         [DefaultSettingValue("Translations/")]
         public string TranslationsPath => (string)this[nameof(TranslationsPath)];

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 
 namespace VisualStudioDiscordRPC.Shared.Utils
 {
@@ -14,6 +15,18 @@ namespace VisualStudioDiscordRPC.Shared.Utils
         {
             string majorVersion = version.Split('.')[0];
             return VsVersions[majorVersion];
+        }
+
+        public static string GetExtensionVersion()
+        {
+            const string vsixManifesetFileName = "extension.vsixmanifest";
+
+            var vsixManifest = new XmlDocument();
+
+            string vsixManifestPath = PackageFileHelper.GetPackageFilePath(vsixManifesetFileName);
+            vsixManifest.Load(vsixManifestPath);
+
+            return vsixManifest.DocumentElement["Metadata"]["Identity"].Attributes["Version"].Value;
         }
     }
 }

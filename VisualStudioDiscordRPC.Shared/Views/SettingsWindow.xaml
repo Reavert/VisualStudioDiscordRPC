@@ -70,6 +70,10 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <CheckBox Margin="5"
+                          IsChecked="{Binding UpdateNotificationsEnabled}">
+                    <TextBlock Text="Notify about extension updates"/>
+                </CheckBox>
                 <Expander Header="Advanced"
                           Margin="5">
                     <StackPanel Margin="5">
@@ -183,5 +187,11 @@
                 <CheckBox IsEnabled="False"><TextBlock Foreground="Gray">Activate LiveShare integration</TextBlock></CheckBox>
             </StackPanel>
         </GroupBox>
+        <TextBlock 
+            Margin="5"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            Foreground="DarkGray"
+            Text="{Binding Version, StringFormat=Version: {0}}"/>
     </StackPanel>
 </Window>
