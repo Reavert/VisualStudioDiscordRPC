@@ -178,15 +178,6 @@
                 </ComboBox>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Work in progress" Margin="5" Padding="3">
-            <StackPanel Margin="3">
-                <TextBlock Foreground="Gray">Icon theme:</TextBlock>
-                <ComboBox Margin="3 3 3 10" IsEnabled="False" SelectedIndex="0">
-                    <TextBlock Foreground="Gray">Default</TextBlock>
-                </ComboBox>
-                <CheckBox IsEnabled="False"><TextBlock Foreground="Gray">Activate LiveShare integration</TextBlock></CheckBox>
-            </StackPanel>
-        </GroupBox>
         <TextBlock 
             Margin="5"
             VerticalAlignment="Center" 
