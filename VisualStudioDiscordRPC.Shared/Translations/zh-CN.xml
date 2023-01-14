@@ -24,4 +24,7 @@
 	<translation id="WithinFilesTimerSlot">文件内</translation>
 	<translation id="WithinProjectsTimerSlot">项目内</translation>
 	<translation id="WithinSolutionsTimerSlot">解决方案内</translation>
+
+	<translation id="NoneButtonSlot">没有任何</translation>
+	<translation id="GitRepositoryButtonSlot">存储库</translation>
 </language>

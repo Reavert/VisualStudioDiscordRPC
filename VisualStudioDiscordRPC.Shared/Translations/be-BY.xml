@@ -24,4 +24,7 @@
 	<translation id="WithinFilesTimerSlot">Для файлаў</translation>
 	<translation id="WithinProjectsTimerSlot">Для праектаў</translation>
 	<translation id="WithinSolutionsTimerSlot">Для рашэнняў</translation>
+
+	<translation id="NoneButtonSlot">Няма</translation>
+	<translation id="GitRepositoryButtonSlot">Рэпазітар</translation>
 </language>

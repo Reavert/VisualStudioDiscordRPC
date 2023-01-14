@@ -24,4 +24,7 @@
 	<translation id="WithinFilesTimerSlot">파일 표시</translation>
 	<translation id="WithinProjectsTimerSlot">프로젝트 표시</translation>
 	<translation id="WithinSolutionsTimerSlot">솔루션 표시</translation>
+
+	<translation id="NoneButtonSlot">없음</translation>
+	<translation id="GitRepositoryButtonSlot">저장소</translation>
 </language>

@@ -24,4 +24,7 @@
 	<translation id="WithinFilesTimerSlot">फ़ाइलों के भीतर</translation>
 	<translation id="WithinProjectsTimerSlot">परियोजनाओं के भीतर</translation>
 	<translation id="WithinSolutionsTimerSlot">समाधान के भीतर</translation>
+
+	<translation id="NoneButtonSlot">कोई नहीं</translation>
+	<translation id="GitRepositoryButtonSlot">रिपोजिटरी</translation>
 </language>

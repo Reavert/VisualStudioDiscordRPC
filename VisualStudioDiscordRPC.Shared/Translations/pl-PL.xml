@@ -24,4 +24,7 @@
 	<translation id="WithinFilesTimerSlot">W pliku</translation>
 	<translation id="WithinProjectsTimerSlot">W ramach projektów</translation>
 	<translation id="WithinSolutionsTimerSlot">W ramach rozwiązań</translation>
+
+	<translation id="NoneButtonSlot">Brak</translation>
+	<translation id="GitRepositoryButtonSlot">Repozytorium</translation>
 </language>
