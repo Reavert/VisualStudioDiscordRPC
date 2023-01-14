@@ -11,31 +11,27 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
     public class LocalizationConverter : IValueConverter
     {
         private readonly LocalizationService<LocalizationFile> _localizationService;
-        private Dictionary<string, Type> _typesCache;
 
         public LocalizationConverter()
         {
             _localizationService =
                 ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
-            _typesCache = new Dictionary<string, Type>();
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Type type = value?.GetType();
-            string translation = _localizationService.Current.GetTypeValue(type, value);
-
-            if (!_typesCache.ContainsKey(translation))
+            string objectTypeName = value.GetType().Name;
+            if (_localizationService.Current.LocalizedValues.TryGetValue(objectTypeName, out var localizedName))
             {
-                _typesCache.Add(translation, type);
+                return localizedName;
             }
-            
-            return translation;
+
+            return objectTypeName;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return _typesCache[(string) value];
+            return null;
         }
     }
 }

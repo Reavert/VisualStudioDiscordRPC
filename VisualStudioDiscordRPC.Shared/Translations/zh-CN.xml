@@ -9,19 +9,19 @@
 	<translation id="noActiveFile">无活动文件</translation>
 	<translation id="noActiveSolution">无活性解决方案</translation>
 
-	<translation id="Icon.None">没有任何</translation>
-	<translation id="Icon.VisualStudioVersion">版本</translation>
-	<translation id="Icon.FileExtension">文件扩展名</translation>
+	<translation id="NoneAssetSlot">没有任何</translation>
+	<translation id="VisualStudioVersionIconSlot">版本</translation>
+	<translation id="ExtensionIconSlot">文件扩展名</translation>
 
-	<translation id="Text.None">没有任何</translation>
-	<translation id="Text.VisualStudioVersion">版本</translation>
+	<translation id="NoneTextSlot">没有任何</translation>
+	<translation id="VisualStudioVersionTextSlot">版本</translation>
 	<translation id="Text.FileExtension">文件扩展名</translation>
-	<translation id="Text.ProjectName">项目名称</translation>
-	<translation id="Text.SolutionName">解决方案名称</translation>
-	<translation id="Text.FileName">文件名称</translation>
+	<translation id="ProjectNameSlot">项目名称</translation>
+	<translation id="SolutionNameSlot">解决方案名称</translation>
+	<translation id="FileNameSlot">文件名称</translation>
 
-	<translation id="TimerMode.Disabled">禁用</translation>
-	<translation id="TimerMode.File">文件内</translation>
-	<translation id="TimerMode.Project">项目内</translation>
-	<translation id="TimerMode.Solution">解决方案内</translation>
+	<translation id="NoneTimerSlot">禁用</translation>
+	<translation id="WithinFilesTimerSlot">文件内</translation>
+	<translation id="WithinProjectsTimerSlot">项目内</translation>
+	<translation id="WithinSolutionsTimerSlot">解决方案内</translation>
 </language>

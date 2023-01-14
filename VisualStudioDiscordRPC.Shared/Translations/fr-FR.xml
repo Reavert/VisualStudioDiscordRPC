@@ -9,19 +9,19 @@
 	<translation id="noActiveFile">Aucun fichier actif</translation>
 	<translation id="noActiveSolution">Aucun solution actif</translation>
 
-	<translation id="Icon.None">Aucun</translation>
-	<translation id="Icon.VisualStudioVersion">Version de Visual Studio</translation>
-	<translation id="Icon.FileExtension">Extension de fichier</translation>
+	<translation id="NoneAssetSlot">Aucun</translation>
+	<translation id="VisualStudioVersionIconSlot">Version de Visual Studio</translation>
+	<translation id="ExtensionIconSlot">Extension de fichier</translation>
 
-	<translation id="Text.None">Vide</translation>
-	<translation id="Text.VisualStudioVersion">Version de Visual Studio</translation>
+	<translation id="NoneTextSlot">Vide</translation>
+	<translation id="VisualStudioVersionTextSlot">Version de Visual Studio</translation>
 	<translation id="Text.FileExtension">Extension de fichier</translation>
-	<translation id="Text.ProjectName">Nom du projet</translation>
-	<translation id="Text.SolutionName">Nom de la solution</translation>
-	<translation id="Text.FileName">Nom du fichier</translation>
+	<translation id="ProjectNameSlot">Nom du projet</translation>
+	<translation id="SolutionNameSlot">Nom de la solution</translation>
+	<translation id="FileNameSlot">Nom du fichier</translation>
 
-	<translation id="TimerMode.Disabled">Désactivée</translation>
-	<translation id="TimerMode.File">Dans les fichiers</translation>
-	<translation id="TimerMode.Project">Au sein des projets</translation>
-	<translation id="TimerMode.Solution">Au sein de solutions</translation>
+	<translation id="NoneTimerSlot">Désactivée</translation>
+	<translation id="WithinFilesTimerSlot">Dans les fichiers</translation>
+	<translation id="WithinProjectsTimerSlot">Au sein des projets</translation>
+	<translation id="WithinSolutionsTimerSlot">Au sein de solutions</translation>
 </language>

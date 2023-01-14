@@ -100,42 +100,77 @@
                     ItemsSource="{Binding AvailableAssetSlots}" 
                     SelectedItem="{Binding LargeIconSlot}"
                     Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="Small icon:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableAssetSlots}"
                     SelectedItem="{Binding SmallIconSlot}"
                     Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="Details text:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableTextSlots}"
                     SelectedItem="{Binding DetailsSlot}"
                     Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="State text:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableTextSlots}"
                     SelectedItem="{Binding StateSlot}"
                     Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="Timer mode:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableTimerSlots}"
                     SelectedItem="{Binding TimerSlot}"
                     Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="First button:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableButtonSlots}"
                     SelectedItem="{Binding FirstButtonSlot}"
                     Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="Second button:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableButtonSlots}"
                     SelectedItem="{Binding SecondButtonSlot}"
                     Margin="3">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
         </GroupBox>

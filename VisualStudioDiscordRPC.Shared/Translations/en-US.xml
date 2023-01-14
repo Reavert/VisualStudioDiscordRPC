@@ -9,19 +9,19 @@
 	<translation id="noActiveFile">No active file</translation>
 	<translation id="noActiveSolution">No active solution</translation>
 
-	<translation id="Icon.None">None</translation>
-	<translation id="Icon.VisualStudioVersion">Visual Studio version</translation>
-	<translation id="Icon.FileExtension">File extension</translation>
+	<translation id="NoneAssetSlot">None</translation>
+	<translation id="VisualStudioVersionIconSlot">Visual Studio version</translation>
+	<translation id="ExtensionIconSlot">File extension</translation>
 
-	<translation id="Text.None">Empty</translation>
-	<translation id="Text.VisualStudioVersion">Visual Studio version</translation>
+	<translation id="NoneTextSlot">Empty</translation>
+	<translation id="VisualStudioVersionTextSlot">Visual Studio version</translation>
 	<translation id="Text.FileExtension">File extension</translation>
-	<translation id="Text.ProjectName">Project name</translation>
-	<translation id="Text.SolutionName">Solution name</translation>
-	<translation id="Text.FileName">File name</translation>
+	<translation id="ProjectNameSlot">Project name</translation>
+	<translation id="SolutionNameSlot">Solution name</translation>
+	<translation id="FileNameSlot">File name</translation>
 
-	<translation id="TimerMode.Disabled">Disabled</translation>
-	<translation id="TimerMode.File">Within files</translation>
-	<translation id="TimerMode.Project">Within projects</translation>
-	<translation id="TimerMode.Solution">Within solutions</translation>
+	<translation id="NoneTimerSlot">Disabled</translation>
+	<translation id="WithinFilesTimerSlot">Within files</translation>
+	<translation id="WithinProjectsTimerSlot">Within projects</translation>
+	<translation id="WithinSolutionsTimerSlot">Within solutions</translation>
 </language>
