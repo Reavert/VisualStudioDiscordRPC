@@ -23,9 +23,9 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly RichPresence _sharedRichPresence;
         private readonly object _richPresenceSync = new object();
 
-        private Thread _sendingRichPresenceDataThread;
+        private readonly Thread _sendingRichPresenceDataThread;
+        private readonly int _sendDataMillisecondsTimeout;
         private bool _sendingThreadCancellation;
-        private int _sendDataMillisecondsTimeout;
 
         private bool _enabled;
         public bool Enabled
