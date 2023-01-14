@@ -85,7 +85,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
                 // Button slots.
                 new NoneButtonSlot(),
-                new GitRepositoryButton(vsObserver)
+                new GitRepositoryButtonSlot(vsObserver)
             };
         }
 

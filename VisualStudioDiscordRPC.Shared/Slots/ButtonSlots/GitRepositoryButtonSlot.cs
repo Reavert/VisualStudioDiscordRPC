@@ -1,22 +1,19 @@
 ﻿using EnvDTE;
 using LibGit2Sharp;
-using Microsoft.VisualStudio.Shell.Interop;
-using System;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using VisualStudioDiscordRPC.Shared.Data;
 using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.ButtonSlots
 {
-    public class GitRepositoryButton : ButtonSlot
+    public class GitRepositoryButtonSlot : ButtonSlot
     {
         private readonly VsObserver _vsObserver;
 
         private string _remoteRepositoryUrl;
 
-        public GitRepositoryButton(VsObserver vsObserver) 
+        public GitRepositoryButtonSlot(VsObserver vsObserver) 
         {
             _vsObserver = vsObserver;
         }

@@ -89,7 +89,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (TextSlot)_discordRpcController.GetSlotOfUpdater<StateUpdater>();
             set
             {
-                Settings.Default.DetailsSlot= value.GetType().Name;
+                Settings.Default.StateSlot = value.GetType().Name;
                 _discordRpcController.SetSlot<StateUpdater>(value);
 
                 OnPropertyChanged(nameof(StateSlot));
@@ -101,7 +101,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (TextSlot) _discordRpcController.GetSlotOfUpdater<DetailsUpdater>();
             set
             {
-                Settings.Default.StateSlot = value.GetType().Name;
+                Settings.Default.DetailsSlot = value.GetType().Name;
                 _discordRpcController.SetSlot<DetailsUpdater>(value);
 
                 OnPropertyChanged(nameof(DetailsSlot));

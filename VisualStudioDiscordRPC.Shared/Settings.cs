@@ -1,13 +1,14 @@
 ﻿using System.Configuration;
-using System.Diagnostics;
+using System.Reflection;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
+using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 
-namespace VisualStudioDiscordRPC.Shared 
+namespace VisualStudioDiscordRPC.Shared
 {
     [System.Runtime.CompilerServices.CompilerGenerated]
-    internal sealed class Settings : System.Configuration.ApplicationSettingsBase
+    internal sealed class Settings : ApplicationSettingsBase
     {
         private static Settings _defaultInstance = (Settings)Synchronized(new Settings());
 
@@ -70,43 +71,43 @@ namespace VisualStudioDiscordRPC.Shared
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue("")]
+        [DefaultSettingValue(nameof(GitRepositoryButtonSlot))]
         public string FirstButtonSlot
         {
-            get => (string)this["FirstButtonSlot"];
-            set => this["FirstButtonSlot"] = value;
+            get => (string)this[nameof(FirstButtonSlot)];
+            set => this[nameof(FirstButtonSlot)] = value;
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue("")]
+        [DefaultSettingValue(nameof(NoneButtonSlot))]
         public string SecondButtonSlot
         {
-            get => (string)this["SecondButtonSlot"];
-            set => this["SecondButtonSlot"] = value;
+            get => (string)this[nameof(SecondButtonSlot)];
+            set => this[nameof(SecondButtonSlot)] = value;
         }
 
         [UserScopedSetting]
         [DefaultSettingValue("false")]
         public bool Updated
         {
-            get => (bool)this["Updated"];
-            set => this["Updated"] = value;
+            get => (bool)this[nameof(Updated)];
+            set => this[nameof(Updated)] = value;
         }
 
         [UserScopedSetting]
         [DefaultSettingValue("914622396630175855")]
         public string ApplicationID
         {
-            get => (string)this["ApplicationID"];
-            set => this["ApplicationID"] = value;
+            get => (string)this[nameof(ApplicationID)];
+            set => this[nameof(ApplicationID)] = value;
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue("1500")]
+        [DefaultSettingValue("1000")]
         public string UpdateTimeout
         {
-            get => (string)this["UpdateTimeout"];
-            set => this["UpdateTimeout"] = value;
+            get => (string)this[nameof(UpdateTimeout)];
+            set => this[nameof(UpdateTimeout)] = value;
         }
 
         [ApplicationScopedSetting]
