@@ -1,5 +1,4 @@
 ﻿using EnvDTE;
-using System.Collections.Generic;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.Data;
@@ -11,7 +10,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
     public class VisualStudioVersionIconSlot : AssetSlot
     { 
         private readonly IAssetMap<VisualStudioVersionAsset> _assetMap;
-        private VsObserver _vsObserver;
+        private readonly VsObserver _vsObserver;
 
         private Solution _solution;
 
@@ -34,19 +33,22 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
         private void OnSolutionChanged(Solution solution)
         {
             _solution = solution;
+
             Update();
         }
 
         protected override AssetInfo GetData()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (_solution == null)
             {
-                return default;
+                return AssetInfo.None;
             }
-
+            
             string majorVersion = _solution.DTE.Version.Split('.')[0];
 
-            var vsVersionIconAsset = _assetMap.GetAsset(asset => asset.Version == majorVersion);
+            VisualStudioVersionAsset vsVersionIconAsset = _assetMap.GetAsset(asset => asset.Version == majorVersion);
 
             var assetInfo = new AssetInfo(
                 vsVersionIconAsset.Key,

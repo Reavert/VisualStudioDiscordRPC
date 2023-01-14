@@ -7,7 +7,7 @@ namespace VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders
 {
     public class JsonAssetsLoader<T> : IAssetsLoader<T>
     {
-        class JsonRootStructure
+        private class JsonRootStructure
         {
             public T[] Assets { get; set; }
         }

@@ -9,8 +9,8 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 {
     public class SolutionNameSlot : TextSlot
     {
-        private VsObserver _vsObserver;
-        private LocalizationService<LocalizationFile> _localizationService;
+        private readonly VsObserver _vsObserver;
+        private readonly LocalizationService<LocalizationFile> _localizationService;
 
         private string _solutionName;
 
@@ -41,6 +41,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
             }
 
             _solutionName = Path.GetFileNameWithoutExtension(solution.FullName);
+
             Update();
         }
 
@@ -50,7 +51,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
             {
                 return _localizationService.Current.NoActiveSolution;
             }
-
+            
             return string.Format(ConstantStrings.ActiveSolutionFormat, _localizationService.Current.Solution, _solutionName);
         }
     }

@@ -12,7 +12,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
 
         protected override AssetInfo GetData()
         {
-            return new AssetInfo(string.Empty, string.Empty);
+            return AssetInfo.None;
         }
     }
 }

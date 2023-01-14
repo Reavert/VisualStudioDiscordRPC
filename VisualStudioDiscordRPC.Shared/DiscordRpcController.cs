@@ -1,7 +1,6 @@
 ﻿using DiscordRPC;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
@@ -17,12 +16,12 @@ namespace VisualStudioDiscordRPC.Shared
         private DiscordRpcClient _discordRpcClient;
         
         private bool _isDirty;
-        private object _dirtyFlagSync = new object();
+        private readonly object _dirtyFlagSync = new object();
 
-        private LocalizationService<LocalizationFile> _localizationService;
+        private readonly LocalizationService<LocalizationFile> _localizationService;
 
-        private RichPresence _sharedRichPresence;
-        private object _richPresenceSync = new object();
+        private readonly RichPresence _sharedRichPresence;
+        private readonly object _richPresenceSync = new object();
 
         private Thread _sendingRichPresenceDataThread;
         private bool _sendingThreadCancellation;
@@ -60,8 +59,10 @@ namespace VisualStudioDiscordRPC.Shared
 
         public DiscordRpcController(int updateMillisecondsTimeout) 
         {
-            _discordRpcClient = new DiscordRpcClient(Settings.Default.ApplicationID);
-            _discordRpcClient.SkipIdenticalPresence = false;
+            _discordRpcClient = new DiscordRpcClient(Settings.Default.ApplicationID)
+            {
+                SkipIdenticalPresence = false
+            };
 
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
 

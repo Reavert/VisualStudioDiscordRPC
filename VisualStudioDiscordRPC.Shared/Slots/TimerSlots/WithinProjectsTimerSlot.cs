@@ -5,7 +5,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
 {
     public class WithinProjectsTimerSlot : TimerSlot
     {
-        private VsObserver _vsObserver;
+        private readonly VsObserver _vsObserver;
 
         public WithinProjectsTimerSlot(VsObserver vsObserver)
         {

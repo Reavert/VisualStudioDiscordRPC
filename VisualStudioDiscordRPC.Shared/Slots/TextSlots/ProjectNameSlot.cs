@@ -8,8 +8,8 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 {
     public class ProjectNameSlot : TextSlot
     {
-        private LocalizationService<LocalizationFile> _localizationService;
-        private VsObserver _vsObserver;
+        private readonly LocalizationService<LocalizationFile> _localizationService;
+        private readonly VsObserver _vsObserver;
 
         private Project _project;
 
@@ -31,14 +31,15 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 
         private void OnProjectChanged(Project project)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             _project = project;
+
             Update();
         }
 
         protected override string GetData()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (_project == null)
             {
                 return _localizationService.Current.NoActiveProject;

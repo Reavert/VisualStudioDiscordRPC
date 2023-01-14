@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Interfaces\IAsset.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Interfaces\IAssetComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Interfaces\IAssetMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Interfaces\IAssetsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssetMap\Models\AssetMap.cs" />

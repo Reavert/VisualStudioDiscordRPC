@@ -10,9 +10,9 @@ namespace VisualStudioDiscordRPC.Shared.Localization.Models
         private readonly Dictionary<string, Func<string, ILocalizationFile>> _localizedFilesExtensions =
             new Dictionary<string, Func<string, ILocalizationFile>>
             {
-            {".json", filename => new JsonLocalizationFile(filename)},
-            {".xml", filename => new XmlLocalizationFile(filename)}
-        };
+                {".json", filename => new JsonLocalizationFile(filename)},
+                {".xml", filename => new XmlLocalizationFile(filename)}
+            };
 
         public ILocalizationFile CreateLocalizationFile(string filename)
         {

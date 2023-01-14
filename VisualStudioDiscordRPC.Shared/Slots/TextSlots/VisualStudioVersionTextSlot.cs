@@ -32,6 +32,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 
             _edition = solution.DTE.Edition;
             _version = VisualStudioHelper.GetVersionByDevNumber(solution.DTE.Version);
+
             Update();
         }
 

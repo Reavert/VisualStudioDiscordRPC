@@ -9,8 +9,8 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
 {
     public class ExtensionIconSlot : AssetSlot
     {
-        private IAssetMap<ExtensionAsset> _assetMap;
-        private VsObserver _vsObserver;
+        private readonly IAssetMap<ExtensionAsset> _assetMap;
+        private readonly VsObserver _vsObserver;
 
         private Document _document;
 
@@ -32,19 +32,20 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
 
         private void OnDocumentChanged(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             _document = document;
+
             Update();
         }
 
         protected override AssetInfo GetData()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             ExtensionAsset suitableAsset = null;
 
             if (_document == null)
             {
-                return default;
+                return AssetInfo.None;
             }
 
             string extension = Path.GetExtension(_document.Name);
@@ -52,7 +53,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
             
             if (suitableAsset == null)
             {
-                suitableAsset = ExtensionAsset.Default;
+                suitableAsset = ExtensionAsset.Unknown;
             }
 
             var assetInfo = new AssetInfo(suitableAsset.Key, suitableAsset.Name);

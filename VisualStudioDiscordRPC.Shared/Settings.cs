@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using System.Reflection;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
@@ -112,6 +111,6 @@ namespace VisualStudioDiscordRPC.Shared
 
         [ApplicationScopedSetting]
         [DefaultSettingValue("Translations/")]
-        public string TranslationsPath => (string)this["TranslationsPath"];
+        public string TranslationsPath => (string)this[nameof(TranslationsPath)];
     }
 }

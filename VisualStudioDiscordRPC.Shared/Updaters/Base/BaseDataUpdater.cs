@@ -4,13 +4,13 @@ namespace VisualStudioDiscordRPC.Shared.Updaters.Base
 {
     public abstract class BaseDataUpdater<TData> : BaseUpdater
     {
+        private BaseDataSlot<TData> _installedSlot;
+
         public override BaseSlot BaseSlot
         {
             get => Slot;
             set => Slot = (BaseDataSlot<TData>)value;
         }
-
-        private BaseDataSlot<TData> _installedSlot;
 
         public BaseDataSlot<TData> Slot
         {

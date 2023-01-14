@@ -41,6 +41,8 @@ namespace VisualStudioDiscordRPC.Shared
 
         private void RegisterServices()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Registering Visual Studio events observer.
             var currentDte = (DTE2)ServiceProvider.GlobalProvider.GetService(typeof(DTE));
             _vsObserver = new VsObserver(currentDte);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
@@ -17,43 +16,9 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 {
     public class SlotService
     {
-        private List<BaseSlot> _slots;
+        private readonly List<BaseSlot> _slots;
 
         public SlotService()
-        {
-            CreateSlots();
-        }
-
-        public void InitSlotsSubscriptions()
-        {
-            foreach (BaseSlot slot in _slots)
-            {
-                slot.Enable();
-            }
-        }
-
-        public void ClearSlotsSubscriptions()
-        {
-            foreach (BaseSlot slot in _slots)
-            {
-                slot.Disable();
-            }
-        }
-
-        public TSlot GetSlotByName<TSlot>(string name) where TSlot : BaseSlot
-        {
-            return (TSlot) _slots.FirstOrDefault(slot => slot.GetType().Name == name);
-        }
-
-        public IReadOnlyList<TSlot> GetSlotsOfType<TSlot>() where TSlot : BaseSlot
-        {
-            return _slots
-                .Where(slot => slot is TSlot)
-                .Select(slot => (TSlot) slot)
-                .ToList();
-        }
-
-        private void CreateSlots()
         {
             const string extensionAssetMapFilename = "extensions_assets_map.json";
             const string vsVersionAssetMapFilename = "vs_assets_map.json";
@@ -87,6 +52,35 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                 new NoneButtonSlot(),
                 new GitRepositoryButtonSlot(vsObserver)
             };
+        }
+
+        public void InitSlotsSubscriptions()
+        {
+            foreach (BaseSlot slot in _slots)
+            {
+                slot.Enable();
+            }
+        }
+
+        public void ClearSlotsSubscriptions()
+        {
+            foreach (BaseSlot slot in _slots)
+            {
+                slot.Disable();
+            }
+        }
+
+        public TSlot GetSlotByName<TSlot>(string name) where TSlot : BaseSlot
+        {
+            return (TSlot) _slots.FirstOrDefault(slot => slot.GetType().Name == name);
+        }
+
+        public IReadOnlyList<TSlot> GetSlotsOfType<TSlot>() where TSlot : BaseSlot
+        {
+            return _slots
+                .Where(slot => slot is TSlot)
+                .Select(slot => (TSlot) slot)
+                .ToList();
         }
 
         private IAssetMap<T> LoadAssets<T>(string path) where T : Asset

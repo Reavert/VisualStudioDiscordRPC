@@ -8,7 +8,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
     {
         private readonly Dictionary<Type, object> _registeredService;
 
-        public static ServiceRepository Default = new ServiceRepository();
+        public readonly static ServiceRepository Default = new ServiceRepository();
 
         public ServiceRepository()
         {

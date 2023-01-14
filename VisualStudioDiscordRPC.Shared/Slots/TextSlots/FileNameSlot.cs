@@ -8,8 +8,8 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 {
     public class FileNameSlot : TextSlot
     {
-        private LocalizationService<LocalizationFile> _localizationService;
-        private VsObserver _vsObserver;
+        private readonly LocalizationService<LocalizationFile> _localizationService;
+        private readonly VsObserver _vsObserver;
 
         private Document _document;
 
@@ -31,25 +31,21 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 
         private void OnDocumentChanged(Document document)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             _document = document;
+
             Update();
         }
 
         protected override string GetData()
         {
-            string data;
-            if (_document != null)
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (_document == null)
             {
-                data = string.Format(ConstantStrings.ActiveFileFormat, _localizationService.Current.File, _document.Name);
-            }
-            else
-            {
-                data = _localizationService.Current.NoActiveFile;
+                return _localizationService.Current.NoActiveFile;
             }
 
-            return data;
+            return string.Format(ConstantStrings.ActiveFileFormat, _localizationService.Current.File, _document.Name);
         }
     }
 }

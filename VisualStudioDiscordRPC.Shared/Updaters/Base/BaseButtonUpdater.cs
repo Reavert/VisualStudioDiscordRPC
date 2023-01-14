@@ -2,16 +2,15 @@
 using System;
 using DiscordRPC;
 using VisualStudioDiscordRPC.Shared.Data;
-using System.Linq;
 
 namespace VisualStudioDiscordRPC.Shared.Updaters.Base
 {
     public abstract class BaseButtonUpdater : BaseDiscordRpcUpdater<ButtonInfo>
     {
-        private readonly static Button _firstButton = new Button();
-        private readonly static Button _secondButton = new Button();
+        private readonly static Button FirstButton = new Button();
+        private readonly static Button SecondButton = new Button();
 
-        private readonly static List<Button> _buttons = new List<Button>();
+        private readonly static List<Button> Buttons = new List<Button>();
 
         protected BaseButtonUpdater(RichPresence richPresence) : base(richPresence)
         { }
@@ -19,9 +18,7 @@ namespace VisualStudioDiscordRPC.Shared.Updaters.Base
         protected void SetButton(int index, ButtonInfo buttonInfo)
         {
             UpdateButtonWithInfo(index, buttonInfo);
-            RichPresence.Buttons = _buttons
-                .Select(button => GetCopy(button))
-                .ToArray();
+            RichPresence.Buttons = Buttons.ToArray();
         }
 
         private void UpdateButtonWithInfo(int index, ButtonInfo buttonInfo)
@@ -29,33 +26,24 @@ namespace VisualStudioDiscordRPC.Shared.Updaters.Base
             Button button;
             switch (index)
             {
-                case 0: button = _firstButton; break;
-                case 1: button = _secondButton; break;
+                case 0: button = FirstButton; break;
+                case 1: button = SecondButton; break;
                 default: throw new ArgumentOutOfRangeException($"{nameof(index)} must be 0 or 1");
             }
 
             if (string.IsNullOrEmpty(buttonInfo.Label) || string.IsNullOrEmpty(buttonInfo.Url))
             {
-                _buttons.Remove(button);
+                Buttons.Remove(button);
                 return;
             }
 
             button.Label = buttonInfo.Label;
             button.Url = buttonInfo.Url;
 
-            if (!_buttons.Contains(button))
+            if (!Buttons.Contains(button))
             {
-                _buttons.Add(button);
+                Buttons.Add(button);
             }
-        }
-
-        private Button GetCopy(Button button)
-        {
-            return new Button()
-            {
-                Label = button.Label,
-                Url = button.Url
-            };
         }
     }
 }

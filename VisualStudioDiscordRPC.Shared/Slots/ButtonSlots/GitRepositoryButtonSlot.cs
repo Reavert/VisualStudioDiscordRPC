@@ -39,8 +39,8 @@ namespace VisualStudioDiscordRPC.Shared.Slots.ButtonSlots
             }
 
             string solutionPath = solution.FullName;
-
             _remoteRepositoryUrl = GetValidRemoteGitUrlOrSolution(solutionPath);
+
             Update();
         }
 

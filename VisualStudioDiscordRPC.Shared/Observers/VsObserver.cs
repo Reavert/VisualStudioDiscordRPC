@@ -1,7 +1,6 @@
 ﻿using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
-using System.Diagnostics;
 
 namespace VisualStudioDiscordRPC.Shared.Observers
 {
@@ -24,12 +23,14 @@ namespace VisualStudioDiscordRPC.Shared.Observers
         public void Observe()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
             _dte.Events.WindowEvents.WindowActivated += OnWindowActivated;
         }
 
         public void Unobserve()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
             _dte.Events.WindowEvents.WindowActivated -= OnWindowActivated;
         }
 
@@ -68,7 +69,6 @@ namespace VisualStudioDiscordRPC.Shared.Observers
             {
                 if (lostFocus == null)
                 {
-                    //ProjectChanged?.Invoke(null);
                     DocumentChanged?.Invoke(null);
                 }
             }
