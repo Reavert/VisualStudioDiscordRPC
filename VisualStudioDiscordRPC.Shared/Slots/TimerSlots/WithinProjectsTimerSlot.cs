@@ -1,4 +1,5 @@
-﻿using EnvDTE;
+﻿using DiscordRPC;
+using EnvDTE;
 using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
@@ -24,7 +25,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
 
         private void OnProjectChanged(Project project)
         {
-            Update();
+            ChangeTimestamp = Timestamps.Now;
         }
     }
 }

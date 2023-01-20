@@ -1,4 +1,5 @@
-﻿using EnvDTE;
+﻿using DiscordRPC;
+using EnvDTE;
 using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
@@ -6,6 +7,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
     public class WithinFilesTimerSlot : TimerSlot
     {
         private readonly VsObserver _vsObserver;
+        private Timestamps _documentChangedTimestamp;
 
         public WithinFilesTimerSlot(VsObserver vsObserver)
         {
@@ -24,7 +26,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
 
         private void OnDocumentChanged(Document document)
         {
-            Update();
+            ChangeTimestamp = Timestamps.Now;
         }
     }
 }

@@ -4,9 +4,20 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
 {
     public abstract class TimerSlot : BaseDataSlot<Timestamps>
     {
-        protected override Timestamps GetData()
+        private Timestamps _changeTimestamp;
+        protected Timestamps ChangeTimestamp 
         {
-            return Timestamps.Now;
+            get => _changeTimestamp;
+            set
+            {
+                _changeTimestamp = value;
+                Update();
+            }
+        }
+
+        protected sealed override Timestamps GetData()
+        {
+            return ChangeTimestamp;
         }
     }
 }
