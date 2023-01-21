@@ -56,6 +56,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\TextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\VisualStudioVersionIconSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\VisualStudioVersionTextSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinApplicationTimerSLot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\NoneTimerSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\TimerSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinFilesTimerSlot.cs" />
