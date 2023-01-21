@@ -47,6 +47,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                 new WithinFilesTimerSlot(vsObserver),
                 new WithinProjectsTimerSlot(vsObserver),
                 new WithinSolutionsTimerSlot(vsObserver),
+                new WithinApplicationTimerSLot(),
 
                 // Button slots.
                 new NoneButtonSlot(),
