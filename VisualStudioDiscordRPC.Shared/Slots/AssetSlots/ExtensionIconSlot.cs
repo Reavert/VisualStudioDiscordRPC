@@ -45,7 +45,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
 
             if (_document == null)
             {
-                return AssetInfo.None;
+                return AssetInfo.Idle;
             }
 
             string extension = Path.GetExtension(_document.Name);
