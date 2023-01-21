@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\ButtonSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\GitRepositoryButtonSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\NoneButtonSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\DebuggingSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\FileNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\NoneAssetSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\NoneTextSlot.cs" />

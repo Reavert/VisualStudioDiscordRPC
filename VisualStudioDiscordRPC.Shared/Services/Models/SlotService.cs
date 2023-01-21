@@ -41,6 +41,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                 new ProjectNameSlot(vsObserver),
                 new SolutionNameSlot(vsObserver),
                 new VisualStudioVersionTextSlot(vsObserver),
+                new DebuggingSlot(vsObserver.DTE),
 
                 // Timer slots.
                 new NoneTimerSlot(),

@@ -11,8 +11,9 @@ namespace VisualStudioDiscordRPC.Shared.Observers
         public event SolutionChangedHandler SolutionChanged;
 
         private readonly DTE2 _dte;
-        private string _lastSolutionName;
+        public DTE2 DTE => _dte;
 
+        private string _lastSolutionName;
         private Project _lastProject;
 
         public VsObserver(DTE2 dte)
