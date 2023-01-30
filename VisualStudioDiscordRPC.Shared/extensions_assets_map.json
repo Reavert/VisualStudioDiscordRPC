@@ -41,6 +41,11 @@
       "extensions": [ ".cshtml", ".razor" ]
     },
     {
+      "name": "Rust",
+      "key": "rust_file",
+      "extensions": [ ".rs", "rlib" ]
+    },
+    {
       "name": "Assembler",
       "key": "asm_file",
       "extensions": [ ".asm" ]
