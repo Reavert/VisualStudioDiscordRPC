@@ -50,6 +50,12 @@
                 </ControlTemplate>
             </ToggleButton.Template>
         </ToggleButton>
+        <CheckBox 
+            HorizontalAlignment="Right"
+            Margin="5"
+            IsChecked="{Binding SecretSolution}">
+            <TextBlock Text="Secret solution"/>
+        </CheckBox>
         <GroupBox Header="General" Margin="5" Padding="3">
             <StackPanel>
                 <TextBlock  Text="Language:" />

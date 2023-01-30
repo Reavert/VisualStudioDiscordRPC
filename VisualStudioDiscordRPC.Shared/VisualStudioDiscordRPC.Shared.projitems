@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\ButtonInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiscordRpcController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SolutionHider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseDataSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\AssetSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseSlot.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\TimerUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumerationExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\PackageFileHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\SettingsHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\VisualStudioHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />

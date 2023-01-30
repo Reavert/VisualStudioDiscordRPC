@@ -13,7 +13,9 @@ namespace VisualStudioDiscordRPC.Shared
 {
     public class DiscordRpcController
     {
-        private DiscordRpcClient _discordRpcClient;
+        private static readonly RichPresence HiddenRichPresence;
+
+        private readonly DiscordRpcClient _discordRpcClient;
         
         private bool _isDirty;
         private readonly object _dirtyFlagSync = new object();
@@ -27,7 +29,7 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly int _sendDataMillisecondsTimeout;
         private bool _sendingThreadCancellation;
 
-        private bool _enabled;
+        private bool _enabled = true;
         public bool Enabled
         {
             get => _enabled;
@@ -54,8 +56,32 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
+        private bool _visible = true;
+        public bool Visible
+        {
+            get => _visible;
+            set
+            {
+                _visible = value;
+                _isDirty = true;
+            }
+        }
+
         private Dictionary<Type, BaseUpdater> _updaters = new Dictionary<Type, BaseUpdater>();
         public IEnumerable<BaseUpdater> Updaters => _updaters.Values;
+
+        static DiscordRpcController()
+        {
+            HiddenRichPresence = new RichPresence
+            {
+                Assets = new Assets()
+                {
+                    LargeImageKey = "secret",
+                    LargeImageText = "This solution is hidden"
+                },
+                Details = "This solution is hidden"
+            };
+        }
 
         public DiscordRpcController(int updateMillisecondsTimeout) 
         {
@@ -196,7 +222,16 @@ namespace VisualStudioDiscordRPC.Shared
                     {
                         if (_enabled && _isDirty)
                         {
-                            _discordRpcClient.SetPresence(_sharedRichPresence);
+                            if (_visible)
+                            {
+                                _discordRpcClient.SetPresence(_sharedRichPresence);
+                                
+                            }
+                            else
+                            {
+                                _discordRpcClient.SetPresence(HiddenRichPresence);
+                            }
+
                             _isDirty = false;
                         }
                     }

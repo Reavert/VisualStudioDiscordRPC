@@ -16,6 +16,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         private DiscordRpcController _discordRpcController;
         private SlotService _slotService;
         private LocalizationService<LocalizationFile> _localizationService;
+        private SolutionHider _solutionHider;
 
         public string Version => VisualStudioHelper.GetExtensionVersion();
         
@@ -32,6 +33,18 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             {
                 _discordRpcController.Enabled = value;
                 Settings.Default.RichPresenceEnabled = value.ToString();
+            }
+        }
+
+        public bool SecretSolution
+        {
+            get => !_discordRpcController.Visible;
+            set
+            {
+                _discordRpcController.Visible = !value;
+                _solutionHider.SetCurrentSolutionVisible(!value);
+                
+                OnPropertyChanged(nameof(SecretSolution));
             }
         }
 
@@ -163,6 +176,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         {
             _discordRpcController = ServiceRepository.Default.GetService<DiscordRpcController>();
             _slotService = ServiceRepository.Default.GetService<SlotService>();
+            _solutionHider = ServiceRepository.Default.GetService<SolutionHider>();
 
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
             OnPropertyChanged(nameof(Localizations));

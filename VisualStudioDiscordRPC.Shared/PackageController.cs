@@ -20,7 +20,8 @@ namespace VisualStudioDiscordRPC.Shared
         private DiscordRpcController _discordRpcController;
         private VsObserver _vsObserver;
         private SlotService _slotService;
-        
+        private SolutionHider _solutionHider;
+
         public void Init()
         {
             RegisterServices();
@@ -29,6 +30,7 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController.Initialize();
             _slotService.InitSlotsSubscriptions();
             _vsObserver.Observe();
+            _solutionHider.Start();
 
             ApplySettings();
 
@@ -50,6 +52,7 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController.Dispose();
             _slotService.ClearSlotsSubscriptions();
             _vsObserver.Unobserve();
+            _solutionHider.Stop();
         }
 
         private void RegisterServices()
@@ -77,6 +80,10 @@ namespace VisualStudioDiscordRPC.Shared
             int updateTimeout = int.Parse(Settings.Default.UpdateTimeout);
             _discordRpcController = new DiscordRpcController(updateTimeout);
             ServiceRepository.Default.AddService(_discordRpcController);
+
+            // Registering Solution Hider.
+            _solutionHider = new SolutionHider(_vsObserver, _discordRpcController);
+            ServiceRepository.Default.AddService(_solutionHider);
         }
 
         private void UpdateSettings()
