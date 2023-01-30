@@ -32,9 +32,6 @@
         public const string VisualStudioVersionAssetKey = "vs_{0}";
 
         public const string NewVersionNotification = 
-            "A new version of the Visual Studio Discord Rich Presence extension has been installed: v{0}\r\n\r\n" +
-            "This version has undergone critical changes that may reset the extension settings.\r\n\r\n" +
-            "Please check the extension settings. (Extensions -> Visual Studio Discord RPC).\r\n\r\n" +
-            "You can also disable extension update alerts by unchecking the \"Notify about extension updates\" option.";
+            "A new version of the Visual Studio Discord Rich Presence extension has been installed: v{0}";
     }
 }
