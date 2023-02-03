@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<language name="Turkish" localizedName="Türkçe">
+	<translation id="project">Proje</translation>
+	<translation id="file">Dosya</translation>
+	<translation id="solution">Çözüm</translation>
+
+	<translation id="noActiveProject">Aktif proje yok</translation>
+	<translation id="noActiveFile">Aktif dosya yok</translation>
+	<translation id="noActiveSolution">Aktif çözüm yok</translation>
+
+	<translation id="NoneAssetSlot">Hiçbiri</translation>
+	<translation id="VisualStudioVersionIconSlot">Visual Studio sürümü</translation>
+	<translation id="ExtensionIconSlot">Dosya uzantısı</translation>
+
+	<translation id="NoneTextSlot">Boş</translation>
+	<translation id="VisualStudioVersionTextSlot">Visual Studio sürümü</translation>
+	<translation id="Text.FileExtension">Dosya uzantısı</translation>
+	<translation id="ProjectNameSlot">Proje ismi</translation>
+	<translation id="SolutionNameSlot">Çözüm ismi</translation>
+	<translation id="FileNameSlot">Dosya ismi</translation>
+
+	<translation id="NoneTimerSlot">Kapalı</translation>
+	<translation id="WithinFilesTimerSlot">Dosyalar dâhil</translation>
+	<translation id="WithinProjectsTimerSlot">Projeler dâhil</translation>
+	<translation id="WithinSolutionsTimerSlot">Çözümler dâhil</translation>
+	
+	<translation id="NoneButtonSlot">Yok</translation>
+	<translation id="GitRepositoryButtonSlot">Depo</translation>
+</language>
