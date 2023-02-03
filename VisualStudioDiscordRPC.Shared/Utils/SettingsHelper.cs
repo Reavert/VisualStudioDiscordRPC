@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,51 +10,104 @@ namespace VisualStudioDiscordRPC.Shared.Utils
     {
         private const char SolutionHashesSeparator = ';';
 
-        private static readonly SHA256 _sha256 = SHA256.Create();
+        private static readonly MD5 _md5 = MD5.Create();
 
-        public static void SetSolutionVisible(string fullSolutionPath, bool visible)
+        public static void ClearSettings()
         {
-            List<string> hashes = ReadHiddenSolutionsHashes();
-            string solutionHash = Hash(fullSolutionPath);
+            Settings.Default.Properties.Clear();
+        }
 
-            if (visible)
+        public static void SetSolutionSecret(string solutionPath, bool secret) 
+            => SetSettingContent(nameof(Settings.HiddenSolutions), solutionPath, secret);
+
+        public static bool IsSolutionSecret(string fullSolutionPath)
+            => IsSettingContainsData(nameof(Settings.HiddenSolutions), fullSolutionPath);
+
+        public static void SetRepositoryPrivate(string repositoryUrl, bool isPrivate)
+            => SetSettingContent(nameof(Settings.PrivateRepositories), repositoryUrl, isPrivate);
+
+        public static bool IsRepositoryPrivate(string fullSolutionPath)
+            => IsSettingContainsData(nameof(Settings.PrivateRepositories), fullSolutionPath);
+
+        private static void SetSettingContent(string settingName, string data, bool doContain)
+        {
+            var hashSetSetting = new HashSetSetting(settingName);
+
+            if (doContain)
             {
-                hashes.Remove(solutionHash);
+                if (!hashSetSetting.Contains(data))
+                {
+                    hashSetSetting.Add(data);
+                }
             }
             else
             {
-                if (!hashes.Contains(solutionHash))
-                {
-                    hashes.Add(solutionHash);
-                }
+                hashSetSetting.Remove(data);
+            }
+        }
+
+        private static bool IsSettingContainsData(string settingName, string data)
+        {
+            var hashSetSetting = new HashSetSetting(settingName);
+
+            return hashSetSetting.Contains(data);
+        }
+
+        public class HashSetSetting
+        {
+            private readonly string _settingName;
+
+            public HashSetSetting(string settingName)
+            {
+                _settingName = settingName;
             }
 
-            WriteHiddenSolutionHashes(hashes);
-        }
+            public void Add(string data)
+            {
+                List<string> hashes = ReadHashes();
+                
+                string dataHash = Hash(data);
+                hashes.Add(dataHash);
 
-        public static bool IsSolutionVisible(string fullSolutionPath)
-        {
-            List<string> hashes = ReadHiddenSolutionsHashes();
-            string solutionHash = Hash(fullSolutionPath);
+                WriteHashes(hashes);
+            }
 
-            return !hashes.Contains(solutionHash);
-        }
+            public void Remove(string data)
+            {
+                List<string> hashes = ReadHashes();
 
-        private static List<string> ReadHiddenSolutionsHashes()
-        {
-            return Settings.Default.HiddenSolutions.Split(SolutionHashesSeparator).ToList();
+                string dataHash = Hash(data);
+                hashes.Remove(dataHash);
 
-        }
+                WriteHashes(hashes);
+            }
 
-        private static void WriteHiddenSolutionHashes(List<string> hashes)
-        {
-            Settings.Default.HiddenSolutions = string.Join(SolutionHashesSeparator.ToString(), hashes);
-        }
+            public bool Contains(string data)
+            {
+                List<string> hashes = ReadHashes();
+                string solutionHash = Hash(data);
 
-        private static string Hash(string data)
-        {
-            byte[] hashedData = _sha256.ComputeHash(Encoding.UTF8.GetBytes(data));
-            return Encoding.UTF8.GetString(hashedData);
+                return hashes.Contains(solutionHash);
+            }
+
+            private List<string> ReadHashes()
+            {
+                var hashes = (string) Settings.Default[_settingName];
+                return hashes.Split(SolutionHashesSeparator).ToList();
+
+            }
+
+            private void WriteHashes(List<string> hashes)
+            {
+                Settings.Default[_settingName] = string.Join(SolutionHashesSeparator.ToString(), hashes);
+            }
+
+            private string Hash(string data)
+            {
+                byte[] hashedData = _md5.ComputeHash(Encoding.UTF8.GetBytes(data));
+
+                return Encoding.UTF8.GetString(hashedData);
+            }
         }
     }
 }
