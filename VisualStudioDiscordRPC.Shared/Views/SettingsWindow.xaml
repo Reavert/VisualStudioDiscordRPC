@@ -17,11 +17,12 @@
     </Window.Resources>
     <StackPanel Margin="2">
         <ToggleButton x:Name="Toggle"
+                      Margin="0,5,5,0"
                       Height="20"
                       Width="50"
                       HorizontalAlignment="Right"
                       IsChecked="{Binding RichPresenceEnabled}"
-                      Margin="0,5,5,0">
+                      ToolTip="Enable/Disable RPC">
             <ToggleButton.Template>
                 <ControlTemplate TargetType="ToggleButton">
                     <Border x:Name="B1"
@@ -53,8 +54,17 @@
         <CheckBox 
             HorizontalAlignment="Right"
             Margin="5"
-            IsChecked="{Binding SecretSolution}">
+            IsChecked="{Binding SecretSolution}"
+            ToolTip="If this option is active, then no one will see which files you are editing for the current solution">
             <TextBlock Text="Secret solution"/>
+        </CheckBox>
+        <CheckBox 
+            HorizontalAlignment="Right"
+            Margin="5"
+            IsEnabled="{Binding HasRepository}"
+            IsChecked="{Binding PrivateRepository}"
+            ToolTip="If this option is active, the repository button is not displayed for the current repository">
+            <TextBlock Text="Private repository"/>
         </CheckBox>
         <GroupBox Header="General" Margin="5" Padding="3">
             <StackPanel>

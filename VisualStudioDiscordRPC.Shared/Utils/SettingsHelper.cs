@@ -104,9 +104,8 @@ namespace VisualStudioDiscordRPC.Shared.Utils
 
             private string Hash(string data)
             {
-                byte[] hashedData = _md5.ComputeHash(Encoding.UTF8.GetBytes(data));
-
-                return Encoding.UTF8.GetString(hashedData);
+                byte[] hash = _md5.ComputeHash(Encoding.ASCII.GetBytes(data));
+                return Convert.ToBase64String(hash);
             }
         }
     }

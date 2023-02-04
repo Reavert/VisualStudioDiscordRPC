@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.Data;
 using VisualStudioDiscordRPC.Shared.Observers;
+using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.ButtonSlots
 {
@@ -12,6 +13,31 @@ namespace VisualStudioDiscordRPC.Shared.Slots.ButtonSlots
         private readonly VsObserver _vsObserver;
 
         private string _remoteRepositoryUrl;
+
+        public bool HasRepository => !string.IsNullOrEmpty(_remoteRepositoryUrl);
+
+        public bool IsPrivateRepository
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_remoteRepositoryUrl))
+                {
+                    return false;
+                }
+
+                return SettingsHelper.IsRepositoryPrivate(_remoteRepositoryUrl);
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(_remoteRepositoryUrl))
+                {
+                    return;
+                }
+
+                SettingsHelper.SetRepositoryPrivate(_remoteRepositoryUrl, value);
+                Update();
+            } 
+        }
 
         public GitRepositoryButtonSlot(VsObserver vsObserver) 
         {
@@ -39,35 +65,38 @@ namespace VisualStudioDiscordRPC.Shared.Slots.ButtonSlots
             }
 
             string solutionPath = solution.FullName;
-            _remoteRepositoryUrl = GetValidRemoteGitUrlOrSolution(solutionPath);
+            _remoteRepositoryUrl = GetValidRemoteGitUrl(solutionPath);
 
             Update();
         }
 
-        private string GetValidRemoteGitUrlOrSolution(string repositoryPath)
+        private string GetValidRemoteGitUrl(string repositoryPath)
         {
-            if (!string.IsNullOrEmpty(repositoryPath))
+            if (string.IsNullOrEmpty(repositoryPath))
             {
-                string repositoryName = Path.GetDirectoryName(repositoryPath);
-                if (Repository.IsValid(repositoryName))
-                {
-                    Remote firstRemote = new Repository(repositoryName).Network.Remotes.FirstOrDefault();
-
-                    if (firstRemote != null)
-                    {
-                        return firstRemote.Url;
-                    }
-                }
+                return null;
             }
 
-            return null;
+            string repositoryName = Path.GetDirectoryName(repositoryPath);
+            if (!Repository.IsValid(repositoryName))
+            {
+                return null;
+            }
+
+            Remote firstRemote = new Repository(repositoryName).Network.Remotes.FirstOrDefault();
+            if (firstRemote == null)
+            {
+                return null;
+            }
+
+            return firstRemote.Url;
         }
 
         protected override ButtonInfo GetData()
         {
             const string buttonName = "Repository";
 
-            if (string.IsNullOrEmpty(_remoteRepositoryUrl))
+            if (IsPrivateRepository || string.IsNullOrEmpty(_remoteRepositoryUrl))
             {
                 return ButtonInfo.None;
             }

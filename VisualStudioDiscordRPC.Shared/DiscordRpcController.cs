@@ -56,13 +56,13 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        private bool _visible = true;
-        public bool Visible
+        private bool _secret;
+        public bool Secret
         {
-            get => _visible;
+            get => _secret;
             set
             {
-                _visible = value;
+                _secret = value;
                 _isDirty = true;
             }
         }
@@ -222,14 +222,13 @@ namespace VisualStudioDiscordRPC.Shared
                     {
                         if (_enabled && _isDirty)
                         {
-                            if (_visible)
+                            if (_secret)
                             {
-                                _discordRpcClient.SetPresence(_sharedRichPresence);
-                                
+                                _discordRpcClient.SetPresence(HiddenRichPresence);
                             }
                             else
                             {
-                                _discordRpcClient.SetPresence(HiddenRichPresence);
+                                _discordRpcClient.SetPresence(_sharedRichPresence);
                             }
 
                             _isDirty = false;

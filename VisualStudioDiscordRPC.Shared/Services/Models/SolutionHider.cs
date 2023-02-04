@@ -27,7 +27,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             _vsObserver.SolutionChanged -= OnSolutionChanged;
         }
 
-        public void SetCurrentSolutionVisible(bool visible)
+        public void SetCurrentSolutionSecret(bool secret)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -37,7 +37,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             }
 
             string fullSolutionName = _lastOpenedSolution.FullName;
-            SettingsHelper.SetSolutionVisible(fullSolutionName, visible);
+            SettingsHelper.SetSolutionSecret(fullSolutionName, secret);
 
             UpdateRpcVisibility();
         }
@@ -55,8 +55,8 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             
             string fullSolutionName = _lastOpenedSolution.FullName;
 
-            bool visible = SettingsHelper.IsSolutionVisible(fullSolutionName);
-            _discordRpcController.Visible = visible;
+            bool secret = SettingsHelper.IsSolutionSecret(fullSolutionName);
+            _discordRpcController.Secret = secret;
         }
     }
 }

@@ -133,6 +133,14 @@ namespace VisualStudioDiscordRPC.Shared
             set => this[nameof(HiddenSolutions)] = value;
         }
 
+        [UserScopedSetting]
+        [DefaultSettingValue("")]
+        public string PrivateRepositories
+        {
+            get => (string)this[nameof(PrivateRepositories)];
+            set => this[nameof(PrivateRepositories)] = value;
+        }
+
         [ApplicationScopedSetting]
         [DefaultSettingValue("Translations/")]
         public string TranslationsPath => (string)this[nameof(TranslationsPath)];

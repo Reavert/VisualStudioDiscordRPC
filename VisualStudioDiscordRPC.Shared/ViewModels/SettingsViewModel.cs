@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
@@ -17,6 +18,8 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         private SlotService _slotService;
         private LocalizationService<LocalizationFile> _localizationService;
         private SolutionHider _solutionHider;
+
+        private GitRepositoryButtonSlot _gitRepositoryButtonSlot;
 
         public string Version => VisualStudioHelper.GetExtensionVersion();
         
@@ -38,11 +41,11 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public bool SecretSolution
         {
-            get => !_discordRpcController.Visible;
+            get => _discordRpcController.Secret;
             set
             {
-                _discordRpcController.Visible = !value;
-                _solutionHider.SetCurrentSolutionVisible(!value);
+                _discordRpcController.Secret = value;
+                _solutionHider.SetCurrentSolutionSecret(value);
                 
                 OnPropertyChanged(nameof(SecretSolution));
             }
@@ -167,6 +170,18 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             }
         }
 
+        public bool HasRepository => _gitRepositoryButtonSlot.HasRepository;
+
+        public bool PrivateRepository
+        {
+            get => _gitRepositoryButtonSlot.IsPrivateRepository;
+            set
+            {
+                _gitRepositoryButtonSlot.IsPrivateRepository = value;
+                OnPropertyChanged(nameof(PrivateRepository));
+            }
+        }
+
         public IReadOnlyList<AssetSlot> AvailableAssetSlots { get; set; }
         public IReadOnlyList<TextSlot> AvailableTextSlots { get; set; }
         public IReadOnlyList<TimerSlot> AvailableTimerSlots { get; set; }
@@ -177,6 +192,8 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             _discordRpcController = ServiceRepository.Default.GetService<DiscordRpcController>();
             _slotService = ServiceRepository.Default.GetService<SlotService>();
             _solutionHider = ServiceRepository.Default.GetService<SolutionHider>();
+            
+            _gitRepositoryButtonSlot = _slotService.GetSlotsOfType<GitRepositoryButtonSlot>().First();
 
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
             OnPropertyChanged(nameof(Localizations));
