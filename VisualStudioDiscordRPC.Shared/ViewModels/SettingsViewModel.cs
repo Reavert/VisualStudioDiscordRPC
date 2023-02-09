@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
@@ -187,6 +188,23 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         public IReadOnlyList<TimerSlot> AvailableTimerSlots { get; set; }
         public IReadOnlyList<ButtonSlot> AvailableButtonSlots { get; set; }
 
+        private readonly RelayCommand _showListSettingEditorCommand;
+        public RelayCommand ShowListSettingEditorCommand => _showListSettingEditorCommand;
+
+        private string[] _privateRepositoriesEditingContext =
+        {
+            nameof(Settings.PrivateRepositories),
+            nameof(PrivateRepository)
+        };
+        public string[] PrivateRepositoriesEditingContext => _privateRepositoriesEditingContext;
+
+        private string[] _secretSolutionsEditingContext =
+        {
+            nameof(Settings.HiddenSolutions),
+            nameof(SecretSolution)
+        };
+        public string[] SecretSolutionsEditingContext => _secretSolutionsEditingContext;
+
         public SettingsViewModel()
         {
             _discordRpcController = ServiceRepository.Default.GetService<DiscordRpcController>();
@@ -209,6 +227,22 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
             AvailableButtonSlots = _slotService.GetSlotsOfType<ButtonSlot>();
             OnPropertyChanged(nameof(AvailableButtonSlots));
+
+            _showListSettingEditorCommand = new RelayCommand(ShowListSettingEditor);
+        }
+
+        private void ShowListSettingEditor(object parameter)
+        {
+            var stringParameters = (string[])parameter;
+
+            string settingName = stringParameters[0];
+            string propertyName = stringParameters[1];
+
+            var listSettingViewModel = new ListedSettingEditorViewModel(settingName);
+            var listSettingEditorWindow = new ListedSettingEditorWindow(listSettingViewModel);
+
+            listSettingEditorWindow.ShowDialog();
+            OnPropertyChanged(propertyName);
         }
     }
 }

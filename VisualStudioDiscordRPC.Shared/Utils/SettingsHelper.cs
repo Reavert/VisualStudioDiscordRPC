@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace VisualStudioDiscordRPC.Shared.Utils
 {
     public static class SettingsHelper
     {
-        private const char SolutionHashesSeparator = ';';
-
-        private static readonly MD5 _md5 = MD5.Create();
+        private const char ListSeparator = '\n';
 
         public static void ClearSettings()
         {
@@ -31,7 +27,7 @@ namespace VisualStudioDiscordRPC.Shared.Utils
 
         private static void SetSettingContent(string settingName, string data, bool doContain)
         {
-            var hashSetSetting = new HashSetSetting(settingName);
+            var hashSetSetting = new ListedSetting(settingName);
 
             if (doContain)
             {
@@ -48,64 +44,58 @@ namespace VisualStudioDiscordRPC.Shared.Utils
 
         private static bool IsSettingContainsData(string settingName, string data)
         {
-            var hashSetSetting = new HashSetSetting(settingName);
+            var listSetting = new ListedSetting(settingName);
 
-            return hashSetSetting.Contains(data);
+            return listSetting.Contains(data);
         }
 
-        public class HashSetSetting
+        public class ListedSetting
         {
             private readonly string _settingName;
 
-            public HashSetSetting(string settingName)
+            public ListedSetting(string settingName)
             {
                 _settingName = settingName;
             }
 
             public void Add(string data)
             {
-                List<string> hashes = ReadHashes();
-                
-                string dataHash = Hash(data);
-                hashes.Add(dataHash);
+                List<string> list = ReadList();
+                list.Add(data);
 
-                WriteHashes(hashes);
+                WriteList(list);
             }
 
             public void Remove(string data)
             {
-                List<string> hashes = ReadHashes();
+                List<string> list = ReadList();
+                list.Remove(data);
 
-                string dataHash = Hash(data);
-                hashes.Remove(dataHash);
-
-                WriteHashes(hashes);
+                WriteList(list);
             }
 
             public bool Contains(string data)
             {
-                List<string> hashes = ReadHashes();
-                string solutionHash = Hash(data);
-
-                return hashes.Contains(solutionHash);
+                List<string> stringList = ReadList();
+                return stringList.Contains(data);
             }
 
-            private List<string> ReadHashes()
+            public List<string> GetItems()
             {
-                var hashes = (string) Settings.Default[_settingName];
-                return hashes.Split(SolutionHashesSeparator).ToList();
-
+                return ReadList();
             }
 
-            private void WriteHashes(List<string> hashes)
+            private List<string> ReadList()
             {
-                Settings.Default[_settingName] = string.Join(SolutionHashesSeparator.ToString(), hashes);
+                var list = (string) Settings.Default[_settingName];
+                return list
+                    .Split(new[] { ListSeparator }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToList();
             }
 
-            private string Hash(string data)
+            private void WriteList(List<string> list)
             {
-                byte[] hash = _md5.ComputeHash(Encoding.ASCII.GetBytes(data));
-                return Convert.ToBase64String(hash);
+                Settings.Default[_settingName] = string.Join(ListSeparator.ToString(), list);
             }
         }
     }

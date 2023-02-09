@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using VisualStudioDiscordRPC.Shared.ViewModels;
 
 namespace VisualStudioDiscordRPC.Shared
@@ -17,7 +18,7 @@ namespace VisualStudioDiscordRPC.Shared
             Closing += SettingsWindow_Closing;
         }
 
-        private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void SettingsWindow_Closing(object sender, CancelEventArgs e)
         {
             Settings.Default.Save();
         }

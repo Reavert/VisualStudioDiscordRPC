@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:VisualStudioDiscordRPC.Shared.ViewModels"
-        xmlns:converters="clr-namespace:VisualStudioDiscordRPC.Shared.ViewModels.Converters"
+        xmlns:converters="clr-namespace:VisualStudioDiscordRPC.Shared.ViewModels.Converters" xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d"
         Width="360"
         SizeToContent="Height"
@@ -14,6 +14,7 @@
         d:DataContext="{d:DesignInstance local:SettingsViewModel}">
     <Window.Resources>
         <converters:LocalizationConverter x:Key="LocalizationConverter"/>
+        <converters:MultiParameterConverter x:Key="MultiParameterConverter"/>
     </Window.Resources>
     <StackPanel Margin="2">
         <ToggleButton x:Name="Toggle"
@@ -51,21 +52,44 @@
                 </ControlTemplate>
             </ToggleButton.Template>
         </ToggleButton>
-        <CheckBox 
+        <StackPanel 
             HorizontalAlignment="Right"
-            Margin="5"
-            IsChecked="{Binding SecretSolution}"
-            ToolTip="If this option is active, then no one will see which files you are editing for the current solution">
+            Orientation="Horizontal">
+            <CheckBox
+                HorizontalAlignment="Right"
+                Margin="5"
+                IsChecked="{Binding SecretSolution}"
+                ToolTip="If this option is active, then no one will see which files you are editing for the current solution">
             <TextBlock Text="Secret solution"/>
-        </CheckBox>
-        <CheckBox 
+            </CheckBox>
+            <Button
+                Width="20"
+                Height="20"
+                Command="{Binding ShowListSettingEditorCommand}"
+                CommandParameter="{Binding SecretSolutionsEditingContext}">
+                <TextBlock Text="..."/>
+            </Button>
+        </StackPanel>
+        <StackPanel
             HorizontalAlignment="Right"
-            Margin="5"
-            IsEnabled="{Binding HasRepository}"
-            IsChecked="{Binding PrivateRepository}"
-            ToolTip="If this option is active, the repository button is not displayed for the current repository">
-            <TextBlock Text="Private repository"/>
-        </CheckBox>
+            Orientation="Horizontal">
+            <CheckBox 
+                HorizontalAlignment="Right"
+                Margin="5"
+                IsEnabled="{Binding HasRepository}"
+                IsChecked="{Binding PrivateRepository}"
+                ToolTip="If this option is active, the repository button is not displayed for the current repository">
+                <TextBlock Text="Private repository"/>
+            </CheckBox>
+            <Button
+                Width="20"
+                Height="20"
+                Command="{Binding ShowListSettingEditorCommand}"
+                CommandParameter="{Binding PrivateRepositoriesEditingContext}">
+                <TextBlock Text="..."/>
+            </Button>
+        </StackPanel>
+        
         <GroupBox Header="General" Margin="5" Padding="3">
             <StackPanel>
                 <TextBlock  Text="Language:" />
