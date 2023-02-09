@@ -1,10 +1,14 @@
 ﻿using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Windows;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
+using VisualStudioDiscordRPC.Shared.ReleaseNotes;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
@@ -42,8 +46,7 @@ namespace VisualStudioDiscordRPC.Shared
                 Settings.Default.Version = currentExtensionVersion;
                 Settings.Default.Save();
 
-                MessageBox.Show(string.Format(ConstantStrings.NewVersionNotification, currentExtensionVersion),
-                    "Update", MessageBoxButton.OK, MessageBoxImage.Information);
+                DisplayVersionUpdateMessage(currentExtensionVersion);
             }
         }
 
@@ -111,6 +114,45 @@ namespace VisualStudioDiscordRPC.Shared
 
             _discordRpcController.SetSlot<FirstButtonUpdater>(_slotService.GetSlotByName<ButtonSlot>(Settings.Default.FirstButtonSlot));
             _discordRpcController.SetSlot<SecondButtonUpdater>(_slotService.GetSlotByName<ButtonSlot>(Settings.Default.SecondButtonSlot));
+        }
+
+        private void DisplayVersionUpdateMessage(string version)
+        {
+            var updateTextBuilder = new StringBuilder();
+            updateTextBuilder.AppendLine(string.Format(ConstantStrings.NewVersionNotification, version));
+
+            ReleaseNote currentVersionReleaseNote = ReadReleaseNoteOfVersion(version);
+            if (currentVersionReleaseNote != null)
+            {
+                updateTextBuilder.AppendLine();
+                updateTextBuilder.AppendLine("Release notes: ");
+
+                string notesText = string.Join("\n", 
+                    currentVersionReleaseNote.Notes.Select(note => $" - {note}"));
+                updateTextBuilder.AppendLine(notesText);
+            }
+
+            MessageBox.Show(updateTextBuilder.ToString(), "Visual Studio Discord RPC Update",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private ReleaseNote ReadReleaseNoteOfVersion(string version)
+        {
+            string releaseNotePath = PackageFileHelper.GetPackageFilePath("RELEASE_NOTES.txt");
+            string releaseNotesText = File.ReadAllText(releaseNotePath);
+
+            var releaseNotesParser = new ReleaseNotesParser(releaseNotesText);
+
+            ReleaseNote releaseNote;
+            while (releaseNotesParser.ReadReleaseNote(out releaseNote))
+            {
+                if (releaseNote.Version == version)
+                {
+                    return releaseNote;
+                }
+            }
+
+            return null;
         }
     }
 }

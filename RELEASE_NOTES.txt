@@ -1,0 +1,5 @@
+1.5.1
+- ** IMPORTANT ** Check the "secret" option for your secret solutions. This update affected this functionality, which could have caused the option to be reset;
+- Added Turkish localization;
+- Added the ability to mark the repository as private, so as not to display a button with a link;
+- Now you can view all the added secret solutions and private repositories, with the ability to add and remove;

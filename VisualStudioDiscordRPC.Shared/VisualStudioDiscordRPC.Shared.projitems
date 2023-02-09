@@ -22,6 +22,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\AssetInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\ButtonInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiscordRpcController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNote.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNotesParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SolutionHider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseDataSlot.cs" />
@@ -80,8 +82,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\SettingsHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\VisualStudioHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\MultiParameterConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ListedSettingEditorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ListedSettingEditorWindow.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -92,6 +98,10 @@
     <Folder Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ListedSettingEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
