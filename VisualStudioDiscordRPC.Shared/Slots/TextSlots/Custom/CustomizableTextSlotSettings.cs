@@ -2,7 +2,11 @@
 {
     public class CustomizableTextSlotSettings
     {
-        public string SlotName;
         public string CustomText;
+
+        public override string ToString()
+        {
+            return CustomText;
+        }
     }
 }

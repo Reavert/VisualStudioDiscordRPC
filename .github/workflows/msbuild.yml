@@ -45,6 +45,7 @@ jobs:
       with:
         tag_name: ${{ steps.get-latest-tag.outputs.tag }}
         release_name: Visual Studio Discord RPC ${{ steps.get-latest-tag.outputs.tag }}
+        owner: Ryavell
         draft: true
         prerelease: false
 

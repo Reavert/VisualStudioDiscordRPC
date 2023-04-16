@@ -1,0 +1,43 @@
+﻿<Window x:Class="VisualStudioDiscordRPC.Shared.CustomSlotsEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:VisualStudioDiscordRPC.Shared.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:customslots="clr-namespace:VisualStudioDiscordRPC.Shared.ViewModels.CustomSlots"
+        xmlns:views="clr-namespace:VisualStudioDiscordRPC.Shared"
+        mc:Ignorable="d"
+        Width="360"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="Editor"
+        d:DataContext="{d:DesignInstance local:CustomSlotsEditorViewModel}">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type customslots:CustomTextSlotViewModel}">
+            <views:CustomTextSlotEditor/>
+        </DataTemplate>
+    </Window.Resources>
+    <StackPanel>
+        <ListBox 
+            ItemsSource="{Binding CustomSlots}"
+            SelectedItem="{Binding SelectedSlot}"/>
+
+         <ContentControl 
+            Content="{Binding CustomSlotViewModel}"/>
+
+        <StackPanel
+             Orientation="Horizontal">
+            <Button
+               Width="50"
+               Command="{Binding AddCustomSlotCommand}">
+                <TextBlock Text="Add"/>
+            </Button>
+            <Button 
+                Width="50"
+                Command="{Binding RemoveSlotCommand}">
+                <TextBlock Text="Remove"/>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

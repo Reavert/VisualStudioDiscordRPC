@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
+using VisualStudioDiscordRPC.Shared.Slots;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 using VisualStudioDiscordRPC.Shared.Updaters;
 using VisualStudioDiscordRPC.Shared.Utils;
+using VisualStudioDiscordRPC.Shared.ViewModels.CustomSlots;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
@@ -191,14 +192,17 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         private readonly RelayCommand _showListSettingEditorCommand;
         public RelayCommand ShowListSettingEditorCommand => _showListSettingEditorCommand;
 
-        private string[] _privateRepositoriesEditingContext =
+        private readonly RelayCommand _showCustomSlotsEditorCommand;
+        public RelayCommand ShowCustomSlotsEditorCommand => _showCustomSlotsEditorCommand;
+
+        private readonly string[] _privateRepositoriesEditingContext =
         {
             nameof(Settings.PrivateRepositories),
             nameof(PrivateRepository)
         };
         public string[] PrivateRepositoriesEditingContext => _privateRepositoriesEditingContext;
 
-        private string[] _secretSolutionsEditingContext =
+        private readonly string[] _secretSolutionsEditingContext =
         {
             nameof(Settings.HiddenSolutions),
             nameof(SecretSolution)
@@ -229,6 +233,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             OnPropertyChanged(nameof(AvailableButtonSlots));
 
             _showListSettingEditorCommand = new RelayCommand(ShowListSettingEditor);
+            _showCustomSlotsEditorCommand = new RelayCommand(ShowCustomTextSlotsEditor);
         }
 
         private void ShowListSettingEditor(object parameter)
@@ -243,6 +248,35 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
             listSettingEditorWindow.ShowDialog();
             OnPropertyChanged(propertyName);
+        }
+
+        private void ShowCustomTextSlotsEditor(object parameter)
+        {
+            var customSlotSettings = CustomSlotsSettings.Read();
+
+            ShowCustomSlotsEditor(ref customSlotSettings.CustomizableTextSlots, new CustomTextSlotViewModel());
+
+            CustomSlotsSettings.Write(customSlotSettings);
+        }
+
+        private void ShowCustomSlotsEditor<T>(ref List<T> customSlotSettings, ICustomSlotViewModel customEditorViewModel)
+        {
+            var customSlotsEditorViewModel = new CustomSlotsEditorViewModel(ToObjectList(customSlotSettings), customEditorViewModel);
+            var customSlotsEditorWindow = new CustomSlotsEditorWindow(customSlotsEditorViewModel);
+
+            customSlotsEditorWindow.ShowDialog();
+
+            customSlotSettings = ToConcreteList<T>(customSlotsEditorViewModel.CustomSlots.ToList());
+        }
+
+        private static List<object> ToObjectList<T>(List<T> list)
+        {
+            return list.Select(item => (object)item).ToList();
+        }
+
+        private static List<T> ToConcreteList<T>(List<object> list)
+        {
+            return list.Select(item => (T)item).ToList();
         }
     }
 }

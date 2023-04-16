@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
@@ -9,6 +10,7 @@ using VisualStudioDiscordRPC.Shared.Slots;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TextSlots.Custom;
 using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 using VisualStudioDiscordRPC.Shared.Utils;
 
@@ -16,44 +18,71 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 {
     public class SlotService
     {
-        private readonly List<BaseSlot> _slots;
+        private List<BaseSlot> _slots;
+
+        private const string ExtensionAssetMapFilename = "extensions_assets_map.json";
+        private const string VsVersionAssetMapFilename = "vs_assets_map.json";
+
+        private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
+        private readonly IAssetMap<VisualStudioVersionAsset> _vsVersionsAssetMap;
+
+        private readonly VsObserver _vsObserver = ServiceRepository.Default.GetService<VsObserver>();
 
         public SlotService()
         {
-            const string extensionAssetMapFilename = "extensions_assets_map.json";
-            const string vsVersionAssetMapFilename = "vs_assets_map.json";
+            _extensionsAssetMap = LoadAssets<ExtensionAsset>(ExtensionAssetMapFilename);
+            _vsVersionsAssetMap = LoadAssets<VisualStudioVersionAsset>(VsVersionAssetMapFilename);
 
-            var extensionsAssetMap = LoadAssets<ExtensionAsset>(extensionAssetMapFilename);
-            var vsVersionsAssetMap = LoadAssets<VisualStudioVersionAsset>(vsVersionAssetMapFilename);
+            CustomTextSources.AddGlobalTextSource(new FileNameTextSource(_vsObserver));
 
-            VsObserver vsObserver = ServiceRepository.Default.GetService<VsObserver>();
+            LoadSlots();
+        }
 
+        public void LoadSlots()
+        {
             _slots = new List<BaseSlot>
             {
                 // Asset slots.
                 new NoneAssetSlot(),
-                new ExtensionIconSlot(extensionsAssetMap, vsObserver),
-                new VisualStudioVersionIconSlot(vsVersionsAssetMap, vsObserver),
+                new ExtensionIconSlot(_extensionsAssetMap, _vsObserver),
+                new VisualStudioVersionIconSlot(_vsVersionsAssetMap, _vsObserver),
 
                 // Text slots.
                 new NoneTextSlot(),
-                new FileNameSlot(vsObserver),
-                new ProjectNameSlot(vsObserver),
-                new SolutionNameSlot(vsObserver),
-                new VisualStudioVersionTextSlot(vsObserver),
-                new DebuggingSlot(vsObserver.DTE),
+                new FileNameSlot(_vsObserver),
+                new ProjectNameSlot(_vsObserver),
+                new SolutionNameSlot(_vsObserver),
+                new VisualStudioVersionTextSlot(_vsObserver),
+                new DebuggingSlot(_vsObserver.DTE),
 
                 // Timer slots.
                 new NoneTimerSlot(),
-                new WithinFilesTimerSlot(vsObserver),
-                new WithinProjectsTimerSlot(vsObserver),
-                new WithinSolutionsTimerSlot(vsObserver),
+                new WithinFilesTimerSlot(_vsObserver),
+                new WithinProjectsTimerSlot(_vsObserver),
+                new WithinSolutionsTimerSlot(_vsObserver),
                 new WithinApplicationTimerSLot(),
 
                 // Button slots.
                 new NoneButtonSlot(),
-                new GitRepositoryButtonSlot(vsObserver)
+                new GitRepositoryButtonSlot(_vsObserver)
             };
+
+            LoadCustomSlots();
+        }
+
+        private void LoadCustomSlots()
+        {
+            CustomSlotsSettings customSlotsSettings = CustomSlotsSettings.Read();
+            if (customSlotsSettings == null)
+            {
+                return;
+            }
+
+            // Custom text slots.
+            foreach (var textSlotSetting in customSlotsSettings.CustomizableTextSlots)
+            {
+                _slots.Add(new CustomizableTextSlot(textSlotSetting.CustomText));
+            }
         }
 
         public void InitSlotsSubscriptions()
@@ -90,7 +119,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             var assetMap = new OptimizedAssetMap<T>();
             var assetLoader = new JsonAssetsLoader<T>();
 
-            assetMap.Assets = new List<T>(assetLoader.LoadAssets(PackageFileHelper.GetPackageFilePath(path)));
+            assetMap.Assets = new List<T>(assetLoader.LoadAssets(PathHelper.GetPackageInstallationPath(path)));
 
             return assetMap;
         }

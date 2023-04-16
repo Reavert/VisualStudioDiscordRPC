@@ -23,7 +23,7 @@ namespace VisualStudioDiscordRPC.Shared.Utils
 
             var vsixManifest = new XmlDocument();
 
-            string vsixManifestPath = PackageFileHelper.GetPackageFilePath(vsixManifesetFileName);
+            string vsixManifestPath = PathHelper.GetPackageInstallationPath(vsixManifesetFileName);
             vsixManifest.Load(vsixManifestPath);
 
             return vsixManifest.DocumentElement["Metadata"]["Identity"].Attributes["Version"].Value;

@@ -31,6 +31,9 @@
         /// </summary>
         public const string VisualStudioVersionAssetKey = "vs_{0}";
 
+        /// <summary>
+        /// {0} - Current extension version
+        /// </summary>
         public const string NewVersionNotification = 
             "A new version of the Visual Studio Discord Rich Presence extension has been installed: v{0}";
     }

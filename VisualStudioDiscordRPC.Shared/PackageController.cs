@@ -1,5 +1,6 @@
 ﻿using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace VisualStudioDiscordRPC.Shared
         private VsObserver _vsObserver;
         private SlotService _slotService;
         private SolutionHider _solutionHider;
-
+        
         public void Init()
         {
             RegisterServices();
@@ -70,7 +71,7 @@ namespace VisualStudioDiscordRPC.Shared
 
             // Registering localization service.
             var localizationService = new LocalizationService<LocalizationFile>(
-                PackageFileHelper.GetPackageFilePath(Settings.Default.TranslationsPath));
+                PathHelper.GetPackageInstallationPath(Settings.Default.TranslationsPath));
             localizationService.SelectLanguage(Settings.Default.Language);
 
             ServiceRepository.Default.AddService(localizationService);
@@ -138,13 +139,12 @@ namespace VisualStudioDiscordRPC.Shared
 
         private ReleaseNote ReadReleaseNoteOfVersion(string version)
         {
-            string releaseNotePath = PackageFileHelper.GetPackageFilePath("RELEASE_NOTES.txt");
+            string releaseNotePath = PathHelper.GetPackageInstallationPath("RELEASE_NOTES.txt");
             string releaseNotesText = File.ReadAllText(releaseNotePath);
 
             var releaseNotesParser = new ReleaseNotesParser(releaseNotesText);
 
-            ReleaseNote releaseNote;
-            while (releaseNotesParser.ReadReleaseNote(out releaseNote))
+            while (releaseNotesParser.ReadReleaseNote(out ReleaseNote releaseNote))
             {
                 if (releaseNote.Version == version)
                 {

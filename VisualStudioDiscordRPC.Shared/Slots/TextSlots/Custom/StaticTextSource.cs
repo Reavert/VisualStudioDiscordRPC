@@ -15,6 +15,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots.Custom
         public StaticTextSource(string text)
         {
             _text = text;
+            Changed?.Invoke();
         }
     }
 }

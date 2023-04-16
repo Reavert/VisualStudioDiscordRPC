@@ -1,11 +1,15 @@
 ﻿namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots.Custom
 {
-    public class CustomizableTextSlot : TextSlot
+    public class CustomizableTextSlot : TextSlot, ICustomSlot
     {
-        private CustomString _customString;
+        private readonly CustomString _customString;
+        private readonly string _rawCustomString;
+
+        public string Name => $"Custom: {_rawCustomString}";
 
         public CustomizableTextSlot(string customString)
         {
+            _rawCustomString = customString;
             _customString = CustomStringParser.Parse(customString);
         }
 
@@ -23,7 +27,6 @@
         {
             Update();
         }
-
 
         protected override string GetData()
         {

@@ -33,6 +33,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\GitRepositoryButtonSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\NoneButtonSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\CustomSlotsSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\ICustomSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\CustomizableTextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\CustomizableTextSlotSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\CustomString.cs" />
@@ -87,16 +88,27 @@
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\StateUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\TimerUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumerationExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\PackageFileHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\PathHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\SettingsHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\VisualStudioHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\MultiParameterConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomSlotsEditorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomSlots\CustomTextSlotViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomSlots\ICustomSlotViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ListedSettingEditorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ListedSettingEditorWindow.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomSlotsEditorWindow.xaml.cs">
+      <DependentUpon>CustomSlotsEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomSlots\CustomTextSlotEditor.xaml.cs">
+      <DependentUpon>CustomTextSlotEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ListedSettingEditorWindow.xaml.cs">
+      <DependentUpon>ListedSettingEditorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -107,11 +119,21 @@
     <Folder Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\CustomSlotsEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\ListedSettingEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\CustomSlots\CustomTextSlotEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

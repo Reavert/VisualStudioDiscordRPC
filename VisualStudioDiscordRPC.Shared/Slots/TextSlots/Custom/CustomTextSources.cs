@@ -17,6 +17,4 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots.Custom
             return GlobalTextSources[name];
         }
     }
-
-
 }
