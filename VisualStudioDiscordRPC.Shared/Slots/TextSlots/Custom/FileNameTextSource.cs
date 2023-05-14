@@ -19,6 +19,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots.Custom
         {
             _vsObserver = vsObserver;
             _vsObserver.DocumentChanged += OnDocumentChanged;
+            _fileName = _vsObserver.DTE.ActiveDocument?.Name;
         }
 
         private void OnDocumentChanged(Document document)

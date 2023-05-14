@@ -3,14 +3,12 @@
     public class CustomizableTextSlot : TextSlot, ICustomSlot
     {
         private readonly CustomString _customString;
-        private readonly string _rawCustomString;
 
-        public string Name => $"Custom: {_rawCustomString}";
+        public string Name => $"Custom";
 
-        public CustomizableTextSlot(string customString)
+        public CustomizableTextSlot(CustomString customString)
         {
-            _rawCustomString = customString;
-            _customString = CustomStringParser.Parse(customString);
+            _customString = customString;
         }
 
         public override void Enable()
