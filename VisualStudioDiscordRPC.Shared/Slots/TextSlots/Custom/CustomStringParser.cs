@@ -1,93 +1,95 @@
-﻿using System.Drawing.Text;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots.Custom
 {
     public class CustomStringParser
     {
-        private const char StartVariableLex = '{';
-        private const char EndVariableLex = '}';
+        public enum EntryType
+        {
+            StaticText,
+            Variable
+        }
 
-        private ParserState _parserState = ParserState.Initial;
+        public readonly struct Entry
+        {
+            public readonly EntryType Type;
+            public readonly string Value;
+
+            public Entry(EntryType type, string value)
+            {
+                Type = type;
+                Value = value;
+            }
+        }
+
         private StringBuilder _stringBuilder = new StringBuilder();
-
         private StringReader _stringReader;
-        private char _currentSymbol;
 
-        public CustomString Parse(string text)
+        private bool _isVariable;
+
+        public List<Entry> Parse(string text)
         {
-            _parserState = ParserState.Initial;
+            var entries = new List<Entry>();
+
             _stringReader = new StringReader(text);
+            _stringBuilder.Clear();
+            _isVariable = false;
 
-            while (_parserState != ParserState.End)
+            while (true)
             {
-                UpdateState();
-            }
-        }
+                int symbol = _stringReader.Read();
+                var symbolChar = (char)symbol;
 
-        private bool TryRead(out char symbol)
-        {
-            int symbolInt = _stringReader.Read();
-            if (symbolInt == -1)
-            {
-                symbol = '\0';
-                return false;
-            }
-
-            symbol = (char)symbolInt;
-            return true;
-        }
-
-        private void UpdateState()
-        {
-            switch (_parserState)
-            {
-                case ParserState.Initial:
-                    if (TryRead(out _currentSymbol))
+                if (symbolChar == '{')
+                {
+                    if (!_isVariable)
                     {
-                        _parserState = _currentSymbol == StartVariableLex 
-                            ? ParserState.ReadVariable 
-                            : ParserState.ReadText;
-                    }
-                    else
-                    {
-                        _parserState = ParserState.End;
-                    }
-
-                    break;
-
-                case ParserState.ReadText:
-                    if (TryRead(out _currentSymbol))
-                    {
-                        if (_currentSymbol == StartVariableLex)
+                        _isVariable = true;
+                        if (_stringBuilder.Length > 0)
                         {
-                            _parserState = ParserState.ReadVariable;
-                            break;
+                            entries.Add(new Entry(EntryType.StaticText, _stringBuilder.ToString()));
+                            _stringBuilder.Clear();
+                        }
+                        
+                        continue;
+                    }
+                }
+                else if (symbolChar == '}')
+                {
+                    if (_isVariable)
+                    {
+                        _isVariable = false;
+                        if (_stringBuilder.Length > 0)
+                        {
+                            entries.Add(new Entry(EntryType.Variable, _stringBuilder.ToString()));
+                            _stringBuilder.Clear();
                         }
 
-
+                        continue;
                     }
-                    else
+                }
+
+                if (symbol == -1)
+                {
+                    if (_stringBuilder.Length > 0)
                     {
-                        _parserState = ParserState.End;
+                        entries.Add(new Entry(
+                            _isVariable ? EntryType.Variable : EntryType.StaticText,
+                            _stringBuilder.ToString()));
                     }
-
-
 
                     break;
-
+                }
+                else
+                {
+                    _stringBuilder.Append(symbolChar);
+                }
             }
-        }
 
-        private enum ParserState
-        {
-            Initial,
-
-            ReadText,
-            ReadVariable,
-
-            End
+            return entries;
         }
     }
 }

@@ -41,7 +41,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\FileNameTextSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\ITextSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\StaticTextSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\CustomTextSources.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\DebuggingSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\FileNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\NoneAssetSlot.cs" />

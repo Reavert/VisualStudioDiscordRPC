@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
@@ -18,22 +17,27 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 {
     public class SlotService
     {
-        private List<BaseSlot> _slots;
-
         private const string ExtensionAssetMapFilename = "extensions_assets_map.json";
         private const string VsVersionAssetMapFilename = "vs_assets_map.json";
+
+        private List<BaseSlot> _slots;
 
         private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
         private readonly IAssetMap<VisualStudioVersionAsset> _vsVersionsAssetMap;
 
         private readonly VsObserver _vsObserver = ServiceRepository.Default.GetService<VsObserver>();
 
+        private readonly Dictionary<string, ITextSource> _textSources;
+
         public SlotService()
         {
             _extensionsAssetMap = LoadAssets<ExtensionAsset>(ExtensionAssetMapFilename);
             _vsVersionsAssetMap = LoadAssets<VisualStudioVersionAsset>(VsVersionAssetMapFilename);
 
-            CustomTextSources.AddGlobalTextSource(new FileNameTextSource(_vsObserver));
+            _textSources = new Dictionary<string, ITextSource>()
+            {
+                { "filename", new FileNameTextSource(_vsObserver) }
+            };
 
             LoadSlots();
         }
@@ -73,15 +77,29 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
         private void LoadCustomSlots()
         {
             CustomSlotsSettings customSlotsSettings = CustomSlotsSettings.Read();
-            if (customSlotsSettings == null)
-            {
-                return;
-            }
+
+            var parser = new CustomStringParser();
 
             // Custom text slots.
             foreach (var textSlotSetting in customSlotsSettings.CustomizableTextSlots)
             {
-                _slots.Add(new CustomizableTextSlot(textSlotSetting.CustomText));
+                var entries = parser.Parse(textSlotSetting.CustomText);
+                var customString = new CustomString();
+                foreach (var entry in entries)
+                {
+                    if (entry.Type == CustomStringParser.EntryType.Variable &&
+                        _textSources.TryGetValue(entry.Value, out var variableTextSource))
+                    {
+                        customString.AddText(variableTextSource);
+                    }
+                    else
+                    {
+                        customString.AddText(entry.Value);
+                    }
+                }
+
+                var customizableTextSlot = new CustomizableTextSlot(customString);
+                _slots.Add(customizableTextSlot);
             }
         }
 
