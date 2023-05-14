@@ -18,6 +18,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.AssetSlots
         {
             _assetMap = assetMap;
             _vsObserver = vsObserver;
+            _document = _vsObserver.DTE.ActiveDocument;
         }
 
         public override void Enable()

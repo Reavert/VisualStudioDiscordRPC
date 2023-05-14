@@ -15,11 +15,13 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
         {
             _vsObserver = vsObserver;
             _discordRpcController = discordRpcController;
+            _lastOpenedSolution = _vsObserver.DTE.Solution;
         }
 
         public void Start()
         {
             _vsObserver.SolutionChanged += OnSolutionChanged;
+            UpdateRpcVisibility();
         }
 
         public void Stop()

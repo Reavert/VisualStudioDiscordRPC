@@ -15,8 +15,11 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 
         public ProjectNameSlot(VsObserver vsObserver)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
             _vsObserver = vsObserver;
+            _project = _vsObserver.DTE.ActiveWindow?.Project;
         }
 
         public override void Enable()

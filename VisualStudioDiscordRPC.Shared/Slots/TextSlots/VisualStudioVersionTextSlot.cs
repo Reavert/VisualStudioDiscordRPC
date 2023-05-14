@@ -14,6 +14,9 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
         public VisualStudioVersionTextSlot(VsObserver vsObserver)
         {
             _vsObserver = vsObserver;
+
+            _edition = vsObserver.DTE.Edition;
+            _version = VisualStudioHelper.GetVersionByDevNumber(vsObserver.DTE.Version);
         }
 
         public override void Enable()

@@ -15,6 +15,11 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
             }
         }
 
+        protected TimerSlot()
+        {
+            ChangeTimestamp = Timestamps.Now;
+        }
+
         protected sealed override Timestamps GetData()
         {
             return ChangeTimestamp;
