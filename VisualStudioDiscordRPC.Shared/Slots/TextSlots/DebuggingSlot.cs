@@ -25,6 +25,16 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 
             _dte = dte;
             _debuggerEvents = _dte.Events.DebuggerEvents;
+
+            var currentMode = DebuggingMode.None;
+            switch (_dte.Debugger.CurrentMode)
+            {
+                case dbgDebugMode.dbgRunMode: currentMode = DebuggingMode.Debugging; break;
+                case dbgDebugMode.dbgBreakMode: currentMode = DebuggingMode.StayOnBreakpoint; break;
+                case dbgDebugMode.dbgDesignMode: currentMode = DebuggingMode.None; break;
+            }
+
+            _debuggingMode = currentMode;
         }
 
         public override void Enable()

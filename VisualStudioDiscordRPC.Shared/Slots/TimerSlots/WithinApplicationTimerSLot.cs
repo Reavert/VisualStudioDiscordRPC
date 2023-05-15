@@ -4,10 +4,8 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
 {
     public class WithinApplicationTimerSLot : TimerSlot
     {
-        public WithinApplicationTimerSLot() 
-        {
-            ChangeTimestamp = Timestamps.Now;
-        }
+        public WithinApplicationTimerSLot() : base()
+        { }
 
         public override void Enable()
         { }

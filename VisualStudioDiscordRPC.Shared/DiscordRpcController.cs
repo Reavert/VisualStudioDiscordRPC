@@ -46,7 +46,7 @@ namespace VisualStudioDiscordRPC.Shared
                 {
                     if (_enabled) 
                     {
-                        UpdateAllUpdaters();
+                        RefreshAll();
                     }
                     else
                     {
@@ -121,16 +121,16 @@ namespace VisualStudioDiscordRPC.Shared
         {
             _localizationService.LocalizationChanged += OnLocalizationChanged;
 
-            foreach (BaseUpdater updater in Updaters)
+            lock (_richPresenceSync)
             {
-                updater.Changed += OnUpdaterChanged;
+                _discordRpcClient.Initialize();
             }
 
             _sendingRichPresenceDataThread.Start();
 
-            lock (_richPresenceSync)
+            foreach (BaseUpdater updater in Updaters)
             {
-                _discordRpcClient.Initialize();
+                updater.Changed += OnUpdaterChanged;
             }
         }
 
@@ -186,7 +186,7 @@ namespace VisualStudioDiscordRPC.Shared
 
         private void OnLocalizationChanged()
         {
-            UpdateAllUpdaters();
+            RefreshAll();
         }
 
         private void OnUpdaterChanged()
@@ -197,11 +197,16 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        private void UpdateAllUpdaters()
+        public void RefreshAll()
         {
             foreach (BaseUpdater updater in Updaters)
             {
                 updater.BaseSlot?.Update();
+            }
+
+            lock (_dirtyFlagSync)
+            {
+                _isDirty = true;
             }
         }
 

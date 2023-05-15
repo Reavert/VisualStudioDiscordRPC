@@ -17,6 +17,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
         {
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
             _vsObserver = vsObserver;
+            _document = _vsObserver.DTE.ActiveDocument;
         }
 
         public override void Enable()

@@ -8,7 +8,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
     {
         private readonly VsObserver _vsObserver;
 
-        public WithinSolutionsTimerSlot(VsObserver vsObserver)
+        public WithinSolutionsTimerSlot(VsObserver vsObserver) : base()
         {
             _vsObserver = vsObserver;
         }

@@ -42,6 +42,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.ButtonSlots
         public GitRepositoryButtonSlot(VsObserver vsObserver) 
         {
             _vsObserver = vsObserver;
+            _remoteRepositoryUrl = GetValidRemoteGitUrl(_vsObserver.DTE.Solution?.FileName); ;
         }
 
         public override void Enable()

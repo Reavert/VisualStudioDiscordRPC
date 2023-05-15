@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<language name="Czech" localizedName="Čeština">
+	<translation id="project">Projekt</translation>
+	<translation id="file">Soubor</translation>
+	<translation id="solution">Řešení</translation>
+
+	<translation id="noActiveProject">Žádný aktivní projekt</translation>
+	<translation id="noActiveFile">Žádný aktivní soubor</translation>
+	<translation id="noActiveSolution">Žádné aktivní řešení</translation>
+
+	<translation id="NoneAssetSlot">Žádné</translation>
+	<translation id="VisualStudioVersionIconSlot">Verze Visual Studia</translation>
+	<translation id="ExtensionIconSlot">Přípona souboru</translation>
+
+	<translation id="NoneTextSlot">Žádné</translation>
+	<translation id="VisualStudioVersionTextSlot">Verze Visual Studia</translation>
+	<translation id="Text.FileExtension">Přípona souboru</translation>
+	<translation id="ProjectNameSlot">Název projektu</translation>
+	<translation id="SolutionNameSlot">Název řešení</translation>
+	<translation id="FileNameSlot">Název souboru</translation>
+
+	<translation id="NoneTimerSlot">Vypnuto</translation>
+	<translation id="WithinFilesTimerSlot">Režim souborů</translation>
+	<translation id="WithinProjectsTimerSlot">Režim projektů</translation>
+	<translation id="WithinSolutionsTimerSlot">Režim řešení</translation>
+	
+	<translation id="NoneButtonSlot">Žádné</translation>
+	<translation id="GitRepositoryButtonSlot">Repozitář</translation>
+</language>
