@@ -22,6 +22,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\AssetInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\ButtonInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiscordRpcController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Macros\DebugMacro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Macros\EditionMacro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Macros\FileNameMacro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Macros\Macro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Macros\ProjectNameMacro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Macros\SolutionNameMacro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Macros\VersionMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNotesParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
@@ -34,18 +41,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\NoneButtonSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\CustomSlotsSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ICustomSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\CustomizableTextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\CustomizableTextSlotSettings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\CustomString.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\CustomStringParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\FileNameTextSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\ITextSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\Custom\StaticTextSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\DebuggingSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\FileNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\NoneAssetSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\NoneTextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\ProjectNameSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\ExtensionIconSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\ObserverDelegates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\IObserver.cs" />
@@ -65,10 +61,9 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\SolutionNameSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\CustomTextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\TextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\VisualStudioVersionIconSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\VisualStudioVersionTextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinApplicationTimerSLot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\NoneTimerSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\TimerSlot.cs" />

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using EnvDTE;
+using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
@@ -26,18 +28,11 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
         private readonly IAssetMap<VisualStudioVersionAsset> _vsVersionsAssetMap;
 
         private readonly VsObserver _vsObserver = ServiceRepository.Default.GetService<VsObserver>();
-
-        private readonly Dictionary<string, ITextSource> _textSources;
-
+        private readonly MacroService _macroService = ServiceRepository.Default.GetService<MacroService>();
         public SlotService()
         {
             _extensionsAssetMap = LoadAssets<ExtensionAsset>(ExtensionAssetMapFilename);
             _vsVersionsAssetMap = LoadAssets<VisualStudioVersionAsset>(VsVersionAssetMapFilename);
-
-            _textSources = new Dictionary<string, ITextSource>()
-            {
-                { "filename", new FileNameTextSource(_vsObserver) }
-            };
 
             LoadSlots();
         }
@@ -51,14 +46,6 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                 new ExtensionIconSlot(_extensionsAssetMap, _vsObserver),
                 new VisualStudioVersionIconSlot(_vsVersionsAssetMap, _vsObserver),
 
-                // Text slots.
-                new NoneTextSlot(),
-                new FileNameSlot(_vsObserver),
-                new ProjectNameSlot(_vsObserver),
-                new SolutionNameSlot(_vsObserver),
-                new VisualStudioVersionTextSlot(_vsObserver),
-                new DebuggingSlot(_vsObserver.DTE),
-
                 // Timer slots.
                 new NoneTimerSlot(),
                 new WithinFilesTimerSlot(_vsObserver),
@@ -71,36 +58,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                 new GitRepositoryButtonSlot(_vsObserver)
             };
 
-            LoadCustomSlots();
-        }
-
-        private void LoadCustomSlots()
-        {
-            CustomSlotsSettings customSlotsSettings = CustomSlotsSettings.Read();
-
-            var parser = new CustomStringParser();
-
-            // Custom text slots.
-            foreach (var textSlotSetting in customSlotsSettings.CustomizableTextSlots)
-            {
-                var entries = parser.Parse(textSlotSetting.CustomText);
-                var customString = new CustomString();
-                foreach (var entry in entries)
-                {
-                    if (entry.Type == CustomStringParser.EntryType.Variable &&
-                        _textSources.TryGetValue(entry.Value, out var variableTextSource))
-                    {
-                        customString.AddText(variableTextSource);
-                    }
-                    else
-                    {
-                        customString.AddText(entry.Value);
-                    }
-                }
-
-                var customizableTextSlot = new CustomizableTextSlot(customString);
-                _slots.Add(customizableTextSlot);
-            }
+            LoadCustomTextSlots();
         }
 
         public void InitSlotsSubscriptions()
@@ -140,6 +98,32 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             assetMap.Assets = new List<T>(assetLoader.LoadAssets(PathHelper.GetPackageInstallationPath(path)));
 
             return assetMap;
+        }
+
+        private void LoadCustomTextSlots()
+        {
+            
+            var text = "I am workin on {filename}";
+            var parser = new ObservableStringParser();
+            var entries = parser.Parse(text);
+
+            var stringObserver = new StringObserver();
+            foreach (var entry in entries)
+            {
+                switch (entry.Type)
+                {
+                    case ObservableStringParser.EntryType.Text:
+                        stringObserver.AddText(entry.Value);
+                        break;
+
+                    case ObservableStringParser.EntryType.Keyword:
+                        var macro = _macroService.Instantiate(entry.Value);
+                        stringObserver.AddText(new ObservableMacro(macro));
+                        break;
+                }
+            }
+
+            _slots.Add(new CustomTextSlot(stringObserver));
         }
     }
 }

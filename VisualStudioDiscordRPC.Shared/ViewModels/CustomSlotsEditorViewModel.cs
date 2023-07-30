@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using VisualStudioDiscordRPC.Shared.Slots;
 using VisualStudioDiscordRPC.Shared.ViewModels.CustomSlots;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
     public class CustomSlotsEditorViewModel : ViewModelBase
     {
-        private readonly CustomSlotsSettings _settings;
-        public CustomSlotsSettings Settings => _settings;
-
         private ICustomSlotViewModel _customSlotViewModel;
         public ICustomSlotViewModel CustomSlotViewModel
         {
