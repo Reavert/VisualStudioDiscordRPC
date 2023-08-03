@@ -25,7 +25,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
 
         private void OnSolutionChanged(Solution solution)
         {
-            ChangeTimestamp = Timestamps.Now;
+            SyncTimestamp();
         }
     }
 }

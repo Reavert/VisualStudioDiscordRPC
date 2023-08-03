@@ -6,7 +6,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
     {
         public NoneTimerSlot() 
         {
-            ChangeTimestamp = null;
+            ClearTimestamp();
         }
 
         public override void Enable()
