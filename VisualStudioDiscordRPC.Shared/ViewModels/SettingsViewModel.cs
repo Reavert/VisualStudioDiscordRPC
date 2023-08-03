@@ -3,14 +3,12 @@ using System.Linq;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
-using VisualStudioDiscordRPC.Shared.Slots;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 using VisualStudioDiscordRPC.Shared.Updaters;
 using VisualStudioDiscordRPC.Shared.Utils;
-using VisualStudioDiscordRPC.Shared.ViewModels.CustomSlots;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
@@ -116,7 +114,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (TextSlot)_discordRpcController.GetSlotOfUpdater<StateUpdater>();
             set
             {
-                Settings.Default.StateSlot = value.GetType().Name;
+                //Settings.Default.StateSlot = value.GetType().Name;
                 _discordRpcController.SetSlot<StateUpdater>(value);
 
                 OnPropertyChanged(nameof(StateSlot));
@@ -128,7 +126,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (TextSlot) _discordRpcController.GetSlotOfUpdater<DetailsUpdater>();
             set
             {
-                Settings.Default.DetailsSlot = value.GetType().Name;
+                //Settings.Default.DetailsSlot = value.GetType().Name;
                 _discordRpcController.SetSlot<DetailsUpdater>(value);
 
                 OnPropertyChanged(nameof(DetailsSlot));
@@ -233,7 +231,6 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             OnPropertyChanged(nameof(AvailableButtonSlots));
 
             _showListSettingEditorCommand = new RelayCommand(ShowListSettingEditor);
-            _showCustomSlotsEditorCommand = new RelayCommand(ShowCustomTextSlotsEditor);
         }
 
         private void ShowListSettingEditor(object parameter)
@@ -248,25 +245,6 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
             listSettingEditorWindow.ShowDialog();
             OnPropertyChanged(propertyName);
-        }
-
-        private void ShowCustomTextSlotsEditor(object parameter)
-        {
-            var customSlotSettings = CustomSlotsSettings.Read();
-
-            ShowCustomSlotsEditor(ref customSlotSettings.CustomizableTextSlots, new CustomTextSlotViewModel());
-
-            CustomSlotsSettings.Write(customSlotSettings);
-        }
-
-        private void ShowCustomSlotsEditor<T>(ref List<T> customSlotSettings, ICustomSlotViewModel customEditorViewModel)
-        {
-            var customSlotsEditorViewModel = new CustomSlotsEditorViewModel(ToObjectList(customSlotSettings), customEditorViewModel);
-            var customSlotsEditorWindow = new CustomSlotsEditorWindow(customSlotsEditorViewModel);
-
-            customSlotsEditorWindow.ShowDialog();
-
-            customSlotSettings = ToConcreteList<T>(customSlotsEditorViewModel.CustomSlots.ToList());
         }
 
         private static List<object> ToObjectList<T>(List<T> list)

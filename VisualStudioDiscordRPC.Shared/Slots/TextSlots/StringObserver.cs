@@ -20,7 +20,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots.Custom
         public void AddText(string staticText)
         {
             var staticTextSource = new StaticTextSource(staticText);
-            AddText(staticText);
+            AddText(staticTextSource);
         }
 
         private void OnAnyTextSourceChanged()

@@ -31,6 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Macros\VersionMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNotesParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\MacroService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SolutionHider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseDataSlot.cs" />
@@ -39,8 +40,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\ButtonSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\GitRepositoryButtonSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\NoneButtonSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\CustomSlotsSettings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\ICustomSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\NoneAssetSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\ExtensionIconSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\ObserverDelegates.cs" />
@@ -61,7 +60,12 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\IObservableString.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\ObservableMacro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\StringObserver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\ObservableStringParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\CustomTextSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\StaticTextSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\TextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\VisualStudioVersionIconSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinApplicationTimerSLot.cs" />
@@ -87,19 +91,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\VisualStudioHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\MultiParameterConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomSlotsEditorViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomSlots\CustomTextSlotViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomSlots\ICustomSlotViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ListedSettingEditorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomSlotsEditorWindow.xaml.cs">
-      <DependentUpon>CustomSlotsEditorWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomSlots\CustomTextSlotEditor.xaml.cs">
-      <DependentUpon>CustomTextSlotEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ListedSettingEditorWindow.xaml.cs">
       <DependentUpon>ListedSettingEditorWindow.xaml</DependentUpon>
     </Compile>
@@ -113,21 +108,11 @@
     <Folder Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Views\CustomSlotsEditorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\ListedSettingEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Views\CustomSlots\CustomTextSlotEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

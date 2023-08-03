@@ -1,6 +1,4 @@
-﻿using EnvDTE;
-using System.Collections.Generic;
-using System.Drawing.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
@@ -102,8 +100,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         private void LoadCustomTextSlots()
         {
-            
-            var text = "I am workin on {filename}";
+            var text = "{solution_name} - {project_name} - {file_name}";
             var parser = new ObservableStringParser();
             var entries = parser.Parse(text);
 

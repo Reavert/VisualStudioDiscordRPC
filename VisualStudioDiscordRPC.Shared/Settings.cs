@@ -46,22 +46,6 @@ namespace VisualStudioDiscordRPC.Shared
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue(nameof(FileNameSlot))]
-        public string DetailsSlot
-        {
-            get => (string)this[nameof(DetailsSlot)];
-            set => this[nameof(DetailsSlot)] = value;
-        }
-
-        [UserScopedSetting]
-        [DefaultSettingValue(nameof(SolutionNameSlot))]
-        public string StateSlot
-        {
-            get => (string)this[nameof(StateSlot)];
-            set => this[nameof(StateSlot)] = value;
-        }
-
-        [UserScopedSetting]
         [DefaultSettingValue(nameof(WithinFilesTimerSlot))]
         public string TimerSlot
         {

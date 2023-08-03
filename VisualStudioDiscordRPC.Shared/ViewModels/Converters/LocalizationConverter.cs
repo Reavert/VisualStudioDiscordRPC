@@ -21,11 +21,6 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is ICustomSlot customSlot)
-            {
-                return customSlot.Name;
-            }
-
             string objectTypeName = value.GetType().Name;
             if (_localizationService.Current.LocalizedValues.TryGetValue(objectTypeName, out var localizedName))
             {

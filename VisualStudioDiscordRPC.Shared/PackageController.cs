@@ -76,6 +76,9 @@ namespace VisualStudioDiscordRPC.Shared
 
             ServiceRepository.Default.AddService(localizationService);
 
+            // Registering macro service.
+            ServiceRepository.Default.AddService(new MacroService(_vsObserver));
+
             // Registering slot service.
             _slotService = new SlotService();
             ServiceRepository.Default.AddService(_slotService);
@@ -108,8 +111,8 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController.SetSlot<LargeIconUpdater>(_slotService.GetSlotByName<AssetSlot>(Settings.Default.LargeIconSlot));
             _discordRpcController.SetSlot<SmallIconUpdater>(_slotService.GetSlotByName<AssetSlot>(Settings.Default.SmallIconSlot));
 
-            _discordRpcController.SetSlot<DetailsUpdater>(_slotService.GetSlotByName<TextSlot>(Settings.Default.DetailsSlot));
-            _discordRpcController.SetSlot<StateUpdater>(_slotService.GetSlotByName<TextSlot>(Settings.Default.StateSlot));
+            //_discordRpcController.SetSlot<DetailsUpdater>(_slotService.GetSlotByName<TextSlot>(Settings.Default.DetailsSlot));
+            //_discordRpcController.SetSlot<StateUpdater>(_slotService.GetSlotByName<TextSlot>(Settings.Default.StateSlot));
             
             _discordRpcController.SetSlot<TimerUpdater>(_slotService.GetSlotByName<TimerSlot>(Settings.Default.TimerSlot));
 
