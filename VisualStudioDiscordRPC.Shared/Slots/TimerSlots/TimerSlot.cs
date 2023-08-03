@@ -25,7 +25,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
 
         protected sealed override Timestamps GetData()
         {
-            return _changeTimestamp; ;
+            return _changeTimestamp;
         }
     }
 }

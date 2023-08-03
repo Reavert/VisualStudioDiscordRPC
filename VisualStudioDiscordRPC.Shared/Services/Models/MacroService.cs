@@ -26,7 +26,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
         };
         }
 
-        public Macro Instantiate(string name)
+        public Macro GetMacroByName(string name)
         {
             _macros.TryGetValue(name, out var macro);
             return macro;

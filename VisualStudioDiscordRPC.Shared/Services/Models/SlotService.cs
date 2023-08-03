@@ -20,7 +20,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
         private const string ExtensionAssetMapFilename = "extensions_assets_map.json";
         private const string VsVersionAssetMapFilename = "vs_assets_map.json";
 
-        private List<BaseSlot> _slots;
+        private List<BaseSlot> _slots = new List<BaseSlot>();
 
         private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
         private readonly IAssetMap<VisualStudioVersionAsset> _vsVersionsAssetMap;
@@ -37,26 +37,10 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         public void LoadSlots()
         {
-            _slots = new List<BaseSlot>
-            {
-                // Asset slots.
-                new NoneAssetSlot(),
-                new ExtensionIconSlot(_extensionsAssetMap, _vsObserver),
-                new VisualStudioVersionIconSlot(_vsVersionsAssetMap, _vsObserver),
-
-                // Timer slots.
-                new NoneTimerSlot(),
-                new WithinFilesTimerSlot(_vsObserver),
-                new WithinProjectsTimerSlot(_vsObserver),
-                new WithinSolutionsTimerSlot(_vsObserver),
-                new WithinApplicationTimerSLot(),
-
-                // Button slots.
-                new NoneButtonSlot(),
-                new GitRepositoryButtonSlot(_vsObserver)
-            };
-
-            LoadCustomTextSlots();
+            LoadAssetSlots();
+            LoadTextSlots();
+            LoadTimerSlots();
+            LoadButtonSlots();
         }
 
         public void InitSlotsSubscriptions()
@@ -98,7 +82,17 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             return assetMap;
         }
 
-        private void LoadCustomTextSlots()
+        private void LoadAssetSlots()
+        {
+            _slots.AddRange(new AssetSlot[]
+            {
+                new NoneAssetSlot(),
+                new ExtensionIconSlot(_extensionsAssetMap, _vsObserver),
+                new VisualStudioVersionIconSlot(_vsVersionsAssetMap, _vsObserver)
+            });
+        }
+
+        private void LoadTextSlots()
         {
             var text = "{solution_name} - {project_name} - {file_name}";
             var parser = new ObservableStringParser();
@@ -114,13 +108,34 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                         break;
 
                     case ObservableStringParser.EntryType.Keyword:
-                        var macro = _macroService.Instantiate(entry.Value);
+                        var macro = _macroService.GetMacroByName(entry.Value);
                         stringObserver.AddText(new ObservableMacro(macro));
                         break;
                 }
             }
 
             _slots.Add(new CustomTextSlot(stringObserver));
+        }
+
+        private void LoadTimerSlots()
+        {
+            _slots.AddRange(new TimerSlot[]
+            {
+                new NoneTimerSlot(),
+                new WithinFilesTimerSlot(_vsObserver),
+                new WithinProjectsTimerSlot(_vsObserver),
+                new WithinSolutionsTimerSlot(_vsObserver),
+                new WithinApplicationTimerSLot()
+            });
+        }
+
+        private void LoadButtonSlots()
+        {
+            _slots.AddRange(new ButtonSlot[]
+            {
+                new NoneButtonSlot(),
+                new GitRepositoryButtonSlot(_vsObserver)
+            });
         }
     }
 }

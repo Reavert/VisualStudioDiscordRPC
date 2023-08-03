@@ -218,11 +218,7 @@
                 </ComboBox>
             </StackPanel>
         </GroupBox>
-        <Button
-            Command="{Binding ShowCustomSlotsEditorCommand}">
-            <TextBlock Text="Custom Slots Editor"/>
-        </Button>
-        <TextBlock 
+        <TextBlock
             Margin="5"
             VerticalAlignment="Center" 
             HorizontalAlignment="Center"
