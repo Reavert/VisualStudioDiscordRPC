@@ -91,6 +91,10 @@ namespace VisualStudioDiscordRPC.Shared
             // Registering Solution Hider.
             _solutionHider = new SolutionHider(_vsObserver, _discordRpcController);
             ServiceRepository.Default.AddService(_solutionHider);
+
+            // Registering settings service.
+            var settingsService = new SettingsService();
+            ServiceRepository.Default.AddService(settingsService);
         }
 
         private void UpdateSettings()

@@ -32,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNotesParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\MacroService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SettingsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SolutionHider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseDataSlot.cs" />

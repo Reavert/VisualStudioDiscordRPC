@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
@@ -94,6 +95,8 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         private void LoadTextSlots()
         {
+            var appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
             var text = "{solution_name} - {project_name} - {file_name}";
             var parser = new ObservableStringParser();
             var entries = parser.Parse(text);
