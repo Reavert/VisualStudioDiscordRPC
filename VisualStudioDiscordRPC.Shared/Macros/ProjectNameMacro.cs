@@ -16,7 +16,7 @@ namespace VisualStudioDiscordRPC.Shared.Macros
         public override string GetData()
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            return _project.Name;
+            return _project?.Name;
         }
 
         private void OnProjectChanged(Project project)

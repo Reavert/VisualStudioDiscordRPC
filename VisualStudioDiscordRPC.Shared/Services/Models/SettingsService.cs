@@ -28,11 +28,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
             if (!File.Exists(SettingsPath))
             {
-                FileStream fileStream = File.Create(SettingsPath);
-                fileStream.Close();
-
                 PopulateFromOldSettings();
-
                 Save();
             }
             else
@@ -56,13 +52,13 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         public void Save()
         {
-            var settingsJson = JsonConvert.SerializeObject(_settingsMap);
-            File.WriteAllText(settingsJson);
+            var settingsJson = JsonConvert.SerializeObject(_settingsMap, Formatting.Indented);
+            File.WriteAllText(SettingsPath, settingsJson);
         }
 
         private void PopulateFromOldSettings()
         {
-            _settingsMap["RichPresenceEnabled"] = Settings.Default.RichPresenceEnabled;
+            _settingsMap["RichPresenceEnabled"] = bool.Parse(Settings.Default.RichPresenceEnabled);
             _settingsMap["Language"] = Settings.Default.Language;
             _settingsMap["LargeIconSlot"] = Settings.Default.LargeIconSlot;
             _settingsMap["SmallIconSlot"] = Settings.Default.SmallIconSlot;
@@ -71,9 +67,9 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             _settingsMap["SecondButtonSlot"] = Settings.Default.SecondButtonSlot;
             _settingsMap["Updated"] = Settings.Default.Updated;
             _settingsMap["ApplicationID"] = Settings.Default.ApplicationID;
-            _settingsMap["UpdateTimeout"] = Settings.Default.UpdateTimeout;
+            _settingsMap["UpdateTimeout"] = int.Parse(Settings.Default.UpdateTimeout);
             _settingsMap["Version"] = Settings.Default.Version;
-            _settingsMap["UpdateNotifications"] = Settings.Default.UpdateNotifications;
+            _settingsMap["UpdateNotifications"] = bool.Parse(Settings.Default.UpdateNotifications);
             _settingsMap["TranslationsPath"] = Settings.Default.TranslationsPath;
 
             var hiddenSolutions = new SettingsHelper.ListedSetting(nameof(Settings.Default.HiddenSolutions));

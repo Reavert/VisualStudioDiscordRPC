@@ -1,5 +1,4 @@
 ﻿using EnvDTE;
-using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Macros
 {

@@ -63,6 +63,10 @@ namespace VisualStudioDiscordRPC.Shared
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
+            // Registering settings service.
+            var settingsService = new SettingsService();
+            ServiceRepository.Default.AddService(settingsService);
+
             // Registering Visual Studio events observer.
             var currentDte = (DTE2)ServiceProvider.GlobalProvider.GetService(typeof(DTE));
             _vsObserver = new VsObserver(currentDte);
@@ -91,10 +95,6 @@ namespace VisualStudioDiscordRPC.Shared
             // Registering Solution Hider.
             _solutionHider = new SolutionHider(_vsObserver, _discordRpcController);
             ServiceRepository.Default.AddService(_solutionHider);
-
-            // Registering settings service.
-            var settingsService = new SettingsService();
-            ServiceRepository.Default.AddService(settingsService);
         }
 
         private void UpdateSettings()

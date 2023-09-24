@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using EnvDTE;
+using EnvDTE80;
+using System.Collections.Generic;
 using VisualStudioDiscordRPC.Shared.Macros;
 using VisualStudioDiscordRPC.Shared.Observers;
 
@@ -7,8 +9,8 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
     public class MacroService
     {
         
-        private VsObserver _vsObserver;
-        private Dictionary<string, Macro> _macros;
+        private readonly VsObserver _vsObserver;
+        private readonly Dictionary<string, Macro> _macros;
 
         public MacroService(VsObserver vsObserver)
         {
@@ -22,7 +24,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                 { "solution_name", new SolutionNameMacro(_vsObserver) },
                 { "version", new VersionMacro(_vsObserver.DTE) },
                 { "edition", new EditionMacro(_vsObserver.DTE) },
-                { "debug", new DebugMacro(_vsObserver.DTE.Debugger, _vsObserver.DTE.Events.DebuggerEvents) }
+                { "debug_mode", new DebugModeMacro(_vsObserver.DTE) }
         };
         }
 

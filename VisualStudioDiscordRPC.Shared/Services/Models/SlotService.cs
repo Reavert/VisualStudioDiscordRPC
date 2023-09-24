@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders;
+using VisualStudioDiscordRPC.Shared.Localization;
+using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Slots;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
@@ -28,6 +32,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         private readonly VsObserver _vsObserver = ServiceRepository.Default.GetService<VsObserver>();
         private readonly MacroService _macroService = ServiceRepository.Default.GetService<MacroService>();
+
         public SlotService()
         {
             _extensionsAssetMap = LoadAssets<ExtensionAsset>(ExtensionAssetMapFilename);
@@ -95,29 +100,59 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         private void LoadTextSlots()
         {
-            var appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
 
-            var text = "{solution_name} - {project_name} - {file_name}";
-            var parser = new ObservableStringParser();
-            var entries = parser.Parse(text);
-
-            var stringObserver = new StringObserver();
-            foreach (var entry in entries)
+            // Load built-in text slots.
+            _slots.AddRange(new TextSlot[]
             {
-                switch (entry.Type)
+                new NoneTextSlot(),
+                new FileNameTextSlot(_vsObserver, localizationService),
+                new ProjectNameTextSlot(_vsObserver, localizationService),
+                new SolutionNameTextSlot(_vsObserver, localizationService),
+                new VisualStudioVersionTextSlot(_vsObserver.DTE)
+            });
+
+            LoadCustomTextSlots();
+        }
+
+        private void LoadCustomTextSlots()
+        {
+            var appDataPath = PathHelper.GetApplicationDataPath();
+            var customSlotsFilePath = Path.Combine(appDataPath, "custom_slots.json");
+            if (!File.Exists(customSlotsFilePath))
+                return;
+
+            string data = File.ReadAllText(customSlotsFilePath);
+            if (string.IsNullOrEmpty(data))
+                return;
+
+            var customTextSlotsData = JsonConvert.DeserializeObject<List<CustomTextSlotData>>(data);
+            if (customTextSlotsData == null)
+                return;
+
+            var parser = new ObservableStringParser();
+            foreach (var customTextSlotInfo in customTextSlotsData)
+            {
+                var entries = parser.Parse(customTextSlotInfo.Pattern);
+                var stringObserver = new StringObserver();
+                foreach (var entry in entries)
                 {
-                    case ObservableStringParser.EntryType.Text:
-                        stringObserver.AddText(entry.Value);
-                        break;
+                    switch (entry.Type)
+                    {
+                        case ObservableStringParser.EntryType.Text:
+                            stringObserver.AddText(entry.Value);
+                            break;
 
-                    case ObservableStringParser.EntryType.Keyword:
-                        var macro = _macroService.GetMacroByName(entry.Value);
-                        stringObserver.AddText(new ObservableMacro(macro));
-                        break;
+                        case ObservableStringParser.EntryType.Keyword:
+                            var macro = _macroService.GetMacroByName(entry.Value);
+                            if (macro != null)
+                                stringObserver.AddText(new ObservableMacro(macro));
+                            break;
+                    }
                 }
-            }
 
-            _slots.Add(new CustomTextSlot(stringObserver));
+                _slots.Add(new CustomTextSlot(stringObserver));
+            }
         }
 
         private void LoadTimerSlots()

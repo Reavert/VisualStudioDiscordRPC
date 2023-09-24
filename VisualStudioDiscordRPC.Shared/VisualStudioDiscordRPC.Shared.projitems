@@ -22,7 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\AssetInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\ButtonInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiscordRpcController.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Macros\DebugMacro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Macros\DebugModeMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Macros\EditionMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Macros\FileNameMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Macros\Macro.cs" />
@@ -61,14 +61,20 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\CustomTextSlotData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\NoneTextSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\ProjectNameSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\FileNameTextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\IObservableString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\ObservableMacro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\SolutionNameTextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\StringObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\ObservableStringParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\CustomTextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\StaticTextSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\TextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\VisualStudioVersionIconSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\VisualStudioVersionTextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinApplicationTimerSLot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\NoneTimerSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\TimerSlot.cs" />
