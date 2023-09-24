@@ -1,4 +1,5 @@
 ﻿using EnvDTE;
+using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Macros
 {
@@ -14,7 +15,7 @@ namespace VisualStudioDiscordRPC.Shared.Macros
 
         public override string GetData()
         {
-            return _version;
+            return VisualStudioHelper.GetVersionByDevNumber(_version);
         }
     }
 }
