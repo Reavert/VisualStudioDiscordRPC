@@ -1,103 +1,59 @@
-﻿using EnvDTE;
-using LibGit2Sharp;
-using System.IO;
-using System.Linq;
-using VisualStudioDiscordRPC.Shared.Data;
-using VisualStudioDiscordRPC.Shared.Observers;
-using VisualStudioDiscordRPC.Shared.Utils;
+﻿using VisualStudioDiscordRPC.Shared.Data;
+using VisualStudioDiscordRPC.Shared.Services.Models;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.ButtonSlots
 {
     public class GitRepositoryButtonSlot : ButtonSlot
     {
-        private readonly VsObserver _vsObserver;
+        private readonly GitObserver _gitObserver;
+        private readonly SettingsService _settingsService;
 
         private string _remoteRepositoryUrl;
+        private bool _isPrivateRepository;
 
         public bool HasRepository => !string.IsNullOrEmpty(_remoteRepositoryUrl);
 
         public bool IsPrivateRepository
         {
-            get
-            {
-                if (string.IsNullOrEmpty(_remoteRepositoryUrl))
-                {
-                    return false;
-                }
-
-                return SettingsHelper.IsRepositoryPrivate(_remoteRepositoryUrl);
-            }
+            get => _isPrivateRepository;
             set
             {
-                if (string.IsNullOrEmpty(_remoteRepositoryUrl))
-                {
-                    return;
-                }
-
-                SettingsHelper.SetRepositoryPrivate(_remoteRepositoryUrl, value);
+                _isPrivateRepository = value;
                 Update();
-            } 
+            }
         }
 
-        public GitRepositoryButtonSlot(VsObserver vsObserver) 
+        public GitRepositoryButtonSlot(GitObserver gitObserver, SettingsService settingsService) 
         {
-            _vsObserver = vsObserver;
-            _remoteRepositoryUrl = GetValidRemoteGitUrl(_vsObserver.DTE.Solution?.FileName); ;
+            _gitObserver = gitObserver;
+            _settingsService = settingsService;
+
+            _remoteRepositoryUrl = _gitObserver.RemoteUrl;
         }
 
         public override void Enable()
         {
-            _vsObserver.SolutionChanged += OnSolutionChanged;
+            _gitObserver.RemoteUrlChanged += OnRemoteUrlChanged;
         }
 
         public override void Disable()
         {
-            _vsObserver.SolutionChanged -= OnSolutionChanged;
+            _gitObserver.RemoteUrlChanged -= OnRemoteUrlChanged;
         }
 
-        private void OnSolutionChanged(Solution solution)
+        private void OnRemoteUrlChanged(string newRemoteUrl)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (solution == null)
-            {
-                _remoteRepositoryUrl = null;
-                return;
-            }
-
-            string solutionPath = solution.FullName;
-            _remoteRepositoryUrl = GetValidRemoteGitUrl(solutionPath);
-
+            _remoteRepositoryUrl = newRemoteUrl;
             Update();
-        }
-
-        private string GetValidRemoteGitUrl(string repositoryPath)
-        {
-            if (string.IsNullOrEmpty(repositoryPath))
-            {
-                return null;
-            }
-
-            string repositoryName = Path.GetDirectoryName(repositoryPath);
-            if (!Repository.IsValid(repositoryName))
-            {
-                return null;
-            }
-
-            Remote firstRemote = new Repository(repositoryName).Network.Remotes.FirstOrDefault();
-            if (firstRemote == null)
-            {
-                return null;
-            }
-
-            return firstRemote.Url;
         }
 
         protected override ButtonInfo GetData()
         {
             const string buttonName = "Repository";
 
-            if (IsPrivateRepository || string.IsNullOrEmpty(_remoteRepositoryUrl))
+            if (_isPrivateRepository || string.IsNullOrEmpty(_remoteRepositoryUrl))
             {
                 return ButtonInfo.None;
             }

@@ -22,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\AssetInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\ButtonInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiscordRpcController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IStringCollectionProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Macros\DebugModeMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Macros\EditionMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Macros\FileNameMacro.cs" />
@@ -31,10 +32,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Macros\VersionMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNotesParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\GitObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\MacroService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SettingsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SolutionHider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SolutionSecrecyService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\RepositorySecrecyService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseDataSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\AssetSlot.cs" />
@@ -76,7 +79,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\TextSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\VisualStudioVersionIconSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\VisualStudioVersionTextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinApplicationTimerSLot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinApplicationTimerSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\NoneTimerSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\TimerSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinFilesTimerSlot.cs" />
@@ -99,12 +102,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\VisualStudioHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\MultiParameterConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ListedSettingEditorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ListEditorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ListedSettingEditorWindow.xaml.cs">
-      <DependentUpon>ListedSettingEditorWindow.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ListEditorWindow.xaml.cs">
+      <DependentUpon>ListEditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -116,7 +119,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Views\ListedSettingEditorWindow.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\ListEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

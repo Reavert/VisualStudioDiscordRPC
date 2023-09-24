@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 
 namespace VisualStudioDiscordRPC.Shared
@@ -42,6 +43,22 @@ namespace VisualStudioDiscordRPC.Shared
         {
             get => (string)this[nameof(SmallIconSlot)];
             set => this[nameof(SmallIconSlot)] = value;
+        }
+
+        [UserScopedSetting]
+        [DefaultSettingValue(nameof(FileNameTextSlot))]
+        public string DetailsSlot
+        {
+            get => (string)this[nameof(DetailsSlot)];
+            set => this[nameof(DetailsSlot)] = value;
+        }
+
+        [UserScopedSetting]
+        [DefaultSettingValue(nameof(SolutionNameTextSlot))]
+        public string StateSlot
+        {
+            get => (string)this[nameof(StateSlot)];
+            set => this[nameof(StateSlot)] = value;
         }
 
         [UserScopedSetting]

@@ -65,8 +65,7 @@
             <Button
                 Width="20"
                 Height="20"
-                Command="{Binding ShowListSettingEditorCommand}"
-                CommandParameter="{Binding SecretSolutionsEditingContext}">
+                Command="{Binding ShowSecretSolutionsCommand}">
                 <TextBlock Text="..."/>
             </Button>
         </StackPanel>
@@ -84,8 +83,7 @@
             <Button
                 Width="20"
                 Height="20"
-                Command="{Binding ShowListSettingEditorCommand}"
-                CommandParameter="{Binding PrivateRepositoriesEditingContext}">
+                Command="{Binding ShowPrivateRepositoriesCommand}">
                 <TextBlock Text="..."/>
             </Button>
         </StackPanel>

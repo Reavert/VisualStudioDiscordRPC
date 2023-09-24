@@ -6,6 +6,8 @@
         public const string Language = "Language";
         public const string LargeIconSlot = "LargeIconSlot";
         public const string SmallIconSlot = "SmallIconSlot";
+        public const string DetailsSlot = "DetailsSlot";
+        public const string StateSlot = "StateSlot";
         public const string TimerSlot = "TimerSlot";
         public const string FirstButtonSlot = "FirstButtonSlot";
         public const string SecondButtonSlot = "SecondButtonSlot";

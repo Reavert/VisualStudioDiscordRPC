@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
+using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
@@ -15,13 +15,14 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
-        private SettingsService _settingsService;
-        private DiscordRpcController _discordRpcController;
-        private SlotService _slotService;
-        private LocalizationService<LocalizationFile> _localizationService;
-        private SolutionHider _solutionHider;
-
-        private GitRepositoryButtonSlot _gitRepositoryButtonSlot;
+        private readonly VsObserver _vsObserver;
+        private readonly GitObserver _gitObserver;
+        private readonly SettingsService _settingsService;
+        private readonly DiscordRpcController _discordRpcController;
+        private readonly SlotService _slotService;
+        private readonly LocalizationService<LocalizationFile> _localizationService;
+        private readonly SolutionSecrecyService _solutionSecrecyService;
+        private readonly RepositorySecrecyService _repositorySecrecyService;
 
         public string Version => VisualStudioHelper.GetExtensionVersion();
         
@@ -43,13 +44,53 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public bool SecretSolution
         {
-            get => _discordRpcController.Secret;
+            get
+            {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+                if (_vsObserver.DTE.Solution == null)
+                    return false;
+
+                return _solutionSecrecyService.IsSolutionSecret(_vsObserver.DTE.Solution.FullName);
+            }
             set
             {
-                _discordRpcController.Secret = value;
-                _solutionHider.SetCurrentSolutionSecret(value);
-                
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+                if (_vsObserver.DTE.Solution == null)
+                    return;
+
+                string solutionFullName = _vsObserver.DTE.Solution.FullName;
+
+                if (value)
+                    _solutionSecrecyService.AddSecretSolution(solutionFullName);
+                else
+                    _solutionSecrecyService.RemoveSecretSolution(solutionFullName);
+
                 OnPropertyChanged(nameof(SecretSolution));
+            }
+        }
+
+        public bool HasRepository => !string.IsNullOrEmpty(_gitObserver.RemoteUrl);
+
+        public bool PrivateRepository
+        {
+            get => _repositorySecrecyService.IsRepositorySecret(_gitObserver.RemoteUrl);
+            set
+            {
+                if (string.IsNullOrEmpty(_gitObserver.RemoteUrl))
+                {
+                    return;
+                }
+
+                string gitRemoteUrl = _gitObserver.RemoteUrl;
+
+                if (value)
+                    _repositorySecrecyService.AddSecretRepository(gitRemoteUrl);
+                else
+                    _repositorySecrecyService.RemoveSecretRepository(gitRemoteUrl);
+
+                OnPropertyChanged(nameof(PrivateRepository));
             }
         }
 
@@ -62,7 +103,6 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
                 OnPropertyChanged(nameof(UpdateTimeout));
             }
         }
-
 
         public string DiscordAppId
         {
@@ -92,7 +132,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (AssetSlot) _discordRpcController.GetSlotOfUpdater<LargeIconUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.LargeIconSlot, value.GetType().Name);
+                _settingsService.Set(SettingsKeys.LargeIconSlot, value.GetId());
                 _discordRpcController.SetSlot<LargeIconUpdater>(value);
 
                 OnPropertyChanged(nameof(LargeIconSlot));
@@ -104,7 +144,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (AssetSlot) _discordRpcController.GetSlotOfUpdater<SmallIconUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.SmallIconSlot, value.GetType().Name);
+                _settingsService.Set(SettingsKeys.SmallIconSlot, value.GetId());
                 _discordRpcController.SetSlot<SmallIconUpdater>(value);
 
                 OnPropertyChanged(nameof(SmallIconSlot));
@@ -116,7 +156,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (TextSlot)_discordRpcController.GetSlotOfUpdater<StateUpdater>();
             set
             {
-                //_settingsService.Set(SettingsKeys.StateSlot, value.GetType().Name);
+                _settingsService.Set(SettingsKeys.StateSlot, value.GetId());
                 _discordRpcController.SetSlot<StateUpdater>(value);
 
                 OnPropertyChanged(nameof(StateSlot));
@@ -128,7 +168,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (TextSlot) _discordRpcController.GetSlotOfUpdater<DetailsUpdater>();
             set
             {
-                //_settingsService.Set(SettingsKeys.DetailsSlot, value.GetType().Name);
+                _settingsService.Set(SettingsKeys.DetailsSlot, value.GetId());
                 _discordRpcController.SetSlot<DetailsUpdater>(value);
 
                 OnPropertyChanged(nameof(DetailsSlot));
@@ -140,7 +180,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (TimerSlot) _discordRpcController.GetSlotOfUpdater<TimerUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.TimerSlot, value.GetType().Name);
+                _settingsService.Set(SettingsKeys.TimerSlot, value.GetId());
                 _discordRpcController.SetSlot<TimerUpdater>(value);
 
                 OnPropertyChanged(nameof(TimerSlot));
@@ -152,7 +192,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (ButtonSlot) _discordRpcController.GetSlotOfUpdater<FirstButtonUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.FirstButtonSlot, value.GetType().Name);
+                _settingsService.Set(SettingsKeys.FirstButtonSlot, value.GetId());
                 _discordRpcController.SetSlot<FirstButtonUpdater>(value);
 
                 OnPropertyChanged(nameof(FirstButtonSlot));
@@ -164,22 +204,10 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (ButtonSlot) _discordRpcController.GetSlotOfUpdater<SecondButtonUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.SecondButtonSlot, value.GetType().Name);
+                _settingsService.Set(SettingsKeys.SecondButtonSlot, value.GetId());
                 _discordRpcController.SetSlot<SecondButtonUpdater>(value);
 
                 OnPropertyChanged(nameof(SecondButtonSlot));
-            }
-        }
-
-        public bool HasRepository => _gitRepositoryButtonSlot.HasRepository;
-
-        public bool PrivateRepository
-        {
-            get => _gitRepositoryButtonSlot.IsPrivateRepository;
-            set
-            {
-                _gitRepositoryButtonSlot.IsPrivateRepository = value;
-                OnPropertyChanged(nameof(PrivateRepository));
             }
         }
 
@@ -188,35 +216,18 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         public IReadOnlyList<TimerSlot> AvailableTimerSlots { get; set; }
         public IReadOnlyList<ButtonSlot> AvailableButtonSlots { get; set; }
 
-        private readonly RelayCommand _showListSettingEditorCommand;
-        public RelayCommand ShowListSettingEditorCommand => _showListSettingEditorCommand;
+        public RelayCommand ShowSecretSolutionsCommand { get; private set; }
+        public RelayCommand ShowPrivateRepositoriesCommand { get; private set; }
 
-        private readonly RelayCommand _showCustomSlotsEditorCommand;
-        public RelayCommand ShowCustomSlotsEditorCommand => _showCustomSlotsEditorCommand;
-
-        public string[] PrivateRepositoriesEditingContext => _privateRepositoriesEditingContext;
-        private readonly string[] _privateRepositoriesEditingContext =
-        {
-            nameof(SettingsKeys.PrivateRepositories),
-            nameof(PrivateRepository)
-        };
-
-        public string[] SecretSolutionsEditingContext => _secretSolutionsEditingContext;
-        private readonly string[] _secretSolutionsEditingContext =
-        {
-            nameof(SettingsKeys.SecretSolutions),
-            nameof(SecretSolution)
-        };
-
-        
         public SettingsViewModel()
         {
+            _vsObserver = ServiceRepository.Default.GetService<VsObserver>();
+            _gitObserver = ServiceRepository.Default.GetService<GitObserver>();
             _settingsService = ServiceRepository.Default.GetService<SettingsService>();
             _discordRpcController = ServiceRepository.Default.GetService<DiscordRpcController>();
             _slotService = ServiceRepository.Default.GetService<SlotService>();
-            _solutionHider = ServiceRepository.Default.GetService<SolutionHider>();
-            
-            _gitRepositoryButtonSlot = _slotService.GetSlotsOfType<GitRepositoryButtonSlot>().First();
+            _solutionSecrecyService = ServiceRepository.Default.GetService<SolutionSecrecyService>();
+            _repositorySecrecyService = ServiceRepository.Default.GetService<RepositorySecrecyService>();
 
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
             OnPropertyChanged(nameof(Localizations));
@@ -233,31 +244,28 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             AvailableButtonSlots = _slotService.GetSlotsOfType<ButtonSlot>();
             OnPropertyChanged(nameof(AvailableButtonSlots));
 
-            _showListSettingEditorCommand = new RelayCommand(ShowListSettingEditor);
+            ShowSecretSolutionsCommand = new RelayCommand(ShowSecretSolutionsEditor);
+            ShowPrivateRepositoriesCommand = new RelayCommand(ShowPrivateRepositoriesEditor);
         }
 
-        private void ShowListSettingEditor(object parameter)
+        private void ShowSecretSolutionsEditor(object parameter)
         {
-            var stringParameters = (string[])parameter;
+            var secretSolutionCollectionProvider = new SecretSolutionsCollectionProvider(_solutionSecrecyService);
+            var listEditorViewModel = new ListEditorViewModel(secretSolutionCollectionProvider);
+            var listEditorView = new ListEditorWindow(listEditorViewModel);
 
-            string settingName = stringParameters[0];
-            string propertyName = stringParameters[1];
-
-            var listSettingViewModel = new ListedSettingEditorViewModel(settingName);
-            var listSettingEditorWindow = new ListedSettingEditorWindow(listSettingViewModel);
-
-            listSettingEditorWindow.ShowDialog();
-            OnPropertyChanged(propertyName);
+            listEditorView.ShowDialog();
+            OnPropertyChanged(nameof(SecretSolution));
         }
 
-        private static List<object> ToObjectList<T>(List<T> list)
+        private void ShowPrivateRepositoriesEditor(object parameter)
         {
-            return list.Select(item => (object)item).ToList();
-        }
+            var secretRepositoriesCollectionProvider = new SecretRepositoriesCollectonProvider(_repositorySecrecyService);
+            var listEditorViewModel = new ListEditorViewModel(secretRepositoriesCollectionProvider);
+            var listEditorView = new ListEditorWindow(listEditorViewModel);
 
-        private static List<T> ToConcreteList<T>(List<object> list)
-        {
-            return list.Select(item => (T)item).ToList();
+            listEditorView.ShowDialog();
+            OnPropertyChanged(nameof(PrivateRepository));
         }
     }
 }

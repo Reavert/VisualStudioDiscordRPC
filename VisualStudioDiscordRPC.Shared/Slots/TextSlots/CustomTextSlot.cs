@@ -6,11 +6,13 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
     {
         public string Name => _name;
         
-        private readonly StringObserver _customStringObserver;
+        private readonly string _id;
         private readonly string _name;
+        private readonly StringObserver _customStringObserver;
 
-        public CustomTextSlot(string name, StringObserver customStringObserver)
+        public CustomTextSlot(string id, string name, StringObserver customStringObserver)
         {
+            _id = id;
             _name = name;
             _customStringObserver = customStringObserver;
         }
@@ -23,6 +25,11 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
         public override void Disable()
         {
             _customStringObserver.Changed -= OnStringChanged;
+        }
+
+        public override string GetId()
+        {
+            return _id;
         }
 
         protected override string GetData()

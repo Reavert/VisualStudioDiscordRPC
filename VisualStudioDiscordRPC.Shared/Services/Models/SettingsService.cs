@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.AccessControl;
+using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
+using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
+using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Services.Models
@@ -28,7 +30,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
             if (!File.Exists(SettingsPath))
             {
-                PopulateFromOldSettings();
+                PopulateDefaultProperties();
                 Save();
             }
             else
@@ -47,16 +49,6 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             return (T) value;
         }
 
-        public List<T> ReadList<T>(string key)
-        {
-            if (_settingsMap.TryGetValue(key, out var value))
-            {
-                return new List<T>(0);
-            }
-
-            return JsonConvert.DeserializeObject<List<T>>(value.ToString());
-        }
-
         public void Set<T>(string key, T value)
         {
             _settingsMap[key] = value;
@@ -68,27 +60,22 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             File.WriteAllText(SettingsPath, settingsJson);
         }
 
-        private void PopulateFromOldSettings()
+        private void PopulateDefaultProperties()
         {
-            _settingsMap[SettingsKeys.RichPresenceEnabled] = bool.Parse(Settings.Default.RichPresenceEnabled);
-            _settingsMap[SettingsKeys.Language] = Settings.Default.Language;
-            _settingsMap[SettingsKeys.LargeIconSlot] = Settings.Default.LargeIconSlot;
-            _settingsMap[SettingsKeys.SmallIconSlot] = Settings.Default.SmallIconSlot;
-            _settingsMap[SettingsKeys.TimerSlot] = Settings.Default.TimerSlot;
-            _settingsMap[SettingsKeys.FirstButtonSlot] = Settings.Default.FirstButtonSlot;
-            _settingsMap[SettingsKeys.SecondButtonSlot] = Settings.Default.SecondButtonSlot;
-            _settingsMap[SettingsKeys.Updated] = Settings.Default.Updated;
-            _settingsMap[SettingsKeys.ApplicationID] = Settings.Default.ApplicationID;
-            _settingsMap[SettingsKeys.UpdateTimeout] = int.Parse(Settings.Default.UpdateTimeout);
-            _settingsMap[SettingsKeys.Version] = Settings.Default.Version;
-            _settingsMap[SettingsKeys.UpdateNotifications] = bool.Parse(Settings.Default.UpdateNotifications);
-            _settingsMap[SettingsKeys.TranslationsPath] = Settings.Default.TranslationsPath;
-
-            var hiddenSolutions = new SettingsHelper.ListedSetting(nameof(Settings.Default.HiddenSolutions));
-            _settingsMap["HiddenSolutions"] = hiddenSolutions.GetItems();
-
-            var privateRepositories = new SettingsHelper.ListedSetting(nameof(Settings.Default.PrivateRepositories));
-            _settingsMap["PrivateRepositories"] = privateRepositories.GetItems();            
+            _settingsMap[SettingsKeys.RichPresenceEnabled] = true;
+            _settingsMap[SettingsKeys.Language] = "English";
+            _settingsMap[SettingsKeys.LargeIconSlot] = typeof(ExtensionIconSlot).Name;
+            _settingsMap[SettingsKeys.SmallIconSlot] = typeof(VisualStudioVersionIconSlot).Name;
+            _settingsMap[SettingsKeys.DetailsSlot] = typeof(FileNameTextSlot).Name;
+            _settingsMap[SettingsKeys.StateSlot] = typeof(SolutionNameTextSlot).Name;
+            _settingsMap[SettingsKeys.TimerSlot] = typeof(WithinFilesTimerSlot).Name;
+            _settingsMap[SettingsKeys.FirstButtonSlot] = typeof(GitRepositoryButtonSlot).Name;
+            _settingsMap[SettingsKeys.SecondButtonSlot] = typeof(NoneButtonSlot).Name;
+            _settingsMap[SettingsKeys.ApplicationID] = DiscordRpcController.DefaultApplicationId;
+            _settingsMap[SettingsKeys.UpdateTimeout] = (long) 1000;
+            _settingsMap[SettingsKeys.Version] = "1.0.0";
+            _settingsMap[SettingsKeys.UpdateNotifications] = true;
+            _settingsMap[SettingsKeys.TranslationsPath] = "Translations/";
         }
     }
 }

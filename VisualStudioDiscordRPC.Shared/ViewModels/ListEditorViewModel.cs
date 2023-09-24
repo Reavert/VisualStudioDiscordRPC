@@ -1,44 +1,38 @@
 ﻿using System.Collections.Generic;
-using VisualStudioDiscordRPC.Shared.Services.Models;
+using System.Collections.ObjectModel;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
-    public class ListedSettingEditorViewModel : ViewModelBase
+    public class ListEditorViewModel : ViewModelBase
     {
-        private string _settingName;
-        public string SettingName => _settingName;
-
-        public List<string> Items => _items;
-
-        public string SelectedItem { get; set; }
+        private readonly RelayCommand _addCommand;
+        private readonly RelayCommand _removeCommand;
 
         private string _newSettingValue;
+        private IStringCollectionProvider _stringCollectionProvider;
+        private readonly ObservableCollection<string> _items;
+
+        public ObservableCollection<string> Items => _items;
+
+        public string SelectedItem { get; set; }
+        
         public string NewSettingValue 
         {
             get => _newSettingValue;
             set => SetProperty(ref _newSettingValue, value);
         }
 
-        private readonly RelayCommand _addCommand;
         public RelayCommand AddCommand => _addCommand;
 
-        private readonly RelayCommand _removeCommand;
         public RelayCommand RemoveCommand => _removeCommand;
 
-        private readonly SettingsService _settingsService;
-        private readonly List<string> _items;
-
-        public ListedSettingEditorViewModel(string settingName) 
+        public ListEditorViewModel(IStringCollectionProvider stringCollectionProvider)
         {
-            _settingsService = ServiceRepository.Default.GetService<SettingsService>();
-
             _addCommand = new RelayCommand(AddItem);
             _removeCommand = new RelayCommand(RemoveItem);
             
-            _settingName = settingName;
-            _items = _settingsService.ReadList<string>(settingName);
-
-            _settingsService.Set(settingName, _items);
+            _stringCollectionProvider = stringCollectionProvider;
+            _items = new ObservableCollection<string>(stringCollectionProvider.Items);
         }
 
         private void AddItem(object parameter)
@@ -48,9 +42,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
                 return;
             }
 
+            _stringCollectionProvider.Add(NewSettingValue);
             _items.Add(NewSettingValue);
-            OnPropertyChanged(nameof(Items));
-
+            
             NewSettingValue = string.Empty;
         }
 
@@ -61,8 +55,8 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
                 return;
             }
 
+            _stringCollectionProvider.Remove(SelectedItem);
             _items.Remove(SelectedItem);
-            OnPropertyChanged(nameof(Items));
         }
     }
 }

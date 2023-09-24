@@ -1,4 +1,4 @@
-﻿<Window x:Class="VisualStudioDiscordRPC.Shared.ListedSettingEditorWindow"
+﻿<Window x:Class="VisualStudioDiscordRPC.Shared.ListEditorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Title="Editor"
-        d:DataContext="{d:DesignInstance local:ListedSettingEditorViewModel}">
+        d:DataContext="{d:DesignInstance local:ListEditorViewModel}">
     <Window.Resources>
         <Style x:Key="EmptyListBox" TargetType="{x:Type ListBox}">
             <Style.Triggers>
@@ -34,7 +34,7 @@
             DockPanel.Dock="Top"
             ItemsSource="{Binding Items}"
             SelectedItem="{Binding SelectedItem}"
-            Style="{StaticResource EmptyListBox}">
+            >
         </ListBox>
         
         <Button

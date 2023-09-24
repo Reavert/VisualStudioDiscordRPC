@@ -3,6 +3,7 @@ using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.ReleaseNotes;
+using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
@@ -23,11 +25,12 @@ namespace VisualStudioDiscordRPC.Shared
 {
     public class PackageController
     {
+        private SettingsService _settingsService;
         private DiscordRpcController _discordRpcController;
         private VsObserver _vsObserver;
         private SlotService _slotService;
-        private SolutionHider _solutionHider;
-        private SettingsService _settingsService;
+        private SolutionSecrecyService _solutionPrivateService;
+        private RepositorySecrecyService _repositorySecrecyService;
 
         public void Init()
         {
@@ -36,7 +39,8 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController.Initialize();
             _slotService.InitSlotsSubscriptions();
             _vsObserver.Observe();
-            _solutionHider.Start();
+            _solutionPrivateService.Start();
+            _repositorySecrecyService.Start();
 
             ApplySettings();
 
@@ -59,7 +63,8 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController.Dispose();
             _slotService.ClearSlotsSubscriptions();
             _vsObserver.Unobserve();
-            _solutionHider.Stop();
+            _solutionPrivateService.Stop();
+            _repositorySecrecyService.Stop();
         }
 
         private void RegisterServices()
@@ -76,8 +81,11 @@ namespace VisualStudioDiscordRPC.Shared
 
             ServiceRepository.Default.AddService(_vsObserver);
 
-            // Registering localization service.
+            // Registering Git observer.
+            var gitObserver = new GitObserver(_vsObserver);
+            ServiceRepository.Default.AddService(gitObserver);
 
+            // Registering localization service
             string translationPath = _settingsService.Read<string>(SettingsKeys.TranslationsPath);
             string currentLanguage = _settingsService.Read<string>(SettingsKeys.Language);
 
@@ -98,9 +106,14 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController = new DiscordRpcController(updateTimeout);
             ServiceRepository.Default.AddService(_discordRpcController);
 
-            // Registering Solution Hider.
-            _solutionHider = new SolutionHider(_vsObserver, _discordRpcController);
-            ServiceRepository.Default.AddService(_solutionHider);
+            // Registering Solution Secrecy Service.
+            _solutionPrivateService = new SolutionSecrecyService(_vsObserver, _discordRpcController);
+            ServiceRepository.Default.AddService(_solutionPrivateService);
+
+            // Registering Repository Secrecy Service.
+            var gitRepositoryButtons = _slotService.GetSlotsOfType<GitRepositoryButtonSlot>().ToArray();
+            _repositorySecrecyService = new RepositorySecrecyService(gitObserver, gitRepositoryButtons);
+            ServiceRepository.Default.AddService(_repositorySecrecyService);
         }
         
         private void ApplySettings()
@@ -108,22 +121,25 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController.Enabled = _settingsService.Read<bool>(SettingsKeys.RichPresenceEnabled);
 
             string largeIconSlot = _settingsService.Read<string>(SettingsKeys.LargeIconSlot);
-            _discordRpcController.SetSlot<LargeIconUpdater>(_slotService.GetSlotByName<AssetSlot>(largeIconSlot));
+            _discordRpcController.SetSlot<LargeIconUpdater>(_slotService.GetSlotById<AssetSlot>(largeIconSlot));
 
             string smallIconSlot = _settingsService.Read<string>(SettingsKeys.SmallIconSlot);
-            _discordRpcController.SetSlot<SmallIconUpdater>(_slotService.GetSlotByName<AssetSlot>(smallIconSlot));
+            _discordRpcController.SetSlot<SmallIconUpdater>(_slotService.GetSlotById<AssetSlot>(smallIconSlot));
 
-            //_discordRpcController.SetSlot<DetailsUpdater>(_slotService.GetSlotByName<TextSlot>(Settings.Default.DetailsSlot));
-            //_discordRpcController.SetSlot<StateUpdater>(_slotService.GetSlotByName<TextSlot>(Settings.Default.StateSlot));
+            string detailsSlot = _settingsService.Read<string>(SettingsKeys.DetailsSlot);
+            _discordRpcController.SetSlot<DetailsUpdater>(_slotService.GetSlotById<TextSlot>(detailsSlot));
+
+            string stateSlot = _settingsService.Read<string>(SettingsKeys.StateSlot);
+            _discordRpcController.SetSlot<StateUpdater>(_slotService.GetSlotById<TextSlot>(stateSlot));
 
             string timerSlot = _settingsService.Read<string>(SettingsKeys.TimerSlot);
-            _discordRpcController.SetSlot<TimerUpdater>(_slotService.GetSlotByName<TimerSlot>(timerSlot));
+            _discordRpcController.SetSlot<TimerUpdater>(_slotService.GetSlotById<TimerSlot>(timerSlot));
 
             string firstButtonSlot = _settingsService.Read<string>(SettingsKeys.FirstButtonSlot);
-            _discordRpcController.SetSlot<FirstButtonUpdater>(_slotService.GetSlotByName<ButtonSlot>(firstButtonSlot));
+            _discordRpcController.SetSlot<FirstButtonUpdater>(_slotService.GetSlotById<ButtonSlot>(firstButtonSlot));
 
             string secondButtonSlot = _settingsService.Read<string>(SettingsKeys.SecondButtonSlot);
-            _discordRpcController.SetSlot<SecondButtonUpdater>(_slotService.GetSlotByName<ButtonSlot>(secondButtonSlot));
+            _discordRpcController.SetSlot<SecondButtonUpdater>(_slotService.GetSlotById<ButtonSlot>(secondButtonSlot));
         }
 
         private void DisplayVersionUpdateMessage(string version)

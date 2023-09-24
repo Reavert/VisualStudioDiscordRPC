@@ -2,9 +2,9 @@
 
 namespace VisualStudioDiscordRPC.Shared.Slots.TimerSlots
 {
-    public class WithinApplicationTimerSLot : TimerSlot
+    public class WithinApplicationTimerSlot : TimerSlot
     {
-        public WithinApplicationTimerSLot() : base()
+        public WithinApplicationTimerSlot() : base()
         {
             // Never change timestamp for application scope.
         }

@@ -7,5 +7,10 @@
         public abstract void Enable();
 
         public abstract void Disable();
+
+        public virtual string GetId()
+        {
+            return GetType().Name;
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -65,9 +64,9 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             }
         }
 
-        public TSlot GetSlotByName<TSlot>(string name) where TSlot : BaseSlot
+        public TSlot GetSlotById<TSlot>(string id) where TSlot : BaseSlot
         {
-            return (TSlot) _slots.FirstOrDefault(slot => slot.GetType().Name == name);
+            return (TSlot) _slots.FirstOrDefault(slot => slot.GetId() == id);
         }
 
         public IReadOnlyList<TSlot> GetSlotsOfType<TSlot>() where TSlot : BaseSlot
@@ -100,6 +99,12 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         private void LoadTextSlots()
         {
+            LoadBuildInTextSlots();
+            LoadCustomTextSlots();
+        }
+
+        private void LoadBuildInTextSlots()
+        {
             var localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
 
             // Load built-in text slots.
@@ -111,8 +116,6 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                 new SolutionNameTextSlot(_vsObserver, localizationService),
                 new VisualStudioVersionTextSlot(_vsObserver.DTE)
             });
-
-            LoadCustomTextSlots();
         }
 
         private void LoadCustomTextSlots()
@@ -151,7 +154,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                     }
                 }
 
-                _slots.Add(new CustomTextSlot(customTextSlotInfo.Name, stringObserver));
+                _slots.Add(new CustomTextSlot(customTextSlotInfo.Id, customTextSlotInfo.Name, stringObserver));
             }
         }
 
@@ -163,16 +166,19 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                 new WithinFilesTimerSlot(_vsObserver),
                 new WithinProjectsTimerSlot(_vsObserver),
                 new WithinSolutionsTimerSlot(_vsObserver),
-                new WithinApplicationTimerSLot()
+                new WithinApplicationTimerSlot()
             });
         }
 
         private void LoadButtonSlots()
         {
+            var settingsSerivce = ServiceRepository.Default.GetService<SettingsService>();
+            var gitObserver = ServiceRepository.Default.GetService<GitObserver>();
+
             _slots.AddRange(new ButtonSlot[]
             {
                 new NoneButtonSlot(),
-                new GitRepositoryButtonSlot(_vsObserver)
+                new GitRepositoryButtonSlot(gitObserver, settingsSerivce)
             });
         }
     }
