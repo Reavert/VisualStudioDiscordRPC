@@ -151,7 +151,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                     }
                 }
 
-                _slots.Add(new CustomTextSlot(stringObserver));
+                _slots.Add(new CustomTextSlot(customTextSlotInfo.Name, stringObserver));
             }
         }
 

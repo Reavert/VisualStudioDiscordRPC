@@ -6,6 +6,7 @@ using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots;
+using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
 {
@@ -21,6 +22,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value is CustomTextSlot customTextSlot)
+                return customTextSlot.Name;
+
             string objectTypeName = value.GetType().Name;
             if (_localizationService.Current.LocalizedValues.TryGetValue(objectTypeName, out var localizedName))
             {

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.ViewModels;
 
 namespace VisualStudioDiscordRPC.Shared
@@ -10,8 +11,13 @@ namespace VisualStudioDiscordRPC.Shared
     public partial class SettingsWindow : Window
     {
         public SettingsViewModel ViewModel => (SettingsViewModel)DataContext;
+
+        private SettingsService _settingsService;
+
         public SettingsWindow(SettingsViewModel viewModel)
         {
+            _settingsService = ServiceRepository.Default.GetService<SettingsService>();
+
             InitializeComponent();
             DataContext = viewModel;
             
@@ -20,12 +26,12 @@ namespace VisualStudioDiscordRPC.Shared
 
         private void SettingsWindow_Closing(object sender, CancelEventArgs e)
         {
-            Settings.Default.Save();
+            _settingsService.Save();
         }
 
         private void OnResetButtonClick(object sender, RoutedEventArgs e)
         {
-            ViewModel.DiscordAppId = (string) Settings.Default.Properties["ApplicationID"].DefaultValue;
+            ViewModel.DiscordAppId = DiscordRpcController.DefaultApplicationId;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
@@ -14,6 +15,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
+        private SettingsService _settingsService;
         private DiscordRpcController _discordRpcController;
         private SlotService _slotService;
         private LocalizationService<LocalizationFile> _localizationService;
@@ -25,8 +27,8 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         
         public bool UpdateNotificationsEnabled
         {
-            get => bool.Parse(Settings.Default.UpdateNotifications);
-            set => Settings.Default.UpdateNotifications = value.ToString();
+            get => _settingsService.Read<bool>(SettingsKeys.UpdateNotifications);
+            set => _settingsService.Set(SettingsKeys.UpdateNotifications, value);
         }
 
         public bool RichPresenceEnabled
@@ -35,7 +37,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _discordRpcController.Enabled = value;
-                Settings.Default.RichPresenceEnabled = value.ToString();
+                _settingsService.Set(SettingsKeys.RichPresenceEnabled, value);
             }
         }
 
@@ -53,10 +55,10 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public int UpdateTimeout
         {
-            get => int.Parse(Settings.Default.UpdateTimeout);
+            get => Convert.ToInt32(_settingsService.Read<long>(SettingsKeys.UpdateTimeout));
             set
             {
-                Settings.Default.UpdateTimeout = value.ToString();
+                _settingsService.Set(SettingsKeys.UpdateTimeout, (long) value);
                 OnPropertyChanged(nameof(UpdateTimeout));
             }
         }
@@ -64,10 +66,10 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public string DiscordAppId
         {
-            get => Settings.Default.ApplicationID;
+            get => _settingsService.Read<string>(SettingsKeys.ApplicationID);
             set
             {
-                Settings.Default.ApplicationID = value;
+                _settingsService.Set(SettingsKeys.ApplicationID, value);
                 OnPropertyChanged(nameof(DiscordAppId));
             }
         }
@@ -80,7 +82,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             set
             {
                 _localizationService.SelectLanguage(value.LanguageName);
-                Settings.Default.Language = value.LanguageName;
+                _settingsService.Set(SettingsKeys.Language, value.LanguageName);
                 OnPropertyChanged(nameof(SelectedLocalization));
             }
         }
@@ -90,7 +92,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (AssetSlot) _discordRpcController.GetSlotOfUpdater<LargeIconUpdater>();
             set
             {
-                Settings.Default.LargeIconSlot = value.GetType().Name;
+                _settingsService.Set(SettingsKeys.LargeIconSlot, value.GetType().Name);
                 _discordRpcController.SetSlot<LargeIconUpdater>(value);
 
                 OnPropertyChanged(nameof(LargeIconSlot));
@@ -102,7 +104,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (AssetSlot) _discordRpcController.GetSlotOfUpdater<SmallIconUpdater>();
             set
             {
-                Settings.Default.SmallIconSlot = value.GetType().Name;
+                _settingsService.Set(SettingsKeys.SmallIconSlot, value.GetType().Name);
                 _discordRpcController.SetSlot<SmallIconUpdater>(value);
 
                 OnPropertyChanged(nameof(SmallIconSlot));
@@ -114,7 +116,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (TextSlot)_discordRpcController.GetSlotOfUpdater<StateUpdater>();
             set
             {
-                //Settings.Default.StateSlot = value.GetType().Name;
+                //_settingsService.Set(SettingsKeys.StateSlot, value.GetType().Name);
                 _discordRpcController.SetSlot<StateUpdater>(value);
 
                 OnPropertyChanged(nameof(StateSlot));
@@ -126,20 +128,19 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (TextSlot) _discordRpcController.GetSlotOfUpdater<DetailsUpdater>();
             set
             {
-                //Settings.Default.DetailsSlot = value.GetType().Name;
+                //_settingsService.Set(SettingsKeys.DetailsSlot, value.GetType().Name);
                 _discordRpcController.SetSlot<DetailsUpdater>(value);
 
                 OnPropertyChanged(nameof(DetailsSlot));
             }
         }
 
-
         public TimerSlot TimerSlot
         {
             get => (TimerSlot) _discordRpcController.GetSlotOfUpdater<TimerUpdater>();
             set
             {
-                Settings.Default.TimerSlot = value.GetType().Name;
+                _settingsService.Set(SettingsKeys.TimerSlot, value.GetType().Name);
                 _discordRpcController.SetSlot<TimerUpdater>(value);
 
                 OnPropertyChanged(nameof(TimerSlot));
@@ -151,7 +152,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (ButtonSlot) _discordRpcController.GetSlotOfUpdater<FirstButtonUpdater>();
             set
             {
-                Settings.Default.FirstButtonSlot = value.GetType().Name;
+                _settingsService.Set(SettingsKeys.FirstButtonSlot, value.GetType().Name);
                 _discordRpcController.SetSlot<FirstButtonUpdater>(value);
 
                 OnPropertyChanged(nameof(FirstButtonSlot));
@@ -163,7 +164,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (ButtonSlot) _discordRpcController.GetSlotOfUpdater<SecondButtonUpdater>();
             set
             {
-                Settings.Default.SecondButtonSlot = value.GetType().Name;
+                _settingsService.Set(SettingsKeys.SecondButtonSlot, value.GetType().Name);
                 _discordRpcController.SetSlot<SecondButtonUpdater>(value);
 
                 OnPropertyChanged(nameof(SecondButtonSlot));
@@ -193,22 +194,24 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         private readonly RelayCommand _showCustomSlotsEditorCommand;
         public RelayCommand ShowCustomSlotsEditorCommand => _showCustomSlotsEditorCommand;
 
+        public string[] PrivateRepositoriesEditingContext => _privateRepositoriesEditingContext;
         private readonly string[] _privateRepositoriesEditingContext =
         {
-            nameof(Settings.PrivateRepositories),
+            nameof(SettingsKeys.PrivateRepositories),
             nameof(PrivateRepository)
         };
-        public string[] PrivateRepositoriesEditingContext => _privateRepositoriesEditingContext;
 
+        public string[] SecretSolutionsEditingContext => _secretSolutionsEditingContext;
         private readonly string[] _secretSolutionsEditingContext =
         {
-            nameof(Settings.HiddenSolutions),
+            nameof(SettingsKeys.SecretSolutions),
             nameof(SecretSolution)
         };
-        public string[] SecretSolutionsEditingContext => _secretSolutionsEditingContext;
 
+        
         public SettingsViewModel()
         {
+            _settingsService = ServiceRepository.Default.GetService<SettingsService>();
             _discordRpcController = ServiceRepository.Default.GetService<DiscordRpcController>();
             _slotService = ServiceRepository.Default.GetService<SlotService>();
             _solutionHider = ServiceRepository.Default.GetService<SolutionHider>();

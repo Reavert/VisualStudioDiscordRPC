@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using VisualStudioDiscordRPC.Shared.Utils;
+using VisualStudioDiscordRPC.Shared.Services.Models;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
@@ -8,10 +8,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         private string _settingName;
         public string SettingName => _settingName;
 
-        public List<string> Items
-        { 
-            get => _setting.GetItems();
-        }
+        public List<string> Items => _items;
 
         public string SelectedItem { get; set; }
 
@@ -28,15 +25,20 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         private readonly RelayCommand _removeCommand;
         public RelayCommand RemoveCommand => _removeCommand;
 
-        private readonly SettingsHelper.ListedSetting _setting;
+        private readonly SettingsService _settingsService;
+        private readonly List<string> _items;
 
         public ListedSettingEditorViewModel(string settingName) 
         {
+            _settingsService = ServiceRepository.Default.GetService<SettingsService>();
+
             _addCommand = new RelayCommand(AddItem);
             _removeCommand = new RelayCommand(RemoveItem);
             
             _settingName = settingName;
-            _setting = new SettingsHelper.ListedSetting(settingName);
+            _items = _settingsService.ReadList<string>(settingName);
+
+            _settingsService.Set(settingName, _items);
         }
 
         private void AddItem(object parameter)
@@ -46,7 +48,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
                 return;
             }
 
-            _setting.Add(NewSettingValue);
+            _items.Add(NewSettingValue);
             OnPropertyChanged(nameof(Items));
 
             NewSettingValue = string.Empty;
@@ -59,7 +61,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
                 return;
             }
 
-            _setting.Remove(SelectedItem);
+            _items.Remove(SelectedItem);
             OnPropertyChanged(nameof(Items));
         }
     }

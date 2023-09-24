@@ -1,7 +1,6 @@
 ﻿using System.Configuration;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
-using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 
 namespace VisualStudioDiscordRPC.Shared

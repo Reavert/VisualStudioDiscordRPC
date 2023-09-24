@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SettingsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SolutionHider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseDataSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\AssetSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseSlot.cs" />

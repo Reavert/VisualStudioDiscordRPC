@@ -13,6 +13,8 @@ namespace VisualStudioDiscordRPC.Shared
 {
     public class DiscordRpcController
     {
+        public const string DefaultApplicationId = "914622396630175855";
+
         private static readonly RichPresence HiddenRichPresence;
 
         private readonly DiscordRpcClient _discordRpcClient;
@@ -85,7 +87,10 @@ namespace VisualStudioDiscordRPC.Shared
 
         public DiscordRpcController(int updateMillisecondsTimeout) 
         {
-            _discordRpcClient = new DiscordRpcClient(Settings.Default.ApplicationID)
+            var settingsService = ServiceRepository.Default.GetService<SettingsService>();
+            var applicationId = settingsService.Read<string>(SettingsKeys.ApplicationID);
+
+            _discordRpcClient = new DiscordRpcClient(applicationId)
             {
                 SkipIdenticalPresence = false
             };

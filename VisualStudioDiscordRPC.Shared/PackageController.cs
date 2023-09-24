@@ -2,6 +2,7 @@
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,11 +27,11 @@ namespace VisualStudioDiscordRPC.Shared
         private VsObserver _vsObserver;
         private SlotService _slotService;
         private SolutionHider _solutionHider;
-        
+        private SettingsService _settingsService;
+
         public void Init()
         {
             RegisterServices();
-            UpdateSettings();
 
             _discordRpcController.Initialize();
             _slotService.InitSlotsSubscriptions();
@@ -40,12 +41,14 @@ namespace VisualStudioDiscordRPC.Shared
             ApplySettings();
 
             string currentExtensionVersion = VisualStudioHelper.GetExtensionVersion();
-            bool updateNotificationsEnabled = bool.Parse(Settings.Default.UpdateNotifications);
+            bool updateNotificationsEnabled = _settingsService.Read<bool>(SettingsKeys.UpdateNotifications);
 
-            if (updateNotificationsEnabled && currentExtensionVersion != Settings.Default.Version)
+            string previousVersion = _settingsService.Read<string>(SettingsKeys.Version);
+
+            if (updateNotificationsEnabled && currentExtensionVersion != previousVersion)
             {
-                Settings.Default.Version = currentExtensionVersion;
-                Settings.Default.Save();
+                _settingsService.Set(SettingsKeys.Version, currentExtensionVersion);
+                _settingsService.Save();
 
                 DisplayVersionUpdateMessage(currentExtensionVersion);
             }
@@ -64,8 +67,8 @@ namespace VisualStudioDiscordRPC.Shared
             ThreadHelper.ThrowIfNotOnUIThread();
 
             // Registering settings service.
-            var settingsService = new SettingsService();
-            ServiceRepository.Default.AddService(settingsService);
+            _settingsService = new SettingsService();
+            ServiceRepository.Default.AddService(_settingsService);
 
             // Registering Visual Studio events observer.
             var currentDte = (DTE2)ServiceProvider.GlobalProvider.GetService(typeof(DTE));
@@ -74,9 +77,12 @@ namespace VisualStudioDiscordRPC.Shared
             ServiceRepository.Default.AddService(_vsObserver);
 
             // Registering localization service.
-            var localizationService = new LocalizationService<LocalizationFile>(
-                PathHelper.GetPackageInstallationPath(Settings.Default.TranslationsPath));
-            localizationService.SelectLanguage(Settings.Default.Language);
+
+            string translationPath = _settingsService.Read<string>(SettingsKeys.TranslationsPath);
+            string currentLanguage = _settingsService.Read<string>(SettingsKeys.Language);
+
+            var localizationService = new LocalizationService<LocalizationFile>(PathHelper.GetPackageInstallationPath(translationPath));
+            localizationService.SelectLanguage(currentLanguage);
 
             ServiceRepository.Default.AddService(localizationService);
 
@@ -88,7 +94,7 @@ namespace VisualStudioDiscordRPC.Shared
             ServiceRepository.Default.AddService(_slotService);
 
             // Registering Discord RPC controller.
-            int updateTimeout = int.Parse(Settings.Default.UpdateTimeout);
+            int updateTimeout = Convert.ToInt32(_settingsService.Read<long>(SettingsKeys.UpdateTimeout));
             _discordRpcController = new DiscordRpcController(updateTimeout);
             ServiceRepository.Default.AddService(_discordRpcController);
 
@@ -96,32 +102,28 @@ namespace VisualStudioDiscordRPC.Shared
             _solutionHider = new SolutionHider(_vsObserver, _discordRpcController);
             ServiceRepository.Default.AddService(_solutionHider);
         }
-
-        private void UpdateSettings()
-        {
-            if (!Settings.Default.Updated)
-            {
-                Settings.Default.Upgrade();
-                Settings.Default.Updated = true;
-
-                Settings.Default.Save();
-            }
-        }
-
+        
         private void ApplySettings()
         {
-            _discordRpcController.Enabled = bool.Parse(Settings.Default.RichPresenceEnabled);
+            _discordRpcController.Enabled = _settingsService.Read<bool>(SettingsKeys.RichPresenceEnabled);
 
-            _discordRpcController.SetSlot<LargeIconUpdater>(_slotService.GetSlotByName<AssetSlot>(Settings.Default.LargeIconSlot));
-            _discordRpcController.SetSlot<SmallIconUpdater>(_slotService.GetSlotByName<AssetSlot>(Settings.Default.SmallIconSlot));
+            string largeIconSlot = _settingsService.Read<string>(SettingsKeys.LargeIconSlot);
+            _discordRpcController.SetSlot<LargeIconUpdater>(_slotService.GetSlotByName<AssetSlot>(largeIconSlot));
+
+            string smallIconSlot = _settingsService.Read<string>(SettingsKeys.SmallIconSlot);
+            _discordRpcController.SetSlot<SmallIconUpdater>(_slotService.GetSlotByName<AssetSlot>(smallIconSlot));
 
             //_discordRpcController.SetSlot<DetailsUpdater>(_slotService.GetSlotByName<TextSlot>(Settings.Default.DetailsSlot));
             //_discordRpcController.SetSlot<StateUpdater>(_slotService.GetSlotByName<TextSlot>(Settings.Default.StateSlot));
-            
-            _discordRpcController.SetSlot<TimerUpdater>(_slotService.GetSlotByName<TimerSlot>(Settings.Default.TimerSlot));
 
-            _discordRpcController.SetSlot<FirstButtonUpdater>(_slotService.GetSlotByName<ButtonSlot>(Settings.Default.FirstButtonSlot));
-            _discordRpcController.SetSlot<SecondButtonUpdater>(_slotService.GetSlotByName<ButtonSlot>(Settings.Default.SecondButtonSlot));
+            string timerSlot = _settingsService.Read<string>(SettingsKeys.TimerSlot);
+            _discordRpcController.SetSlot<TimerUpdater>(_slotService.GetSlotByName<TimerSlot>(timerSlot));
+
+            string firstButtonSlot = _settingsService.Read<string>(SettingsKeys.FirstButtonSlot);
+            _discordRpcController.SetSlot<FirstButtonUpdater>(_slotService.GetSlotByName<ButtonSlot>(firstButtonSlot));
+
+            string secondButtonSlot = _settingsService.Read<string>(SettingsKeys.SecondButtonSlot);
+            _discordRpcController.SetSlot<SecondButtonUpdater>(_slotService.GetSlotByName<ButtonSlot>(secondButtonSlot));
         }
 
         private void DisplayVersionUpdateMessage(string version)

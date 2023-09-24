@@ -4,10 +4,14 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 {
     public class CustomTextSlot : TextSlot
     {
+        public string Name => _name;
+        
         private readonly StringObserver _customStringObserver;
+        private readonly string _name;
 
-        public CustomTextSlot(StringObserver customStringObserver)
+        public CustomTextSlot(string name, StringObserver customStringObserver)
         {
+            _name = name;
             _customStringObserver = customStringObserver;
         }
 
