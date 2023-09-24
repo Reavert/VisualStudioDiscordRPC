@@ -100,7 +100,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\PathHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\SettingsHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\VisualStudioHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\LocalizationConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\SlotConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\MultiParameterConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ListEditorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelayCommand.cs" />

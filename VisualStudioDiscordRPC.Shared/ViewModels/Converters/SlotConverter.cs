@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
-using VisualStudioDiscordRPC.Shared.Slots;
 using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
 {
-    public class LocalizationConverter : IValueConverter
+    public class SlotConverter : IValueConverter
     {
         private readonly LocalizationService<LocalizationFile> _localizationService;
 
-        public LocalizationConverter()
+        public SlotConverter()
         {
             _localizationService =
                 ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();

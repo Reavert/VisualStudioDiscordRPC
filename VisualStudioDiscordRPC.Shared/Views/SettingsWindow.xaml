@@ -13,7 +13,7 @@
         Title="Settings"
         d:DataContext="{d:DesignInstance local:SettingsViewModel}">
     <Window.Resources>
-        <converters:LocalizationConverter x:Key="LocalizationConverter"/>
+        <converters:SlotConverter x:Key="SlotConverter"/>
         <converters:MultiParameterConverter x:Key="MultiParameterConverter"/>
     </Window.Resources>
     <StackPanel Margin="2">
@@ -144,7 +144,7 @@
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -155,7 +155,7 @@
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -166,7 +166,7 @@
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -177,7 +177,7 @@
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -188,7 +188,7 @@
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -199,7 +199,7 @@
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -210,7 +210,7 @@
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
