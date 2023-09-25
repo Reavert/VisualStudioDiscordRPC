@@ -211,13 +211,14 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             }
         }
 
-        public IReadOnlyList<AssetSlot> AvailableAssetSlots { get; set; }
-        public IReadOnlyList<TextSlot> AvailableTextSlots { get; set; }
-        public IReadOnlyList<TimerSlot> AvailableTimerSlots { get; set; }
-        public IReadOnlyList<ButtonSlot> AvailableButtonSlots { get; set; }
+        public IReadOnlyList<AssetSlot> AvailableAssetSlots => _slotService.GetSlotsOfType<AssetSlot>();
+        public IReadOnlyList<TextSlot> AvailableTextSlots => _slotService.GetSlotsOfType<TextSlot>();
+        public IReadOnlyList<TimerSlot> AvailableTimerSlots => _slotService.GetSlotsOfType<TimerSlot>();
+        public IReadOnlyList<ButtonSlot> AvailableButtonSlots => _slotService.GetSlotsOfType<ButtonSlot>();
 
-        public RelayCommand ShowSecretSolutionsCommand { get; private set; }
-        public RelayCommand ShowPrivateRepositoriesCommand { get; private set; }
+        public RelayCommand ShowSecretSolutionsCommand { get; }
+        public RelayCommand ShowPrivateRepositoriesCommand { get; }
+        public RelayCommand ShowCustomTextSlotsEditorCommand { get; }
 
         public SettingsViewModel()
         {
@@ -228,24 +229,17 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             _slotService = ServiceRepository.Default.GetService<SlotService>();
             _solutionSecrecyService = ServiceRepository.Default.GetService<SolutionSecrecyService>();
             _repositorySecrecyService = ServiceRepository.Default.GetService<RepositorySecrecyService>();
-
             _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
+
             OnPropertyChanged(nameof(Localizations));
-
-            AvailableAssetSlots = _slotService.GetSlotsOfType<AssetSlot>();
             OnPropertyChanged(nameof(AvailableAssetSlots));
-
-            AvailableTextSlots = _slotService.GetSlotsOfType<TextSlot>();
             OnPropertyChanged(nameof(AvailableTextSlots));
-
-            AvailableTimerSlots = _slotService.GetSlotsOfType<TimerSlot>();
             OnPropertyChanged(nameof(AvailableTimerSlots));
-
-            AvailableButtonSlots = _slotService.GetSlotsOfType<ButtonSlot>();
             OnPropertyChanged(nameof(AvailableButtonSlots));
 
             ShowSecretSolutionsCommand = new RelayCommand(ShowSecretSolutionsEditor);
             ShowPrivateRepositoriesCommand = new RelayCommand(ShowPrivateRepositoriesEditor);
+            ShowCustomTextSlotsEditorCommand = new RelayCommand(ShowCustomTextSlotsEditor);
         }
 
         private void ShowSecretSolutionsEditor(object parameter)
@@ -266,6 +260,17 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
             listEditorView.ShowDialog();
             OnPropertyChanged(nameof(PrivateRepository));
+        }
+
+        private void ShowCustomTextSlotsEditor(object paramter)
+        {
+            IEnumerable<CustomTextSlotData> customSlotsData = _slotService.GetCustomTextSlotsData();
+
+            var viewModel = new CustomTextSlotsEditorViewModel(customSlotsData);
+            var view = new CustomTextSlotsEditor(viewModel);
+
+            view.ShowDialog();
+            _slotService.SaveCustomTextSlotsData(viewModel.CustomTextSlots);
         }
     }
 }

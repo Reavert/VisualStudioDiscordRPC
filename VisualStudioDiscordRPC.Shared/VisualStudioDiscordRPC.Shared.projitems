@@ -102,10 +102,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\VisualStudioHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\SlotConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\MultiParameterConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomTextSlotsEditorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ListEditorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomTextSlotsEditor.xaml.cs">
+      <DependentUpon>CustomTextSlotsEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ListEditorWindow.xaml.cs">
       <DependentUpon>ListEditorWindow.xaml</DependentUpon>
     </Compile>
@@ -119,6 +123,10 @@
     <Folder Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\CustomTextSlotsEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\ListEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

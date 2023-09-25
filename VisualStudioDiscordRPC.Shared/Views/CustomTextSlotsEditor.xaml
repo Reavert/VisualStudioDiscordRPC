@@ -1,0 +1,59 @@
+﻿<Window x:Class="VisualStudioDiscordRPC.Shared.CustomTextSlotsEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:VisualStudioDiscordRPC.Shared.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        mc:Ignorable="d"
+        Width="360"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="Custom Text Slots Editor"
+        d:DataContext="{d:DesignInstance local:CustomTextSlotsEditorViewModel}">
+    <StackPanel>
+        <ListView ItemsSource="{Binding MacroDatas}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text=": "/>
+                        <TextBlock Text="{Binding Description}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <DataGrid
+            AutoGenerateColumns="False"
+            MinHeight="40"
+            ItemsSource="{Binding CustomTextSlots}"
+            SelectedItem="{Binding SelectedItem}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Name">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Pattern">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Pattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Separator/>
+        <StackPanel Orientation="Horizontal">
+            <Button Command="{Binding NewCommand}"  Width="60">
+                <TextBlock Text="New"/>
+            </Button>
+            <Button Command="{Binding DeleteCommand}"  Width="60">
+                <TextBlock Text="Delete"/>
+            </Button>
+        </StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="5" Text="* You need to restart Visual Studio to apply changes with custom text slots"/>
+    </StackPanel>
+</Window>

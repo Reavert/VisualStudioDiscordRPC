@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -77,6 +78,38 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                 .ToList();
         }
 
+        public IReadOnlyList<CustomTextSlotData> GetCustomTextSlotsData()
+        {
+            var appDataPath = PathHelper.GetApplicationDataPath();
+            var customSlotsFilePath = Path.Combine(appDataPath, "custom_slots.json");
+            if (!File.Exists(customSlotsFilePath))
+                return (IReadOnlyList<CustomTextSlotData>)Enumerable.Empty<CustomTextSlotData>();
+
+            string data = File.ReadAllText(customSlotsFilePath);
+            if (string.IsNullOrEmpty(data))
+                return (IReadOnlyList<CustomTextSlotData>)Enumerable.Empty<CustomTextSlotData>();
+
+            var customTextSlotsData = JsonConvert.DeserializeObject<List<CustomTextSlotData>>(data);
+            if (customTextSlotsData == null)
+                return (IReadOnlyList<CustomTextSlotData>)Enumerable.Empty<CustomTextSlotData>();
+
+            return customTextSlotsData;
+        }
+
+        public void SaveCustomTextSlotsData(IEnumerable<CustomTextSlotData> data)
+        {
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+
+            var appDataPath = PathHelper.GetApplicationDataPath();
+            var customSlotsFilePath = Path.Combine(appDataPath, "custom_slots.json");
+            File.WriteAllText(customSlotsFilePath, json);
+        }
+
+        public string GenerateUniqueCustomTextSlotId()
+        {
+            return Guid.NewGuid().ToString();
+        }
+
         private IAssetMap<T> LoadAssets<T>(string path) where T : Asset
         {
             var assetMap = new OptimizedAssetMap<T>();
@@ -99,15 +132,14 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         private void LoadTextSlots()
         {
-            LoadBuildInTextSlots();
+            LoadBuiltInTextSlots();
             LoadCustomTextSlots();
         }
 
-        private void LoadBuildInTextSlots()
+        private void LoadBuiltInTextSlots()
         {
             var localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
 
-            // Load built-in text slots.
             _slots.AddRange(new TextSlot[]
             {
                 new NoneTextSlot(),
@@ -120,18 +152,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         private void LoadCustomTextSlots()
         {
-            var appDataPath = PathHelper.GetApplicationDataPath();
-            var customSlotsFilePath = Path.Combine(appDataPath, "custom_slots.json");
-            if (!File.Exists(customSlotsFilePath))
-                return;
-
-            string data = File.ReadAllText(customSlotsFilePath);
-            if (string.IsNullOrEmpty(data))
-                return;
-
-            var customTextSlotsData = JsonConvert.DeserializeObject<List<CustomTextSlotData>>(data);
-            if (customTextSlotsData == null)
-                return;
+            var customTextSlotsData = GetCustomTextSlotsData();
 
             var parser = new ObservableStringParser();
             foreach (var customTextSlotInfo in customTextSlotsData)

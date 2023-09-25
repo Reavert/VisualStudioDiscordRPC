@@ -181,6 +181,11 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <Button 
+                    Margin="3"
+                    Command="{Binding ShowCustomTextSlotsEditorCommand}">
+                    <TextBlock Text="Custom Text Slots Editor"/>
+                </Button>
                 <TextBlock Text="Timer mode:"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableTimerSlots}"
