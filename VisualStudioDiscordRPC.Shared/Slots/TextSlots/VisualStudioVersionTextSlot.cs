@@ -1,4 +1,5 @@
 ﻿using EnvDTE;
+using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 {
@@ -20,7 +21,7 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
         protected override string GetData()
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            return string.Format("Visual Studio {0} {1}", _dte.Version, _dte.Edition);
+            return string.Format("Visual Studio {0} {1}", _dte.Edition, VisualStudioHelper.GetVersionByDevNumber(_dte.Version));
         }
     }
 }
