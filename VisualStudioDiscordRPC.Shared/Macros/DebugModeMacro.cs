@@ -4,12 +4,12 @@ using System;
 
 namespace VisualStudioDiscordRPC.Shared.Macros
 {
-    public class DebugModeMacro : Macro
+    public class DebugModeVariable : Variable
     {
         private readonly Debugger _debugger;
         private readonly DebuggerEvents _debuggerEvents;
 
-        public DebugModeMacro(DTE2 dte)
+        public DebugModeVariable(DTE2 dte)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 

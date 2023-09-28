@@ -93,8 +93,8 @@ namespace VisualStudioDiscordRPC.Shared
 
             ServiceRepository.Default.AddService(localizationService);
 
-            // Registering macro service.
-            ServiceRepository.Default.AddService(new MacroService(_vsObserver));
+            // Registering variable service.
+            ServiceRepository.Default.AddService(new VariableService(_vsObserver));
 
             // Registering slot service.
             _slotService = new SlotService();

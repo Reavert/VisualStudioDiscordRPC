@@ -34,7 +34,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNotesParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\GitObserver.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\MacroService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\VariableService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SettingsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SlotService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SolutionSecrecyService.cs" />

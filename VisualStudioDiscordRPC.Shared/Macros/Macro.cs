@@ -2,7 +2,7 @@
 
 namespace VisualStudioDiscordRPC.Shared.Macros
 {
-    public abstract class Macro
+    public abstract class Variable
     {
         public abstract string GetData();
         public event EventHandler<string> Changed;

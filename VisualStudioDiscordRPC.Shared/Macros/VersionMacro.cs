@@ -3,11 +3,11 @@ using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Macros
 {
-    public class VersionMacro : Macro
+    public class VersionVariable : Variable
     {
         private readonly string _version;
 
-        public VersionMacro(DTE dte) 
+        public VersionVariable(DTE dte) 
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             _version = dte.Version;

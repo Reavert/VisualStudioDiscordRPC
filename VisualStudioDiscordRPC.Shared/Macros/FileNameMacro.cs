@@ -3,11 +3,11 @@ using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Macros
 {
-    public class FileNameMacro : Macro
+    public class FileNameVariable : Variable
     {
         private Document _document;
 
-        public FileNameMacro(VsObserver vsObserver) 
+        public FileNameVariable(VsObserver vsObserver) 
         {
             _document = vsObserver.DTE.ActiveDocument;
             vsObserver.DocumentChanged += OnDocumentChanged;

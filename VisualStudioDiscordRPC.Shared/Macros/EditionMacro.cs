@@ -2,11 +2,11 @@
 
 namespace VisualStudioDiscordRPC.Shared.Macros
 {
-    public class EditionMacro : Macro
+    public class EditionVariable : Variable
     {
         private readonly string _edition;
 
-        public EditionMacro(DTE dte)
+        public EditionVariable(DTE dte)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             _edition = dte.Edition;

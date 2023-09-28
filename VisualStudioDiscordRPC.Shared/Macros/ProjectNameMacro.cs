@@ -3,11 +3,11 @@ using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Macros
 {
-    public class ProjectNameMacro : Macro
+    public class ProjectNameVariable : Variable
     {
         private Project _project;
 
-        public ProjectNameMacro(VsObserver vsObserver)
+        public ProjectNameVariable(VsObserver vsObserver)
         {
             _project = vsObserver.DTE.ActiveWindow?.Project;
             vsObserver.ProjectChanged += OnProjectChanged;

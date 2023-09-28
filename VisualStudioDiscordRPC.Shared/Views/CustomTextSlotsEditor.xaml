@@ -12,7 +12,7 @@
         Title="Custom Text Slots Editor"
         d:DataContext="{d:DesignInstance local:CustomTextSlotsEditorViewModel}">
     <StackPanel>
-        <ListView ItemsSource="{Binding MacroDatas}">
+        <ListView ItemsSource="{Binding Variables}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

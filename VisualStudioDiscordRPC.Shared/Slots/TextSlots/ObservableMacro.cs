@@ -3,7 +3,7 @@ using VisualStudioDiscordRPC.Shared.Macros;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 {
-    public class ObservableMacro : IObservableString
+    public class ObservableVariable : IObservableString
     {
         public string Text => _data;
 
@@ -11,13 +11,13 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 
         private string _data;
 
-        public ObservableMacro(Macro macro)
+        public ObservableVariable(Variable variable)
         {
-            _data = macro.GetData();
-            macro.Changed += OnMacroChanged;
+            _data = variable.GetData();
+            variable.Changed += OnVariableChanged;
         }
 
-        private void OnMacroChanged(object sender, string data)
+        private void OnVariableChanged(object sender, string data)
         {
             _data = data;
             Changed?.Invoke();

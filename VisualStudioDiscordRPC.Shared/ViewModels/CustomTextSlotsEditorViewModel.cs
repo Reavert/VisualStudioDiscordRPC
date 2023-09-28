@@ -8,19 +8,19 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
     public class CustomTextSlotsEditorViewModel : ViewModelBase
     {
         public ObservableCollection<CustomTextSlotData> CustomTextSlots { get; set; }
-        public IReadOnlyCollection<MacroData> MacroDatas => _macroService.GetMacroDatas();
+        public IReadOnlyCollection<VariableDescriptor> Variables => _variableService.GetVariables();
         public CustomTextSlotData SelectedItem { get; set; }
 
         public RelayCommand NewCommand { get; }
         public RelayCommand DeleteCommand { get; }
 
         private readonly SlotService _slotService;
-        private readonly MacroService _macroService;
+        private readonly VariableService _variableService;
 
         public CustomTextSlotsEditorViewModel(IEnumerable<CustomTextSlotData> data) 
         {
             _slotService = ServiceRepository.Default.GetService<SlotService>();
-            _macroService = ServiceRepository.Default.GetService<MacroService>();
+            _variableService = ServiceRepository.Default.GetService<VariableService>();
 
             CustomTextSlots = new ObservableCollection<CustomTextSlotData>(data);
 

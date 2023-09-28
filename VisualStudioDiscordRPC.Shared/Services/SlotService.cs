@@ -24,13 +24,13 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
         private const string ExtensionAssetMapFilename = "extensions_assets_map.json";
         private const string VsVersionAssetMapFilename = "vs_assets_map.json";
 
-        private List<BaseSlot> _slots = new List<BaseSlot>();
+        private readonly List<BaseSlot> _slots = new List<BaseSlot>();
 
         private readonly IAssetMap<ExtensionAsset> _extensionsAssetMap;
         private readonly IAssetMap<VisualStudioVersionAsset> _vsVersionsAssetMap;
 
         private readonly VsObserver _vsObserver = ServiceRepository.Default.GetService<VsObserver>();
-        private readonly MacroService _macroService = ServiceRepository.Default.GetService<MacroService>();
+        private readonly VariableService _variableService = ServiceRepository.Default.GetService<VariableService>();
 
         public SlotService()
         {
@@ -167,9 +167,9 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
                             break;
 
                         case ObservableStringParser.EntryType.Keyword:
-                            var macro = _macroService.GetMacroByName(entry.Value);
-                            if (macro != null)
-                                stringObserver.AddText(new ObservableMacro(macro));
+                            var variable = _variableService.GetVariableByName(entry.Value);
+                            if (variable != null)
+                                stringObserver.AddText(new ObservableVariable(variable));
                             break;
                     }
                 }

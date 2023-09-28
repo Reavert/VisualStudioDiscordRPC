@@ -5,11 +5,11 @@ using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Macros
 {
-    public class SolutionNameMacro : Macro
+    public class SolutionNameVariable : Variable
     {
         private Solution _solution;
 
-        public SolutionNameMacro(VsObserver vsObserver) 
+        public SolutionNameVariable(VsObserver vsObserver) 
         {
             vsObserver.SolutionChanged += OnSolutionChanged;
             _solution = vsObserver.DTE.Solution;
