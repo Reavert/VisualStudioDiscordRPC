@@ -1,16 +1,14 @@
 ﻿using VisualStudioDiscordRPC.Shared.Localization.Models;
-using VisualStudioDiscordRPC.Shared.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
 using System.Linq;
-using System.Security;
 
 namespace VisualStudioDiscordRPC.Shared.Localization
 {
-    public class LocalizationService : ILocalizationService
+    public class LocalizationService
     {
         public IReadOnlyList<ILocalizationFile> Localizations => _localizationFiles;
         public ILocalizationFile Current { get; private set; }

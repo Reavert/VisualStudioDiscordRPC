@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using VisualStudioDiscordRPC.Shared.Services.Interfaces;
 
 namespace VisualStudioDiscordRPC.Shared.Services.Models
 {
-    public class ServiceRepository : IServiceRepository
+    public class ServiceRepository
     {
         private readonly Dictionary<Type, object> _registeredService;
 

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
 using VisualStudioDiscordRPC.Shared.Utils;
 
