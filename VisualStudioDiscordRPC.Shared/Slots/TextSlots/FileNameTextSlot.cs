@@ -8,11 +8,11 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
     public class FileNameTextSlot : TextSlot
     {
         private readonly VsObserver _vsObserver;
-        private readonly LocalizationService<LocalizationFile> _localizationService;
+        private readonly LocalizationService _localizationService;
 
         private Document _document;
 
-        public FileNameTextSlot(VsObserver vsObserver, LocalizationService<LocalizationFile> localizationService)
+        public FileNameTextSlot(VsObserver vsObserver, LocalizationService localizationService)
         {
             _vsObserver = vsObserver;
             _localizationService = localizationService;
@@ -42,10 +42,10 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 
             if (_document == null)
             {
-                return _localizationService.Current.NoActiveFile;
+                return _localizationService.Localize(LocalizationKeys.NoActiveFile);
             }
 
-            return string.Format("{0} {1}", _localizationService.Current.File, _document.Name);
+            return string.Format("{0} {1}", _localizationService.Localize(LocalizationKeys.File), _document.Name);
         }
     }
 }

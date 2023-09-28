@@ -89,7 +89,7 @@ namespace VisualStudioDiscordRPC.Shared
             string translationPath = _settingsService.Read<string>(SettingsKeys.TranslationsPath);
             string currentLanguage = _settingsService.Read<string>(SettingsKeys.Language);
 
-            var localizationService = new LocalizationService<LocalizationFile>(PathHelper.GetPackageInstallationPath(translationPath));
+            var localizationService = new LocalizationService(PathHelper.GetPackageInstallationPath(translationPath));
             localizationService.SelectLanguage(currentLanguage);
 
             ServiceRepository.Default.AddService(localizationService);

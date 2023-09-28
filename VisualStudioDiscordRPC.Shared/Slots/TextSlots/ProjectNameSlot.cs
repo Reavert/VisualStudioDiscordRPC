@@ -1,6 +1,5 @@
 ﻿using EnvDTE;
 using VisualStudioDiscordRPC.Shared.Localization;
-using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
@@ -8,11 +7,11 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
     public class ProjectNameTextSlot : TextSlot
     {
         private readonly VsObserver _vsObserver;
-        private readonly LocalizationService<LocalizationFile> _localizationService;
+        private readonly LocalizationService _localizationService;
 
         private Project _project;
 
-        public ProjectNameTextSlot(VsObserver vsObserver, LocalizationService<LocalizationFile> localizationService)
+        public ProjectNameTextSlot(VsObserver vsObserver, LocalizationService localizationService)
         {
             _vsObserver = vsObserver;
             _localizationService = localizationService;
@@ -42,10 +41,10 @@ namespace VisualStudioDiscordRPC.Shared.Slots.TextSlots
 
             if (_project == null)
             {
-                return _localizationService.Current.NoActiveSolution;
+                return _localizationService.Localize(LocalizationKeys.NoActiveProject);
             }
 
-            return string.Format("{0} {1}", _localizationService.Current.Project, _project.Name);
+            return string.Format("{0} {1}", _localizationService.Localize(LocalizationKeys.Project), _project.Name);
         }
     }
 }

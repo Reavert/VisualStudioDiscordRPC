@@ -138,7 +138,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         private void LoadBuiltInTextSlots()
         {
-            var localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
+            var localizationService = ServiceRepository.Default.GetService<LocalizationService>();
 
             _slots.AddRange(new TextSlot[]
             {

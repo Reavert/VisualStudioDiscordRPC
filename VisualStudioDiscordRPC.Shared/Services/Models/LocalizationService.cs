@@ -5,21 +5,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
+using System.Linq;
+using System.Security;
 
 namespace VisualStudioDiscordRPC.Shared.Localization
 {
-    public class LocalizationService<T> : ILocalizationService<T> where T : ILocalizationFile
+    public class LocalizationService : ILocalizationService
     {
-        public IList<T> Localizations { get; }
-        public T Current { get; private set; }
+        public IReadOnlyList<ILocalizationFile> Localizations => _localizationFiles;
+        public ILocalizationFile Current { get; private set; }
 
         public delegate void LocalizationChangedEventHandler();
         public event LocalizationChangedEventHandler LocalizationChanged;
 
+        private readonly List<ILocalizationFile> _localizationFiles = new List<ILocalizationFile>();
+
         public LocalizationService(string localizationFolder)
         {
-            Localizations = new List<T>();
-
             string[] localizationFiles = Directory.GetFiles(localizationFolder);
             
             if (localizationFiles.Length == 0)
@@ -33,8 +35,8 @@ namespace VisualStudioDiscordRPC.Shared.Localization
             {
                 try
                 {
-                    var acceptableFile = (T)localizationFileFactory.CreateLocalizationFile(filename);
-                    Localizations.Add(acceptableFile);
+                    var acceptableFile = localizationFileFactory.CreateLocalizationFile(filename);
+                    _localizationFiles.Add(acceptableFile);
                 }
                 catch (Exception exception)
                 {
@@ -42,12 +44,12 @@ namespace VisualStudioDiscordRPC.Shared.Localization
                 }
             }
 
-            Current = Localizations[0];
+            Current = _localizationFiles.First();
         }
 
-        public T GetLanguage(string language)
+        public ILocalizationFile GetLanguage(string language)
         {
-            foreach (T localizationFile in Localizations)
+            foreach (ILocalizationFile localizationFile in Localizations)
             {
                 if (localizationFile.LanguageName == language)
                 {
@@ -62,6 +64,11 @@ namespace VisualStudioDiscordRPC.Shared.Localization
         {
             Current = GetLanguage(language);
             LocalizationChanged?.Invoke();
+        }
+
+        public string Localize(string key)
+        {
+            return Current.LocalizedValues[key];
         }
     }
 }

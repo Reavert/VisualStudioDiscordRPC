@@ -6,6 +6,6 @@
     {
         string LanguageName { get; }
         string LocalizedLanguageName { get; }
-        IDictionary<string, string> LocalizedValues { get; }
+        IReadOnlyDictionary<string, string> LocalizedValues { get; }
     }
 }

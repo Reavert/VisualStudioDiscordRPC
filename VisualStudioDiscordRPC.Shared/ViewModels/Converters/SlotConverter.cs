@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Windows.Data;
 using VisualStudioDiscordRPC.Shared.Localization;
-using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
 
@@ -10,12 +9,12 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters
 {
     public class SlotConverter : IValueConverter
     {
-        private readonly LocalizationService<LocalizationFile> _localizationService;
+        private readonly LocalizationService _localizationService;
 
         public SlotConverter()
         {
             _localizationService =
-                ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
+                ServiceRepository.Default.GetService<LocalizationService>();
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

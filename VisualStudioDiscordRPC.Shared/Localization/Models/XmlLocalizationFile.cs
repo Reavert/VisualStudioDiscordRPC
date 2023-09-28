@@ -1,14 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
 
 namespace VisualStudioDiscordRPC.Shared.Localization.Models
 {
-    public class XmlLocalizationFile : LocalizationFile
+    public class XmlLocalizationFile : ILocalizationFile
     {
+        public string LanguageName { get; }
+
+        public string LocalizedLanguageName { get; }
+
+        public IReadOnlyDictionary<string, string> LocalizedValues => _localizedValues;
+
+        private Dictionary<string, string> _localizedValues = new Dictionary<string, string>();
+
         public XmlLocalizationFile(string filename)
         {
-            LocalizedValues = new Dictionary<string, string>();
-
             var xmlDocument = new XmlDocument();
             xmlDocument.Load(filename);
 
@@ -19,7 +26,7 @@ namespace VisualStudioDiscordRPC.Shared.Localization.Models
 
             foreach (XmlNode translationNode in languageNode?.ChildNodes)
             {
-                LocalizedValues.Add(
+                _localizedValues.Add(
                     translationNode.Attributes?["id"].Value,
                     translationNode.InnerText);
             }

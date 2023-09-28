@@ -4,12 +4,12 @@ namespace VisualStudioDiscordRPC.Shared.Services.Interfaces
 {
     using System.Collections.Generic;
 
-    public interface ILocalizationService<T> where T : ILocalizationFile
+    public interface ILocalizationService
     {
-        IList<T> Localizations { get; }
-        T Current { get; }
+        IReadOnlyList<ILocalizationFile> Localizations { get; }
+        ILocalizationFile Current { get; }
 
-        T GetLanguage(string language);
+        ILocalizationFile GetLanguage(string language);
         void SelectLanguage(string language);
     }
 }

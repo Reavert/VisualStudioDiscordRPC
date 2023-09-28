@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\ButtonInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiscordRpcController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IStringCollectionProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalizationKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Macros\DebugModeMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Macros\EditionMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Macros\FileNameMacro.cs" />
@@ -56,7 +57,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\JsonLocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationFileFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\LocalizationService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\LocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\XmlLocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IServiceRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\ServiceRepository.cs" />

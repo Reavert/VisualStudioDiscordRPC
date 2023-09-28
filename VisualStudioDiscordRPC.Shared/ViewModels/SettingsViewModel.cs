@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using VisualStudioDiscordRPC.Shared.Localization;
+using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Services.Models;
@@ -20,7 +21,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         private readonly SettingsService _settingsService;
         private readonly DiscordRpcController _discordRpcController;
         private readonly SlotService _slotService;
-        private readonly LocalizationService<LocalizationFile> _localizationService;
+        private readonly LocalizationService _localizationService;
         private readonly SolutionSecrecyService _solutionSecrecyService;
         private readonly RepositorySecrecyService _repositorySecrecyService;
 
@@ -114,9 +115,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             }
         }
 
-        public IList<LocalizationFile> Localizations => _localizationService.Localizations;
+        public IReadOnlyList<ILocalizationFile> Localizations => _localizationService.Localizations;
 
-        public LocalizationFile SelectedLocalization
+        public ILocalizationFile SelectedLocalization
         {
             get => _localizationService.Current;
             set
@@ -229,7 +230,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             _slotService = ServiceRepository.Default.GetService<SlotService>();
             _solutionSecrecyService = ServiceRepository.Default.GetService<SolutionSecrecyService>();
             _repositorySecrecyService = ServiceRepository.Default.GetService<RepositorySecrecyService>();
-            _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
+            _localizationService = ServiceRepository.Default.GetService<LocalizationService>();
 
             OnPropertyChanged(nameof(Localizations));
             OnPropertyChanged(nameof(AvailableAssetSlots));

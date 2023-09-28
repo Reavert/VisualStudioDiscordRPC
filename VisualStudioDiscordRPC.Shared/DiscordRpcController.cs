@@ -22,7 +22,7 @@ namespace VisualStudioDiscordRPC.Shared
         private bool _isDirty;
         private readonly object _dirtyFlagSync = new object();
 
-        private readonly LocalizationService<LocalizationFile> _localizationService;
+        private readonly LocalizationService _localizationService;
 
         private readonly RichPresence _sharedRichPresence;
         private readonly object _richPresenceSync = new object();
@@ -95,7 +95,7 @@ namespace VisualStudioDiscordRPC.Shared
                 SkipIdenticalPresence = false
             };
 
-            _localizationService = ServiceRepository.Default.GetService<LocalizationService<LocalizationFile>>();
+            _localizationService = ServiceRepository.Default.GetService<LocalizationService>();
 
             _sharedRichPresence = new RichPresence
             {
