@@ -30,11 +30,11 @@
     </Window.Resources>
     <DockPanel>
         <ListBox
+            Style="{DynamicResource EmptyListBox}"
             MinHeight="200"
             DockPanel.Dock="Top"
             ItemsSource="{Binding Items}"
-            SelectedItem="{Binding SelectedItem}"
-            >
+            SelectedItem="{Binding SelectedItem}">
         </ListBox>
         
         <Button
@@ -50,25 +50,24 @@
             Command="{Binding AddCommand}">
             <TextBlock Text="Add"/>
         </Button>
-        
+
         <Grid Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="65"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            
+
             <TextBlock 
                 Grid.Column="0"
                 Text="New value: "/>
-            
+
             <TextBox
                 Grid.Column="1"
-                Text="{Binding NewSettingValue}"/>
+                Text="{Binding NewItemValue}"/>
         </Grid>
-
     </DockPanel>
 </Window>

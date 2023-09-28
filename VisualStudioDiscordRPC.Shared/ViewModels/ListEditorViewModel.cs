@@ -5,27 +5,28 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
     public class ListEditorViewModel : ViewModelBase
     {
-        private readonly RelayCommand _addCommand;
-        private readonly RelayCommand _removeCommand;
-
-        private string _newSettingValue;
-        private IStringCollectionProvider _stringCollectionProvider;
-        private readonly ObservableCollection<string> _items;
-
-        public ObservableCollection<string> Items => _items;
-
-        public string SelectedItem { get; set; }
-        
-        public string NewSettingValue 
-        {
-            get => _newSettingValue;
-            set => SetProperty(ref _newSettingValue, value);
-        }
-
         public RelayCommand AddCommand => _addCommand;
 
         public RelayCommand RemoveCommand => _removeCommand;
 
+        public ObservableCollection<string> Items => _items;
+
+        public string SelectedItem { get; set; }
+
+        public string NewItemValue
+        {
+            get => _newItemValue;
+            set => SetProperty(ref _newItemValue, value);
+        }
+
+        private readonly RelayCommand _addCommand;
+        private readonly RelayCommand _removeCommand;
+
+        private readonly ObservableCollection<string> _items;
+        private readonly IStringCollectionProvider _stringCollectionProvider;
+
+        private string _newItemValue;
+        
         public ListEditorViewModel(IStringCollectionProvider stringCollectionProvider)
         {
             _addCommand = new RelayCommand(AddItem);
@@ -37,15 +38,15 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         private void AddItem(object parameter)
         {
-            if (string.IsNullOrEmpty(NewSettingValue))
+            if (string.IsNullOrEmpty(NewItemValue))
             {
                 return;
             }
 
-            _stringCollectionProvider.Add(NewSettingValue);
-            _items.Add(NewSettingValue);
+            _stringCollectionProvider.Add(NewItemValue);
+            _items.Add(NewItemValue);
             
-            NewSettingValue = string.Empty;
+            NewItemValue = string.Empty;
         }
 
         private void RemoveItem(object parameter)
