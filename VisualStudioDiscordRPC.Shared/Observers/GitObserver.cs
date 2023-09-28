@@ -7,7 +7,7 @@ using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Services.Models
 {
-    public class GitObserver
+    public class GitObserver : IObserver
     {
         public string RemoteUrl
         {
@@ -19,13 +19,14 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             }
         }
 
-        private string _remoteUrl;
-
         public event Action<string> RemoteUrlChanged;
 
-        public GitObserver(VsObserver vsObserver) 
+        private VsObserver _vsObserver;
+        private string _remoteUrl;
+
+        public GitObserver(VsObserver vsObserver)
         {
-            vsObserver.SolutionChanged += OnSolutionChanged;
+            _vsObserver = vsObserver;
             OnSolutionChanged(vsObserver.DTE.Solution);
         }
 
@@ -55,6 +56,16 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
             }
 
             RemoteUrl = firstRemote.Url;
+        }
+
+        public void Observe()
+        {
+            _vsObserver.SolutionChanged += OnSolutionChanged;
+        }
+
+        public void Unobserve()
+        {
+            _vsObserver.SolutionChanged -= OnSolutionChanged;
         }
     }
 }

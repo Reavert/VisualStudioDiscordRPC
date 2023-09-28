@@ -1,18 +1,14 @@
 ﻿using EnvDTE;
 using EnvDTE80;
-using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using System;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using VisualStudioDiscordRPC.Shared.Localization;
-using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.ReleaseNotes;
-using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
 using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
@@ -28,6 +24,7 @@ namespace VisualStudioDiscordRPC.Shared
         private SettingsService _settingsService;
         private DiscordRpcController _discordRpcController;
         private VsObserver _vsObserver;
+        private GitObserver _gitObserver;
         private SlotService _slotService;
         private SolutionSecrecyService _solutionPrivateService;
         private RepositorySecrecyService _repositorySecrecyService;
@@ -39,6 +36,7 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController.Initialize();
             _slotService.InitSlotsSubscriptions();
             _vsObserver.Observe();
+            _gitObserver.Observe();
             _solutionPrivateService.Start();
             _repositorySecrecyService.Start();
 
@@ -63,6 +61,7 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController.Dispose();
             _slotService.ClearSlotsSubscriptions();
             _vsObserver.Unobserve();
+            _gitObserver.Unobserve();
             _solutionPrivateService.Stop();
             _repositorySecrecyService.Stop();
         }
@@ -82,8 +81,8 @@ namespace VisualStudioDiscordRPC.Shared
             ServiceRepository.Default.AddService(_vsObserver);
 
             // Registering Git observer.
-            var gitObserver = new GitObserver(_vsObserver);
-            ServiceRepository.Default.AddService(gitObserver);
+            _gitObserver = new GitObserver(_vsObserver);
+            ServiceRepository.Default.AddService(_gitObserver);
 
             // Registering localization service
             string translationPath = _settingsService.Read<string>(SettingsKeys.TranslationsPath);
@@ -112,7 +111,7 @@ namespace VisualStudioDiscordRPC.Shared
 
             // Registering Repository Secrecy Service.
             var gitRepositoryButtons = _slotService.GetSlotsOfType<GitRepositoryButtonSlot>().ToArray();
-            _repositorySecrecyService = new RepositorySecrecyService(gitObserver, gitRepositoryButtons);
+            _repositorySecrecyService = new RepositorySecrecyService(_gitObserver, gitRepositoryButtons);
             ServiceRepository.Default.AddService(_repositorySecrecyService);
         }
         

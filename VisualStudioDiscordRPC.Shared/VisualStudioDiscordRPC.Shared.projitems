@@ -33,7 +33,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Macros\VersionMacro.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReleaseNotes\ReleaseNotesParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Models\GitObserver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Observers\GitObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\MacroService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SettingsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Models\SlotService.cs" />
