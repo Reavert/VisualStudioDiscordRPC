@@ -1,8 +1,4 @@
 ﻿using System.Configuration;
-using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
-using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
-using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
-using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -30,7 +26,7 @@ namespace VisualStudioDiscordRPC.Shared
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue(nameof(ExtensionIconSlot))]
+        [DefaultSettingValue("ExtensionIconSlot")]
         public string LargeIconSlot
         {
             get => (string)this[nameof(LargeIconSlot)];
@@ -38,7 +34,7 @@ namespace VisualStudioDiscordRPC.Shared
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue(nameof(VisualStudioVersionIconSlot))]
+        [DefaultSettingValue("VisualStudioVersionIconSlot")]
         public string SmallIconSlot
         {
             get => (string)this[nameof(SmallIconSlot)];
@@ -46,7 +42,7 @@ namespace VisualStudioDiscordRPC.Shared
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue(nameof(FileNameTextSlot))]
+        [DefaultSettingValue("FileNameSlot")]
         public string DetailsSlot
         {
             get => (string)this[nameof(DetailsSlot)];
@@ -54,7 +50,7 @@ namespace VisualStudioDiscordRPC.Shared
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue(nameof(SolutionNameTextSlot))]
+        [DefaultSettingValue("SolutionNameSlot")]
         public string StateSlot
         {
             get => (string)this[nameof(StateSlot)];
@@ -62,7 +58,7 @@ namespace VisualStudioDiscordRPC.Shared
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue(nameof(WithinFilesTimerSlot))]
+        [DefaultSettingValue("WithinFilesTimerSlot")]
         public string TimerSlot
         {
             get => (string)this[nameof(TimerSlot)];
@@ -70,7 +66,7 @@ namespace VisualStudioDiscordRPC.Shared
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue(nameof(GitRepositoryButtonSlot))]
+        [DefaultSettingValue("GitRepositoryButtonSlot")]
         public string FirstButtonSlot
         {
             get => (string)this[nameof(FirstButtonSlot)];
@@ -78,7 +74,7 @@ namespace VisualStudioDiscordRPC.Shared
         }
 
         [UserScopedSetting]
-        [DefaultSettingValue(nameof(NoneButtonSlot))]
+        [DefaultSettingValue("NoneButtonSlot")]
         public string SecondButtonSlot
         {
             get => (string)this[nameof(SecondButtonSlot)];

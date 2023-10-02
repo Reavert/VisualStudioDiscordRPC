@@ -1,33 +1,33 @@
-﻿using VisualStudioDiscordRPC.Shared.Slots;
+﻿using VisualStudioDiscordRPC.Shared.Plugs;
 
 namespace VisualStudioDiscordRPC.Shared.Updaters.Base
 {
     public abstract class BaseDataUpdater<TData> : BaseUpdater
     {
-        private BaseDataSlot<TData> _installedSlot;
+        private BaseDataPlug<TData> _installedPlug;
 
-        public override BaseSlot BaseSlot
+        public override BasePlug BasePlug
         {
-            get => Slot;
-            set => Slot = (BaseDataSlot<TData>)value;
+            get => Plug;
+            set => Plug = (BaseDataPlug<TData>)value;
         }
 
-        public BaseDataSlot<TData> Slot
+        public BaseDataPlug<TData> Plug
         {
-            get => _installedSlot;
+            get => _installedPlug;
             set
             {
-                if (_installedSlot != null)
-                    _installedSlot.UpdatePerformed -= OnSlotUpdatePerformed;
+                if (_installedPlug != null)
+                    _installedPlug.UpdatePerformed -= OnPlugUpdatePerformed;
 
-                _installedSlot = value;
+                _installedPlug = value;
 
-                if (_installedSlot != null)
-                    _installedSlot.UpdatePerformed += OnSlotUpdatePerformed;
+                if (_installedPlug != null)
+                    _installedPlug.UpdatePerformed += OnPlugUpdatePerformed;
             }
         }
 
-        private void OnSlotUpdatePerformed(TData data)
+        private void OnPlugUpdatePerformed(TData data)
         {
             if (Enabled)
             {

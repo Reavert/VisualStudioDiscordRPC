@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
-using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Services.Models;
-using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
-using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
-using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
-using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
+using VisualStudioDiscordRPC.Shared.Plugs.AssetPlugs;
+using VisualStudioDiscordRPC.Shared.Plugs.ButtonPlugs;
+using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
+using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
 using VisualStudioDiscordRPC.Shared.Updaters;
 using VisualStudioDiscordRPC.Shared.Utils;
 
@@ -20,7 +19,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         private readonly GitObserver _gitObserver;
         private readonly SettingsService _settingsService;
         private readonly DiscordRpcController _discordRpcController;
-        private readonly SlotService _slotService;
+        private readonly PlugService _plugService;
         private readonly LocalizationService _localizationService;
         private readonly SolutionSecrecyService _solutionSecrecyService;
         private readonly RepositorySecrecyService _repositorySecrecyService;
@@ -128,98 +127,98 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             }
         }
 
-        public AssetSlot LargeIconSlot
+        public BaseAssetPlug LargeIconPlug
         {
-            get => (AssetSlot) _discordRpcController.GetSlotOfUpdater<LargeIconUpdater>();
+            get => (BaseAssetPlug) _discordRpcController.GetPlugOfNest<LargeIconUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.LargeIconSlot, value.GetId());
-                _discordRpcController.SetSlot<LargeIconUpdater>(value);
+                _settingsService.Set(SettingsKeys.LargeIconPlug, value.GetId());
+                _discordRpcController.SetPlug<LargeIconUpdater>(value);
 
-                OnPropertyChanged(nameof(LargeIconSlot));
+                OnPropertyChanged(nameof(LargeIconPlug));
             }
         }
 
-        public AssetSlot SmallIconSlot
+        public BaseAssetPlug SmallIconPlug
         {
-            get => (AssetSlot) _discordRpcController.GetSlotOfUpdater<SmallIconUpdater>();
+            get => (BaseAssetPlug) _discordRpcController.GetPlugOfNest<SmallIconUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.SmallIconSlot, value.GetId());
-                _discordRpcController.SetSlot<SmallIconUpdater>(value);
+                _settingsService.Set(SettingsKeys.SmallIconPlug, value.GetId());
+                _discordRpcController.SetPlug<SmallIconUpdater>(value);
 
-                OnPropertyChanged(nameof(SmallIconSlot));
+                OnPropertyChanged(nameof(SmallIconPlug));
             }
         }
 
-        public TextSlot StateSlot
+        public BaseTextPlug StatePlug
         {
-            get => (TextSlot)_discordRpcController.GetSlotOfUpdater<StateUpdater>();
+            get => (BaseTextPlug)_discordRpcController.GetPlugOfNest<StateUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.StateSlot, value.GetId());
-                _discordRpcController.SetSlot<StateUpdater>(value);
+                _settingsService.Set(SettingsKeys.StatePlug, value.GetId());
+                _discordRpcController.SetPlug<StateUpdater>(value);
 
-                OnPropertyChanged(nameof(StateSlot));
+                OnPropertyChanged(nameof(StatePlug));
             }
         }
 
-        public TextSlot DetailsSlot
+        public BaseTextPlug DetailsPlug
         {
-            get => (TextSlot) _discordRpcController.GetSlotOfUpdater<DetailsUpdater>();
+            get => (BaseTextPlug) _discordRpcController.GetPlugOfNest<DetailsUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.DetailsSlot, value.GetId());
-                _discordRpcController.SetSlot<DetailsUpdater>(value);
+                _settingsService.Set(SettingsKeys.DetailsPlug, value.GetId());
+                _discordRpcController.SetPlug<DetailsUpdater>(value);
 
-                OnPropertyChanged(nameof(DetailsSlot));
+                OnPropertyChanged(nameof(DetailsPlug));
             }
         }
 
-        public TimerSlot TimerSlot
+        public BaseTimerPlug TimerPlug
         {
-            get => (TimerSlot) _discordRpcController.GetSlotOfUpdater<TimerUpdater>();
+            get => (BaseTimerPlug) _discordRpcController.GetPlugOfNest<TimerUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.TimerSlot, value.GetId());
-                _discordRpcController.SetSlot<TimerUpdater>(value);
+                _settingsService.Set(SettingsKeys.TimerPlug, value.GetId());
+                _discordRpcController.SetPlug<TimerUpdater>(value);
 
-                OnPropertyChanged(nameof(TimerSlot));
+                OnPropertyChanged(nameof(TimerPlug));
             }
         }
 
-        public ButtonSlot FirstButtonSlot
+        public BaseButtonPlug FirstButtonPlug
         {
-            get => (ButtonSlot) _discordRpcController.GetSlotOfUpdater<FirstButtonUpdater>();
+            get => (BaseButtonPlug) _discordRpcController.GetPlugOfNest<FirstButtonUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.FirstButtonSlot, value.GetId());
-                _discordRpcController.SetSlot<FirstButtonUpdater>(value);
+                _settingsService.Set(SettingsKeys.FirstButtonPlug, value.GetId());
+                _discordRpcController.SetPlug<FirstButtonUpdater>(value);
 
-                OnPropertyChanged(nameof(FirstButtonSlot));
+                OnPropertyChanged(nameof(FirstButtonPlug));
             }
         }
 
-        public ButtonSlot SecondButtonSlot
+        public BaseButtonPlug SecondButtonPlug
         {
-            get => (ButtonSlot) _discordRpcController.GetSlotOfUpdater<SecondButtonUpdater>();
+            get => (BaseButtonPlug) _discordRpcController.GetPlugOfNest<SecondButtonUpdater>();
             set
             {
-                _settingsService.Set(SettingsKeys.SecondButtonSlot, value.GetId());
-                _discordRpcController.SetSlot<SecondButtonUpdater>(value);
+                _settingsService.Set(SettingsKeys.SecondButtonPlug, value.GetId());
+                _discordRpcController.SetPlug<SecondButtonUpdater>(value);
 
-                OnPropertyChanged(nameof(SecondButtonSlot));
+                OnPropertyChanged(nameof(SecondButtonPlug));
             }
         }
 
-        public IReadOnlyList<AssetSlot> AvailableAssetSlots => _slotService.GetSlotsOfType<AssetSlot>();
-        public IReadOnlyList<TextSlot> AvailableTextSlots => _slotService.GetSlotsOfType<TextSlot>();
-        public IReadOnlyList<TimerSlot> AvailableTimerSlots => _slotService.GetSlotsOfType<TimerSlot>();
-        public IReadOnlyList<ButtonSlot> AvailableButtonSlots => _slotService.GetSlotsOfType<ButtonSlot>();
+        public IReadOnlyList<BaseAssetPlug> AvailableAssetPlugs => _plugService.GetPlugsOfType<BaseAssetPlug>();
+        public IReadOnlyList<BaseTextPlug> AvailableTextPlugs => _plugService.GetPlugsOfType<BaseTextPlug>();
+        public IReadOnlyList<BaseTimerPlug> AvailableTimerPlugs => _plugService.GetPlugsOfType<BaseTimerPlug>();
+        public IReadOnlyList<BaseButtonPlug> AvailableButtonPlugs => _plugService.GetPlugsOfType<BaseButtonPlug>();
 
         public RelayCommand ShowSecretSolutionsCommand { get; }
         public RelayCommand ShowPrivateRepositoriesCommand { get; }
-        public RelayCommand ShowCustomTextSlotsEditorCommand { get; }
+        public RelayCommand ShowCustomTextPlugsEditorCommand { get; }
 
         public SettingsViewModel()
         {
@@ -227,20 +226,20 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             _gitObserver = ServiceRepository.Default.GetService<GitObserver>();
             _settingsService = ServiceRepository.Default.GetService<SettingsService>();
             _discordRpcController = ServiceRepository.Default.GetService<DiscordRpcController>();
-            _slotService = ServiceRepository.Default.GetService<SlotService>();
+            _plugService = ServiceRepository.Default.GetService<PlugService>();
             _solutionSecrecyService = ServiceRepository.Default.GetService<SolutionSecrecyService>();
             _repositorySecrecyService = ServiceRepository.Default.GetService<RepositorySecrecyService>();
             _localizationService = ServiceRepository.Default.GetService<LocalizationService>();
 
             OnPropertyChanged(nameof(Localizations));
-            OnPropertyChanged(nameof(AvailableAssetSlots));
-            OnPropertyChanged(nameof(AvailableTextSlots));
-            OnPropertyChanged(nameof(AvailableTimerSlots));
-            OnPropertyChanged(nameof(AvailableButtonSlots));
+            OnPropertyChanged(nameof(AvailableAssetPlugs));
+            OnPropertyChanged(nameof(AvailableTextPlugs));
+            OnPropertyChanged(nameof(AvailableTimerPlugs));
+            OnPropertyChanged(nameof(AvailableButtonPlugs));
 
             ShowSecretSolutionsCommand = new RelayCommand(ShowSecretSolutionsEditor);
             ShowPrivateRepositoriesCommand = new RelayCommand(ShowPrivateRepositoriesEditor);
-            ShowCustomTextSlotsEditorCommand = new RelayCommand(ShowCustomTextSlotsEditor);
+            ShowCustomTextPlugsEditorCommand = new RelayCommand(ShowCustomTextPlugsEditor);
         }
 
         private void ShowSecretSolutionsEditor(object parameter)
@@ -263,15 +262,15 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             OnPropertyChanged(nameof(PrivateRepository));
         }
 
-        private void ShowCustomTextSlotsEditor(object paramter)
+        private void ShowCustomTextPlugsEditor(object parameter)
         {
-            IEnumerable<CustomTextSlotData> customSlotsData = _slotService.GetCustomTextSlotsData();
+            IEnumerable<CustomTextPlugData> customTextPlugsData = _plugService.GetCustomTextPlugsData();
 
-            var viewModel = new CustomTextSlotsEditorViewModel(customSlotsData);
-            var view = new CustomTextSlotsEditor(viewModel);
+            var viewModel = new CustomTextPlugsEditorViewModel(customTextPlugsData);
+            var view = new CustomTextPlugsEditor(viewModel);
 
             view.ShowDialog();
-            _slotService.SaveCustomTextSlotsData(viewModel.CustomTextSlots);
+            _plugService.SaveCustomTextPlugsData(viewModel.CustomTextPlugs);
         }
     }
 }

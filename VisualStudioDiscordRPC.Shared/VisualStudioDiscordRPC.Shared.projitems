@@ -36,18 +36,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)Observers\GitObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\VariableService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SettingsService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\SlotService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\PlugService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SolutionSecrecyService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RepositorySecrecyService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingsKeys.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseDataSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\AssetSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\BaseSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\ButtonSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\GitRepositoryButtonSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\ButtonSlots\NoneButtonSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\NoneAssetSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\ExtensionIconSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\BaseDataPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\AssetPlugs\BaseAssetPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\BasePlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\ButtonPlugs\BaseButtonPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\ButtonPlugs\GitRepositoryButtonPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\ButtonPlugs\NoneButtonPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\AssetPlugs\NoneAssetPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\AssetPlugs\ExtensionIconPlug.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\ObserverDelegates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\IObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observers\VsObserver.cs" />
@@ -58,31 +58,28 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\LocalizationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Models\XmlLocalizationFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ServiceRepository.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Settings.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConstantStrings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\CustomTextSlotData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\NoneTextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\ProjectNameSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\FileNameTextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\IObservableString.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\ObservableMacro.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\SolutionNameTextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\StringObserver.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\ObservableStringParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\CustomTextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\StaticTextSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\TextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\VisualStudioVersionIconSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TextSlots\VisualStudioVersionTextSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinApplicationTimerSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\NoneTimerSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\TimerSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinFilesTimerSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinProjectsTimerSlot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Slots\TimerSlots\WithinSolutionsTimerSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\CustomTextPlugData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\NoneTextPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\ProjectNameTextPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\FileNameTextPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\IObservableString.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\ObservableVariable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\SolutionNameTextPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\StringObserver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\ObservableStringParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\CustomTextPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\StaticTextSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\BaseTextPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\AssetPlugs\VisualStudioVersionIconPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TextPlugs\VisualStudioVersionTextPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TimerPlugs\ApplicationScopeTimerPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TimerPlugs\NoneTimerPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TimerPlugs\BaseTimerPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TimerPlugs\FileScopeTimerPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TimerPlugs\ProjectScopeTimerPlug.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugs\TimerPlugs\SolutionScopeTimerPlug.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\BaseButtonUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\BaseDiscordRpcUpdater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updaters\Base\BaseDataUpdater.cs" />
@@ -98,15 +95,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\PathHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\SettingsHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\VisualStudioHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\SlotConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\PlugConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\MultiParameterConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomTextSlotsEditorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomTextPlugsEditorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ListEditorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomTextSlotsEditor.xaml.cs">
-      <DependentUpon>CustomTextSlotsEditor.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomTextPlugsEditor.xaml.cs">
+      <DependentUpon>CustomTextPlugsEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ListEditorWindow.xaml.cs">
       <DependentUpon>ListEditorWindow.xaml</DependentUpon>
@@ -117,10 +114,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)VisualStudioDiscordRPCPackage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Slots\AssetSlots\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Plugs\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Views\CustomTextSlotsEditor.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\CustomTextPlugsEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

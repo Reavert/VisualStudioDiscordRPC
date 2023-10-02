@@ -5,7 +5,7 @@ using System.Threading;
 using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
-using VisualStudioDiscordRPC.Shared.Slots;
+using VisualStudioDiscordRPC.Shared.Plugs;
 using VisualStudioDiscordRPC.Shared.Updaters;
 using VisualStudioDiscordRPC.Shared.Updaters.Base;
 
@@ -155,9 +155,9 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        public void SetSlot<TUpdater>(BaseSlot slot) where TUpdater : BaseUpdater
+        public void SetPlug<TUpdater>(BasePlug plug) where TUpdater : BaseUpdater
         {
-            if (slot == null)
+            if (plug == null)
             {
                 return;
             }
@@ -165,7 +165,7 @@ namespace VisualStudioDiscordRPC.Shared
             Type updaterType = typeof(TUpdater);
             BaseUpdater updater = _updaters[updaterType];
 
-            updater.BaseSlot = slot;
+            updater.BasePlug = plug;
 
             if (_enabled)
             {
@@ -174,14 +174,14 @@ namespace VisualStudioDiscordRPC.Shared
 
             if (_discordRpcClient.IsInitialized)
             {
-                slot.Update();
+                plug.Update();
             }
         }
 
-        public BaseSlot GetSlotOfUpdater<TUpdater>()
+        public BasePlug GetPlugOfNest<TUpdater>()
         {
             BaseUpdater updater = _updaters[typeof(TUpdater)];
-            return updater.BaseSlot;
+            return updater.BasePlug;
         }
 
         private void RegisterUpdater(BaseUpdater updater)
@@ -206,7 +206,7 @@ namespace VisualStudioDiscordRPC.Shared
         {
             foreach (BaseUpdater updater in Updaters)
             {
-                updater.BaseSlot?.Update();
+                updater.BasePlug?.Update();
             }
 
             lock (_dirtyFlagSync)

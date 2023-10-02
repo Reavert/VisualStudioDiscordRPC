@@ -13,7 +13,7 @@
         Title="Settings"
         d:DataContext="{d:DesignInstance local:SettingsViewModel}">
     <Window.Resources>
-        <converters:SlotConverter x:Key="SlotConverter"/>
+        <converters:PlugConverter x:Key="PlugConverter"/>
         <converters:MultiParameterConverter x:Key="MultiParameterConverter"/>
     </Window.Resources>
     <StackPanel Margin="2">
@@ -139,83 +139,83 @@
             <StackPanel>
                 <TextBlock Text="Large icon:"/>
                 <ComboBox
-                    ItemsSource="{Binding AvailableAssetSlots}" 
-                    SelectedItem="{Binding LargeIconSlot}"
+                    ItemsSource="{Binding AvailableAssetPlugs}" 
+                    SelectedItem="{Binding LargeIconPlug}"
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource PlugConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="Small icon:"/>
                 <ComboBox 
-                    ItemsSource="{Binding AvailableAssetSlots}"
-                    SelectedItem="{Binding SmallIconSlot}"
+                    ItemsSource="{Binding AvailableAssetPlugs}"
+                    SelectedItem="{Binding SmallIconPlug}"
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource PlugConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="Details text:"/>
                 <ComboBox 
-                    ItemsSource="{Binding AvailableTextSlots}"
-                    SelectedItem="{Binding DetailsSlot}"
+                    ItemsSource="{Binding AvailableTextPlugs}"
+                    SelectedItem="{Binding DetailsPlug}"
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource PlugConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="State text:"/>
                 <ComboBox 
-                    ItemsSource="{Binding AvailableTextSlots}"
-                    SelectedItem="{Binding StateSlot}"
+                    ItemsSource="{Binding AvailableTextPlugs}"
+                    SelectedItem="{Binding StatePlug}"
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource PlugConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Button 
                     Margin="3"
-                    Command="{Binding ShowCustomTextSlotsEditorCommand}">
-                    <TextBlock Text="Custom Text Slots Editor"/>
+                    Command="{Binding ShowCustomTextPlugsEditorCommand}">
+                    <TextBlock Text="Custom Text Plugs Editor"/>
                 </Button>
                 <TextBlock Text="Timer mode:"/>
                 <ComboBox 
-                    ItemsSource="{Binding AvailableTimerSlots}"
-                    SelectedItem="{Binding TimerSlot}"
+                    ItemsSource="{Binding AvailableTimerPlugs}"
+                    SelectedItem="{Binding TimerPlug}"
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource PlugConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="First button:"/>
                 <ComboBox 
-                    ItemsSource="{Binding AvailableButtonSlots}"
-                    SelectedItem="{Binding FirstButtonSlot}"
+                    ItemsSource="{Binding AvailableButtonPlugs}"
+                    SelectedItem="{Binding FirstButtonPlug}"
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource PlugConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="Second button:"/>
                 <ComboBox 
-                    ItemsSource="{Binding AvailableButtonSlots}"
-                    SelectedItem="{Binding SecondButtonSlot}"
+                    ItemsSource="{Binding AvailableButtonPlugs}"
+                    SelectedItem="{Binding SecondButtonPlug}"
                     Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource SlotConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource PlugConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>

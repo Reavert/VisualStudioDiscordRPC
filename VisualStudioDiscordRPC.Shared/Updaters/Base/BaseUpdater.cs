@@ -1,5 +1,5 @@
 ﻿using System;
-using VisualStudioDiscordRPC.Shared.Slots;
+using VisualStudioDiscordRPC.Shared.Plugs;
 
 namespace VisualStudioDiscordRPC.Shared.Updaters.Base
 {
@@ -9,7 +9,7 @@ namespace VisualStudioDiscordRPC.Shared.Updaters.Base
 
         public bool Enabled { get; set; }
 
-        public abstract BaseSlot BaseSlot { get; set; }
+        public abstract BasePlug BasePlug { get; set; }
 
         protected void RaiseOnChangedEvent()
         {

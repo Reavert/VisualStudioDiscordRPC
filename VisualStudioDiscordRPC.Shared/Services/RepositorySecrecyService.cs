@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
+using VisualStudioDiscordRPC.Shared.Plugs.ButtonPlugs;
 using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Services.Models
@@ -11,7 +11,7 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
         private const string SecretRepositoriesFilename = "secret_repositories.json";
 
         private readonly GitObserver _gitObserver;
-        private readonly GitRepositoryButtonSlot[] _gitRepositoryButtonSlots;
+        private readonly GitRepositoryButtonPlug[] _gitRepositoryButtonPlugs;
         private readonly string SecretRepositoriesFilePath;
         private readonly HashSet<string> _secretRepositories;
 
@@ -19,10 +19,10 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         public IReadOnlyCollection<string> SecretRepositories => _secretRepositories;
 
-        public RepositorySecrecyService(GitObserver gitObserver, GitRepositoryButtonSlot[] buttons)
+        public RepositorySecrecyService(GitObserver gitObserver, GitRepositoryButtonPlug[] buttons)
         {
             _gitObserver = gitObserver;
-            _gitRepositoryButtonSlots = buttons;
+            _gitRepositoryButtonPlugs = buttons;
 
             SecretRepositoriesFilePath = Path.Combine(PathHelper.GetApplicationDataPath(), SecretRepositoriesFilename);
             if (!File.Exists(SecretRepositoriesFilePath))
@@ -89,9 +89,9 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
         private void SyncButtonsVisibilityStatus()
         {
             bool isRepositorySecret = _secretRepositories.Contains(_currentRepositoryRemoteUrl);
-            foreach (var gitRepositoryButtonSlot in _gitRepositoryButtonSlots)
+            foreach (var gitRepositoryButtonPlug in _gitRepositoryButtonPlugs)
             {
-                gitRepositoryButtonSlot.IsPrivateRepository = isRepositorySecret;
+                gitRepositoryButtonPlug.IsPrivateRepository = isRepositorySecret;
             }
         }
 

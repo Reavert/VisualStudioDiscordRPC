@@ -10,10 +10,10 @@ using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.ReleaseNotes;
 using VisualStudioDiscordRPC.Shared.Services.Models;
-using VisualStudioDiscordRPC.Shared.Slots.AssetSlots;
-using VisualStudioDiscordRPC.Shared.Slots.ButtonSlots;
-using VisualStudioDiscordRPC.Shared.Slots.TextSlots;
-using VisualStudioDiscordRPC.Shared.Slots.TimerSlots;
+using VisualStudioDiscordRPC.Shared.Plugs.AssetPlugs;
+using VisualStudioDiscordRPC.Shared.Plugs.ButtonPlugs;
+using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
+using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
 using VisualStudioDiscordRPC.Shared.Updaters;
 using VisualStudioDiscordRPC.Shared.Utils;
 
@@ -25,7 +25,7 @@ namespace VisualStudioDiscordRPC.Shared
         private DiscordRpcController _discordRpcController;
         private VsObserver _vsObserver;
         private GitObserver _gitObserver;
-        private SlotService _slotService;
+        private PlugService _plugService;
         private SolutionSecrecyService _solutionPrivateService;
         private RepositorySecrecyService _repositorySecrecyService;
 
@@ -34,7 +34,7 @@ namespace VisualStudioDiscordRPC.Shared
             RegisterServices();
 
             _discordRpcController.Initialize();
-            _slotService.InitSlotsSubscriptions();
+            _plugService.InitPlugsSubscriptions();
             _vsObserver.Observe();
             _gitObserver.Observe();
             _solutionPrivateService.Start();
@@ -59,7 +59,7 @@ namespace VisualStudioDiscordRPC.Shared
         public void Clear()
         {
             _discordRpcController.Dispose();
-            _slotService.ClearSlotsSubscriptions();
+            _plugService.ClearPlugsSubscriptions();
             _vsObserver.Unobserve();
             _gitObserver.Unobserve();
             _solutionPrivateService.Stop();
@@ -96,9 +96,9 @@ namespace VisualStudioDiscordRPC.Shared
             // Registering variable service.
             ServiceRepository.Default.AddService(new VariableService(_vsObserver));
 
-            // Registering slot service.
-            _slotService = new SlotService();
-            ServiceRepository.Default.AddService(_slotService);
+            // Registering plug service.
+            _plugService = new PlugService();
+            ServiceRepository.Default.AddService(_plugService);
 
             // Registering Discord RPC controller.
             int updateTimeout = Convert.ToInt32(_settingsService.Read<long>(SettingsKeys.UpdateTimeout));
@@ -110,7 +110,7 @@ namespace VisualStudioDiscordRPC.Shared
             ServiceRepository.Default.AddService(_solutionPrivateService);
 
             // Registering Repository Secrecy Service.
-            var gitRepositoryButtons = _slotService.GetSlotsOfType<GitRepositoryButtonSlot>().ToArray();
+            var gitRepositoryButtons = _plugService.GetPlugsOfType<GitRepositoryButtonPlug>().ToArray();
             _repositorySecrecyService = new RepositorySecrecyService(_gitObserver, gitRepositoryButtons);
             ServiceRepository.Default.AddService(_repositorySecrecyService);
         }
@@ -119,26 +119,26 @@ namespace VisualStudioDiscordRPC.Shared
         {
             _discordRpcController.Enabled = _settingsService.Read<bool>(SettingsKeys.RichPresenceEnabled);
 
-            string largeIconSlot = _settingsService.Read<string>(SettingsKeys.LargeIconSlot);
-            _discordRpcController.SetSlot<LargeIconUpdater>(_slotService.GetSlotById<AssetSlot>(largeIconSlot));
+            string largeIconPlug = _settingsService.Read<string>(SettingsKeys.LargeIconPlug);
+            _discordRpcController.SetPlug<LargeIconUpdater>(_plugService.GetPlugById<BaseAssetPlug>(largeIconPlug));
 
-            string smallIconSlot = _settingsService.Read<string>(SettingsKeys.SmallIconSlot);
-            _discordRpcController.SetSlot<SmallIconUpdater>(_slotService.GetSlotById<AssetSlot>(smallIconSlot));
+            string smallIconPlug = _settingsService.Read<string>(SettingsKeys.SmallIconPlug);
+            _discordRpcController.SetPlug<SmallIconUpdater>(_plugService.GetPlugById<BaseAssetPlug>(smallIconPlug));
 
-            string detailsSlot = _settingsService.Read<string>(SettingsKeys.DetailsSlot);
-            _discordRpcController.SetSlot<DetailsUpdater>(_slotService.GetSlotById<TextSlot>(detailsSlot));
+            string detailsPlug = _settingsService.Read<string>(SettingsKeys.DetailsPlug);
+            _discordRpcController.SetPlug<DetailsUpdater>(_plugService.GetPlugById<BaseTextPlug>(detailsPlug));
 
-            string stateSlot = _settingsService.Read<string>(SettingsKeys.StateSlot);
-            _discordRpcController.SetSlot<StateUpdater>(_slotService.GetSlotById<TextSlot>(stateSlot));
+            string statePlug = _settingsService.Read<string>(SettingsKeys.StatePlug);
+            _discordRpcController.SetPlug<StateUpdater>(_plugService.GetPlugById<BaseTextPlug>(statePlug));
 
-            string timerSlot = _settingsService.Read<string>(SettingsKeys.TimerSlot);
-            _discordRpcController.SetSlot<TimerUpdater>(_slotService.GetSlotById<TimerSlot>(timerSlot));
+            string timerPlug = _settingsService.Read<string>(SettingsKeys.TimerPlug);
+            _discordRpcController.SetPlug<TimerUpdater>(_plugService.GetPlugById<BaseTimerPlug>(timerPlug));
 
-            string firstButtonSlot = _settingsService.Read<string>(SettingsKeys.FirstButtonSlot);
-            _discordRpcController.SetSlot<FirstButtonUpdater>(_slotService.GetSlotById<ButtonSlot>(firstButtonSlot));
+            string firstButtonPlug = _settingsService.Read<string>(SettingsKeys.FirstButtonPlug);
+            _discordRpcController.SetPlug<FirstButtonUpdater>(_plugService.GetPlugById<BaseButtonPlug>(firstButtonPlug));
 
-            string secondButtonSlot = _settingsService.Read<string>(SettingsKeys.SecondButtonSlot);
-            _discordRpcController.SetSlot<SecondButtonUpdater>(_slotService.GetSlotById<ButtonSlot>(secondButtonSlot));
+            string secondButtonPlug = _settingsService.Read<string>(SettingsKeys.SecondButtonPlug);
+            _discordRpcController.SetPlug<SecondButtonUpdater>(_plugService.GetPlugById<BaseButtonPlug>(secondButtonPlug));
         }
 
         private void DisplayVersionUpdateMessage(string version)
