@@ -1,5 +1,5 @@
 ﻿using EnvDTE;
-using VisualStudioDiscordRPC.Shared.Localization;
+using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.Observers;
 using System.IO;
 

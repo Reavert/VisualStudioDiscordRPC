@@ -1,5 +1,5 @@
 ﻿using System;
-using VisualStudioDiscordRPC.Shared.Macros;
+using VisualStudioDiscordRPC.Shared.Variables;
 
 namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
 {

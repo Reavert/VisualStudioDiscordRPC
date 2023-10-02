@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using VisualStudioDiscordRPC.Shared.Macros;
+using VisualStudioDiscordRPC.Shared.Variables;
 using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Services

@@ -5,55 +5,82 @@
         xmlns:local="clr-namespace:VisualStudioDiscordRPC.Shared.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         mc:Ignorable="d"
-        Width="360"
+        Width="640"
         SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
+        ResizeMode="CanResize"
         Title="Custom Text Plugs Editor"
         d:DataContext="{d:DesignInstance local:CustomTextPlugsEditorViewModel}">
     <StackPanel>
-        <ListView ItemsSource="{Binding Variables}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text=": "/>
-                        <TextBlock Text="{Binding Description}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <DataGrid
-            AutoGenerateColumns="False"
-            MinHeight="40"
-            ItemsSource="{Binding CustomTextPlugs}"
-            SelectedItem="{Binding SelectedItem}">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Name">
-                    <DataGridTemplateColumn.CellTemplate>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="3">
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    MinHeight="40"
+                    ItemsSource="{Binding CustomTextPlugs}"
+                    SelectedItem="{Binding SelectedItem}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Pattern">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Pattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Separator/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding NewCommand}"  Width="60">
+                        <TextBlock Text="New"/>
+                    </Button>
+                    <Button Command="{Binding DeleteCommand}"  Width="60">
+                        <TextBlock Text="Delete"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="3">
+                <TextBlock Text="Available variables:"/>
+                <ListView
+                    ItemsSource="{Binding Variables}">
+                    <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}: {1}">
+                                            <Binding Path="Name" />
+                                            <Binding Path="Description" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
                         </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Pattern">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Pattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Separator/>
-        <StackPanel Orientation="Horizontal">
-            <Button Command="{Binding NewCommand}"  Width="60">
-                <TextBlock Text="New"/>
-            </Button>
-            <Button Command="{Binding DeleteCommand}"  Width="60">
-                <TextBlock Text="Delete"/>
-            </Button>
-        </StackPanel>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Grid>
         <TextBlock TextWrapping="Wrap" Margin="5" Text="* You need to restart Visual Studio to apply changes with custom text plugs"/>
     </StackPanel>
 </Window>

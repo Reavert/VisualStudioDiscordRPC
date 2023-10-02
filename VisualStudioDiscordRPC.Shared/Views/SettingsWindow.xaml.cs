@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using VisualStudioDiscordRPC.Shared.Services.Models;
+using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.ViewModels;
 
 namespace VisualStudioDiscordRPC.Shared
