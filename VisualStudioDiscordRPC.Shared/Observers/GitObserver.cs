@@ -3,9 +3,8 @@ using LibGit2Sharp;
 using System;
 using System.IO;
 using System.Linq;
-using VisualStudioDiscordRPC.Shared.Observers;
 
-namespace VisualStudioDiscordRPC.Shared.Services.Models
+namespace VisualStudioDiscordRPC.Shared.Observers
 {
     public class GitObserver : IObserver
     {

@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace VisualStudioDiscordRPC.Shared.Macros
+namespace VisualStudioDiscordRPC.Shared.Variables
 {
     public abstract class Variable
     {
-        public abstract string GetData();
         public event EventHandler<string> Changed;
+
+        public abstract string GetData();
 
         protected void RaiseChangedEvent()
         {

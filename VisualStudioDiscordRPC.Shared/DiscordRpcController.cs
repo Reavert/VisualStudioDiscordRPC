@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using VisualStudioDiscordRPC.Shared.Localization;
-using VisualStudioDiscordRPC.Shared.Localization.Models;
-using VisualStudioDiscordRPC.Shared.Services.Models;
+using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.Plugs;
 using VisualStudioDiscordRPC.Shared.Nests;
 using VisualStudioDiscordRPC.Shared.Nests.Base;

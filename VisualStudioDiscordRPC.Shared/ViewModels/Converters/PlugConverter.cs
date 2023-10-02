@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using VisualStudioDiscordRPC.Shared.Localization;
-using VisualStudioDiscordRPC.Shared.Services.Models;
+using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels.Converters

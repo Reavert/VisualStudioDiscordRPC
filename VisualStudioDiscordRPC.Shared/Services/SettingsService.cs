@@ -7,7 +7,7 @@ using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
 using VisualStudioDiscordRPC.Shared.Utils;
 
-namespace VisualStudioDiscordRPC.Shared.Services.Models
+namespace VisualStudioDiscordRPC.Shared.Services
 {
     public class SettingsService
     {

@@ -2,7 +2,7 @@
 using EnvDTE80;
 using System;
 
-namespace VisualStudioDiscordRPC.Shared.Macros
+namespace VisualStudioDiscordRPC.Shared.Variables
 {
     public class DebugModeVariable : Variable
     {

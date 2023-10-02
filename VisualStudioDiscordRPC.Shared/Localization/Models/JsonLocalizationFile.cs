@@ -1,10 +1,10 @@
-﻿namespace VisualStudioDiscordRPC.Shared.Localization.Models
-{
-    using Newtonsoft.Json;
-    using System.Collections.Generic;
-    using System.IO;
-    using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
 
+namespace VisualStudioDiscordRPC.Shared.Localization.Models
+{
     public class JsonLocalizationFile : ILocalizationFile
     {
         public string LanguageName { get; }

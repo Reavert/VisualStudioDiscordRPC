@@ -1,6 +1,6 @@
 ﻿using EnvDTE;
 
-namespace VisualStudioDiscordRPC.Shared.Macros
+namespace VisualStudioDiscordRPC.Shared.Variables
 {
     public class EditionVariable : Variable
     {

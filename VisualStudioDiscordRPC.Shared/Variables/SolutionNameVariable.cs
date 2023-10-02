@@ -1,9 +1,8 @@
 ﻿using EnvDTE;
-using System;
 using System.IO;
 using VisualStudioDiscordRPC.Shared.Observers;
 
-namespace VisualStudioDiscordRPC.Shared.Macros
+namespace VisualStudioDiscordRPC.Shared.Variables
 {
     public class SolutionNameVariable : Variable
     {

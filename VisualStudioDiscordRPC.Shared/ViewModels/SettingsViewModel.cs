@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
 using VisualStudioDiscordRPC.Shared.Observers;
-using VisualStudioDiscordRPC.Shared.Services.Models;
+using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.Plugs.AssetPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.ButtonPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;

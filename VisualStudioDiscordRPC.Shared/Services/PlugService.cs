@@ -7,17 +7,15 @@ using VisualStudioDiscordRPC.Shared.AssetMap.Interfaces;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets;
 using VisualStudioDiscordRPC.Shared.AssetMap.Models.Loaders;
-using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Plugs;
 using VisualStudioDiscordRPC.Shared.Plugs.AssetPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.ButtonPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
-using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
 using VisualStudioDiscordRPC.Shared.Utils;
 
-namespace VisualStudioDiscordRPC.Shared.Services.Models
+namespace VisualStudioDiscordRPC.Shared.Services
 {
     public class PlugService
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using VisualStudioDiscordRPC.Shared.Services.Models;
+using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VisualStudioDiscordRPC.Shared.Services.Models
+namespace VisualStudioDiscordRPC.Shared.Services
 {
     public class ServiceRepository
     {

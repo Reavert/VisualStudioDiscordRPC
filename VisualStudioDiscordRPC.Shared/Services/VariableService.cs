@@ -2,7 +2,7 @@
 using VisualStudioDiscordRPC.Shared.Macros;
 using VisualStudioDiscordRPC.Shared.Observers;
 
-namespace VisualStudioDiscordRPC.Shared.Services.Models
+namespace VisualStudioDiscordRPC.Shared.Services
 {
     public class VariableDescriptor
     {
@@ -25,8 +25,6 @@ namespace VisualStudioDiscordRPC.Shared.Services.Models
 
         public VariableService(VsObserver vsObserver)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             _vsObserver = vsObserver;
 
             RegisterVariable("file_name", "The name of current active file", new FileNameVariable(_vsObserver));

@@ -5,7 +5,7 @@ namespace VisualStudioDiscordRPC.Shared.ReleaseNotes
 {
     public class ReleaseNotesParser
     {
-        private StringReader _reader;
+        private readonly StringReader _reader;
 
         public ReleaseNotesParser(string releaseNotesText)
         {

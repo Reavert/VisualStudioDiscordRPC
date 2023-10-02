@@ -1,6 +1,4 @@
-﻿using DiscordRPC;
-
-namespace VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs
+﻿namespace VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs
 {
     public class ApplicationScopeTimerPlug : BaseTimerPlug
     {

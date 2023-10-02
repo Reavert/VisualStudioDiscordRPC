@@ -1,5 +1,5 @@
 ﻿using VisualStudioDiscordRPC.Shared.Data;
-using VisualStudioDiscordRPC.Shared.Services.Models;
+using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared.Plugs.ButtonPlugs
 {

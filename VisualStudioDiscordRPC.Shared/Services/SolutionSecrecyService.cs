@@ -5,7 +5,7 @@ using System.IO;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Utils;
 
-namespace VisualStudioDiscordRPC.Shared.Services.Models
+namespace VisualStudioDiscordRPC.Shared.Services
 {
     public class SolutionSecrecyService
     {

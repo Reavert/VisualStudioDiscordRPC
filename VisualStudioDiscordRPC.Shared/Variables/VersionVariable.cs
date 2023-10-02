@@ -1,7 +1,7 @@
 ﻿using EnvDTE;
 using VisualStudioDiscordRPC.Shared.Utils;
 
-namespace VisualStudioDiscordRPC.Shared.Macros
+namespace VisualStudioDiscordRPC.Shared.Variables
 {
     public class VersionVariable : Variable
     {

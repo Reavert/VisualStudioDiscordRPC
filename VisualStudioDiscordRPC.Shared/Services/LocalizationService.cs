@@ -6,7 +6,7 @@ using System.IO;
 using VisualStudioDiscordRPC.Shared.Localization.Interfaces;
 using System.Linq;
 
-namespace VisualStudioDiscordRPC.Shared.Localization
+namespace VisualStudioDiscordRPC.Shared.Services
 {
     public class LocalizationService
     {

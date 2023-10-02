@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Plugs.ButtonPlugs;
 using VisualStudioDiscordRPC.Shared.Utils;
 
-namespace VisualStudioDiscordRPC.Shared.Services.Models
+namespace VisualStudioDiscordRPC.Shared.Services
 {
     public class RepositorySecrecyService
     {

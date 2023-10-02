@@ -1,6 +1,4 @@
-﻿using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
-
-namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
+﻿namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
 {
     public class CustomTextPlug : BaseTextPlug
     {

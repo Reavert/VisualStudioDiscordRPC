@@ -56,8 +56,6 @@ namespace VisualStudioDiscordRPC.Shared
             _controller = new PackageController();
             _controller.Init();
 
-
-
             await SettingsCommand.InitializeAsync(this);
         }
 
