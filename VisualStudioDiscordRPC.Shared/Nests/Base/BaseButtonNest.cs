@@ -3,16 +3,16 @@ using System;
 using DiscordRPC;
 using VisualStudioDiscordRPC.Shared.Data;
 
-namespace VisualStudioDiscordRPC.Shared.Updaters.Base
+namespace VisualStudioDiscordRPC.Shared.Nests.Base
 {
-    public abstract class BaseButtonUpdater : BaseDiscordRpcUpdater<ButtonInfo>
+    public abstract class BaseButtonNest : BaseDiscordRpcNest<ButtonInfo>
     {
         private readonly static Button FirstButton = new Button();
         private readonly static Button SecondButton = new Button();
 
         private readonly static List<Button> Buttons = new List<Button>();
 
-        protected BaseButtonUpdater(RichPresence richPresence) : base(richPresence)
+        protected BaseButtonNest(RichPresence richPresence) : base(richPresence)
         { }
 
         protected void SetButton(int index, ButtonInfo buttonInfo)

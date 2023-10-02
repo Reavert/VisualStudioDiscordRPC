@@ -6,8 +6,8 @@ using VisualStudioDiscordRPC.Shared.Localization;
 using VisualStudioDiscordRPC.Shared.Localization.Models;
 using VisualStudioDiscordRPC.Shared.Services.Models;
 using VisualStudioDiscordRPC.Shared.Plugs;
-using VisualStudioDiscordRPC.Shared.Updaters;
-using VisualStudioDiscordRPC.Shared.Updaters.Base;
+using VisualStudioDiscordRPC.Shared.Nests;
+using VisualStudioDiscordRPC.Shared.Nests.Base;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -39,9 +39,9 @@ namespace VisualStudioDiscordRPC.Shared
             {
                 _enabled = value;
 
-                foreach (BaseUpdater updater in Updaters)
+                foreach (BaseNest nest in Nests)
                 {
-                    updater.Enabled = value;
+                    nest.Enabled = value;
                 }
 
                 if (_discordRpcClient.IsInitialized)
@@ -69,8 +69,8 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        private Dictionary<Type, BaseUpdater> _updaters = new Dictionary<Type, BaseUpdater>();
-        public IEnumerable<BaseUpdater> Updaters => _updaters.Values;
+        private readonly Dictionary<Type, BaseNest> _nests = new Dictionary<Type, BaseNest>();
+        public IEnumerable<BaseNest> Nests => _nests.Values;
 
         static DiscordRpcController()
         {
@@ -107,16 +107,16 @@ namespace VisualStudioDiscordRPC.Shared
                 }
             };
             
-            RegisterUpdater(new LargeIconUpdater(_sharedRichPresence));
-            RegisterUpdater(new SmallIconUpdater(_sharedRichPresence));
+            RegisterNest(new LargeIconNest(_sharedRichPresence));
+            RegisterNest(new SmallIconNest(_sharedRichPresence));
 
-            RegisterUpdater(new DetailsUpdater(_sharedRichPresence));
-            RegisterUpdater(new StateUpdater(_sharedRichPresence));
+            RegisterNest(new DetailsNest(_sharedRichPresence));
+            RegisterNest(new StateNest(_sharedRichPresence));
 
-            RegisterUpdater(new TimerUpdater(_sharedRichPresence));
+            RegisterNest(new TimerNest(_sharedRichPresence));
 
-            RegisterUpdater(new FirstButtonUpdater(_sharedRichPresence));
-            RegisterUpdater(new SecondButtonUpdater(_sharedRichPresence));
+            RegisterNest(new FirstButtonNest(_sharedRichPresence));
+            RegisterNest(new SecondButtonNest(_sharedRichPresence));
 
             _sendingRichPresenceDataThread = new Thread(SendRichPresenceData);
             _sendDataMillisecondsTimeout = updateMillisecondsTimeout;
@@ -133,9 +133,9 @@ namespace VisualStudioDiscordRPC.Shared
 
             _sendingRichPresenceDataThread.Start();
 
-            foreach (BaseUpdater updater in Updaters)
+            foreach (BaseNest nest in Nests)
             {
-                updater.Changed += OnUpdaterChanged;
+                nest.Changed += OnNestChanged;
             }
         }
 
@@ -143,9 +143,9 @@ namespace VisualStudioDiscordRPC.Shared
         {
             _localizationService.LocalizationChanged -= OnLocalizationChanged;
 
-            foreach (BaseUpdater updater in Updaters)
+            foreach (BaseNest nest in Nests)
             {
-                updater.Changed -= OnUpdaterChanged;
+                nest.Changed -= OnNestChanged;
             }
 
             lock (_richPresenceSync)
@@ -155,21 +155,21 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        public void SetPlug<TUpdater>(BasePlug plug) where TUpdater : BaseUpdater
+        public void SetPlug<TNest>(BasePlug plug) where TNest : BaseNest
         {
             if (plug == null)
             {
                 return;
             }
 
-            Type updaterType = typeof(TUpdater);
-            BaseUpdater updater = _updaters[updaterType];
+            Type nestType = typeof(TNest);
+            BaseNest nest = _nests[nestType];
 
-            updater.BasePlug = plug;
+            nest.BasePlug = plug;
 
             if (_enabled)
             {
-                updater.Enabled = true;
+                nest.Enabled = true;
             }
 
             if (_discordRpcClient.IsInitialized)
@@ -178,15 +178,15 @@ namespace VisualStudioDiscordRPC.Shared
             }
         }
 
-        public BasePlug GetPlugOfNest<TUpdater>()
+        public BasePlug GetPlugOfNest<TNest>()
         {
-            BaseUpdater updater = _updaters[typeof(TUpdater)];
-            return updater.BasePlug;
+            BaseNest nest = _nests[typeof(TNest)];
+            return nest.BasePlug;
         }
 
-        private void RegisterUpdater(BaseUpdater updater)
+        private void RegisterNest(BaseNest nest)
         {
-            _updaters.Add(updater.GetType(), updater);
+            _nests.Add(nest.GetType(), nest);
         }
 
         private void OnLocalizationChanged()
@@ -194,7 +194,7 @@ namespace VisualStudioDiscordRPC.Shared
             RefreshAll();
         }
 
-        private void OnUpdaterChanged()
+        private void OnNestChanged()
         {
             lock (_dirtyFlagSync)
             {
@@ -204,9 +204,9 @@ namespace VisualStudioDiscordRPC.Shared
 
         public void RefreshAll()
         {
-            foreach (BaseUpdater updater in Updaters)
+            foreach (BaseNest nest in Nests)
             {
-                updater.BasePlug?.Update();
+                nest.BasePlug?.Update();
             }
 
             lock (_dirtyFlagSync)

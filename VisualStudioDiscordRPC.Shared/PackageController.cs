@@ -14,7 +14,7 @@ using VisualStudioDiscordRPC.Shared.Plugs.AssetPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.ButtonPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
-using VisualStudioDiscordRPC.Shared.Updaters;
+using VisualStudioDiscordRPC.Shared.Nests;
 using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared
@@ -120,25 +120,25 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController.Enabled = _settingsService.Read<bool>(SettingsKeys.RichPresenceEnabled);
 
             string largeIconPlug = _settingsService.Read<string>(SettingsKeys.LargeIconPlug);
-            _discordRpcController.SetPlug<LargeIconUpdater>(_plugService.GetPlugById<BaseAssetPlug>(largeIconPlug));
+            _discordRpcController.SetPlug<LargeIconNest>(_plugService.GetPlugById<BaseAssetPlug>(largeIconPlug));
 
             string smallIconPlug = _settingsService.Read<string>(SettingsKeys.SmallIconPlug);
-            _discordRpcController.SetPlug<SmallIconUpdater>(_plugService.GetPlugById<BaseAssetPlug>(smallIconPlug));
+            _discordRpcController.SetPlug<SmallIconNest>(_plugService.GetPlugById<BaseAssetPlug>(smallIconPlug));
 
             string detailsPlug = _settingsService.Read<string>(SettingsKeys.DetailsPlug);
-            _discordRpcController.SetPlug<DetailsUpdater>(_plugService.GetPlugById<BaseTextPlug>(detailsPlug));
+            _discordRpcController.SetPlug<DetailsNest>(_plugService.GetPlugById<BaseTextPlug>(detailsPlug));
 
             string statePlug = _settingsService.Read<string>(SettingsKeys.StatePlug);
-            _discordRpcController.SetPlug<StateUpdater>(_plugService.GetPlugById<BaseTextPlug>(statePlug));
+            _discordRpcController.SetPlug<StateNest>(_plugService.GetPlugById<BaseTextPlug>(statePlug));
 
             string timerPlug = _settingsService.Read<string>(SettingsKeys.TimerPlug);
-            _discordRpcController.SetPlug<TimerUpdater>(_plugService.GetPlugById<BaseTimerPlug>(timerPlug));
+            _discordRpcController.SetPlug<TimerNest>(_plugService.GetPlugById<BaseTimerPlug>(timerPlug));
 
             string firstButtonPlug = _settingsService.Read<string>(SettingsKeys.FirstButtonPlug);
-            _discordRpcController.SetPlug<FirstButtonUpdater>(_plugService.GetPlugById<BaseButtonPlug>(firstButtonPlug));
+            _discordRpcController.SetPlug<FirstButtonNest>(_plugService.GetPlugById<BaseButtonPlug>(firstButtonPlug));
 
             string secondButtonPlug = _settingsService.Read<string>(SettingsKeys.SecondButtonPlug);
-            _discordRpcController.SetPlug<SecondButtonUpdater>(_plugService.GetPlugById<BaseButtonPlug>(secondButtonPlug));
+            _discordRpcController.SetPlug<SecondButtonNest>(_plugService.GetPlugById<BaseButtonPlug>(secondButtonPlug));
         }
 
         private void DisplayVersionUpdateMessage(string version)

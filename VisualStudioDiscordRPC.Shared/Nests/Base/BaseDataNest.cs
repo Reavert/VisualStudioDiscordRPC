@@ -1,8 +1,8 @@
 ﻿using VisualStudioDiscordRPC.Shared.Plugs;
 
-namespace VisualStudioDiscordRPC.Shared.Updaters.Base
+namespace VisualStudioDiscordRPC.Shared.Nests.Base
 {
-    public abstract class BaseDataUpdater<TData> : BaseUpdater
+    public abstract class BaseDataNest<TData> : BaseNest
     {
         private BaseDataPlug<TData> _installedPlug;
 

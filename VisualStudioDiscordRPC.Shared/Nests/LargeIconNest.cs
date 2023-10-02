@@ -1,12 +1,12 @@
 ﻿using DiscordRPC;
 using VisualStudioDiscordRPC.Shared.Data;
-using VisualStudioDiscordRPC.Shared.Updaters.Base;
+using VisualStudioDiscordRPC.Shared.Nests.Base;
 
-namespace VisualStudioDiscordRPC.Shared.Updaters
+namespace VisualStudioDiscordRPC.Shared.Nests
 {
-    public class LargeIconUpdater : BaseDiscordRpcUpdater<AssetInfo>
+    public class LargeIconNest : BaseDiscordRpcNest<AssetInfo>
     {
-        public LargeIconUpdater(RichPresence richPresence) : base(richPresence) 
+        public LargeIconNest(RichPresence richPresence) : base(richPresence) 
         { }
 
         protected override void Update(AssetInfo data)

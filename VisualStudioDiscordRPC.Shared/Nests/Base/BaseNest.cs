@@ -1,9 +1,9 @@
 ﻿using System;
 using VisualStudioDiscordRPC.Shared.Plugs;
 
-namespace VisualStudioDiscordRPC.Shared.Updaters.Base
+namespace VisualStudioDiscordRPC.Shared.Nests.Base
 {
-    public abstract class BaseUpdater
+    public abstract class BaseNest
     {
         public event Action Changed;
 

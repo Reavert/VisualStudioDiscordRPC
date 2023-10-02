@@ -8,7 +8,7 @@ using VisualStudioDiscordRPC.Shared.Plugs.AssetPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.ButtonPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
-using VisualStudioDiscordRPC.Shared.Updaters;
+using VisualStudioDiscordRPC.Shared.Nests;
 using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
@@ -129,11 +129,11 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public BaseAssetPlug LargeIconPlug
         {
-            get => (BaseAssetPlug) _discordRpcController.GetPlugOfNest<LargeIconUpdater>();
+            get => (BaseAssetPlug) _discordRpcController.GetPlugOfNest<LargeIconNest>();
             set
             {
                 _settingsService.Set(SettingsKeys.LargeIconPlug, value.GetId());
-                _discordRpcController.SetPlug<LargeIconUpdater>(value);
+                _discordRpcController.SetPlug<LargeIconNest>(value);
 
                 OnPropertyChanged(nameof(LargeIconPlug));
             }
@@ -141,11 +141,11 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public BaseAssetPlug SmallIconPlug
         {
-            get => (BaseAssetPlug) _discordRpcController.GetPlugOfNest<SmallIconUpdater>();
+            get => (BaseAssetPlug) _discordRpcController.GetPlugOfNest<SmallIconNest>();
             set
             {
                 _settingsService.Set(SettingsKeys.SmallIconPlug, value.GetId());
-                _discordRpcController.SetPlug<SmallIconUpdater>(value);
+                _discordRpcController.SetPlug<SmallIconNest>(value);
 
                 OnPropertyChanged(nameof(SmallIconPlug));
             }
@@ -153,11 +153,11 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public BaseTextPlug StatePlug
         {
-            get => (BaseTextPlug)_discordRpcController.GetPlugOfNest<StateUpdater>();
+            get => (BaseTextPlug)_discordRpcController.GetPlugOfNest<StateNest>();
             set
             {
                 _settingsService.Set(SettingsKeys.StatePlug, value.GetId());
-                _discordRpcController.SetPlug<StateUpdater>(value);
+                _discordRpcController.SetPlug<StateNest>(value);
 
                 OnPropertyChanged(nameof(StatePlug));
             }
@@ -165,11 +165,11 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public BaseTextPlug DetailsPlug
         {
-            get => (BaseTextPlug) _discordRpcController.GetPlugOfNest<DetailsUpdater>();
+            get => (BaseTextPlug) _discordRpcController.GetPlugOfNest<DetailsNest>();
             set
             {
                 _settingsService.Set(SettingsKeys.DetailsPlug, value.GetId());
-                _discordRpcController.SetPlug<DetailsUpdater>(value);
+                _discordRpcController.SetPlug<DetailsNest>(value);
 
                 OnPropertyChanged(nameof(DetailsPlug));
             }
@@ -177,11 +177,11 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public BaseTimerPlug TimerPlug
         {
-            get => (BaseTimerPlug) _discordRpcController.GetPlugOfNest<TimerUpdater>();
+            get => (BaseTimerPlug) _discordRpcController.GetPlugOfNest<TimerNest>();
             set
             {
                 _settingsService.Set(SettingsKeys.TimerPlug, value.GetId());
-                _discordRpcController.SetPlug<TimerUpdater>(value);
+                _discordRpcController.SetPlug<TimerNest>(value);
 
                 OnPropertyChanged(nameof(TimerPlug));
             }
@@ -189,11 +189,11 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public BaseButtonPlug FirstButtonPlug
         {
-            get => (BaseButtonPlug) _discordRpcController.GetPlugOfNest<FirstButtonUpdater>();
+            get => (BaseButtonPlug) _discordRpcController.GetPlugOfNest<FirstButtonNest>();
             set
             {
                 _settingsService.Set(SettingsKeys.FirstButtonPlug, value.GetId());
-                _discordRpcController.SetPlug<FirstButtonUpdater>(value);
+                _discordRpcController.SetPlug<FirstButtonNest>(value);
 
                 OnPropertyChanged(nameof(FirstButtonPlug));
             }
@@ -201,11 +201,11 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         public BaseButtonPlug SecondButtonPlug
         {
-            get => (BaseButtonPlug) _discordRpcController.GetPlugOfNest<SecondButtonUpdater>();
+            get => (BaseButtonPlug) _discordRpcController.GetPlugOfNest<SecondButtonNest>();
             set
             {
                 _settingsService.Set(SettingsKeys.SecondButtonPlug, value.GetId());
-                _discordRpcController.SetPlug<SecondButtonUpdater>(value);
+                _discordRpcController.SetPlug<SecondButtonNest>(value);
 
                 OnPropertyChanged(nameof(SecondButtonPlug));
             }
