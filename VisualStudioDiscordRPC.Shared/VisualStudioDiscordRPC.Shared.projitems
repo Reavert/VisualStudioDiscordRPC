@@ -98,6 +98,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\PlugConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Converters\MultiParameterConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomTextPlugsEditorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomTextPlugViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ListEditorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />

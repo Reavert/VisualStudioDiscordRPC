@@ -4,16 +4,16 @@ using System.Text;
 
 namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
 {
-    public class StringObserver
+    public class StringObserver : IDisposable
     {
         public event Action Changed;
 
-        private readonly List<IObservableString> _textSources = new List<IObservableString>();
+        private readonly List<IObservableString> _observableStrings = new List<IObservableString>();
         private readonly StringBuilder _stringBuilder = new StringBuilder();
 
         public void AddText(IObservableString textSource)
         {
-            _textSources.Add(textSource);
+            _observableStrings.Add(textSource);
             textSource.Changed += OnAnyTextSourceChanged;
         }
 
@@ -21,6 +21,12 @@ namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
         {
             var staticTextSource = new StaticTextSource(staticText);
             AddText(staticTextSource);
+        }
+
+        public void Dispose()
+        {
+            foreach (IObservableString observableString in _observableStrings)
+                observableString.Changed -= OnAnyTextSourceChanged;
         }
 
         private void OnAnyTextSourceChanged()
@@ -32,7 +38,7 @@ namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
         {
             _stringBuilder.Clear();
 
-            foreach (IObservableString textSource in _textSources)
+            foreach (IObservableString textSource in _observableStrings)
             {
                 _stringBuilder.Append(textSource.Text);
             }

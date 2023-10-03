@@ -69,6 +69,28 @@ namespace VisualStudioDiscordRPC.Shared.Services
                 .ToList();
         }
 
+        public void CreateCustomTextPlug(string name, string pattern)
+        {
+            CustomTextPlug customTextPlug = new CustomTextPlug(GenerateUniqueCustomTextPlugId(), name);
+
+            customTextPlug.SetPattern(pattern);
+            customTextPlug.Enable();
+
+            _plugs.Add(customTextPlug);
+        }
+
+        public void DeleteCustomTextPlug(string id)
+        {
+            var plug = GetPlugById<CustomTextPlug>(id);
+            if (plug == null)
+                return;
+
+            plug.Disable();
+            plug.ClearObserver();
+
+            _plugs.Remove(plug);
+        }
+
         public IReadOnlyList<CustomTextPlugData> GetCustomTextPlugsData()
         {
             var appDataPath = PathHelper.GetApplicationDataPath();
@@ -87,8 +109,12 @@ namespace VisualStudioDiscordRPC.Shared.Services
             return customTextPlugsData;
         }
 
-        public void SaveCustomTextPlugsData(IEnumerable<CustomTextPlugData> data)
+        public void SaveCustomTextPlugsData()
         {
+            var data = _plugs
+                .OfType<CustomTextPlug>()
+                .Select(customTextPlug => new CustomTextPlugData(customTextPlug.GetId(), customTextPlug.Name, customTextPlug.Pattern));
+
             string json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
             var appDataPath = PathHelper.GetApplicationDataPath();
@@ -146,30 +172,14 @@ namespace VisualStudioDiscordRPC.Shared.Services
 
         private void LoadCustomTextPlugs()
         {
-            var customTextPlugsData = GetCustomTextPlugsData();
+            IReadOnlyCollection<CustomTextPlugData> customTextPlugsData = GetCustomTextPlugsData();
 
-            var parser = new ObservableStringParser();
-            foreach (var customTextPlugInfo in customTextPlugsData)
+            foreach (CustomTextPlugData customTextPlugData in customTextPlugsData)
             {
-                var entries = parser.Parse(customTextPlugInfo.Pattern);
-                var stringObserver = new StringObserver();
-                foreach (var entry in entries)
-                {
-                    switch (entry.Type)
-                    {
-                        case ObservableStringParser.EntryType.Text:
-                            stringObserver.AddText(entry.Value);
-                            break;
+                var customTextPlug = new CustomTextPlug(customTextPlugData.Id, customTextPlugData.Name);
+                customTextPlug.SetPattern(customTextPlugData.Pattern);
 
-                        case ObservableStringParser.EntryType.Keyword:
-                            var variable = _variableService.GetVariableByName(entry.Value);
-                            if (variable != null)
-                                stringObserver.AddText(new ObservableVariable(variable));
-                            break;
-                    }
-                }
-
-                _plugs.Add(new CustomTextPlug(customTextPlugInfo.Id, customTextPlugInfo.Name, stringObserver));
+                _plugs.Add(customTextPlug);
             }
         }
 

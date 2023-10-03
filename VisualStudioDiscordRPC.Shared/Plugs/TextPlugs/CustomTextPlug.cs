@@ -1,28 +1,70 @@
-﻿namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
+﻿using VisualStudioDiscordRPC.Shared.Services;
+
+namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
 {
     public class CustomTextPlug : BaseTextPlug
     {
-        public string Name => _name;
-        
-        private readonly string _id;
-        private readonly string _name;
-        private readonly StringObserver _customStringObserver;
+        public string Name
+        {
+            get => _name;
+            set => _name = value;
+        }
+        public string Pattern => _pattern;
 
-        public CustomTextPlug(string id, string name, StringObserver customStringObserver)
+        private readonly string _id;
+        private string _name;
+
+        private string _pattern;
+        private StringObserver _stringObserver;
+
+        private readonly VariableService _variableService = ServiceRepository.Default.GetService<VariableService>();
+
+        public CustomTextPlug(string id, string name)
         {
             _id = id;
             _name = name;
-            _customStringObserver = customStringObserver;
+        }
+        public void SetPattern(string pattern)
+        {
+            _stringObserver?.Dispose();
+
+            var parser = new ObservableStringParser();
+            var entries = parser.Parse(pattern);
+
+            var stringObserver = new StringObserver();
+            foreach (var entry in entries)
+            {
+                switch (entry.Type)
+                {
+                    case ObservableStringParser.EntryType.Text:
+                        stringObserver.AddText(entry.Value);
+                        break;
+
+                    case ObservableStringParser.EntryType.Keyword:
+                        var variable = _variableService.GetVariableByName(entry.Value);
+                        if (variable != null)
+                            stringObserver.AddText(new ObservableVariable(variable));
+                        break;
+                }
+            }
+
+            _stringObserver = stringObserver;
+            _pattern = pattern;
+        }
+
+        public void ClearObserver()
+        {
+            _stringObserver?.Dispose();
         }
 
         public override void Enable()
         {
-            _customStringObserver.Changed += OnStringChanged;
+            _stringObserver.Changed += OnStringChanged;
         }
 
         public override void Disable()
         {
-            _customStringObserver.Changed -= OnStringChanged;
+            _stringObserver.Changed -= OnStringChanged;
         }
 
         public override string GetId()
@@ -32,7 +74,7 @@
 
         protected override string GetData()
         {
-            return _customStringObserver.ToString();
+            return _stringObserver.ToString();
         }
 
         private void OnStringChanged()

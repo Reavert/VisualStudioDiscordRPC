@@ -131,6 +131,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (BaseAssetPlug) _discordRpcController.GetPlugOfNest<LargeIconNest>();
             set
             {
+                if (value == null)
+                    return;
+
                 _settingsService.Set(SettingsKeys.LargeIconPlug, value.GetId());
                 _discordRpcController.SetPlug<LargeIconNest>(value);
 
@@ -143,6 +146,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (BaseAssetPlug) _discordRpcController.GetPlugOfNest<SmallIconNest>();
             set
             {
+                if (value == null)
+                    return;
+
                 _settingsService.Set(SettingsKeys.SmallIconPlug, value.GetId());
                 _discordRpcController.SetPlug<SmallIconNest>(value);
 
@@ -155,6 +161,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (BaseTextPlug)_discordRpcController.GetPlugOfNest<StateNest>();
             set
             {
+                if (value == null)
+                    return;
+
                 _settingsService.Set(SettingsKeys.StatePlug, value.GetId());
                 _discordRpcController.SetPlug<StateNest>(value);
 
@@ -167,6 +176,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (BaseTextPlug) _discordRpcController.GetPlugOfNest<DetailsNest>();
             set
             {
+                if (value == null)
+                    return;
+
                 _settingsService.Set(SettingsKeys.DetailsPlug, value.GetId());
                 _discordRpcController.SetPlug<DetailsNest>(value);
 
@@ -179,6 +191,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (BaseTimerPlug) _discordRpcController.GetPlugOfNest<TimerNest>();
             set
             {
+                if (value == null)
+                    return;
+
                 _settingsService.Set(SettingsKeys.TimerPlug, value.GetId());
                 _discordRpcController.SetPlug<TimerNest>(value);
 
@@ -191,6 +206,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (BaseButtonPlug) _discordRpcController.GetPlugOfNest<FirstButtonNest>();
             set
             {
+                if (value == null)
+                    return;
+
                 _settingsService.Set(SettingsKeys.FirstButtonPlug, value.GetId());
                 _discordRpcController.SetPlug<FirstButtonNest>(value);
 
@@ -203,6 +221,9 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             get => (BaseButtonPlug) _discordRpcController.GetPlugOfNest<SecondButtonNest>();
             set
             {
+                if (value == null)
+                    return;
+
                 _settingsService.Set(SettingsKeys.SecondButtonPlug, value.GetId());
                 _discordRpcController.SetPlug<SecondButtonNest>(value);
 
@@ -263,13 +284,15 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
 
         private void ShowCustomTextPlugsEditor(object parameter)
         {
-            IEnumerable<CustomTextPlugData> customTextPlugsData = _plugService.GetCustomTextPlugsData();
-
-            var viewModel = new CustomTextPlugsEditorViewModel(customTextPlugsData);
+            var viewModel = new CustomTextPlugsEditorViewModel();
             var view = new CustomTextPlugsEditor(viewModel);
 
             view.ShowDialog();
-            _plugService.SaveCustomTextPlugsData(viewModel.CustomTextPlugs);
+
+            _plugService.SaveCustomTextPlugsData();
+            _discordRpcController.RefreshAll();
+
+            OnPropertyChanged(nameof(AvailableTextPlugs));
         }
     }
 }

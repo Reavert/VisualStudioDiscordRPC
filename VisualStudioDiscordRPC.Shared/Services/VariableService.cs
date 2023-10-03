@@ -37,8 +37,10 @@ namespace VisualStudioDiscordRPC.Shared.Services
 
         public Variable GetVariableByName(string name)
         {
-            _variables.TryGetValue(name, out var variable);
-            return variable.Variable;
+            if (_variables.TryGetValue(name, out var variable))
+                return variable.Variable;
+            
+            return null;
         }
 
         public IReadOnlyCollection<VariableDescriptor> GetVariables() => _variables.Values;
