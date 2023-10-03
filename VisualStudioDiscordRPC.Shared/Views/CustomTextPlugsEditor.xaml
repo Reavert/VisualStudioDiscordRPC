@@ -81,6 +81,7 @@
                 </ListView>
             </StackPanel>
         </Grid>
-        <TextBlock TextWrapping="Wrap" Margin="5" Text="* You need to restart Visual Studio to apply changes with custom text plugs"/>
+        <TextBlock TextWrapping="Wrap" Margin="5" Text="Pattern example: 'File: {file_name}'"/>
+        <TextBlock TextWrapping="Wrap" Margin="5" Text="* The changes will be applied after the window is closed"/>
     </StackPanel>
 </Window>
