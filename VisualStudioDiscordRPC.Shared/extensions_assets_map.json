@@ -8,7 +8,7 @@
     {
       "name": "C++",
       "key": "cpp_file",
-      "extensions": [ ".cpp", ".c++", ".cc", ".cxx" ]
+      "extensions": [ ".cpp", ".c++", ".cc", ".cxx", ".ixx" ]
     },
     {
       "name": "Header file",
