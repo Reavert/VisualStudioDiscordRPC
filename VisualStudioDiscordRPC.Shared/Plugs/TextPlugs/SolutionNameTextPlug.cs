@@ -2,6 +2,7 @@
 using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.Observers;
 using System.IO;
+using System;
 
 namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
 {
@@ -40,12 +41,18 @@ namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
+            string noActiveSolutionString = _localizationService.Localize(LocalizationKeys.NoActiveSolution);
             if (_solution == null)
             {
-                return _localizationService.Localize(LocalizationKeys.NoActiveSolution);
+                return noActiveSolutionString;
+            }
+            
+            string solutionName = Path.GetFileNameWithoutExtension(_solution.FullName);
+            if (string.IsNullOrEmpty(solutionName))
+            {
+                return noActiveSolutionString;
             }
 
-            string solutionName = Path.GetFileNameWithoutExtension(_solution.FullName);
             return string.Format("{0} {1}", _localizationService.Localize(LocalizationKeys.Solution), solutionName);
         }
     }
