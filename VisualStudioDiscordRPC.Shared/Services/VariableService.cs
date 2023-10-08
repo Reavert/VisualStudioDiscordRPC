@@ -27,12 +27,12 @@ namespace VisualStudioDiscordRPC.Shared.Services
         {
             _vsObserver = vsObserver;
 
-            RegisterVariable("file_name", "The name of current active file", new FileNameVariable(_vsObserver));
-            RegisterVariable("project_name", "The name of current active project", new ProjectNameVariable(_vsObserver));
-            RegisterVariable("solution_name", "The name of current actie solution", new SolutionNameVariable(_vsObserver));
-            RegisterVariable("version", "The version of Visual Studio", new VersionVariable(_vsObserver.DTE));
-            RegisterVariable("edition", "The edition of Visual Studio", new EditionVariable(_vsObserver.DTE));
-            RegisterVariable("debug_mode", "The current debugging mode", new DebugModeVariable(_vsObserver.DTE));
+            RegisterVariable("file_name", "Name of the currently active file", new FileNameVariable(_vsObserver));
+            RegisterVariable("project_name", "Name of the currently active project", new ProjectNameVariable(_vsObserver));
+            RegisterVariable("solution_name", "Name of the currently active solution", new SolutionNameVariable(_vsObserver));
+            RegisterVariable("version", "Current version of Visual Studio", new VersionVariable(_vsObserver.DTE));
+            RegisterVariable("edition", "Current edition of Visual Studio", new EditionVariable(_vsObserver.DTE));
+            RegisterVariable("debug_mode", "Current project debugging mode", new DebugModeVariable(_vsObserver.DTE));
         }
 
         public Variable GetVariableByName(string name)
