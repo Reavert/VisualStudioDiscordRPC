@@ -1,13 +1,13 @@
-﻿using EnvDTE;
+﻿using EnvDTE80;
 using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
 {
     public class VisualStudioVersionTextPlug : BaseTextPlug
     {
-        private readonly DTE _dte;
+        private readonly DTE2 _dte;
 
-        public VisualStudioVersionTextPlug(DTE dte) 
+        public VisualStudioVersionTextPlug(DTE2 dte) 
         {
             _dte = dte;
         }

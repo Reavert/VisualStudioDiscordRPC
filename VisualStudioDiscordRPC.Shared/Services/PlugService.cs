@@ -23,9 +23,7 @@ namespace VisualStudioDiscordRPC.Shared.Services
         private const string VsVersionAssetMapFilename = "vs_assets_map.json";
 
         private readonly List<BasePlug> _plugs = new List<BasePlug>();
-
         private readonly VsObserver _vsObserver = ServiceRepository.Default.GetService<VsObserver>();
-        private readonly VariableService _variableService = ServiceRepository.Default.GetService<VariableService>();
 
         public PlugService()
         {
