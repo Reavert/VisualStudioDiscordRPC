@@ -1,3 +1,9 @@
+1.6.0
+- Added the ability to create custom text plugs;
+- Added support for C++20 modules file extension (.ixx) (Contributor: sylveon);
+- Added Czech translation (Contributor: Zdendaki);
+- Fixed an error updating the RPC display when opening the project directly via the .sln file;
+
 1.5.1
 - ** IMPORTANT ** Check the "secret" option for your secret solutions. This update affected this functionality, which could have caused the option to be reset;
 - Added Turkish localization;
