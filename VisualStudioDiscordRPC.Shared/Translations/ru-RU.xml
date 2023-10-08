@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">Нет активного файла</translation>
 	<translation id="noActiveSolution">Нет активного решения</translation>
 
-	<translation id="NoneAssetSlot">Нет</translation>
-	<translation id="VisualStudioVersionIconSlot">Версия Visual Studio</translation>
-	<translation id="ExtensionIconSlot">Расширение файла</translation>
+	<translation id="NoneAssetPlug">Нет</translation>
+	<translation id="VisualStudioVersionIconPlug">Версия Visual Studio</translation>
+	<translation id="ExtensionIconPlug">Расширение файла</translation>
 
-	<translation id="NoneTextSlot">Пусто</translation>
-	<translation id="VisualStudioVersionTextSlot">Версия Visual Studio</translation>
-	<translation id="Text.FileExtension">Расширение файла</translation>
-	<translation id="ProjectNameSlot">Имя проекта</translation>
-	<translation id="SolutionNameSlot">Имя решения</translation>
-	<translation id="FileNameSlot">Имя файла</translation>
+	<translation id="NoneTextPlug">Пусто</translation>
+	<translation id="VisualStudioVersionTextPlug">Версия Visual Studio</translation>
+	<translation id="FileExtensionTextPlug">Расширение файла</translation>
+	<translation id="ProjectNameTextPlug">Имя проекта</translation>
+	<translation id="SolutionNameTextPlug">Имя решения</translation>
+	<translation id="FileNameTextPlug">Имя файла</translation>
 
-	<translation id="NoneTimerSlot">Отключен</translation>
-	<translation id="WithinFilesTimerSlot">Для файла</translation>
-	<translation id="WithinProjectsTimerSlot">Для проекта</translation>
-	<translation id="WithinSolutionsTimerSlot">Для решения</translation>
+	<translation id="NoneTimerPlug">Отключен</translation>
+	<translation id="FileScopeTimerPlug">Для файла</translation>
+	<translation id="ProjectScopeTimerPlug">Для проекта</translation>
+	<translation id="SolutionScopeTimerPlug">Для решения</translation>
 
-	<translation id="NoneButtonSlot">Нет</translation>
-	<translation id="GitRepositoryButtonSlot">Репозиторий</translation>
+	<translation id="NoneButtonPlug">Нет</translation>
+	<translation id="GitRepositoryButtonPlug">Репозиторий</translation>
 </language>

@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">Aktif dosya yok</translation>
 	<translation id="noActiveSolution">Aktif çözüm yok</translation>
 
-	<translation id="NoneAssetSlot">Hiçbiri</translation>
-	<translation id="VisualStudioVersionIconSlot">Visual Studio sürümü</translation>
-	<translation id="ExtensionIconSlot">Dosya uzantısı</translation>
+	<translation id="NoneAssetPlug">Hiçbiri</translation>
+	<translation id="VisualStudioVersionIconPlug">Visual Studio sürümü</translation>
+	<translation id="ExtensionIconPlug">Dosya uzantısı</translation>
 
-	<translation id="NoneTextSlot">Boş</translation>
-	<translation id="VisualStudioVersionTextSlot">Visual Studio sürümü</translation>
-	<translation id="Text.FileExtension">Dosya uzantısı</translation>
-	<translation id="ProjectNameSlot">Proje ismi</translation>
-	<translation id="SolutionNameSlot">Çözüm ismi</translation>
-	<translation id="FileNameSlot">Dosya ismi</translation>
+	<translation id="NoneTextPlug">Boş</translation>
+	<translation id="VisualStudioVersionTextPlug">Visual Studio sürümü</translation>
+	<translation id="FileExtensionTextPlug">Dosya uzantısı</translation>
+	<translation id="ProjectNameTextPlug">Proje ismi</translation>
+	<translation id="SolutionNameTextPlug">Çözüm ismi</translation>
+	<translation id="FileNameTextPlug">Dosya ismi</translation>
 
-	<translation id="NoneTimerSlot">Kapalı</translation>
-	<translation id="WithinFilesTimerSlot">Dosyalar dâhil</translation>
-	<translation id="WithinProjectsTimerSlot">Projeler dâhil</translation>
-	<translation id="WithinSolutionsTimerSlot">Çözümler dâhil</translation>
+	<translation id="NoneTimerPlug">Kapalı</translation>
+	<translation id="FileScopeTimerPlug">Dosyalar dâhil</translation>
+	<translation id="ProjectScopeTimerPlug">Projeler dâhil</translation>
+	<translation id="SolutionScopeTimerPlug">Çözümler dâhil</translation>
 	
-	<translation id="NoneButtonSlot">Yok</translation>
-	<translation id="GitRepositoryButtonSlot">Depo</translation>
+	<translation id="NoneButtonPlug">Yok</translation>
+	<translation id="GitRepositoryButtonPlug">Depo</translation>
 </language>

@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">无活动文件</translation>
 	<translation id="noActiveSolution">无活性解决方案</translation>
 
-	<translation id="NoneAssetSlot">没有任何</translation>
-	<translation id="VisualStudioVersionIconSlot">版本</translation>
-	<translation id="ExtensionIconSlot">文件扩展名</translation>
+	<translation id="NoneAssetPlug">没有任何</translation>
+	<translation id="VisualStudioVersionIconPlug">版本</translation>
+	<translation id="ExtensionIconPlug">文件扩展名</translation>
 
-	<translation id="NoneTextSlot">没有任何</translation>
-	<translation id="VisualStudioVersionTextSlot">版本</translation>
-	<translation id="Text.FileExtension">文件扩展名</translation>
-	<translation id="ProjectNameSlot">项目名称</translation>
-	<translation id="SolutionNameSlot">解决方案名称</translation>
-	<translation id="FileNameSlot">文件名称</translation>
+	<translation id="NoneTextPlug">没有任何</translation>
+	<translation id="VisualStudioVersionTextPlug">版本</translation>
+	<translation id="FileExtensionTextPlug">文件扩展名</translation>
+	<translation id="ProjectNameTextPlug">项目名称</translation>
+	<translation id="SolutionNameTextPlug">解决方案名称</translation>
+	<translation id="FileNameTextPlug">文件名称</translation>
 
-	<translation id="NoneTimerSlot">禁用</translation>
-	<translation id="WithinFilesTimerSlot">文件内</translation>
-	<translation id="WithinProjectsTimerSlot">项目内</translation>
-	<translation id="WithinSolutionsTimerSlot">解决方案内</translation>
+	<translation id="NoneTimerPlug">禁用</translation>
+	<translation id="FileScopeTimerPlug">文件内</translation>
+	<translation id="ProjectScopeTimerPlug">项目内</translation>
+	<translation id="SolutionScopeTimerPlug">解决方案内</translation>
 
-	<translation id="NoneButtonSlot">没有任何</translation>
-	<translation id="GitRepositoryButtonSlot">存储库</translation>
+	<translation id="NoneButtonPlug">没有任何</translation>
+	<translation id="GitRepositoryButtonPlug">存储库</translation>
 </language>

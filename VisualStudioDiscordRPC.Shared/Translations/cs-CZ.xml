@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">Žádný aktivní soubor</translation>
 	<translation id="noActiveSolution">Žádné aktivní řešení</translation>
 
-	<translation id="NoneAssetSlot">Žádné</translation>
-	<translation id="VisualStudioVersionIconSlot">Verze Visual Studia</translation>
-	<translation id="ExtensionIconSlot">Přípona souboru</translation>
+	<translation id="NoneAssetPlug">Žádné</translation>
+	<translation id="VisualStudioVersionIconPlug">Verze Visual Studia</translation>
+	<translation id="ExtensionIconPlug">Přípona souboru</translation>
 
-	<translation id="NoneTextSlot">Žádné</translation>
-	<translation id="VisualStudioVersionTextSlot">Verze Visual Studia</translation>
-	<translation id="Text.FileExtension">Přípona souboru</translation>
-	<translation id="ProjectNameSlot">Název projektu</translation>
-	<translation id="SolutionNameSlot">Název řešení</translation>
-	<translation id="FileNameSlot">Název souboru</translation>
+	<translation id="NoneTextPlug">Žádné</translation>
+	<translation id="VisualStudioVersionTextPlug">Verze Visual Studia</translation>
+	<translation id="FileExtensionTextPlug">Přípona souboru</translation>
+	<translation id="ProjectNameTextPlug">Název projektu</translation>
+	<translation id="SolutionNameTextPlug">Název řešení</translation>
+	<translation id="FileNameTextPlug">Název souboru</translation>
 
-	<translation id="NoneTimerSlot">Vypnuto</translation>
-	<translation id="WithinFilesTimerSlot">Režim souborů</translation>
-	<translation id="WithinProjectsTimerSlot">Režim projektů</translation>
-	<translation id="WithinSolutionsTimerSlot">Režim řešení</translation>
+	<translation id="NoneTimerPlug">Vypnuto</translation>
+	<translation id="FileScopeTimerPlug">Režim souborů</translation>
+	<translation id="ProjectScopeTimerPlug">Režim projektů</translation>
+	<translation id="SolutionScopeTimerPlug">Režim řešení</translation>
 	
-	<translation id="NoneButtonSlot">Žádné</translation>
-	<translation id="GitRepositoryButtonSlot">Repozitář</translation>
+	<translation id="NoneButtonPlug">Žádné</translation>
+	<translation id="GitRepositoryButtonPlug">Repozitář</translation>
 </language>

@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">Nenhum arquivo aberto</translation>
 	<translation id="noActiveSolution">Nenhuma solução ativa</translation>
 
-	<translation id="NoneAssetSlot">Nenhum</translation>
-	<translation id="VisualStudioVersionIconSlot">Visual Studio versão</translation>
-	<translation id="ExtensionIconSlot">Extensão de arquivo</translation>
+	<translation id="NoneAssetPlug">Nenhum</translation>
+	<translation id="VisualStudioVersionIconPlug">Visual Studio versão</translation>
+	<translation id="ExtensionIconPlug">Extensão de arquivo</translation>
 
-	<translation id="NoneTextSlot">Nenhum</translation>
-	<translation id="VisualStudioVersionTextSlot">Visual Studio versão</translation>
-	<translation id="Text.FileExtension">Extensão de arquivo</translation>
-	<translation id="ProjectNameSlot">Nome do projeto</translation>
-	<translation id="SolutionNameSlot">Nome da solução</translation>
-	<translation id="FileNameSlot">Nome do arquivo</translation>
+	<translation id="NoneTextPlug">Nenhum</translation>
+	<translation id="VisualStudioVersionTextPlug">Visual Studio versão</translation>
+	<translation id="FileExtensionTextPlug">Extensão de arquivo</translation>
+	<translation id="ProjectNameTextPlug">Nome do projeto</translation>
+	<translation id="SolutionNameTextPlug">Nome da solução</translation>
+	<translation id="FileNameTextPlug">Nome do arquivo</translation>
 
-	<translation id="NoneTimerSlot">Desativado</translation>
-	<translation id="WithinFilesTimerSlot">Dentro de arquivo</translation>
-	<translation id="WithinProjectsTimerSlot">Dentro de projeto</translation>
-	<translation id="WithinSolutionsTimerSlot">Dentro da solução</translation>
+	<translation id="NoneTimerPlug">Desativado</translation>
+	<translation id="FileScopeTimerPlug">Dentro de arquivo</translation>
+	<translation id="ProjectScopeTimerPlug">Dentro de projeto</translation>
+	<translation id="SolutionScopeTimerPlug">Dentro da solução</translation>
 
-	<translation id="NoneButtonSlot">Nenhum</translation>
-	<translation id="GitRepositoryButtonSlot">Repositorio</translation>
+	<translation id="NoneButtonPlug">Nenhum</translation>
+	<translation id="GitRepositoryButtonPlug">Repositorio</translation>
 </language>

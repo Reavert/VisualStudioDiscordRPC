@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">Brak aktywnego pliku</translation>
 	<translation id="noActiveSolution">Brak aktywnego rozwiązania</translation>
 
-	<translation id="NoneAssetSlot">Brak</translation>
-	<translation id="VisualStudioVersionIconSlot">Wersja Visual Studio</translation>
-	<translation id="ExtensionIconSlot">Rozszerzenie pliku</translation>
+	<translation id="NoneAssetPlug">Brak</translation>
+	<translation id="VisualStudioVersionIconPlug">Wersja Visual Studio</translation>
+	<translation id="ExtensionIconPlug">Rozszerzenie pliku</translation>
 
-	<translation id="NoneTextSlot">Pusty</translation>
-	<translation id="VisualStudioVersionTextSlot">Wersja Visual Studio</translation>
-	<translation id="Text.FileExtension">Rozszerzenie pliku</translation>
-	<translation id="ProjectNameSlot">Nazwa projektu</translation>
-	<translation id="SolutionNameSlot">Nazwa rozwiązania</translation>
-	<translation id="FileNameSlot">Nazwa pliku</translation>
+	<translation id="NoneTextPlug">Pusty</translation>
+	<translation id="VisualStudioVersionTextPlug">Wersja Visual Studio</translation>
+	<translation id="FileExtensionTextPlug">Rozszerzenie pliku</translation>
+	<translation id="ProjectNameTextPlug">Nazwa projektu</translation>
+	<translation id="SolutionNameTextPlug">Nazwa rozwiązania</translation>
+	<translation id="FileNameTextPlug">Nazwa pliku</translation>
 
-	<translation id="NoneTimerSlot">Niepełnosprawni</translation>
-	<translation id="WithinFilesTimerSlot">W pliku</translation>
-	<translation id="WithinProjectsTimerSlot">W ramach projektów</translation>
-	<translation id="WithinSolutionsTimerSlot">W ramach rozwiązań</translation>
+	<translation id="NoneTimerPlug">Niepełnosprawni</translation>
+	<translation id="FileScopeTimerPlug">W pliku</translation>
+	<translation id="ProjectScopeTimerPlug">W ramach projektów</translation>
+	<translation id="SolutionScopeTimerPlug">W ramach rozwiązań</translation>
 
-	<translation id="NoneButtonSlot">Brak</translation>
-	<translation id="GitRepositoryButtonSlot">Repozytorium</translation>
+	<translation id="NoneButtonPlug">Brak</translation>
+	<translation id="GitRepositoryButtonPlug">Repozytorium</translation>
 </language>

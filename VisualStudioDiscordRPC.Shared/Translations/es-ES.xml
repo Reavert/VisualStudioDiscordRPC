@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">No hay archivo activo</translation>
 	<translation id="noActiveSolution">No hay solución activo</translation>
 
-	<translation id="NoneAssetSlot">Ninguno</translation>
-	<translation id="VisualStudioVersionIconSlot">Versión de Visual Studio</translation>
-	<translation id="ExtensionIconSlot">Extensión del archivo</translation>
+	<translation id="NoneAssetPlug">Ninguno</translation>
+	<translation id="VisualStudioVersionIconPlug">Versión de Visual Studio</translation>
+	<translation id="ExtensionIconPlug">Extensión del archivo</translation>
 
-	<translation id="NoneTextSlot">Vacío</translation>
-	<translation id="VisualStudioVersionTextSlot">Versión de Visual Studio</translation>
-	<translation id="Text.FileExtension">Extensión del archivo</translation>
-	<translation id="ProjectNameSlot">Nombre del proyecto</translation>
-	<translation id="SolutionNameSlot">Nombre de la solución</translation>
-	<translation id="FileNameSlot">Nombre del archivo</translation>
+	<translation id="NoneTextPlug">Vacío</translation>
+	<translation id="VisualStudioVersionTextPlug">Versión de Visual Studio</translation>
+	<translation id="FileExtensionTextPlug">Extensión del archivo</translation>
+	<translation id="ProjectNameTextPlug">Nombre del proyecto</translation>
+	<translation id="SolutionNameTextPlug">Nombre de la solución</translation>
+	<translation id="FileNameTextPlug">Nombre del archivo</translation>
 
-	<translation id="NoneTimerSlot">Desactivado</translation>
-	<translation id="WithinFilesTimerSlot">Dentro de los archivos</translation>
-	<translation id="WithinProjectsTimerSlot">Dentro de los proyectos</translation>
-	<translation id="WithinSolutionsTimerSlot">Dentro de las soluciones</translation>
+	<translation id="NoneTimerPlug">Desactivado</translation>
+	<translation id="FileScopeTimerPlug">Dentro de los archivos</translation>
+	<translation id="ProjectScopeTimerPlug">Dentro de los proyectos</translation>
+	<translation id="SolutionScopeTimerPlug">Dentro de las soluciones</translation>
 
-	<translation id="NoneButtonSlot">Ninguno</translation>
-	<translation id="GitRepositoryButtonSlot">Repositorio</translation>
+	<translation id="NoneButtonPlug">Ninguno</translation>
+	<translation id="GitRepositoryButtonPlug">Repositorio</translation>
 </language>

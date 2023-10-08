@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">Aucun fichier actif</translation>
 	<translation id="noActiveSolution">Aucun solution actif</translation>
 
-	<translation id="NoneAssetSlot">Aucun</translation>
-	<translation id="VisualStudioVersionIconSlot">Version de Visual Studio</translation>
-	<translation id="ExtensionIconSlot">Extension de fichier</translation>
+	<translation id="NoneAssetPlug">Aucun</translation>
+	<translation id="VisualStudioVersionIconPlug">Version de Visual Studio</translation>
+	<translation id="ExtensionIconPlug">Extension de fichier</translation>
 
-	<translation id="NoneTextSlot">Vide</translation>
-	<translation id="VisualStudioVersionTextSlot">Version de Visual Studio</translation>
-	<translation id="Text.FileExtension">Extension de fichier</translation>
-	<translation id="ProjectNameSlot">Nom du projet</translation>
-	<translation id="SolutionNameSlot">Nom de la solution</translation>
-	<translation id="FileNameSlot">Nom du fichier</translation>
+	<translation id="NoneTextPlug">Vide</translation>
+	<translation id="VisualStudioVersionTextPlug">Version de Visual Studio</translation>
+	<translation id="FileExtensionTextPlug">Extension de fichier</translation>
+	<translation id="ProjectNameTextPlug">Nom du projet</translation>
+	<translation id="SolutionNameTextPlug">Nom de la solution</translation>
+	<translation id="FileNameTextPlug">Nom du fichier</translation>
 
-	<translation id="NoneTimerSlot">Désactivée</translation>
-	<translation id="WithinFilesTimerSlot">Dans les fichiers</translation>
-	<translation id="WithinProjectsTimerSlot">Au sein des projets</translation>
-	<translation id="WithinSolutionsTimerSlot">Au sein de solutions</translation>
+	<translation id="NoneTimerPlug">Désactivée</translation>
+	<translation id="FileScopeTimerPlug">Dans les fichiers</translation>
+	<translation id="ProjectScopeTimerPlug">Au sein des projets</translation>
+	<translation id="SolutionScopeTimerPlug">Au sein de solutions</translation>
 
-	<translation id="NoneButtonSlot">Aucun</translation>
-	<translation id="GitRepositoryButtonSlot">Référentiel</translation>
+	<translation id="NoneButtonPlug">Aucun</translation>
+	<translation id="GitRepositoryButtonPlug">Référentiel</translation>
 </language>

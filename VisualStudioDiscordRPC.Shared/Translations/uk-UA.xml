@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">Немає активного файлу</translation>
 	<translation id="noActiveSolution">Немає активного рішення</translation>
 
-	<translation id="NoneAssetSlot">Немає</translation>
-	<translation id="VisualStudioVersionIconSlot">Версія Visual Studio</translation>
-	<translation id="ExtensionIconSlot">Розширення файлу</translation>
+	<translation id="NoneAssetPlug">Немає</translation>
+	<translation id="VisualStudioVersionIconPlug">Версія Visual Studio</translation>
+	<translation id="ExtensionIconPlug">Розширення файлу</translation>
 
-	<translation id="NoneTextSlot">Порожній</translation>
-	<translation id="VisualStudioVersionTextSlot">Версія Visual Studio</translation>
-	<translation id="Text.FileExtension">Розширення файлу</translation>
-	<translation id="ProjectNameSlot">Назва проекту</translation>
-	<translation id="SolutionNameSlot">Назва рішення</translation>
-	<translation id="FileNameSlot">Ім'я файлу</translation>
+	<translation id="NoneTextPlug">Порожній</translation>
+	<translation id="VisualStudioVersionTextPlug">Версія Visual Studio</translation>
+	<translation id="FileExtensionTextPlug">Розширення файлу</translation>
+	<translation id="ProjectNameTextPlug">Назва проекту</translation>
+	<translation id="SolutionNameTextPlug">Назва рішення</translation>
+	<translation id="FileNameTextPlug">Ім'я файлу</translation>
 
-	<translation id="NoneTimerSlot">Непрацездатний</translation>
-	<translation id="WithinFilesTimerSlot">Для файлів</translation>
-	<translation id="WithinProjectsTimerSlot">Для проектів</translation>
-	<translation id="WithinSolutionsTimerSlot">Для рішень</translation>
+	<translation id="NoneTimerPlug">Непрацездатний</translation>
+	<translation id="FileScopeTimerPlug">Для файлів</translation>
+	<translation id="ProjectScopeTimerPlug">Для проектів</translation>
+	<translation id="SolutionScopeTimerPlug">Для рішень</translation>
 
-	<translation id="NoneButtonSlot">Немає</translation>
-	<translation id="GitRepositoryButtonSlot">Репозиторій</translation>
+	<translation id="NoneButtonPlug">Немає</translation>
+	<translation id="GitRepositoryButtonPlug">Репозиторій</translation>
 </language>

@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">활성화 된 파일 없음</translation>
 	<translation id="noActiveSolution">활성 솔루션이 없습니다</translation>
 
-	<translation id="NoneAssetSlot">없음</translation>
-	<translation id="VisualStudioVersionIconSlot">비쥬얼 스튜디오 버전 아이콘</translation>
-	<translation id="ExtensionIconSlot">파일 확장 아이콘</translation>
+	<translation id="NoneAssetPlug">없음</translation>
+	<translation id="VisualStudioVersionIconPlug">비쥬얼 스튜디오 버전 아이콘</translation>
+	<translation id="ExtensionIconPlug">파일 확장 아이콘</translation>
 
-	<translation id="NoneTextSlot">없음</translation>
-	<translation id="VisualStudioVersionTextSlot">비쥬얼 스튜디오 버전</translation>
-	<translation id="Text.FileExtension">파일 확장자 이름</translation>
-	<translation id="ProjectNameSlot">프로젝트 이름</translation>
-	<translation id="SolutionNameSlot">솔루션 이름</translation>
-	<translation id="FileNameSlot">파일 이름</translation>
+	<translation id="NoneTextPlug">없음</translation>
+	<translation id="VisualStudioVersionTextPlug">비쥬얼 스튜디오 버전</translation>
+	<translation id="FileExtensionTextPlug">파일 확장자 이름</translation>
+	<translation id="ProjectNameTextPlug">프로젝트 이름</translation>
+	<translation id="SolutionNameTextPlug">솔루션 이름</translation>
+	<translation id="FileNameTextPlug">파일 이름</translation>
 
-	<translation id="NoneTimerSlot">비활성화</translation>
-	<translation id="WithinFilesTimerSlot">파일 표시</translation>
-	<translation id="WithinProjectsTimerSlot">프로젝트 표시</translation>
-	<translation id="WithinSolutionsTimerSlot">솔루션 표시</translation>
+	<translation id="NoneTimerPlug">비활성화</translation>
+	<translation id="FileScopeTimerPlug">파일 표시</translation>
+	<translation id="ProjectScopeTimerPlug">프로젝트 표시</translation>
+	<translation id="SolutionScopeTimerPlug">솔루션 표시</translation>
 
-	<translation id="NoneButtonSlot">없음</translation>
-	<translation id="GitRepositoryButtonSlot">저장소</translation>
+	<translation id="NoneButtonPlug">없음</translation>
+	<translation id="GitRepositoryButtonPlug">저장소</translation>
 </language>

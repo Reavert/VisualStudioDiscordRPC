@@ -9,22 +9,22 @@
 	<translation id="noActiveFile">कोई सक्रिय फ़ाइल नहीं है</translation>
 	<translation id="noActiveSolution">कोई सक्रिय समाधान नहीं है</translation>
 
-	<translation id="NoneAssetSlot">कोई नहीं</translation>
-	<translation id="VisualStudioVersionIconSlot">Visual Studio संस्करण</translation>
-	<translation id="ExtensionIconSlot">फ़ाइल एक्सटेंशन</translation>
+	<translation id="NoneAssetPlug">कोई नहीं</translation>
+	<translation id="VisualStudioVersionIconPlug">Visual Studio संस्करण</translation>
+	<translation id="ExtensionIconPlug">फ़ाइल एक्सटेंशन</translation>
 
-	<translation id="NoneTextSlot">खाली</translation>
-	<translation id="VisualStudioVersionTextSlot">Visual Studio संस्करण</translation>
-	<translation id="Text.FileExtension">फ़ाइल एक्सटेंशन</translation>
-	<translation id="ProjectNameSlot">परियोजना का नाम</translation>
-	<translation id="SolutionNameSlot">समाधान का नाम</translation>
-	<translation id="FileNameSlot">फ़ाइल का नाम</translation>
+	<translation id="NoneTextPlug">खाली</translation>
+	<translation id="VisualStudioVersionTextPlug">Visual Studio संस्करण</translation>
+	<translation id="FileExtensionTextPlug">फ़ाइल एक्सटेंशन</translation>
+	<translation id="ProjectNameTextPlug">परियोजना का नाम</translation>
+	<translation id="SolutionNameTextPlug">समाधान का नाम</translation>
+	<translation id="FileNameTextPlug">फ़ाइल का नाम</translation>
 
-	<translation id="NoneTimerSlot">विकलांग</translation>
-	<translation id="WithinFilesTimerSlot">फ़ाइलों के भीतर</translation>
-	<translation id="WithinProjectsTimerSlot">परियोजनाओं के भीतर</translation>
-	<translation id="WithinSolutionsTimerSlot">समाधान के भीतर</translation>
+	<translation id="NoneTimerPlug">विकलांग</translation>
+	<translation id="FileScopeTimerPlug">फ़ाइलों के भीतर</translation>
+	<translation id="ProjectScopeTimerPlug">परियोजनाओं के भीतर</translation>
+	<translation id="SolutionScopeTimerPlug">समाधान के भीतर</translation>
 
-	<translation id="NoneButtonSlot">कोई नहीं</translation>
-	<translation id="GitRepositoryButtonSlot">रिपोजिटरी</translation>
+	<translation id="NoneButtonPlug">कोई नहीं</translation>
+	<translation id="GitRepositoryButtonPlug">रिपोजिटरी</translation>
 </language>
