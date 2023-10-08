@@ -69,7 +69,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock>
                                     <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0}: {1}">
+                                        <MultiBinding StringFormat="{}'{0}': {1}">
                                             <Binding Path="Name" />
                                             <Binding Path="Description" />
                                         </MultiBinding>
@@ -81,7 +81,8 @@
                 </ListView>
             </StackPanel>
         </Grid>
-        <TextBlock TextWrapping="Wrap" Margin="5" Text="Pattern example: 'File: {file_name}'"/>
-        <TextBlock TextWrapping="Wrap" Margin="5" Text="* The changes will be applied after the window is closed"/>
+        <TextBlock TextWrapping="Wrap" Margin="3" Text="Frame variables with curly brackets. Pattern example: 'File: {file_name}'"/>
+        <TextBlock TextWrapping="Wrap" Margin="3" Text="After saving, you can select your custom text plugs in the 'Details' and 'State' fields of settings"/>
+        <TextBlock TextWrapping="Wrap" Margin="3" Text="* The changes will be applied after the window is closed"/>
     </StackPanel>
 </Window>
