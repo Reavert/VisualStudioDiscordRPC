@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Plugs.ButtonPlugs;
 using VisualStudioDiscordRPC.Shared.Utils;
@@ -28,7 +29,8 @@ namespace VisualStudioDiscordRPC.Shared.Services
             SecretRepositoriesFilePath = Path.Combine(PathHelper.GetApplicationDataPath(), SecretRepositoriesFilename);
             if (!File.Exists(SecretRepositoriesFilePath))
             {
-                _secretRepositories = new HashSet<string>(1);
+                // Migrate from legacy settings.
+                _secretRepositories = MigrationHelper.ListedSettingAsList(Settings.Default.PrivateRepositories).ToHashSet();
                 return;
             }
 
@@ -36,6 +38,7 @@ namespace VisualStudioDiscordRPC.Shared.Services
             if (string.IsNullOrEmpty(json))
             {
                 _secretRepositories = new HashSet<string>(1);
+                SaveSecretRepositories();
                 return;
             }
 

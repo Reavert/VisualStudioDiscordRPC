@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DiscordRpcController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IStringCollectionProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalizationKeys.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\MigrationHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Variables\DebugModeVariable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Variables\EditionVariable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Variables\FileNameVariable.cs" />

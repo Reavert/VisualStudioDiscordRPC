@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using VisualStudioDiscordRPC.Shared.Observers;
 using VisualStudioDiscordRPC.Shared.Utils;
 
@@ -30,7 +31,9 @@ namespace VisualStudioDiscordRPC.Shared.Services
 
             if (!File.Exists(SecretSolutionsFilePath))
             {
-                _secretSolutions = new HashSet<string>(1);
+                // Migrate from legacy settings.
+                _secretSolutions = MigrationHelper.ListedSettingAsList(Settings.Default.HiddenSolutions).ToHashSet();
+                SaveSecretSolutions();
                 return;
             }
 
