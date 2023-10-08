@@ -46,12 +46,15 @@ namespace VisualStudioDiscordRPC.Shared
 
             string previousVersion = _settingsService.Read<string>(SettingsKeys.Version);
 
-            if (updateNotificationsEnabled && currentExtensionVersion != previousVersion)
+            if (currentExtensionVersion != previousVersion)
             {
                 _settingsService.Set(SettingsKeys.Version, currentExtensionVersion);
                 _settingsService.Save();
 
-                DisplayVersionUpdateMessage(currentExtensionVersion);
+                if (updateNotificationsEnabled)
+                {
+                    DisplayVersionUpdateMessage(currentExtensionVersion);
+                }
             }
         }
 
