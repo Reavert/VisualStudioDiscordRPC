@@ -1,4 +1,4 @@
-﻿using EnvDTE;
+﻿using EnvDTE80;
 
 namespace VisualStudioDiscordRPC.Shared.Variables
 {
@@ -6,7 +6,7 @@ namespace VisualStudioDiscordRPC.Shared.Variables
     {
         private readonly string _edition;
 
-        public EditionVariable(DTE dte)
+        public EditionVariable(DTE2 dte)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             _edition = dte.Edition;

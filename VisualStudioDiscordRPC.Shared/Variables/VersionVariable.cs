@@ -1,4 +1,4 @@
-﻿using EnvDTE;
+﻿using EnvDTE80;
 using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Variables
@@ -7,7 +7,7 @@ namespace VisualStudioDiscordRPC.Shared.Variables
     {
         private readonly string _version;
 
-        public VersionVariable(DTE dte) 
+        public VersionVariable(DTE2 dte) 
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             _version = dte.Version;
