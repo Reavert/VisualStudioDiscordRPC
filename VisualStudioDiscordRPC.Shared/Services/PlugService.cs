@@ -56,14 +56,14 @@ namespace VisualStudioDiscordRPC.Shared.Services
 
         public TPlug GetPlugById<TPlug>(string id) where TPlug : BasePlug
         {
-            return (TPlug) _plugs.FirstOrDefault(plug => plug.GetId() == id);
+            return _plugs.FirstOrDefault(plug => plug.GetId() == id) as TPlug;
         }
 
         public IReadOnlyList<TPlug> GetPlugsOfType<TPlug>() where TPlug : BasePlug
         {
             return _plugs
                 .Where(plug => plug is TPlug)
-                .Select(plug => (TPlug) plug)
+                .Select(plug => plug as TPlug)
                 .ToList();
         }
 
