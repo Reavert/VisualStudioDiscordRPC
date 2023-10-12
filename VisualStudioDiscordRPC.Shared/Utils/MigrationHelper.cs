@@ -30,7 +30,7 @@ namespace VisualStudioDiscordRPC.Shared.Utils
                 case "ProjectNameSlot": return nameof(ProjectNameTextPlug);
                 case "SolutionNameSlot": return nameof(SolutionNameTextPlug);
                 case "VisualStudioVersionTextSlot": return nameof(VisualStudioVersionTextPlug);
-                case "DebuggingSlot": return nameof(NoneAssetPlug);
+                case "DebuggingSlot": return nameof(NoneTextPlug);
                 default: return defaultValue;
             }
         }
