@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<language name="Chinese Traditional" localizedName="繁體中文">
+	<translation id="project">專案</translation>
+	<translation id="file">檔案</translation>
+	<translation id="solution">解決方案</translation>
+	
+	<translation id="noActiveProject">無使用專案</translation>
+	<translation id="noActiveFile">無使用檔案</translation>
+	<translation id="noActiveSolution">無使用解決方案</translation>
+
+	<translation id="NoneAssetPlug">沒有任何</translation>
+	<translation id="VisualStudioVersionIconPlug">版本</translation>
+	<translation id="ExtensionIconPlug">檔案副檔名</translation>
+
+	<translation id="NoneTextPlug">沒有任何</translation>
+	<translation id="VisualStudioVersionTextPlug">版本</translation>
+	<translation id="FileExtensionTextPlug">檔案副檔名</translation>
+	<translation id="ProjectNameTextPlug">專案名稱</translation>
+	<translation id="SolutionNameTextPlug">解決方案名稱</translation>
+	<translation id="FileNameTextPlug">檔案名稱</translation>
+
+	<translation id="NoneTimerPlug">禁用</translation>
+	<translation id="FileScopeTimerPlug">檔案內</translation>
+	<translation id="ProjectScopeTimerPlug">專案內</translation>
+	<translation id="SolutionScopeTimerPlug">解決方案內</translation>
+
+	<translation id="NoneButtonPlug">沒有任何</translation>
+	<translation id="GitRepositoryButtonPlug">儲存庫</translation>
+</language>
