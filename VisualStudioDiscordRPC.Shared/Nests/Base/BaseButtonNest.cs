@@ -31,7 +31,9 @@ namespace VisualStudioDiscordRPC.Shared.Nests.Base
                 default: throw new ArgumentOutOfRangeException($"{nameof(index)} must be 0 or 1");
             }
 
-            if (string.IsNullOrEmpty(buttonInfo.Label) || string.IsNullOrEmpty(buttonInfo.Url))
+            if (string.IsNullOrEmpty(buttonInfo.Label) || 
+                string.IsNullOrEmpty(buttonInfo.Url) || 
+                Uri.TryCreate(buttonInfo.Url, UriKind.Absolute, out Uri _))
             {
                 Buttons.Remove(button);
                 return;
@@ -39,7 +41,7 @@ namespace VisualStudioDiscordRPC.Shared.Nests.Base
 
             button.Label = buttonInfo.Label;
             button.Url = buttonInfo.Url;
-
+            
             if (!Buttons.Contains(button))
             {
                 Buttons.Add(button);
