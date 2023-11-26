@@ -1,3 +1,8 @@
+1.6.3
+- Hotfixes due to a broken build pipeline;
+- Fixed a bug if the git remote is not an HTTP URL;
+- Added Traditional Chinese Translation (Contributor: Yue030);
+
 1.6.2
 - Fixed a bug if the git remote is not an HTTP URL;
 - Added Traditional Chinese Translation (Contributor: Yue030);
