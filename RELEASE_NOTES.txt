@@ -1,3 +1,6 @@
+1.6.2
+- Fixed a bug if the git remote is not an HTTP URL;
+
 1.6.1
 - Fixed a bug with displaying the name of the solution when starting Visual Studio;
 - Fixed a bug that throws the errors when using Debugging Mode in display;
