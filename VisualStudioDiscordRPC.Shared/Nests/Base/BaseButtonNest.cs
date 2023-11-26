@@ -33,7 +33,7 @@ namespace VisualStudioDiscordRPC.Shared.Nests.Base
 
             if (string.IsNullOrEmpty(buttonInfo.Label) || 
                 string.IsNullOrEmpty(buttonInfo.Url) || 
-                Uri.TryCreate(buttonInfo.Url, UriKind.Absolute, out Uri _))
+                !Uri.TryCreate(buttonInfo.Url, UriKind.Absolute, out Uri _))
             {
                 Buttons.Remove(button);
                 return;
