@@ -1,5 +1,6 @@
 1.6.2
 - Fixed a bug if the git remote is not an HTTP URL;
+- Added Traditional Chinese Translation (Contributor: Yue030);
 
 1.6.1
 - Fixed a bug with displaying the name of the solution when starting Visual Studio;
