@@ -1,3 +1,6 @@
+1.6.5
+- Fixed a bug when opening a file with a long name;
+
 1.6.4
 - Hotfixes due to a broken build pipeline;
 - Fixed a bug if the git remote is not an HTTP URL;
