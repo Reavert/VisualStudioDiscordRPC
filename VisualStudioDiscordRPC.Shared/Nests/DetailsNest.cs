@@ -1,5 +1,7 @@
 ﻿using DiscordRPC;
+using System.Text;
 using VisualStudioDiscordRPC.Shared.Nests.Base;
+using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Nests
 {
@@ -10,7 +12,7 @@ namespace VisualStudioDiscordRPC.Shared.Nests
 
         protected override void Update(string data)
         {
-            RichPresence.Details = data;
+            RichPresence.Details = StringHelper.ReEncodeWithMaxLength(data, 128, Encoding.UTF8);
         }
     }
 }

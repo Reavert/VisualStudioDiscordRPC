@@ -1,6 +1,8 @@
 ﻿using DiscordRPC;
+using System.Text;
 using VisualStudioDiscordRPC.Shared.Data;
 using VisualStudioDiscordRPC.Shared.Nests.Base;
+using VisualStudioDiscordRPC.Shared.Utils;
 
 namespace VisualStudioDiscordRPC.Shared.Nests
 {
@@ -11,8 +13,8 @@ namespace VisualStudioDiscordRPC.Shared.Nests
 
         protected override void Update(AssetInfo data)
         {
-            RichPresence.Assets.LargeImageKey = data.Key;
-            RichPresence.Assets.LargeImageText = data.Description;
+            RichPresence.Assets.LargeImageKey = StringHelper.ReEncodeWithMaxLength(data.Key, 256, Encoding.UTF8);
+            RichPresence.Assets.LargeImageText = StringHelper.ReEncodeWithMaxLength(data.Description, 128, Encoding.UTF8);
         }
     }
 }

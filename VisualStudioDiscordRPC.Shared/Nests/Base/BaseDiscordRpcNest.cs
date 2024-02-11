@@ -1,4 +1,6 @@
 ﻿using DiscordRPC;
+using DiscordRPC.Helper;
+using System.Text;
 
 namespace VisualStudioDiscordRPC.Shared.Nests.Base
 {
