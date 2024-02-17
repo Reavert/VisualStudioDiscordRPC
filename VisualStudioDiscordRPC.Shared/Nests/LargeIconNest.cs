@@ -13,8 +13,8 @@ namespace VisualStudioDiscordRPC.Shared.Nests
 
         protected override void Update(AssetInfo data)
         {
-            RichPresence.Assets.LargeImageKey = StringHelper.ReEncodeWithMaxLength(data.Key, 256, Encoding.UTF8);
-            RichPresence.Assets.LargeImageText = StringHelper.ReEncodeWithMaxLength(data.Description, 128, Encoding.UTF8);
+            RichPresence.Assets.LargeImageKey = StringHelper.RecodeToFitMaxLength(data.Key, 256, Encoding.UTF8);
+            RichPresence.Assets.LargeImageText = StringHelper.RecodeToFitMaxLength(data.Description, 128, Encoding.UTF8);
         }
     }
 }

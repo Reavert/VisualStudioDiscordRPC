@@ -12,7 +12,7 @@ namespace VisualStudioDiscordRPC.Shared.Nests
 
         protected override void Update(string data)
         {
-            RichPresence.State = StringHelper.ReEncodeWithMaxLength(data, 128, Encoding.UTF8);
+            RichPresence.State = StringHelper.RecodeToFitMaxLength(data, 128, Encoding.UTF8);
         }
     }
 }
