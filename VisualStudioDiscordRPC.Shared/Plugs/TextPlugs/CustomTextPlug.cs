@@ -24,37 +24,41 @@ namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
             _id = id;
             _name = name;
         }
+
         public void SetPattern(string pattern)
         {
-            _stringObserver?.Dispose();
+            if (_stringObserver == null)
+            {
+                _stringObserver = new StringObserver();
+            }
+
+            _stringObserver.Clear();
 
             var parser = new ObservableStringParser();
             var entries = parser.Parse(pattern);
 
-            var stringObserver = new StringObserver();
             foreach (var entry in entries)
             {
                 switch (entry.Type)
                 {
                     case ObservableStringParser.EntryType.Text:
-                        stringObserver.AddText(entry.Value);
+                        _stringObserver.AddText(entry.Value);
                         break;
 
                     case ObservableStringParser.EntryType.Keyword:
                         var variable = _variableService.GetVariableByName(entry.Value);
                         if (variable != null)
-                            stringObserver.AddText(new ObservableVariable(variable));
+                            _stringObserver.AddText(new ObservableVariable(variable));
                         break;
                 }
             }
 
-            _stringObserver = stringObserver;
             _pattern = pattern;
         }
 
         public void ClearObserver()
         {
-            _stringObserver?.Dispose();
+            _stringObserver?.Clear();
         }
 
         public override void Enable()

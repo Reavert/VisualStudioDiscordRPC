@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
 {
-    public class StringObserver : IDisposable
+    public class StringObserver
     {
         public event Action Changed;
 
@@ -23,10 +23,12 @@ namespace VisualStudioDiscordRPC.Shared.Plugs.TextPlugs
             AddText(staticTextSource);
         }
 
-        public void Dispose()
+        public void Clear()
         {
             foreach (IObservableString observableString in _observableStrings)
                 observableString.Changed -= OnAnyTextSourceChanged;
+
+            _observableStrings.Clear();
         }
 
         private void OnAnyTextSourceChanged()
