@@ -86,7 +86,7 @@ namespace VisualStudioDiscordRPC.Shared
             _gitObserver = new GitObserver(_vsObserver);
             ServiceRepository.Default.AddService(_gitObserver);
 
-            // Registering localization service
+            // Registering localization service.
             string translationPath = _settingsService.Read<string>(SettingsKeys.TranslationsPath);
             string currentLanguage = _settingsService.Read<string>(SettingsKeys.Language);
 

@@ -138,7 +138,7 @@
     {
         "name": "Shader",
         "key": "shader_file",
-        "extension": [ ".hlsl", ".glsl", ".shader", ".frag", ".vert", ".cg" ]
+        "extensions": [ ".hlsl", ".glsl", ".shader", ".frag", ".vert", ".cg" ]
     }
   ]
 }

@@ -16,7 +16,7 @@ namespace VisualStudioDiscordRPC.Shared.AssetMap.Models.Assets
         {
             Key = key ?? throw new ArgumentNullException(nameof(key));
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Extensions = extensions ?? throw new ArgumentException(nameof(extensions));
+            Extensions = extensions ?? throw new ArgumentNullException(nameof(extensions));
         }
     }
 }

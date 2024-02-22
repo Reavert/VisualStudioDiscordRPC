@@ -19,8 +19,8 @@ namespace VisualStudioDiscordRPC.Shared.Services
 {
     public class PlugService
     {
-        private const string ExtensionAssetMapFilename = "extensions_assets_map.json";
-        private const string VsVersionAssetMapFilename = "vs_assets_map.json";
+        private const string ExtensionAssetMapFilename = "Configs/extensions_assets_map.json";
+        private const string VsVersionAssetMapFilename = "Configs/vs_assets_map.json";
 
         private readonly List<BasePlug> _plugs = new List<BasePlug>();
         private readonly VsObserver _vsObserver = ServiceRepository.Default.GetService<VsObserver>();
