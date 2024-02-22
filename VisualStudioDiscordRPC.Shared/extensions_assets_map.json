@@ -81,14 +81,9 @@
       "extensions": [ ".html", ".htm" ]
     },
     {
-      "name": "Icon",
-      "key": "icon_file",
-      "extensions": [ ".ico" ]
-    },
-    {
       "name": "Image",
       "key": "image_file",
-      "extensions": [ ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tiff", ".tif", ".raw", ".dib" ]
+      "extensions": [ ".ico" ,".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tiff", ".tif", ".raw", ".dib" ]
     },
     {
       "name": "Java Script",
@@ -139,6 +134,11 @@
       "name": "YAML",
       "key": "yaml_file",
       "extensions": [ ".yaml", ".yml" ]
+    },
+    {
+        "name": "Shader",
+        "key": "shader_file",
+        "extension": [ ".hlsl", ".glsl", ".shader", ".frag", ".vert", ".cg" ]
     }
   ]
 }
