@@ -4,12 +4,17 @@ namespace VisualStudioDiscordRPC.Shared.Variables
 {
     public class EditionVariable : Variable
     {
-        private readonly string _edition;
+        private readonly DTE2 _dte;
+        private string _edition;
 
         public EditionVariable(DTE2 dte)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            _edition = dte.Edition;
+            _dte = dte;
+        }
+
+        public override void Initialize()
+        {
+            _edition = _dte.Edition;
         }
 
         public override string GetData()

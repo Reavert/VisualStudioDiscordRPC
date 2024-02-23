@@ -6,12 +6,18 @@ namespace VisualStudioDiscordRPC.Shared.Variables
 {
     public class SolutionNameVariable : Variable
     {
+        private readonly VsObserver _vsObserver;
         private Solution _solution;
 
         public SolutionNameVariable(VsObserver vsObserver) 
         {
-            vsObserver.SolutionChanged += OnSolutionChanged;
-            _solution = vsObserver.DTE.Solution;
+            _vsObserver = vsObserver;
+        }
+
+        public override void Initialize()
+        {
+            _vsObserver.SolutionChanged += OnSolutionChanged;
+            _solution = _vsObserver.DTE.Solution;
         }
 
         public override string GetData()

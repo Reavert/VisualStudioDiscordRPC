@@ -6,11 +6,17 @@ namespace VisualStudioDiscordRPC.Shared.Variables
     public class FileNameVariable : Variable
     {
         private Document _document;
+        private VsObserver _vsObserver;
 
         public FileNameVariable(VsObserver vsObserver) 
         {
-            _document = vsObserver.DTE.ActiveDocument;
-            vsObserver.DocumentChanged += OnDocumentChanged;
+            _vsObserver = vsObserver;
+        }
+
+        public override void Initialize()
+        {
+            _document = _vsObserver.DTE.ActiveDocument;
+            _vsObserver.DocumentChanged += OnDocumentChanged;
         }
 
         public override string GetData()

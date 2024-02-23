@@ -5,12 +5,17 @@ namespace VisualStudioDiscordRPC.Shared.Variables
 {
     public class VersionVariable : Variable
     {
-        private readonly string _version;
+        private readonly DTE2 _dte;
+        private string _version;
 
         public VersionVariable(DTE2 dte) 
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            _version = dte.Version;
+            _dte = dte;
+        }
+
+        public override void Initialize()
+        {
+            _version = _dte.Version;
         }
 
         public override string GetData()

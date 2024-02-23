@@ -6,15 +6,22 @@ namespace VisualStudioDiscordRPC.Shared.Variables
 {
     public class DebugModeVariable : Variable
     {
-        private readonly Debugger _debugger;
-        private readonly DebuggerEvents _debuggerEvents;
+        private readonly DTE2 _dte;
+
+        private Debugger _debugger;
+        private DebuggerEvents _debuggerEvents;
 
         public DebugModeVariable(DTE2 dte)
         {
+            _dte = dte;   
+        }
+
+        public override void Initialize()
+        {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
-            _debugger = dte.Debugger;
-            _debuggerEvents = dte.Events.DebuggerEvents;
+            _debugger = _dte.Debugger;
+            _debuggerEvents = _dte.Events.DebuggerEvents;
 
             _debuggerEvents.OnEnterBreakMode += OnEnterBreakMode;
             _debuggerEvents.OnEnterDesignMode += OnEnterDesignMode;

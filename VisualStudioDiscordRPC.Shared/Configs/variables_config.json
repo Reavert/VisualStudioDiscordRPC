@@ -1,0 +1,34 @@
+{
+  "variables": [
+    {
+      "name": "file_name",
+      "description": "Name of the currently active file",
+      "type": "FileNameVariable"
+    },
+    {
+      "name": "project_name",
+      "description": "Name of the currently active project",
+      "type": "ProjectNameVariable"
+    },
+    {
+      "name": "solution_name",
+      "description": "Name of the currently active solution",
+      "type": "SolutionNameVariable"
+    },
+    {
+      "name": "version",
+      "description": "Current version of Visual Studio",
+      "type": "VersionVariable"
+    },
+    {
+      "name": "edition",
+      "description": "Current edition of Visual Studio",
+      "type": "EditionVariable"
+    },
+    {
+      "name": "debug_mode",
+      "description": "Current project debugging mode",
+      "type": "DebugModeVariable"
+    }
+  ]
+}

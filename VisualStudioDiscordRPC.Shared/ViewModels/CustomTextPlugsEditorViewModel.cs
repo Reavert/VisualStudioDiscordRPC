@@ -10,7 +10,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         public IReadOnlyCollection<CustomTextPlugViewModel> CustomTextPlugs => 
             _plugService.GetPlugsOfType<CustomTextPlug>().Select(plug => new CustomTextPlugViewModel(plug)).ToArray();
 
-        public IReadOnlyCollection<VariableDescriptor> Variables => _variableService.GetVariables();
+        public IReadOnlyCollection<VariableDescriptor> Variables => _variableService.GetVariablesDescriptors();
         public CustomTextPlugViewModel SelectedItem { get; set; }
 
         public RelayCommand NewCommand { get; }

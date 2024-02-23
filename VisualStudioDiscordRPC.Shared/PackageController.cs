@@ -15,6 +15,7 @@ using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
 using VisualStudioDiscordRPC.Shared.Nests;
 using VisualStudioDiscordRPC.Shared.Utils;
+using Newtonsoft.Json;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -96,7 +97,9 @@ namespace VisualStudioDiscordRPC.Shared
             ServiceRepository.Default.AddService(localizationService);
 
             // Registering variable service.
-            ServiceRepository.Default.AddService(new VariableService(_vsObserver));
+            string variablesConfigJson = File.ReadAllText(PathHelper.GetPackageInstallationPath("Configs/variables_config.json"));
+            VariableServiceConfig variablesConfig = JsonConvert.DeserializeObject<VariableServiceConfig>(variablesConfigJson);
+            ServiceRepository.Default.AddService(new VariableService(variablesConfig, _vsObserver));
 
             // Registering plug service.
             _plugService = new PlugService();

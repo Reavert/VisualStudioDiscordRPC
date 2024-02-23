@@ -6,6 +6,8 @@ namespace VisualStudioDiscordRPC.Shared.Variables
     {
         public event EventHandler<string> Changed;
 
+        public abstract void Initialize();
+
         public abstract string GetData();
 
         protected void RaiseChangedEvent()
