@@ -157,6 +157,7 @@ namespace VisualStudioDiscordRPC.Shared.Services
         private void LoadBuiltInTextPlugs()
         {
             var localizationService = ServiceRepository.Default.GetService<LocalizationService>();
+            var gitObserver = ServiceRepository.Default.GetService<GitObserver>();
 
             _plugs.AddRange(new BaseTextPlug[]
             {
@@ -164,6 +165,7 @@ namespace VisualStudioDiscordRPC.Shared.Services
                 new FileNameTextPlug(_vsObserver, localizationService),
                 new ProjectNameTextPlug(_vsObserver, localizationService),
                 new SolutionNameTextPlug(_vsObserver, localizationService),
+                new GitBranchTextPlug(gitObserver, localizationService),
                 new VisualStudioVersionTextPlug(_vsObserver.DTE)
             });
         }
