@@ -66,7 +66,12 @@ namespace VisualStudioDiscordRPC.Shared.Services
 
         public string Localize(string key)
         {
-            return Current.LocalizedValues[key];
+            if (Current.LocalizedValues.TryGetValue(key, out var value))
+            {
+                return value;
+            }
+
+            return $"#{key}";
         }
     }
 }
