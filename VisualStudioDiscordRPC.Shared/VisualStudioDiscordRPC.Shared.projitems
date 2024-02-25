@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Variables\DebugModeVariable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Variables\EditionVariable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Variables\FileNameVariable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Variables\GitBranchVariable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Variables\Variable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Variables\ProjectNameVariable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Variables\SolutionNameVariable.cs" />

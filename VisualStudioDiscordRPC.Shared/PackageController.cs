@@ -99,7 +99,7 @@ namespace VisualStudioDiscordRPC.Shared
             // Registering variable service.
             string variablesConfigJson = File.ReadAllText(PathHelper.GetPackageInstallationPath("Configs/variables_config.json"));
             VariableServiceConfig variablesConfig = JsonConvert.DeserializeObject<VariableServiceConfig>(variablesConfigJson);
-            ServiceRepository.Default.AddService(new VariableService(variablesConfig, _vsObserver));
+            ServiceRepository.Default.AddService(new VariableService(variablesConfig, _vsObserver, _gitObserver));
 
             // Registering plug service.
             _plugService = new PlugService();

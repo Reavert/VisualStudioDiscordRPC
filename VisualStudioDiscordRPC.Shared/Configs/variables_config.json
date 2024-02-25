@@ -29,6 +29,11 @@
       "name": "debug_mode",
       "description": "Current project debugging mode",
       "type": "DebugModeVariable"
+    },
+    {
+      "name": "git_branch",
+      "description": "Current git branch name",
+      "type": "GitBranchVariable"
     }
   ]
 }

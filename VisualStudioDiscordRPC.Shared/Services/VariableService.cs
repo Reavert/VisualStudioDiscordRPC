@@ -45,7 +45,7 @@ namespace VisualStudioDiscordRPC.Shared.Services
         private readonly Dictionary<string, Variable> _variablesByType = new Dictionary<string, Variable>();
         private readonly Dictionary<string, VariableDescriptor> _variablesDescriptors = new Dictionary<string, VariableDescriptor>();
 
-        public VariableService(VariableServiceConfig config, VsObserver vsObserver)
+        public VariableService(VariableServiceConfig config, VsObserver vsObserver, GitObserver gitObserver)
         {
             _vsObserver = vsObserver;
 
@@ -55,6 +55,8 @@ namespace VisualStudioDiscordRPC.Shared.Services
             RegisterVariable(new VersionVariable(_vsObserver.DTE));
             RegisterVariable(new EditionVariable(_vsObserver.DTE));
             RegisterVariable(new DebugModeVariable(_vsObserver.DTE));
+            RegisterVariable(new GitBranchVariable(gitObserver));
+
 
             foreach (VariableInfo variableInfo in config.Variables)
             {

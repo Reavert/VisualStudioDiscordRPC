@@ -1,11 +1,13 @@
 ﻿using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using System;
 
 namespace VisualStudioDiscordRPC.Shared.Observers
 {
     public class VsObserver : IObserver
     {
+        public event WindowChangedHandler WindowChanged;
         public event DocumentChangedHandler DocumentChanged;
         public event ProjectChangedHandler ProjectChanged;
         public event SolutionChangedHandler SolutionChanged;
@@ -43,6 +45,8 @@ namespace VisualStudioDiscordRPC.Shared.Observers
             {
                 return;
             }
+
+            WindowChanged?.Invoke(gotFocus);
 
             Solution currentSolution = gotFocus.DTE.Solution;
 
