@@ -139,6 +139,11 @@
         "name": "Shader",
         "key": "shader_file",
         "extensions": [ ".hlsl", ".glsl", ".shader", ".frag", ".vert", ".cg" ]
+    },
+    {
+        "name": "Command Line Script",
+        "key": "cmd",
+        "extensions": [ ".bat", ".sh", ".ps", ".ps1", ".cmd", ".bash" ]
     }
   ]
 }
