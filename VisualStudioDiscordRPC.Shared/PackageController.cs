@@ -16,6 +16,7 @@ using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
 using VisualStudioDiscordRPC.Shared.Nests;
 using VisualStudioDiscordRPC.Shared.Utils;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -54,7 +55,7 @@ namespace VisualStudioDiscordRPC.Shared
 
                 if (updateNotificationsEnabled)
                 {
-                    DisplayVersionUpdateMessage(currentExtensionVersion);
+                    DisplayVersionUpdateMessage(previousVersion, currentExtensionVersion);
                 }
             }
         }
@@ -146,19 +147,20 @@ namespace VisualStudioDiscordRPC.Shared
             _discordRpcController.SetPlug<SecondButtonNest>(_plugService.GetPlugById<BaseButtonPlug>(secondButtonPlug));
         }
 
-        private void DisplayVersionUpdateMessage(string version)
+        private void DisplayVersionUpdateMessage(string previousVersion, string currentVersion)
         {
+            var releaseNotes = ReadReleaseNotesOfVersionRange(previousVersion, currentVersion);
             var updateTextBuilder = new StringBuilder();
-            updateTextBuilder.AppendLine(string.Format(ConstantStrings.NewVersionNotification, version));
 
-            ReleaseNote currentVersionReleaseNote = ReadReleaseNoteOfVersion(version);
-            if (currentVersionReleaseNote != null)
+            updateTextBuilder.AppendLine(string.Format(ConstantStrings.NewVersionNotification, currentVersion));
+
+            foreach (var releaseNote in releaseNotes)
             {
                 updateTextBuilder.AppendLine();
-                updateTextBuilder.AppendLine("Release notes: ");
+                updateTextBuilder.AppendLine($"Release notes of {releaseNote.Version}:");
 
-                string notesText = string.Join("\n", 
-                    currentVersionReleaseNote.Notes.Select(note => $" - {note}"));
+                string notesText = string.Join("\n",
+                    releaseNote.Notes.Select(note => $" - {note}"));
                 updateTextBuilder.AppendLine(notesText);
             }
 
@@ -166,22 +168,26 @@ namespace VisualStudioDiscordRPC.Shared
                     MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private ReleaseNote ReadReleaseNoteOfVersion(string version)
+        private List<ReleaseNote> ReadReleaseNotesOfVersionRange(string startVersionString, string endVersionString)
         {
+            var result = new List<ReleaseNote>();
+
             string releaseNotePath = PathHelper.GetPackageInstallationPath("RELEASE_NOTES.txt");
             string releaseNotesText = File.ReadAllText(releaseNotePath);
 
             var releaseNotesParser = new ReleaseNotesParser(releaseNotesText);
 
+            var startVersion = new Version(startVersionString);
+            var endVersion = new Version(endVersionString);
+
             while (releaseNotesParser.ReadReleaseNote(out ReleaseNote releaseNote))
             {
-                if (releaseNote.Version == version)
-                {
-                    return releaseNote;
-                }
+                var version = new Version(releaseNote.Version);
+                if (version > startVersion && version <= endVersion)
+                    result.Add(releaseNote);
             }
 
-            return null;
+            return result;
         }
     }
 }
