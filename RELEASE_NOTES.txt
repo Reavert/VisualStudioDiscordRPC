@@ -1,3 +1,10 @@
+1.7.0
+- Updated icons for the following formats: Assembler, ASP.NET , C, Coffee Script, C++, C#, CS, F#, Header files, HTML, Images, Java Script, Lua, Markdown, PHP, Python, Razor/Blazor, Schema files, TypeScript, Visual Basic, XML, YAML
+- Added an icon for Shader files: .hlsl, glsl, .shader, .frag, .vert, .cg
+- Added an icon for command line scripts: .bat, .sh., .bash, .cmd, .ps, .ps1
+- Added a new variable and plug: git branch name (git_branch)
+- Added ARM64 Support (Contributor: Jaiganesh Kumaran)
+
 1.6.6
 - Fixed an extension crash when using the 'None' mode for the 'Details' and 'State' fields;
 - Fixed a bug that caused the custom text plug to stop updating after changing its pattern.
