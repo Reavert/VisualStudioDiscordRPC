@@ -27,4 +27,9 @@
 
 	<translation id="NoneButtonPlug">없음</translation>
 	<translation id="GitRepositoryButtonPlug">저장소</translation>
+
+	<translation id="GitBranchTextPlug">힘내 지점</translation>
+	<translation id="branch">지점</translation>
+	<translation id="noActiveBranch">활성 분기 없음</translation>
+	<translation id="ApplicationScopeTimerPlug">편집기 내</translation>
 </language>

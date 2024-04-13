@@ -27,4 +27,9 @@
 
 	<translation id="NoneButtonPlug">Brak</translation>
 	<translation id="GitRepositoryButtonPlug">Repozytorium</translation>
+
+	<translation id="GitBranchTextPlug">Git oddział</translation>
+	<translation id="branch">Oddział</translation>
+	<translation id="noActiveBranch">Brak aktywnego oddziału</translation>
+	<translation id="ApplicationScopeTimerPlug">W edytorze</translation>
 </language>

@@ -27,4 +27,9 @@
 
 	<translation id="NoneButtonPlug">Kein</translation>
 	<translation id="GitRepositoryButtonPlug">Repository</translation>
+
+	<translation id="GitBranchTextPlug">Ein Git-Zweig</translation>
+	<translation id="branch">Zweig</translation>
+	<translation id="noActiveBranch">Es gibt keinen aktiven Zweig</translation>
+	<translation id="ApplicationScopeTimerPlug">Für den Editor</translation>
 </language>

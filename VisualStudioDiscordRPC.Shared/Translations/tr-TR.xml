@@ -27,4 +27,9 @@
 	
 	<translation id="NoneButtonPlug">Yok</translation>
 	<translation id="GitRepositoryButtonPlug">Depo</translation>
+
+	<translation id="GitBranchTextPlug">Git şubesi</translation>
+	<translation id="branch">Şube</translation>
+	<translation id="noActiveBranch">Aktif şube yok</translation>
+	<translation id="ApplicationScopeTimerPlug">Editör içinde</translation>
 </language>

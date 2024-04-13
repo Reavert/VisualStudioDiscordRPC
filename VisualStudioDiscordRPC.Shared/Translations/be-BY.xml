@@ -19,12 +19,17 @@
 	<translation id="ProjectNameTextPlug">Назва праекта</translation>
 	<translation id="SolutionNameTextPlug">Назва рашэння</translation>
 	<translation id="FileNameTextPlug">Імя файла</translation>
-
+	
 	<translation id="NoneTimerPlug">Непрацаздольны</translation>
 	<translation id="FileScopeTimerPlug">Для файлаў</translation>
 	<translation id="ProjectScopeTimerPlug">Для праектаў</translation>
 	<translation id="SolutionScopeTimerPlug">Для рашэнняў</translation>
-
+	
 	<translation id="NoneButtonPlug">Няма</translation>
 	<translation id="GitRepositoryButtonPlug">Рэпазітар</translation>
+
+	<translation id="GitBranchTextPlug">Галінка Git</translation>
+	<translation id="branch">Галінка</translation>
+	<translation id="noActiveBranch">Няма актыўнай галінкі</translation>
+	<translation id="ApplicationScopeTimerPlug">Для рэдактара</translation>
 </language>

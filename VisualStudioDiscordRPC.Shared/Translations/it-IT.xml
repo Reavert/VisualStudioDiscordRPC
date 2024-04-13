@@ -27,4 +27,9 @@
 
 	<translation id="NoneButtonPlug">Nessuno</translation>
 	<translation id="GitRepositoryButtonPlug">Repository</translation>
+
+	<translation id="GitBranchTextPlug">Ramo Git</translation>
+	<translation id="branch">Ramo</translation>
+	<translation id="noActiveBranch">Nessun ramo attivo</translation>
+	<translation id="ApplicationScopeTimerPlug">All'interno di editor</translation>
 </language>

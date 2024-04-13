@@ -27,4 +27,9 @@
 
 	<translation id="NoneButtonPlug">沒有任何</translation>
 	<translation id="GitRepositoryButtonPlug">儲存庫</translation>
+
+	<translation id="GitBranchTextPlug">Git分支</translation>
+	<translation id="branch">分支</translation>
+	<translation id="noActiveBranch">無活動分支</translation>
+	<translation id="ApplicationScopeTimerPlug">編輯器內</translation>
 </language>

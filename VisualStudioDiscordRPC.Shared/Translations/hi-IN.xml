@@ -27,4 +27,9 @@
 
 	<translation id="NoneButtonPlug">कोई नहीं</translation>
 	<translation id="GitRepositoryButtonPlug">रिपोजिटरी</translation>
+
+	<translation id="GitBranchTextPlug">गिट शाखा</translation>
+	<translation id="branch">शाखा</translation>
+	<translation id="noActiveBranch">कोई सक्रिय शाखा नहीं</translation>
+	<translation id="ApplicationScopeTimerPlug">संपादक के भीतर</translation>
 </language>

@@ -27,4 +27,9 @@
 
 	<translation id="NoneButtonPlug">Нет</translation>
 	<translation id="GitRepositoryButtonPlug">Репозиторий</translation>
+
+	<translation id="GitBranchTextPlug">Ветка Git</translation>
+	<translation id="branch">Ветка</translation>
+	<translation id="noActiveBranch">Нет активной ветки</translation>
+	<translation id="ApplicationScopeTimerPlug">Для редактора</translation>
 </language>

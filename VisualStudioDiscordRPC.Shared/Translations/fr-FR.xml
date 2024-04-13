@@ -27,4 +27,9 @@
 
 	<translation id="NoneButtonPlug">Aucun</translation>
 	<translation id="GitRepositoryButtonPlug">Référentiel</translation>
+
+	<translation id="GitBranchTextPlug">Branche Git</translation>
+	<translation id="branch">Branche</translation>
+	<translation id="noActiveBranch">Aucune branche active</translation>
+	<translation id="ApplicationScopeTimerPlug">Dans l'éditeur</translation>
 </language>

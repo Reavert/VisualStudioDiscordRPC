@@ -27,4 +27,9 @@
 
 	<translation id="NoneButtonPlug">Немає</translation>
 	<translation id="GitRepositoryButtonPlug">Репозиторій</translation>
+
+	<translation id="GitBranchTextPlug">Гілка Git</translation>
+	<translation id="branch">Гілка</translation>
+	<translation id="noActiveBranch">Немає активної гілки</translation>
+	<translation id="ApplicationScopeTimerPlug">У редакторі</translation>
 </language>
