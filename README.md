@@ -1,7 +1,9 @@
 # Visual Studio Discord Rich Presence Client
+
+## Description
 This package is made for display your activity from the Visual Studio development environment to the Discord.
 
-Currently, two versions of Visual Studio are supported - 2019 and 2022.
+Currently, two versions of Visual Studio are supported - Visual Studio 2019 and Visual Studio 2022.
 
 Extensions can be installed directly from Visual Studio or from the Visual Studio Marketplace for each version.
 
@@ -9,36 +11,92 @@ Extensions can be installed directly from Visual Studio or from the Visual Studi
 
 [Discord RPC for Visual Studio 2022](https://marketplace.visualstudio.com/items?itemName=Ryavel.vsdrp2022)
 
-## View
-Discord examples:
+***After installing the extension, an option will appear in the "Extensions" menu to open the extension settings window.***
 
-![demo_l](https://user-images.githubusercontent.com/55898777/151147335-367d4d82-ebad-41c7-9ddb-3a1df7992688.png)
+## Preview
 
-Settings window example:
-
-![settings_l](https://user-images.githubusercontent.com/55898777/191091938-bffcdf05-9434-40e4-9644-0b8f0bbd689e.png)
+![preview](https://github.com/Reavert/VisualStudioDiscordRPC/assets/55898777/13c38489-7ddf-4618-9a97-670727fed057)
 
 ## Features
-* Localization support;
-* Flexible text display settings, which can include:
-  - File name;
-  - Project name;
-  - Solution name;
-  - Visual Studio version;
-* Flexible icon display settings, which can include:
-  - Visual Studio icon;
-  - File extension icon;
-* Work timer modes:
-  - File;
-  - Project;
-  - Solution;
-* Link to remote Git repository of project you are working with;
-* The ability to set custom Discord Application (for uploading your own assets).
+
+### Flexible text display settings
+- No text display;
+- File name;
+- Project name;
+- Solution name;
+- Git branch name;
+- Visual Studio version.
+
+### Flexible icon display settings
+- No icon display;
+- File extension icon;
+- Visual Studio icon.
+
+### Timer modes
+- No timer (The timer is disabled);
+- File mode (The timer shows how much time you have spent in the file);
+- Project mode (The timer shows how much time you have spent in the project);
+- Solution mode (The timer shows how much time you have spent in the solution);
+- Application mode (The timer shows how much time you have spent in the editor).
+
+### Repository button
+You can select "Repository" as the button. 
+Then a button will be displayed that leads to the remote repository of your solution.
+
+![repository_button](https://github.com/Reavert/VisualStudioDiscordRPC/assets/55898777/417f9fcd-fbcf-4251-8436-3a3a895f61d4)
+
+### Private repositories
+You can mark the current repository of your solution as private. 
+Then the button with a link to your remote repository will not be displayed.   
+
+### Secret solutions
+You can mark your current solution as secret. 
+When you work in such solution, the icon will change to "lock", and information about your work will be hidden.
+
+![secret_screen](https://github.com/Reavert/VisualStudioDiscordRPC/assets/55898777/f6532536-bbe6-4264-ae19-fb66ae62dd5a)
+
+### Custom text display
+You can create and customize your own text display using variables.
+
+The available variables are shown in the table below.
+
+|Variable|Description|
+|--------|-----------|
+|```file_name```|Name of the currently active file|
+|```project_name```|Name of the currently active project|
+|```solution_name```|Name of the currently active solution|
+|```version```|Visual Studio version (2019 or 2022)|
+|```edition```|Visual Stuido edition (Community, Professional or Enterprise)|
+|```debug_mode```|Current debugging mode|
+|```git_branch```|Current solution's git branch name|
+
+### Localizations
+The extension has the following localizations:
+- English;
+- Russian;
+- Belarusian;
+- Ukrainian;
+- Czech;
+- German;
+- Spanish;
+- French;
+- Hindi;
+- Italian;
+- Korean;
+- Polish;
+- Portuguese;
+- Turkish;
+- Chinese Simplified;
+- Chinese Traditional.
 
 ## Issues
-If you encounter a problem or have suggestions for a project, feel free to add it to the "Issues" section.
+If you encounter a problem or have suggestions for a project, feel free to add it to the [Issues](https://github.com/Reavert/VisualStudioDiscordRPC/issues) section.
 
 ## Contributing
-If you want to help with development of this extension, feel free to make a Pull Request.
+If you want to help with development of this extension, feel free to make a [Pull Request](https://github.com/Reavert/VisualStudioDiscordRPC/pulls).
 
-If you want to help with translating the extension into other languages, you can go to the application's [OneSky collaboration site](https://ryavel.oneskyapp.com/collaboration/project?id=185653), feel free to translate. 
+## Thanks
+[Lachee](https://github.com/Lachee)/[discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
+
+## License
+This project is licensed under the [MIT License](https://github.com/Reavert/VisualStudioDiscordRPC/blob/main/LICENSE.txt).
