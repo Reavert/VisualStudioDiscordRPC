@@ -144,6 +144,11 @@
         "name": "Command Line Script",
         "key": "cmd",
         "extensions": [ ".bat", ".sh", ".ps", ".ps1", ".cmd", ".bash" ]
+    },
+    {
+      "name": "Resource",
+      "key": "resx_file",
+      "extensions": [ ".resx" ]
     }
   ]
 }
