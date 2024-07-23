@@ -33,7 +33,7 @@
     {
       "name": "Configuration/Settings",
       "key": "config_file",
-      "extensions": [ ".config", ".settings", ".sln", ".suo", ".csproj", "vcxproj", ".vbproj" ]
+      "extensions": [ ".config", ".settings", ".sln", ".suo", ".csproj", "vcxproj", ".vbproj", ".resx" ]
     },
     {
       "name": "Razor",
