@@ -1,3 +1,7 @@
+1.7.2
+- The "Config/Settings" icon is supplemented with the '.resx', '.vsixmanifest' and '.vsct' extensions;
+- The "Schema" icon is supplemented with '.csv' and '.tsv' extensions.
+
 1.7.1
 - Update localization files
 
