@@ -33,7 +33,7 @@
     {
       "name": "Configuration/Settings",
       "key": "config_file",
-      "extensions": [ ".config", ".settings", ".sln", ".suo", ".csproj", "vcxproj", ".vbproj", ".resx" ]
+      "extensions": [ ".config", ".settings", ".sln", ".suo", ".csproj", "vcxproj", ".vbproj", ".resx", ".vsixmanifest", ".vsct" ]
     },
     {
       "name": "Razor",
@@ -113,7 +113,7 @@
     {
       "name": "Schema",
       "key": "schema_file",
-      "extensions": [ ".xsd", ".dtd", ".ini", ".ltx" ]
+      "extensions": [ ".xsd", ".dtd", ".ini", ".ltx", ".csv", ".tsv" ]
     },
     {
       "name": "Text",
