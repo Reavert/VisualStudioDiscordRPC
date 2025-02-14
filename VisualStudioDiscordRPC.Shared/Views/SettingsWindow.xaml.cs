@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.ViewModels;
 
@@ -32,6 +33,14 @@ namespace VisualStudioDiscordRPC.Shared
         private void OnResetButtonClick(object sender, RoutedEventArgs e)
         {
             ViewModel.DiscordAppId = DiscordRpcController.DefaultApplicationId;
+        }
+
+        private void ValidateIdleTimeTextBox(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

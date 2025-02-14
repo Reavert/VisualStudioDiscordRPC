@@ -6,6 +6,8 @@ using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.Plugs;
 using VisualStudioDiscordRPC.Shared.Nests;
 using VisualStudioDiscordRPC.Shared.Nests.Base;
+using System.Windows;
+using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -14,13 +16,15 @@ namespace VisualStudioDiscordRPC.Shared
         public const string DefaultApplicationId = "914622396630175855";
 
         private static readonly RichPresence HiddenRichPresence;
+        private static readonly RichPresence IdlingRichPresence;
 
-        private readonly DiscordRpcClient _discordRpcClient;
-        
         private bool _isDirty;
+        private DateTime _lastDirtyTime;
         private readonly object _dirtyFlagSync = new object();
 
+        private readonly DiscordRpcClient _discordRpcClient;
         private readonly LocalizationService _localizationService;
+        private readonly SettingsService _settingsService;
 
         private readonly RichPresence _sharedRichPresence;
         private readonly object _richPresenceSync = new object();
@@ -28,6 +32,8 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly Thread _sendingRichPresenceDataThread;
         private readonly int _sendDataMillisecondsTimeout;
         private bool _sendingThreadCancellation;
+
+        private bool _isIdling;
 
         private bool _enabled = true;
         public bool Enabled
@@ -63,7 +69,7 @@ namespace VisualStudioDiscordRPC.Shared
             set
             {
                 _secret = value;
-                _isDirty = true;
+                SetDirty();
             }
         }
 
@@ -81,12 +87,23 @@ namespace VisualStudioDiscordRPC.Shared
                 },
                 Details = "This solution is hidden"
             };
+
+            IdlingRichPresence = new RichPresence
+            {
+                Assets = new Assets()
+                {
+                    LargeImageKey = "zzz",
+                    LargeImageText = "Idling..."
+                },
+                Details = "Idling..."
+            };
         }
 
         public DiscordRpcController(int updateMillisecondsTimeout) 
         {
-            var settingsService = ServiceRepository.Default.GetService<SettingsService>();
-            var applicationId = settingsService.Read<string>(SettingsKeys.ApplicationID);
+            _settingsService = ServiceRepository.Default.GetService<SettingsService>();
+
+            var applicationId = _settingsService.Read<string>(SettingsKeys.ApplicationID);
 
             _discordRpcClient = new DiscordRpcClient(applicationId)
             {
@@ -194,10 +211,7 @@ namespace VisualStudioDiscordRPC.Shared
 
         private void OnNestChanged()
         {
-            lock (_dirtyFlagSync)
-            {
-                _isDirty = true;
-            }
+            SetDirty();
         }
 
         public void RefreshAll()
@@ -206,10 +220,17 @@ namespace VisualStudioDiscordRPC.Shared
             {
                 nest.BasePlug?.Update();
             }
+            
+            SetDirty();
+        }
 
+        private void SetDirty()
+        {
             lock (_dirtyFlagSync)
             {
                 _isDirty = true;
+                _isIdling = false;
+                _lastDirtyTime = DateTime.Now;
             }
         }
 
@@ -228,22 +249,50 @@ namespace VisualStudioDiscordRPC.Shared
 
                     lock (_dirtyFlagSync)
                     {
-                        if (_enabled && _isDirty)
+                        if (_enabled)
                         {
-                            if (_secret)
+                            if (!_isIdling)
                             {
-                                _discordRpcClient.SetPresence(HiddenRichPresence);
-                            }
-                            else
-                            {
-                                _discordRpcClient.SetPresence(_sharedRichPresence);
+                                bool detectIdling = _settingsService.Read<bool>(SettingsKeys.DetectIdling);
+                                if (detectIdling)
+                                {
+                                    TimeSpan timeDiff = DateTime.Now - _lastDirtyTime;
+                                    long idleMinutes = _settingsService.Read(SettingsKeys.IdleTime, SettingsDefaults.DefaultIdleTime);
+
+                                    if (timeDiff > TimeSpan.FromMinutes(idleMinutes))
+                                    {
+                                        OnIdle();
+                                        _isIdling = true;
+                                    }
+                                }
                             }
 
-                            _isDirty = false;
+                            if (_isDirty && !_isIdling)
+                            {
+                                OnRpcUpdate();
+                                _isDirty = false;
+                            }
                         }
                     }
                 }
             }
+        }
+
+        private void OnRpcUpdate()
+        {
+            if (_secret)
+            {
+                _discordRpcClient.SetPresence(HiddenRichPresence);
+            }
+            else
+            {
+                _discordRpcClient.SetPresence(_sharedRichPresence);
+            }
+        }
+
+        private void OnIdle()
+        {
+            _discordRpcClient.SetPresence(IdlingRichPresence);
         }
     }
 }

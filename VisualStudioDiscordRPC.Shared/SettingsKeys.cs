@@ -19,5 +19,7 @@
         public const string TranslationsPath = "TranslationsPath";
         public const string PrivateRepositories = "PrivateRepositories";
         public const string SecretSolutions = "SecretSolutions";
+        public const string DetectIdling = "DetectIdling";
+        public const string IdleTime = "IdleTime";
     }
 }

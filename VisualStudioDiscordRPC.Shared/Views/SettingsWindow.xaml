@@ -112,6 +112,17 @@
                           IsChecked="{Binding UpdateNotificationsEnabled}">
                     <TextBlock Text="Notify about extension updates"/>
                 </CheckBox>
+                <CheckBox Margin="5"
+                          IsChecked="{Binding DetectIdlingEnabled}">
+                    <TextBlock Text="Detect idling"/>
+                </CheckBox>
+
+                <TextBlock Text="Idle time (minutes):"/>
+                <TextBox Name="IdleTimeTextBox"
+                         IsEnabled="{Binding DetectIdlingEnabled}"
+                         Text="{Binding IdleTime}"
+                         PreviewTextInput="ValidateIdleTimeTextBox"/>
+
                 <Expander Header="Advanced"
                           Margin="5">
                     <StackPanel Margin="5">
