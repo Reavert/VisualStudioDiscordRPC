@@ -9,6 +9,7 @@ using VisualStudioDiscordRPC.Shared.Plugs.TextPlugs;
 using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
 using VisualStudioDiscordRPC.Shared.Nests;
 using VisualStudioDiscordRPC.Shared.Utils;
+using System.Windows.Input;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
@@ -29,6 +30,22 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         {
             get => _settingsService.Read<bool>(SettingsKeys.UpdateNotifications);
             set => _settingsService.Set(SettingsKeys.UpdateNotifications, value);
+        }
+
+        public bool DetectIdlingEnabled
+        {
+            get => _settingsService.Read<bool>(SettingsKeys.DetectIdling);
+            set
+            {
+                _settingsService.Set(SettingsKeys.DetectIdling, value);
+                OnPropertyChanged(nameof(DetectIdlingEnabled));
+            }
+        }
+
+        public string IdleTime
+        {
+            get => _settingsService.Read(SettingsKeys.IdleTime, SettingsDefaults.DefaultIdleTime).ToString();
+            set => _settingsService.Set(SettingsKeys.IdleTime, long.Parse(value));
         }
 
         public bool RichPresenceEnabled
