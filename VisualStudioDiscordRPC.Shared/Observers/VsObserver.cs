@@ -1,7 +1,6 @@
 ﻿using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
-using System;
 
 namespace VisualStudioDiscordRPC.Shared.Observers
 {
@@ -11,12 +10,15 @@ namespace VisualStudioDiscordRPC.Shared.Observers
         public event DocumentChangedHandler DocumentChanged;
         public event ProjectChangedHandler ProjectChanged;
         public event SolutionChangedHandler SolutionChanged;
+        public event TextEditorLineChangedHandler TextEditorLineChanged;
 
         private readonly DTE2 _dte;
         public DTE2 DTE => _dte;
 
         private string _lastSolutionName;
         private Project _lastProject;
+
+        private TextEditorEvents _textEditorEvents;
 
         public VsObserver(DTE2 dte)
         {
@@ -28,6 +30,9 @@ namespace VisualStudioDiscordRPC.Shared.Observers
             ThreadHelper.ThrowIfNotOnUIThread();
 
             _dte.Events.WindowEvents.WindowActivated += OnWindowActivated;
+
+            _textEditorEvents = _dte.Events.TextEditorEvents;
+            _textEditorEvents.LineChanged += OnTextEditorLineChanged;
         }
 
         public void Unobserve()
@@ -35,6 +40,7 @@ namespace VisualStudioDiscordRPC.Shared.Observers
             ThreadHelper.ThrowIfNotOnUIThread();
 
             _dte.Events.WindowEvents.WindowActivated -= OnWindowActivated;
+            _textEditorEvents.LineChanged -= OnTextEditorLineChanged;
         }
 
         private void OnWindowActivated(Window gotFocus, Window lostFocus)
@@ -77,6 +83,11 @@ namespace VisualStudioDiscordRPC.Shared.Observers
                     DocumentChanged?.Invoke(null);
                 }
             }
+        }
+
+        private void OnTextEditorLineChanged(TextPoint startPoint, TextPoint endPoint, int hint)
+        {
+            TextEditorLineChanged?.Invoke(startPoint, endPoint, hint);
         }
     }
 }

@@ -6,8 +6,7 @@ using VisualStudioDiscordRPC.Shared.Services;
 using VisualStudioDiscordRPC.Shared.Plugs;
 using VisualStudioDiscordRPC.Shared.Nests;
 using VisualStudioDiscordRPC.Shared.Nests.Base;
-using System.Windows;
-using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
+using VisualStudioDiscordRPC.Shared.Observers;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -25,6 +24,7 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly DiscordRpcClient _discordRpcClient;
         private readonly LocalizationService _localizationService;
         private readonly SettingsService _settingsService;
+        private readonly VsObserver _vsObserver;
 
         private readonly RichPresence _sharedRichPresence;
         private readonly object _richPresenceSync = new object();
@@ -102,6 +102,7 @@ namespace VisualStudioDiscordRPC.Shared
         public DiscordRpcController(int updateMillisecondsTimeout) 
         {
             _settingsService = ServiceRepository.Default.GetService<SettingsService>();
+            _vsObserver = ServiceRepository.Default.GetService<VsObserver>();
 
             var applicationId = _settingsService.Read<string>(SettingsKeys.ApplicationID);
 
@@ -152,6 +153,8 @@ namespace VisualStudioDiscordRPC.Shared
             {
                 nest.Changed += OnNestChanged;
             }
+
+            _vsObserver.TextEditorLineChanged += OnTextEditorLineChanged;
         }
 
         public void Dispose()
@@ -168,6 +171,8 @@ namespace VisualStudioDiscordRPC.Shared
                 _sendingThreadCancellation = true;
                 _discordRpcClient.Dispose();
             }
+
+            _vsObserver.TextEditorLineChanged -= OnTextEditorLineChanged;
         }
 
         public void SetPlug<TNest>(BasePlug plug) where TNest : BaseNest
@@ -212,6 +217,12 @@ namespace VisualStudioDiscordRPC.Shared
         private void OnNestChanged()
         {
             SetDirty();
+        }
+
+        private void OnTextEditorLineChanged(EnvDTE.TextPoint startPoint, EnvDTE.TextPoint endPoint, int hint)
+        {
+            if (_enabled && _isIdling)
+                SetDirty();
         }
 
         public void RefreshAll()
