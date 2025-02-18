@@ -7,6 +7,7 @@ using VisualStudioDiscordRPC.Shared.Plugs;
 using VisualStudioDiscordRPC.Shared.Nests;
 using VisualStudioDiscordRPC.Shared.Nests.Base;
 using VisualStudioDiscordRPC.Shared.Observers;
+using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
 
 namespace VisualStudioDiscordRPC.Shared
 {
@@ -25,6 +26,7 @@ namespace VisualStudioDiscordRPC.Shared
         private readonly LocalizationService _localizationService;
         private readonly SettingsService _settingsService;
         private readonly VsObserver _vsObserver;
+        private readonly PlugService _plugService;
 
         private readonly RichPresence _sharedRichPresence;
         private readonly object _richPresenceSync = new object();
@@ -103,6 +105,7 @@ namespace VisualStudioDiscordRPC.Shared
         {
             _settingsService = ServiceRepository.Default.GetService<SettingsService>();
             _vsObserver = ServiceRepository.Default.GetService<VsObserver>();
+            _plugService = ServiceRepository.Default.GetService<PlugService>();
 
             var applicationId = _settingsService.Read<string>(SettingsKeys.ApplicationID);
 
@@ -223,6 +226,8 @@ namespace VisualStudioDiscordRPC.Shared
         {
             if (_enabled && _isIdling)
                 SetDirty();
+            else
+                _lastDirtyTime = DateTime.Now;
         }
 
         public void RefreshAll()
@@ -237,12 +242,17 @@ namespace VisualStudioDiscordRPC.Shared
 
         private void SetDirty()
         {
+            bool wasIdling = _isIdling;
+
             lock (_dirtyFlagSync)
             {
                 _isDirty = true;
                 _isIdling = false;
                 _lastDirtyTime = DateTime.Now;
             }
+
+            if (wasIdling)
+                OnEndIdling();
         }
 
         private void SendRichPresenceData()
@@ -304,6 +314,19 @@ namespace VisualStudioDiscordRPC.Shared
         private void OnIdle()
         {
             _discordRpcClient.SetPresence(IdlingRichPresence);
+
+        }
+
+        private void OnEndIdling()
+        {
+            bool resetTimersAfterIdling = _settingsService.Read<bool>(SettingsKeys.ResetTimersAfterIdling);
+            if (!resetTimersAfterIdling)
+                return;
+            
+            var timerPlugs = _plugService.GetPlugsOfType<BaseTimerPlug>();
+
+            foreach (var timerPlug in timerPlugs)
+                timerPlug.SyncTimestamp();
         }
     }
 }

@@ -42,6 +42,16 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             }
         }
 
+        public bool ResetTimersAfterIdling
+        {
+            get => _settingsService.Read<bool>(SettingsKeys.ResetTimersAfterIdling);
+            set
+            {
+                _settingsService.Set(SettingsKeys.ResetTimersAfterIdling, value);
+                OnPropertyChanged(nameof(ResetTimersAfterIdling));
+            }
+        }
+
         public string IdleTime
         {
             get => _settingsService.Read(SettingsKeys.IdleTime, SettingsDefaults.DefaultIdleTime).ToString();

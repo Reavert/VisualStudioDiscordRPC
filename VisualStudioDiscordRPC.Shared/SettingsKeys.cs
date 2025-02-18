@@ -21,5 +21,6 @@
         public const string SecretSolutions = "SecretSolutions";
         public const string DetectIdling = "DetectIdling";
         public const string IdleTime = "IdleTime";
+        public const string ResetTimersAfterIdling = "ResetTimersAfterIdling";
     }
 }

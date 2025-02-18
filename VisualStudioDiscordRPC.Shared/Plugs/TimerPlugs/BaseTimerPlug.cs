@@ -11,7 +11,7 @@ namespace VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs
             SyncTimestamp();
         }
 
-        protected void SyncTimestamp()
+        public void SyncTimestamp()
         {
             _changeTimestamp = Timestamps.Now;
             Update();

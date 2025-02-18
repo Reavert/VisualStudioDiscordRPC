@@ -116,7 +116,11 @@
                           IsChecked="{Binding DetectIdlingEnabled}">
                     <TextBlock Text="Detect idling"/>
                 </CheckBox>
-
+                <CheckBox Margin="5"
+                          IsEnabled="{Binding DetectIdlingEnabled}"
+                          IsChecked="{Binding ResetTimersAfterIdling}">
+                    <TextBlock Text="Reset timers after idling"/>
+                </CheckBox>
                 <TextBlock Text="Idle time (minutes):"/>
                 <TextBox Name="IdleTimeTextBox"
                          IsEnabled="{Binding DetectIdlingEnabled}"
