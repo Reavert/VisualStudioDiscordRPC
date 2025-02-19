@@ -112,21 +112,39 @@
                           IsChecked="{Binding UpdateNotificationsEnabled}">
                     <TextBlock Text="Notify about extension updates"/>
                 </CheckBox>
-                <CheckBox Margin="5"
-                          IsChecked="{Binding DetectIdlingEnabled}">
-                    <TextBlock Text="Detect idling"/>
-                </CheckBox>
-                <CheckBox Margin="5"
-                          IsEnabled="{Binding DetectIdlingEnabled}"
-                          IsChecked="{Binding ResetTimersAfterIdling}">
-                    <TextBlock Text="Reset timers after idling"/>
-                </CheckBox>
-                <TextBlock Text="Idle time (minutes):"/>
-                <TextBox Name="IdleTimeTextBox"
-                         IsEnabled="{Binding DetectIdlingEnabled}"
-                         Text="{Binding IdleTime}"
-                         PreviewTextInput="ValidateIdleTimeTextBox"/>
-
+                
+                <Expander Header="Idling"
+                          Margin="5 5 5 0">
+                    <StackPanel>
+                        <StackPanel 
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Margin="5 5 5 0"
+                            IsEnabled="{Binding DetectIdlingEnabled}">
+                            <CheckBox 
+                                IsChecked="{Binding DetectIdlingEnabled}"
+                                VerticalAlignment="Center">
+                                <TextBlock Text="Detect idling after "/>
+                            </CheckBox>
+                            <TextBox Name="IdleTimeTextBox"
+                                     VerticalAlignment="Center"
+                                     TextAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Text="{Binding IdleTime}"
+                                     MaxLength="5"
+                                     PreviewTextInput="ValidateIdleTimeTextBox" 
+                                     Width="40"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text=" minutes"/>
+                        </StackPanel>
+                        <CheckBox Margin="5 3"
+                                  IsEnabled="{Binding DetectIdlingEnabled}"
+                                  IsChecked="{Binding ResetTimersAfterIdling}">
+                            <TextBlock Text="Reset timers after idling"/>
+                        </CheckBox>
+                    </StackPanel>
+                </Expander>
+                
                 <Expander Header="Advanced"
                           Margin="5">
                     <StackPanel Margin="5">
