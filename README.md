@@ -55,6 +55,15 @@ When you work in such solution, the icon will change to "lock", and information 
 
 ![secret_screen](https://github.com/Reavert/VisualStudioDiscordRPC/assets/55898777/f6532536-bbe6-4264-ae19-fb66ae62dd5a)
 
+### Idling detection
+You can enable idling detection.
+
+If you do not switch to other windows or do not write anything in the text editor of the IDE, then after some time you will be marked as "Idling". The large image will change to the corresponding icon.   
+
+You can set the time after which you are considered missing in the settings in the "Idling" block   
+
+![image](https://github.com/user-attachments/assets/a947b8f1-62af-4061-845c-1e7e1186b1b5)
+
 ### Custom text display
 You can create and customize your own text display using variables.
 
