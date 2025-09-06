@@ -1,3 +1,6 @@
+1.7.4
+- Fixed checking idling detection feature.
+
 1.7.3
 - Added idling detection feature.
 
