@@ -53,7 +53,7 @@
     {
       "name": "ASP",
       "key": "asp_file",
-      "extensions": [ ".asp", ".aspx" ]
+      "extensions": [ ".asp", ".aspx", ".http" ]
     },
     {
       "name": "Coffee",
