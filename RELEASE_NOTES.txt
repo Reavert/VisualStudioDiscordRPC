@@ -1,3 +1,7 @@
+1.7.5
+- Added ".http" extension to the .ASP icons group;
+- Do not show the update message for the first time.
+
 1.7.4
 - Fixed checking idling detection feature.
 
