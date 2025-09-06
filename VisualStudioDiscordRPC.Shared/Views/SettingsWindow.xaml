@@ -119,8 +119,7 @@
                         <StackPanel 
                             Orientation="Horizontal"
                             VerticalAlignment="Center"
-                            Margin="5 5 5 0"
-                            IsEnabled="{Binding DetectIdlingEnabled}">
+                            Margin="5 5 5 0">
                             <CheckBox 
                                 IsChecked="{Binding DetectIdlingEnabled}"
                                 VerticalAlignment="Center">
