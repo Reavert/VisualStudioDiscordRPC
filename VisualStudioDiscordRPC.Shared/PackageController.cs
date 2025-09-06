@@ -42,22 +42,7 @@ namespace VisualStudioDiscordRPC.Shared
             _repositorySecrecyService.Start();
 
             ApplySettings();
-
-            string currentExtensionVersion = VisualStudioHelper.GetExtensionVersion();
-            bool updateNotificationsEnabled = _settingsService.Read<bool>(SettingsKeys.UpdateNotifications);
-
-            string previousVersion = _settingsService.Read<string>(SettingsKeys.Version);
-
-            if (currentExtensionVersion != previousVersion)
-            {
-                _settingsService.Set(SettingsKeys.Version, currentExtensionVersion);
-                _settingsService.Save();
-
-                if (updateNotificationsEnabled)
-                {
-                    DisplayVersionUpdateMessage(previousVersion, currentExtensionVersion);
-                }
-            }
+            TryShowUpdateMessage();
         }
 
         public void Clear()
@@ -145,6 +130,31 @@ namespace VisualStudioDiscordRPC.Shared
 
             string secondButtonPlug = _settingsService.Read<string>(SettingsKeys.SecondButtonPlug);
             _discordRpcController.SetPlug<SecondButtonNest>(_plugService.GetPlugById<BaseButtonPlug>(secondButtonPlug));
+        }
+
+        private void TryShowUpdateMessage()
+        {
+            string currentExtensionVersion = VisualStudioHelper.GetExtensionVersion();
+            bool updateNotificationsEnabled = _settingsService.Read<bool>(SettingsKeys.UpdateNotifications);
+
+            string previousVersion = _settingsService.Read<string>(SettingsKeys.Version);
+
+            if (currentExtensionVersion != previousVersion)
+            {
+                _settingsService.Set(SettingsKeys.Version, currentExtensionVersion);
+                _settingsService.Save();
+
+                if (string.IsNullOrEmpty(previousVersion) || previousVersion == SettingsDefaults.DefaultVersion)
+                {
+                    // Do not show the update message for the first time.
+                    return;
+                }
+
+                if (updateNotificationsEnabled)
+                {
+                    DisplayVersionUpdateMessage(previousVersion, currentExtensionVersion);
+                }
+            }
         }
 
         private void DisplayVersionUpdateMessage(string previousVersion, string currentVersion)
