@@ -8,7 +8,8 @@ namespace VisualStudioDiscordRPC.Shared.Utils
         private static Dictionary<string, string> VsVersions = new Dictionary<string, string>
         {
             { "16", "2019" },
-            { "17", "2022" }
+            { "17", "2022" },
+            { "18", "2026" }
         };
 
         public static string GetVersionByDevNumber(string version)
