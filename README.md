@@ -3,13 +3,15 @@
 ## Description
 This package is made for display your activity from the Visual Studio development environment to the Discord.
 
-Currently, two versions of Visual Studio are supported - Visual Studio 2019 and Visual Studio 2022.
+Currently, three versions of Visual Studio are supported - Visual Studio 2019, Visual Studio 2022 and Visual Studio 2026.
 
 Extensions can be installed directly from Visual Studio or from the Visual Studio Marketplace for each version.
 
 [Discord RPC for Visual Studio 2019](https://marketplace.visualstudio.com/items?itemName=Ryavel.vsdrp2019)
 
 [Discord RPC for Visual Studio 2022](https://marketplace.visualstudio.com/items?itemName=Ryavel.vsdrp2022)
+
+[Discord RPC for Visual Studio 2026](https://marketplace.visualstudio.com/items?itemName=Ryavel.vsdrp2026)
 
 ***After installing the extension, an option will appear in the "Extensions" menu to open the extension settings window.***
 
