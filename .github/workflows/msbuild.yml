@@ -11,6 +11,7 @@ env:
 
   VS2019_PROJECT: VisualStudioDiscordRPC.Dev16
   VS2022_PROJECT: VisualStudioDiscordRPC.Dev17
+  VS2026_PROJECT: VisualStudioDiscordRPC.Dev18
 
 jobs:
   build:
@@ -69,6 +70,16 @@ jobs:
         asset_name: ${{ env.VS2022_PROJECT }}.vsix
         asset_content_type: application/zip
 
+    - name: Upload Release Asset for 2026 Visual Studio
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2026_PROJECT }}\bin\Release\${{ env.VS2026_PROJECT }}.vsix
+        asset_name: ${{ env.VS2026_PROJECT }}.vsix
+        asset_content_type: application/zip
+
     - name: Publish extension for Visual Studio 2019 to Marketplace
       uses: cezarypiatek/VsixPublisherAction@1.0
       with:
@@ -81,6 +92,13 @@ jobs:
       with:
           extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
           publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+          personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
+
+    - name: Publish extension for Visual Studio 2026 to Marketplace
+      uses: cezarypiatek/VsixPublisherAction@1.0
+      with:
+          extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2026_PROJECT }}\bin\Release\${{ env.VS2026_PROJECT }}.vsix
+          publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2026_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
           personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
 
     
