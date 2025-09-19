@@ -3,11 +3,11 @@
 <language name="German" localizedName="Deutsch">
 	<translation id="project">Projekt</translation>
 	<translation id="file">Datei</translation>
-	<translation id="solution">Lösung</translation>
+	<translation id="solution">Projektmappe</translation>
 	
 	<translation id="noActiveProject">Kein aktives Projekt</translation>
 	<translation id="noActiveFile">Keine aktive Datei</translation>
-	<translation id="noActiveSolution">Keine aktive Lösung</translation>
+	<translation id="noActiveSolution">Keine aktive Projektmappe</translation>
 
 	<translation id="NoneAssetPlug">Kein</translation>
 	<translation id="VisualStudioVersionIconPlug">Version von Visual Studio</translation>
@@ -16,20 +16,20 @@
 	<translation id="NoneTextPlug">Leer</translation>
 	<translation id="VisualStudioVersionTextPlug">Version von Visual Studio</translation>
 	<translation id="FileExtensionTextPlug">Dateierweiterung</translation>
-	<translation id="ProjectNameTextPlug">Projektnamen</translation>
-	<translation id="SolutionNameTextPlug">Name der Lösung</translation>
-	<translation id="FileNameTextPlug">Dateinamen</translation>
+	<translation id="ProjectNameTextPlug">Projektname</translation>
+	<translation id="SolutionNameTextPlug">Projektmappenname</translation>
+	<translation id="FileNameTextPlug">Dateiname</translation>
 
-	<translation id="NoneTimerPlug">Behinderte</translation>
+	<translation id="NoneTimerPlug">Deaktiviert</translation>
 	<translation id="FileScopeTimerPlug">Innerhalb von Dateien</translation>
 	<translation id="ProjectScopeTimerPlug">Innerhalb von Projekten</translation>
-	<translation id="SolutionScopeTimerPlug">Innerhalb von Lösungen</translation>
+	<translation id="SolutionScopeTimerPlug">Innerhalb von Projektmappen</translation>
 
 	<translation id="NoneButtonPlug">Kein</translation>
 	<translation id="GitRepositoryButtonPlug">Repository</translation>
 
-	<translation id="GitBranchTextPlug">Ein Git-Zweig</translation>
-	<translation id="branch">Zweig</translation>
-	<translation id="noActiveBranch">Es gibt keinen aktiven Zweig</translation>
-	<translation id="ApplicationScopeTimerPlug">Für den Editor</translation>
+	<translation id="GitBranchTextPlug">Ein Git-Branch</translation>
+	<translation id="branch">Branch</translation>
+	<translation id="noActiveBranch">Es gibt keinen aktiven Branch</translation>
+	<translation id="ApplicationScopeTimerPlug">Innerhalb des Editors</translation>
 </language>
