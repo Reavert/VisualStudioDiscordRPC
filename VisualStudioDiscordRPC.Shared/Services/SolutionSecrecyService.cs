@@ -90,52 +90,9 @@ namespace VisualStudioDiscordRPC.Shared.Services
                 return true;
 
             // Check for partial matches - if solution path starts with any of the secret paths
-            foreach (string secretPath in _secretSolutions)
-            {
-                if (IsPathMatch(solutionPath, secretPath))
-                    return true;
-            }
-
-            return false;
+            return _secretSolutions.Any(secretPath => PathHelper.IsPathBaseOf(secretPath, solutionPath));
         }
 
-        /// <summary>
-        /// Checks if solution path matches secret path (exact or partial match)
-        /// </summary>
-        /// <param name="solutionPath">Full path to the solution</param>
-        /// <param name="secretPath">Secret path (can be partial)</param>
-        /// <returns>true if solution should be hidden</returns>
-        private bool IsPathMatch(string solutionPath, string secretPath)
-        {
-            if (string.IsNullOrEmpty(secretPath))
-                return false;
-
-            try
-            {
-                // Normalize paths for correct comparison
-                string normalizedSecretPath = Path.GetFullPath(secretPath).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-                string normalizedSolutionPath = Path.GetFullPath(solutionPath);
-
-                // Check if solution path starts with secret path
-                if (normalizedSolutionPath.StartsWith(normalizedSecretPath, System.StringComparison.OrdinalIgnoreCase))
-                {
-                    // Additional check: next character must be path separator or end of string
-                    if (normalizedSolutionPath.Length == normalizedSecretPath.Length || 
-                        normalizedSolutionPath[normalizedSecretPath.Length] == Path.DirectorySeparatorChar ||
-                        normalizedSolutionPath[normalizedSecretPath.Length] == Path.AltDirectorySeparatorChar)
-                    {
-                        return true;
-                    }
-                }
-            }
-            catch
-            {
-                // In case of path errors, return false
-                return false;
-            }
-
-            return false;
-        }
 
         private void OnSolutionChanged(Solution solution)
         {

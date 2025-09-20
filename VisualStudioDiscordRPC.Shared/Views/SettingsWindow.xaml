@@ -65,8 +65,18 @@
             <Button
                 Width="20"
                 Height="20"
-                Command="{Binding ShowSecretSolutionsCommand}">
+                Margin="2,0,0,0"
+                Command="{Binding ShowSecretSolutionsCommand}"
+                ToolTip="Manage secret solutions list">
                 <TextBlock Text="..."/>
+            </Button>
+            <Button
+                Width="20"
+                Height="20"
+                Margin="2,0,0,0"
+                Command="{Binding SelectSecretFolderCommand}"
+                ToolTip="Select folder to hide all solutions in it">
+                <TextBlock Text="📁"/>
             </Button>
         </StackPanel>
         <StackPanel

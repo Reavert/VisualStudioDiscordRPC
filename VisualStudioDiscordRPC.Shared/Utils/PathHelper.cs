@@ -31,5 +31,19 @@ namespace VisualStudioDiscordRPC.Shared.Utils
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 AppDataFolderName);
         }
+
+        public static bool IsPathBaseOf(string basePath, string path)
+        {
+            try
+            {
+                var baseUri = new Uri(Path.GetFullPath(basePath).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar);
+                var pathUri = new Uri(Path.GetFullPath(path));
+                return baseUri.IsBaseOf(pathUri);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
