@@ -10,6 +10,7 @@ using VisualStudioDiscordRPC.Shared.Plugs.TimerPlugs;
 using VisualStudioDiscordRPC.Shared.Nests;
 using VisualStudioDiscordRPC.Shared.Utils;
 using System.Windows.Input;
+using System.Windows.Forms;
 
 namespace VisualStudioDiscordRPC.Shared.ViewModels
 {
@@ -266,6 +267,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
         public RelayCommand ShowSecretSolutionsCommand { get; }
         public RelayCommand ShowPrivateRepositoriesCommand { get; }
         public RelayCommand ShowCustomTextPlugsEditorCommand { get; }
+        public RelayCommand SelectSecretFolderCommand { get; }
 
         public SettingsViewModel()
         {
@@ -287,6 +289,7 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             ShowSecretSolutionsCommand = new RelayCommand(ShowSecretSolutionsEditor);
             ShowPrivateRepositoriesCommand = new RelayCommand(ShowPrivateRepositoriesEditor);
             ShowCustomTextPlugsEditorCommand = new RelayCommand(ShowCustomTextPlugsEditor);
+            SelectSecretFolderCommand = new RelayCommand(SelectSecretFolder);
         }
 
         private void ShowSecretSolutionsEditor(object parameter)
@@ -320,6 +323,25 @@ namespace VisualStudioDiscordRPC.Shared.ViewModels
             _discordRpcController.RefreshAll();
 
             OnPropertyChanged(nameof(AvailableTextPlugs));
+        }
+
+        private void SelectSecretFolder(object parameter)
+        {
+            using (var folderDialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                folderDialog.Description = "Select folder to hide all solutions in it";
+                folderDialog.ShowNewFolderButton = false;
+                
+                if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string selectedPath = folderDialog.SelectedPath;
+                    if (!string.IsNullOrEmpty(selectedPath))
+                    {
+                        _solutionSecrecyService.AddSecretSolution(selectedPath);
+                        OnPropertyChanged(nameof(SecretSolution));
+                    }
+                }
+            }
         }
     }
 }

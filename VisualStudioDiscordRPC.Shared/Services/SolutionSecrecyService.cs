@@ -82,8 +82,17 @@ namespace VisualStudioDiscordRPC.Shared.Services
 
         public bool IsSolutionSecret(string solutionPath)
         {
-            return _secretSolutions.Contains(solutionPath);
+            if (string.IsNullOrEmpty(solutionPath))
+                return false;
+
+            // Check for exact match first
+            if (_secretSolutions.Contains(solutionPath))
+                return true;
+
+            // Check for partial matches - if solution path starts with any of the secret paths
+            return _secretSolutions.Any(secretPath => PathHelper.IsPathBaseOf(secretPath, solutionPath));
         }
+
 
         private void OnSolutionChanged(Solution solution)
         {
@@ -95,8 +104,8 @@ namespace VisualStudioDiscordRPC.Shared.Services
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
-            string fullSolutionName = _lastOpenedSolution.FullName;
-            _discordRpcController.Secret = _secretSolutions.Contains(fullSolutionName);
+            string fullSolutionName = _lastOpenedSolution?.FullName;
+            _discordRpcController.Secret = IsSolutionSecret(fullSolutionName);
         }
 
         private void SaveSecretSolutions()
