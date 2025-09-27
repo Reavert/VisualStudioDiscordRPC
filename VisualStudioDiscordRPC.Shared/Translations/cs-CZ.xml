@@ -9,11 +9,11 @@
 	<translation id="noActiveFile">Žádný aktivní soubor</translation>
 	<translation id="noActiveSolution">Žádné aktivní řešení</translation>
 
-	<translation id="NoneAssetPlug">Žádné</translation>
+	<translation id="NoneAssetPlug">Nezobrazovat</translation>
 	<translation id="VisualStudioVersionIconPlug">Verze Visual Studia</translation>
 	<translation id="ExtensionIconPlug">Přípona souboru</translation>
 
-	<translation id="NoneTextPlug">Žádné</translation>
+	<translation id="NoneTextPlug">Nezobrazovat</translation>
 	<translation id="VisualStudioVersionTextPlug">Verze Visual Studia</translation>
 	<translation id="FileExtensionTextPlug">Přípona souboru</translation>
 	<translation id="ProjectNameTextPlug">Název projektu</translation>
@@ -24,12 +24,12 @@
 	<translation id="FileScopeTimerPlug">Režim souborů</translation>
 	<translation id="ProjectScopeTimerPlug">Režim projektů</translation>
 	<translation id="SolutionScopeTimerPlug">Režim řešení</translation>
+	<translation id="ApplicationScopeTimerPlug">Režim editoru</translation>
 	
 	<translation id="NoneButtonPlug">Žádné</translation>
 	<translation id="GitRepositoryButtonPlug">Repozitář</translation>
 
 	<translation id="GitBranchTextPlug">Větev Git</translation>
-	<translation id="branch">Větvička</translation>
+	<translation id="branch">Větev</translation>
 	<translation id="noActiveBranch">Žádná aktivní větev</translation>
-	<translation id="ApplicationScopeTimerPlug">Pro editora</translation>
 </language>
