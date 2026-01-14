@@ -48,7 +48,7 @@
     {
       "name": "Zig",
       "key": "zig_file",
-      "extensions": [ ".zig", ".zig.zon" ]
+      "extensions": [ ".zig", ".zon" ]
     },
     {
       "name": "Assembler",
