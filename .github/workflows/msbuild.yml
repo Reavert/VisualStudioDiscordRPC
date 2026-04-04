@@ -84,7 +84,9 @@ jobs:
           - name: Get latest tag
             working-directory: ${{ env.GITHUB_WORKSPACE }}
             id: get-latest-tag
-            run: echo "tag=$(git tag --sort=-v:refname | head -n 1)" >> $GITHUB_OUTPUT
+            run: |
+                $tag = git tag --sort=-v:refname | Select-Object -First 1
+                echo "tag=$tag" >> $env:GITHUB_OUTPUT
 
           - name: Create GitHub release
             id: create_release
