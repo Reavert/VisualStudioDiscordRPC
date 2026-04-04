@@ -49,7 +49,7 @@ namespace VisualStudioDiscordRPC.Shared.Plugs.AssetPlugs
                 return AssetInfo.Idle;
             }
 
-            string extension = Path.GetExtension(_document.Name);
+            string extension = Path.GetExtension(_document.Name).ToLowerInvariant();
             suitableAsset = _assetMap.GetAsset(asset => asset.Extensions.Contains(extension));
             
             if (suitableAsset == null)
