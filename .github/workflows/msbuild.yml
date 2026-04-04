@@ -159,7 +159,7 @@ jobs:
 
         steps:
           - name: Download ${{ env.VS2019_PROJECT }} artifacts
-            uses: actions/download-artifact@
+            uses: actions/download-artifact@v8
             with:
                 name: ${{ env.VS2019_PROJECT }}
 
@@ -177,7 +177,7 @@ jobs:
 
         steps:
           - name: Download ${{ env.VS2022_PROJECT }} artifacts
-            uses: actions/download-artifact@
+            uses: actions/download-artifact@v8
             with:
                 name: ${{ env.VS2022_PROJECT }}
 
@@ -195,7 +195,7 @@ jobs:
 
         steps:
           - name: Download ${{ env.VS2026_PROJECT }} artifacts
-            uses: actions/download-artifact@
+            uses: actions/download-artifact@v8
             with:
                 name: ${{ env.VS2026_PROJECT }}
 
