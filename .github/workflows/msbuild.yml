@@ -101,7 +101,6 @@ jobs:
                 name: ${{ env.VS2019_PROJECT }}
 
           - name: Upload release asset for Visual Studio 2019
-            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: actions/upload-release-asset@v1
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -123,7 +122,6 @@ jobs:
                 name: ${{ env.VS2022_PROJECT }}
 
           - name: Upload release asset for Visual Studio 2022
-            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: actions/upload-release-asset@v1
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -145,7 +143,6 @@ jobs:
                 name: ${{ env.VS2026_PROJECT }}
 
           - name: Upload release asset for Visual Studio 2026
-            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: actions/upload-release-asset@v1
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -167,7 +164,6 @@ jobs:
                 name: ${{ env.VS2019_PROJECT }}
 
           - name: Publish extension for Visual Studio 2019 to Marketplace
-            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: cezarypiatek/VsixPublisherAction@1.0
             with:
                 extension-file: ${{ env.VS2019_PROJECT }}.vsix
@@ -186,7 +182,6 @@ jobs:
                 name: ${{ env.VS2022_PROJECT }}
 
           - name: Publish extension for Visual Studio 2022 to Marketplace
-            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: cezarypiatek/VsixPublisherAction@1.0
             with:
                 extension-file: ${{ env.VS2022_PROJECT }}.vsix
@@ -205,7 +200,6 @@ jobs:
                 name: ${{ env.VS2026_PROJECT }}
 
           - name: Publish extension for Visual Studio 2026 to Marketplace
-            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: cezarypiatek/VsixPublisherAction@1.0
             with:
                 extension-file: ${{ env.VS2026_PROJECT }}.vsix
