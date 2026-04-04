@@ -33,6 +33,33 @@ jobs:
           working-directory: ${{ env.GITHUB_WORKSPACE }}
           run: msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
         
+        - name: Uploading ${{ env.VS2019_PROJECT }} artifacts
+          uses: actions/upload-artifact@v4
+          with:
+            name: ${{ env.VS2019_PROJECT }}
+            overwrite: true
+            path: |
+                ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
+                ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+
+        - name: Uploading ${{ env.VS2022_PROJECT }} artifacts
+          uses: actions/upload-artifact@v4
+          with:
+            name: ${{ env.VS2022_PROJECT }}
+            overwrite: true
+            path: |
+                ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
+                ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+            
+        - name: Uploading ${{ env.VS2026_PROJECT }} artifacts
+          uses: actions/upload-artifact@v4
+          with:
+            name: ${{ env.VS2026_PROJECT }}
+            overwrite: true
+            path: |
+                ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2026_PROJECT }}\bin\Release\${{ env.VS2026_PROJECT }}.vsix
+                ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2026_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+            
     create_github_release:
         name: Create GitHub release
         needs: build
@@ -42,9 +69,11 @@ jobs:
           - uses: actions/checkout@v2
 
           - name: Fetch latest tags
+            working-directory: ${{ env.GITHUB_WORKSPACE }}
             run: git fetch --all --tags --unshallow
 
           - name: Get latest tag
+            working-directory: ${{ env.GITHUB_WORKSPACE }}
             id: get-latest-tag
             run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)" 
 
@@ -66,15 +95,19 @@ jobs:
         runs-on: windows-latest
         
         steps:
-          - uses: actions/checkout@v2
+          - name: Download ${{ env.VS2019_PROJECT }} artifacts
+            uses: actions/download-artifact@v8
+            with:
+                name: ${{ env.VS2019_PROJECT }}
 
           - name: Upload release asset for Visual Studio 2019
+            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: actions/upload-release-asset@v1
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-                upload_url: ${{ steps.create_release.outputs.upload_url }}
-                asset_path: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
+                upload_url: ${{ needs.create_github_release.steps.create_release.outputs.upload_url }}
+                asset_path: ${{ env.VS2019_PROJECT }}.vsix
                 asset_name: ${{ env.VS2019_PROJECT }}.vsix
                 asset_content_type: application/zip
 
@@ -82,17 +115,21 @@ jobs:
         name: Upload release asset for Visual Studio 2022
         needs: [build, create_github_release]
         runs-on: windows-latest
-
+        
         steps:
-          - uses: actions/checkout@v2
+          - name: Download ${{ env.VS2022_PROJECT }} artifacts
+            uses: actions/download-artifact@v8
+            with:
+                name: ${{ env.VS2022_PROJECT }}
 
           - name: Upload release asset for Visual Studio 2022
+            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: actions/upload-release-asset@v1
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-                upload_url: ${{ steps.create_release.outputs.upload_url }}
-                asset_path: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
+                upload_url: ${{ needs.create_github_release.steps.create_release.outputs.upload_url }}
+                asset_path: ${{ env.VS2022_PROJECT }}.vsix
                 asset_name: ${{ env.VS2022_PROJECT }}.vsix
                 asset_content_type: application/zip
     
@@ -100,17 +137,21 @@ jobs:
         name: Upload release asset for Visual Studio 2026
         needs: [build, create_github_release]
         runs-on: windows-latest
-
+        
         steps:
-          - uses: actions/checkout@v2
+          - name: Download ${{ env.VS2026_PROJECT }} artifacts
+            uses: actions/download-artifact@v8
+            with:
+                name: ${{ env.VS2026_PROJECT }}
 
-          - name: Upload Release Asset for 2026 Visual Studio
+          - name: Upload release asset for Visual Studio 2026
+            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: actions/upload-release-asset@v1
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-                upload_url: ${{ steps.create_release.outputs.upload_url }}
-                asset_path: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2026_PROJECT }}\bin\Release\${{ env.VS2026_PROJECT }}.vsix
+                upload_url: ${{ needs.create_github_release.steps.create_release.outputs.upload_url }}
+                asset_path: ${{ env.VS2026_PROJECT }}.vsix
                 asset_name: ${{ env.VS2026_PROJECT }}.vsix
                 asset_content_type: application/zip
 
@@ -120,28 +161,36 @@ jobs:
         runs-on: windows-latest
 
         steps:
-          - uses: actions/checkout@v2
+          - name: Download ${{ env.VS2019_PROJECT }} artifacts
+            uses: actions/download-artifact@
+            with:
+                name: ${{ env.VS2019_PROJECT }}
 
           - name: Publish extension for Visual Studio 2019 to Marketplace
+            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: cezarypiatek/VsixPublisherAction@1.0
             with:
-                extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\bin\Release\${{ env.VS2019_PROJECT }}.vsix
-                publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2019_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+                extension-file: ${{ env.VS2019_PROJECT }}.vsix
+                publish-manifest-file: ${{ env.PUBLISH_MANIFEST_FILENAME }}
                 personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
 
     marketplace_publish_vs2022:
-        name: Publish extension for Visual Studio 2026 to Marketplace
+        name: Publish extension for Visual Studio 2022 to Marketplace
         needs: build
         runs-on: windows-latest
 
         steps:
-          - uses: actions/checkout@v2
+          - name: Download ${{ env.VS2022_PROJECT }} artifacts
+            uses: actions/download-artifact@
+            with:
+                name: ${{ env.VS2022_PROJECT }}
 
           - name: Publish extension for Visual Studio 2022 to Marketplace
+            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: cezarypiatek/VsixPublisherAction@1.0
             with:
-                extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\bin\Release\${{ env.VS2022_PROJECT }}.vsix
-                publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2022_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+                extension-file: ${{ env.VS2022_PROJECT }}.vsix
+                publish-manifest-file: ${{ env.PUBLISH_MANIFEST_FILENAME }}
                 personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
 
     marketplace_publish_vs2026:
@@ -150,13 +199,17 @@ jobs:
         runs-on: windows-latest
 
         steps:
-          - uses: actions/checkout@v2
+          - name: Download ${{ env.VS2026_PROJECT }} artifacts
+            uses: actions/download-artifact@
+            with:
+                name: ${{ env.VS2026_PROJECT }}
 
           - name: Publish extension for Visual Studio 2026 to Marketplace
+            working-directory: ${{ env.GITHUB_WORKSPACE }}
             uses: cezarypiatek/VsixPublisherAction@1.0
             with:
-                extension-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2026_PROJECT }}\bin\Release\${{ env.VS2026_PROJECT }}.vsix
-                publish-manifest-file: ${{ env.SOLUTION_FILE_PATH }}\${{ env.VS2026_PROJECT }}\${{ env.PUBLISH_MANIFEST_FILENAME }}
+                extension-file: ${{ env.VS2026_PROJECT }}.vsix
+                publish-manifest-file: ${{ env.PUBLISH_MANIFEST_FILENAME }}
                 personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
 
     
