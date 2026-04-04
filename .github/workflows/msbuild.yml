@@ -3,6 +3,7 @@ name: MSBuild
 on:
   push:
     branches: release
+  workflow_dispatch:
 
 env:
   SOLUTION_FILE_PATH: .
