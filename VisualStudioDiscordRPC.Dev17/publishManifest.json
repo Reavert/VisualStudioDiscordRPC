@@ -7,7 +7,7 @@
     "identity": {
         "internalName": "vsdrp2022"
     },
-    "overview": "../overview.md",
+    "overview": "./overview.md",
     "priceCategory": "free",
     "publisher": "Ryavel",
     "private": false,
