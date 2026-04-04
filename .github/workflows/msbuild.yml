@@ -39,6 +39,8 @@ jobs:
         runs-on: windows-latest
 
         steps:
+          - uses: actions/checkout@v2
+
           - name: Fetch latest tags
             run: git fetch --all --tags --unshallow
 
@@ -64,6 +66,8 @@ jobs:
         runs-on: windows-latest
         
         steps:
+          - uses: actions/checkout@v2
+
           - name: Upload release asset for Visual Studio 2019
             uses: actions/upload-release-asset@v1
             env:
@@ -80,6 +84,8 @@ jobs:
         runs-on: windows-latest
 
         steps:
+          - uses: actions/checkout@v2
+
           - name: Upload release asset for Visual Studio 2022
             uses: actions/upload-release-asset@v1
             env:
@@ -96,6 +102,8 @@ jobs:
         runs-on: windows-latest
 
         steps:
+          - uses: actions/checkout@v2
+
           - name: Upload Release Asset for 2026 Visual Studio
             uses: actions/upload-release-asset@v1
             env:
@@ -112,6 +120,8 @@ jobs:
         runs-on: windows-latest
 
         steps:
+          - uses: actions/checkout@v2
+
           - name: Publish extension for Visual Studio 2019 to Marketplace
             uses: cezarypiatek/VsixPublisherAction@1.0
             with:
@@ -125,6 +135,8 @@ jobs:
         runs-on: windows-latest
 
         steps:
+          - uses: actions/checkout@v2
+
           - name: Publish extension for Visual Studio 2022 to Marketplace
             uses: cezarypiatek/VsixPublisherAction@1.0
             with:
@@ -138,6 +150,8 @@ jobs:
         runs-on: windows-latest
 
         steps:
+          - uses: actions/checkout@v2
+
           - name: Publish extension for Visual Studio 2026 to Marketplace
             uses: cezarypiatek/VsixPublisherAction@1.0
             with:
