@@ -101,7 +101,7 @@ jobs:
                 prerelease: false
 
     upload_asset_vs2019:
-        name: Upload release asset for Visual Studio 2019
+        name: Upload for VS 2019 to GitHub
         needs: [build, create_github_release]
         runs-on: windows-latest
         
@@ -122,7 +122,7 @@ jobs:
                 asset_content_type: application/zip
 
     upload_asset_vs2022:
-        name: Upload release asset for Visual Studio 2022
+        name: Upload for VS 2022 to GitHub
         needs: [build, create_github_release]
         runs-on: windows-latest
         
@@ -143,7 +143,7 @@ jobs:
                 asset_content_type: application/zip
     
     upload_asset_vs2026:
-        name: Upload release asset for Visual Studio 2026
+        name: Upload for VS 2026 to GitHub
         needs: [build, create_github_release]
         runs-on: windows-latest
         
@@ -164,7 +164,7 @@ jobs:
                 asset_content_type: application/zip
 
     marketplace_publish_vs2019:
-        name: Publish extension for Visual Studio 2019 to Marketplace
+        name: Publish for VS 2019 to Marketplace
         needs: build
         runs-on: windows-latest
 
@@ -187,7 +187,7 @@ jobs:
                 personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
 
     marketplace_publish_vs2022:
-        name: Publish extension for Visual Studio 2022 to Marketplace
+        name: Publish for VS 2022 to Marketplace
         needs: build
         runs-on: windows-latest
 
@@ -210,7 +210,7 @@ jobs:
                 personal-access-code: ${{ secrets.MARKETPLACE_TOKEN }}
 
     marketplace_publish_vs2026:
-        name: Publish extension for Visual Studio 2026 to Marketplace
+        name: Publish for VS 2026 to Marketplace
         needs: build
         runs-on: windows-latest
 
