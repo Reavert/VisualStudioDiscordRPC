@@ -46,6 +46,11 @@
       "extensions": [ ".rs", "rlib" ]
     },
     {
+      "name": "Zig",
+      "key": "zig_file",
+      "extensions": [ ".zig", ".zon" ]
+    },
+    {
       "name": "Assembler",
       "key": "asm_file",
       "extensions": [ ".asm" ]
