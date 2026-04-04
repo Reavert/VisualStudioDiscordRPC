@@ -64,18 +64,20 @@ jobs:
         name: Create GitHub release
         needs: build
         runs-on: windows-latest
+        outputs:
+            upload_url: ${{ steps.create_release.outputs.upload_url }}
 
         steps:
-          - uses: actions/checkout@v2
+          - uses: actions/checkout@v4
 
           - name: Fetch latest tags
             working-directory: ${{ env.GITHUB_WORKSPACE }}
-            run: git fetch --all --tags --unshallow
+            run: git fetch --tags
 
           - name: Get latest tag
             working-directory: ${{ env.GITHUB_WORKSPACE }}
             id: get-latest-tag
-            run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)" 
+            run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
 
           - name: Create GitHub release
             id: create_release
@@ -96,7 +98,7 @@ jobs:
         
         steps:
           - name: Download ${{ env.VS2019_PROJECT }} artifacts
-            uses: actions/download-artifact@v8
+            uses: actions/download-artifact@v4
             with:
                 name: ${{ env.VS2019_PROJECT }}
 
@@ -105,7 +107,7 @@ jobs:
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-                upload_url: ${{ needs.create_github_release.steps.create_release.outputs.upload_url }}
+                upload_url: ${{ needs.create_github_release.outputs.upload_url }}
                 asset_path: bin\Release\${{ env.VS2019_PROJECT }}.vsix
                 asset_name: ${{ env.VS2019_PROJECT }}.vsix
                 asset_content_type: application/zip
@@ -117,7 +119,7 @@ jobs:
         
         steps:
           - name: Download ${{ env.VS2022_PROJECT }} artifacts
-            uses: actions/download-artifact@v8
+            uses: actions/download-artifact@v4
             with:
                 name: ${{ env.VS2022_PROJECT }}
 
@@ -126,7 +128,7 @@ jobs:
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-                upload_url: ${{ needs.create_github_release.steps.create_release.outputs.upload_url }}
+                upload_url: ${{ needs.create_github_release.outputs.upload_url }}
                 asset_path: bin\Release\${{ env.VS2022_PROJECT }}.vsix
                 asset_name: ${{ env.VS2022_PROJECT }}.vsix
                 asset_content_type: application/zip
@@ -138,7 +140,7 @@ jobs:
         
         steps:
           - name: Download ${{ env.VS2026_PROJECT }} artifacts
-            uses: actions/download-artifact@v8
+            uses: actions/download-artifact@v4
             with:
                 name: ${{ env.VS2026_PROJECT }}
 
@@ -147,7 +149,7 @@ jobs:
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-                upload_url: ${{ needs.create_github_release.steps.create_release.outputs.upload_url }}
+                upload_url: ${{ needs.create_github_release.outputs.upload_url }}
                 asset_path: bin\Release\${{ env.VS2026_PROJECT }}.vsix
                 asset_name: ${{ env.VS2026_PROJECT }}.vsix
                 asset_content_type: application/zip
@@ -159,7 +161,7 @@ jobs:
 
         steps:
           - name: Download ${{ env.VS2019_PROJECT }} artifacts
-            uses: actions/download-artifact@v8
+            uses: actions/download-artifact@v4
             with:
                 name: ${{ env.VS2019_PROJECT }}
 
@@ -177,7 +179,7 @@ jobs:
 
         steps:
           - name: Download ${{ env.VS2022_PROJECT }} artifacts
-            uses: actions/download-artifact@v8
+            uses: actions/download-artifact@v4
             with:
                 name: ${{ env.VS2022_PROJECT }}
 
@@ -195,7 +197,7 @@ jobs:
 
         steps:
           - name: Download ${{ env.VS2026_PROJECT }} artifacts
-            uses: actions/download-artifact@v8
+            uses: actions/download-artifact@v4
             with:
                 name: ${{ env.VS2026_PROJECT }}
 
