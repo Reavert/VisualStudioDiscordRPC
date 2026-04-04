@@ -1,3 +1,8 @@
+1.7.8
+- The detection of the extension name is case-independent by ScriptedSnark;
+- Added .zig file support by n14556892-code;
+- Git repository button disabled by default to protect against accidental leakage of repository.
+
 1.7.7
 - The ability to select an entire folder for secret solutions (by RXDCODX);
 - Czech translation fixes (by Zdendaki);

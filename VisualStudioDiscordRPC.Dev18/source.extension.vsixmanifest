@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="VisualStudioDiscordRPC.Dev18.b74ae963-b471-4b6a-85f4-b2db1612fa52" Version="1.7.7" Language="en-US" Publisher="Reavert" />
+        <Identity Id="VisualStudioDiscordRPC.Dev18.b74ae963-b471-4b6a-85f4-b2db1612fa52" Version="1.7.8" Language="en-US" Publisher="Reavert" />
         <DisplayName>Discord Rich Presence 2026</DisplayName>
         <Description xml:space="preserve">Discord Rich Presence client for your IDE activity.</Description>
         <License>LICENSE.txt</License>
